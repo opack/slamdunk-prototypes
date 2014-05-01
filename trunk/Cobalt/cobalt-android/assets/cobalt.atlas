@@ -1,0 +1,54 @@
+
+cobalt.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+action_bonus
+  rotate: false
+  xy: 127, 22
+  size: 103, 103
+  orig: 103, 103
+  offset: 0, 0
+  index: -1
+action_heal
+  rotate: false
+  xy: 232, 33
+  size: 92, 92
+  orig: 92, 92
+  offset: 0, 0
+  index: -1
+action_hit
+  rotate: false
+  xy: 502, 56
+  size: 98, 69
+  orig: 98, 69
+  offset: 0, 0
+  index: -1
+case
+  rotate: false
+  xy: 2, 2
+  size: 123, 123
+  orig: 123, 123
+  offset: 0, 0
+  index: -1
+pawn_a
+  rotate: false
+  xy: 326, 39
+  size: 86, 86
+  orig: 86, 86
+  offset: 0, 0
+  index: -1
+pawn_b
+  rotate: false
+  xy: 414, 39
+  size: 86, 86
+  orig: 86, 86
+  offset: 0, 0
+  index: -1
+shield
+  rotate: false
+  xy: 602, 28
+  size: 73, 97
+  orig: 73, 97
+  offset: 0, 0
+  index: -1
