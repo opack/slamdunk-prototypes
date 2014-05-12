@@ -1,0 +1,131 @@
+
+default-skin.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+1L_normal
+  rotate: false
+  xy: 144, 184
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+1L_selected
+  rotate: false
+  xy: 2, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+2L_normal
+  rotate: false
+  xy: 210, 184
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+2L_selected
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+2M_normal
+  rotate: false
+  xy: 68, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+2M_selected
+  rotate: false
+  xy: 276, 184
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+3L_normal
+  rotate: false
+  xy: 68, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+3L_selected
+  rotate: false
+  xy: 342, 184
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+3M_normal
+  rotate: false
+  xy: 408, 184
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+3M_selected
+  rotate: false
+  xy: 144, 118
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+cancel
+  rotate: false
+  xy: 2, 192
+  size: 140, 56
+  orig: 140, 56
+  offset: 0, 0
+  index: -1
+disabled
+  rotate: false
+  xy: 210, 118
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+heal_normal
+  rotate: false
+  xy: 276, 118
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+heal_selected
+  rotate: false
+  xy: 342, 118
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+inferior_normal
+  rotate: false
+  xy: 408, 118
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+inferior_selected
+  rotate: false
+  xy: 134, 52
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+new_game
+  rotate: false
+  xy: 200, 52
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+validate
+  rotate: false
+  xy: 2, 134
+  size: 140, 56
+  orig: 140, 56
+  offset: 0, 0
+  index: -1
