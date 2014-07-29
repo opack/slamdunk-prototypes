@@ -1,0 +1,239 @@
+/*******************************************************************************
+ * Copyright 2012-Present, MoribitoTech
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ ******************************************************************************/
+
+package com.slamdunk.toolkit.world;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.slamdunk.toolkit.drawers.AnimationDrawer;
+import com.slamdunk.toolkit.drawers.ParticleDrawer;
+import com.slamdunk.toolkit.settings.SlamViewportSettings;
+
+public class SlamActor extends Actor {
+
+	// Texture Region for actor (Not mandatory)
+	private TextureRegion textureRegion;
+	private boolean isTextureRegionActive = false;
+
+	// Animation for actor (Not mandatory)
+	private AnimationDrawer animator;
+
+	// Particle
+	private ParticleDrawer particleDrawer;
+
+	public SlamActor(TextureRegion textureRegion, boolean isTextureRegionActive,
+			float posX, float posY,
+			float orgnX, float orgnY,
+			float width, float height) {
+		super();
+		this.textureRegion = textureRegion;
+		this.isTextureRegionActive = isTextureRegionActive;
+		setBounds(posX, posY, width, height);
+		setPosition(posX, posY);
+		setSize(width, height);
+		setOrigin(orgnX, orgnY);
+	}
+
+	public SlamActor(TextureRegion textureRegion,
+			boolean isTextureRegionActive, float posX, float posY, float width,
+			float height) {
+		super();
+		this.textureRegion = textureRegion;
+		this.isTextureRegionActive = isTextureRegionActive;
+		setBounds(posX, posY, width, height);
+		setPosition(posX, posY);
+		setSize(width, height);
+	}
+
+	public SlamActor(float posX, float posY, float width, float height) {
+		super();
+		setBounds(posX, posY, width, height);
+		setPosition(posX, posY);
+		setSize(width, height);
+	}
+
+	public SlamActor(float width, float height, boolean DIPActive) {
+		super();
+		if (DIPActive) {
+			float ratioSize = SlamViewportSettings.getWorldSizeRatio();
+			setSize(width * ratioSize, height * ratioSize);
+		} else {
+			setSize(width, height);
+		}
+	}
+
+	public SlamActor() {
+		super();
+	}
+
+	@Override
+	public void act(float delta) {
+		super.act(delta);
+		animator.updateTime(delta);
+	}
+
+	@Override
+	public void draw(SpriteBatch batch, float parentAlpha) {
+		super.draw(batch, parentAlpha);
+		
+		// Pour l'effet de fade in/out
+		batch.setColor(this.getColor().r, this.getColor().g, this.getColor().b, parentAlpha * this.getColor().a);
+
+		// Dessine la texture si elle est définie
+		if (isTextureRegionActive && textureRegion != null) {
+			batch.draw(textureRegion,
+				getX(), getY(),
+				getOriginX(), getOriginY(),
+				getWidth(), getHeight(),
+				getScaleX(), getScaleY(), 
+				getRotation());
+		}
+
+		// Dessine les animations (principale et temporaire)
+		animator.draw(this, batch);
+		
+
+		// Dessine les particules
+		particulator.draw(this, batch);
+		if (isParticleEffectActive) {
+			particleEffect.draw(batch, Gdx.graphics.getDeltaTime());
+			particleEffect.setPosition(getX() + particlePosX, getY()
+					+ particlePosY);
+		}
+	}
+
+	/**
+	 * Translate actor in a direction of speed without stopping. Actor moves in
+	 * constants speed set without acceleration
+	 * 
+	 * @param speedX
+	 *            axis-X speed
+	 * @param speedY
+	 *            axis-Y speed
+	 * @param delta
+	 *            the delta time for accurate speed
+	 * */
+	public void translateWithoutAcc(float speedX, float speedY, float delta) {
+		setPosition(getX() + (speedX * delta), getY() + (speedY * delta));
+	}
+
+	/**
+	 * Get textureRegion of the actor
+	 * 
+	 * @return TextureRegion
+	 * 
+	 * */
+	public TextureRegion getTextureRegion() {
+		return textureRegion;
+	}
+
+	/**
+	 * Set texture region for the actor, it will be drawn only if texture region
+	 * is set and active
+	 * 
+	 * @param textureRegion
+	 *            texture region of the actor
+	 * @param isTextureRegionActive
+	 *            set texture region active to be drawn or not
+	 * */
+	public void setTextureRegion(TextureRegion textureRegion,
+			boolean isTextureRegionActive) {
+		this.textureRegion = textureRegion;
+		this.isTextureRegionActive = isTextureRegionActive;
+	}
+
+	/**
+	 * Retourne l'animator de cet acteur
+	 * @return animator
+	 */
+	public AnimationDrawer getAnimator() {
+		return animator;
+	}
+
+	/**
+	 * Set animation of the actor
+	 * 
+	 * @param animation
+	 *            set animation
+	 * @param isActive
+	 *            set animation active to be drawn or not
+	 * @param isLooping
+	 *            set animation to loop or not
+	 * */
+	public void setAnimation(Animation animation, boolean isActive, boolean isLooping) {
+		animator.setAnimation(animation, isActive, isLooping);
+	}
+
+	public Animation getAnimationMomentary() {
+		return animator.getAnimationMomentary();
+	}
+
+	/**
+	 * Get particle for this actor
+	 * */
+	public ParticleEffect getParticleEffect() {
+		return particleEffect;
+	}
+
+	/**
+	 * Set particle for this actor, centerPosition is used to center the
+	 * particle on this actor sizes
+	 * */
+	public void setParticleEffect(ParticleEffect particleEffect,
+			boolean isParticleEffectActive, boolean isStart,
+			boolean centerPosition) {
+		this.particleEffect = particleEffect;
+		this.isParticleEffectActive = isParticleEffectActive;
+		if (!centerPosition) {
+			this.particleEffect.setPosition(getX(), getY());
+		} else {
+			particlePosX = getWidth() / 2.0f;
+			particlePosY = getHeight() / 2.0f;
+			this.particleEffect.setPosition(getX() + particlePosX, getY()
+					+ particlePosY);
+		}
+
+		if (isStart) {
+			this.particleEffect.start();
+		}
+	}
+
+	/**
+	 * Set particle position
+	 * */
+	public void setParticlePositionXY(float x, float y) {
+		particlePosX = x;
+		particlePosY = y;
+	}
+
+	/**
+	 * Check if particle active
+	 * */
+	public boolean isParticleEffectActive() {
+		return isParticleEffectActive;
+	}
+
+	/**
+	 * Set particle active to draw or not
+	 * */
+	public void setParticleEffectActive(boolean isParticleEffectActive) {
+		this.isParticleEffectActive = isParticleEffectActive;
+	}
+}

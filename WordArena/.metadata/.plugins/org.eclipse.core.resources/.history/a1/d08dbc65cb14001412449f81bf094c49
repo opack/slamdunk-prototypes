@@ -1,0 +1,10 @@
+package com.slamdunk.toolkit.drawers;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
+public interface IDrawer {
+	void updateTime(float delta);
+	
+	void draw(Actor actor, SpriteBatch batch);
+}

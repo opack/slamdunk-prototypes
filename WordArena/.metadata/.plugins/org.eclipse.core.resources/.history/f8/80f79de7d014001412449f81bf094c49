@@ -1,0 +1,13 @@
+package com.slamdunk.toolkit.world;
+
+import com.badlogic.gdx.scenes.scene2d.Group;
+
+/**
+ * Le monde du jeu. Ce monde est composé de plusieurs couches.
+ * Le monde est capable de retrouver un objet parmi les couches,
+ * de savoir si deux objets se touchent (même à travers plusieurs
+ * couches)...
+ */
+public class SlamWorld extends Group {
+
+}

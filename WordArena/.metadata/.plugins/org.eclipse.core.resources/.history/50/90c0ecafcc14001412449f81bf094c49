@@ -1,0 +1,21 @@
+package com.slamdunk.toolkit.drawers;
+
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
+public class TextureDrawer {
+	private TextureRegion textureRegion;
+	private boolean isTextureRegionActive;
+	
+	public void draw(Actor actor, SpriteBatch batch) {
+		if (isTextureRegionActive && textureRegion != null) {
+			batch.draw(textureRegion,
+				actor.getX(), actor.getY(),
+				actor.getOriginX(), actor.getOriginY(),
+				actor.getWidth(), actor.getHeight(),
+				actor.getScaleX(), actor.getScaleY(), 
+				actor.getRotation());
+		}
+	}
+}
