@@ -1,0 +1,16 @@
+1406380304355	Delete element
+1406380608698	Rename type 'AbstractActor'
+1406380651170	Rename field 'Xoriginal'
+1406380659973	Rename field 'Yoriginal'
+1406381568526	Rename local variable 'isAnimationActive'
+1406381572056	Rename local variable 'isAnimationLooping'
+1406381589068	Rename field 'isAnimationActive'
+1406381592785	Rename field 'isAnimationLooping'
+1406382307105	Rename type 'Animator'
+1406382329767	Rename package 'com.slamdunk.toolkit.animation'
+1406382455268	Delete element
+1406382548285	Rename field 'animator'
+1406383000432	Rename field 'isTextureRegionActive'
+1406383293226	Rename field 'isParticleEffectActive'
+1406383631378	Delete element
+1406413364625	Rename field 'imageBackground'

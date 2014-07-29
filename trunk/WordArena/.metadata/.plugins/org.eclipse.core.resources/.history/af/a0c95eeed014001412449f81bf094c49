@@ -1,0 +1,11 @@
+package com.slamdunk.toolkit.world;
+
+import com.badlogic.gdx.scenes.scene2d.Group;
+
+/**
+ * Une couche du monde. La couche peut contenir des acteurs
+ * et possède des propriétés comme la transparence...
+ */
+public class SlamWorldLayer extends Group {
+
+}

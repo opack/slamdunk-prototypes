@@ -1,0 +1,12 @@
+package com.slamdunk.toolkit.drawers;
+
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+
+public class ParticleDrawer {
+	private ParticleEffect particleEffect;
+	private float particlePosX = 0.0f;
+	private float particlePosY = 0.0f;
+	private boolean isParticleEffectActive;
+	
+	
+}

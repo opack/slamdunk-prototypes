@@ -1,0 +1,7 @@
+package com.slamdunk.toolkit.world;
+
+import Group;
+
+public class SlamGroup extends Group {
+
+}

@@ -1,0 +1,25 @@
+package com.slamdunk.toolkit.drawers;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
+public class ParticleDrawer {
+	private ParticleEffect particleEffect;
+	private float particlePosX = 0.0f;
+	private float particlePosY = 0.0f;
+	private boolean isParticleEffectActive;
+	private float delta;
+	
+	public void updateTime(float delta) {
+		this.delta = delta;
+	}
+	
+	public void draw(Actor actor, SpriteBatch batch) {
+		if (isParticleEffectActive) {
+			particleEffect.draw(batch, delta);
+			particleEffect.setPosition(actor.getX() + particlePosX, actor.getY() + particlePosY);
+		}
+	}
+}
