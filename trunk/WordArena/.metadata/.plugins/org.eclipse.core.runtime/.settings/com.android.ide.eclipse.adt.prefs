@@ -1,3 +1,4 @@
+com.android.ide.eclipse.adt.attrSort=logical
 com.android.ide.eclipse.adt.fixLegacyEditors=1
-com.android.ide.eclipse.adt.sdk=C\:\\Progz\\dev\\android-sdk
+com.android.ide.eclipse.adt.sdk=C\:\\Progz\\Dev\\Android\\android-sdk
 eclipse.preferences.version=1

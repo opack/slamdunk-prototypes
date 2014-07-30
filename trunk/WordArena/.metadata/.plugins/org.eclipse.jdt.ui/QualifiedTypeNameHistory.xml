@@ -1,13 +1,2 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.slamdunk.wordarena.LetterCell"/>
-<fullyQualifiedTypeName name="com.badlogic.gdx.scenes.scene2d.ui.TextButton"/>
-<fullyQualifiedTypeName name="com.slamdunk.wordarena.letters.Generator"/>
-<fullyQualifiedTypeName name="com.slamdunk.toolkit.settings.SlamViewportSettings"/>
-<fullyQualifiedTypeName name="com.slamdunk.toolkit.drawers.AnimationDrawer"/>
-<fullyQualifiedTypeName name="com.slamdunk.toolkit.drawers.TextureDrawer"/>
-<fullyQualifiedTypeName name="com.badlogic.gdx.scenes.scene2d.Group"/>
-<fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
-<fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="com.slamdunk.toolkit.world.SlamWorldLayer"/>
-</qualifiedTypeNameHistroy>
+<qualifiedTypeNameHistroy/>
