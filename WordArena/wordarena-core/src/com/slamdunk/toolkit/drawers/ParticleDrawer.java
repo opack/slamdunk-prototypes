@@ -5,6 +5,12 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+/**
+ * Particules créées avec l'éditeur (http://code.google.com/p/libgdx/wiki/ParticleEditor). 
+ * Exporter les données de la particule (example: particle.p) et l'ajouter au projet Android 
+ * dans le dossier Assets/Data (y placer aussi l'image utilisée dans la particule le cas
+ * échéant). 
+ */
 public class ParticleDrawer {
 	private ParticleEffect particleEffect;
 	private float particlePosX = 0.0f;

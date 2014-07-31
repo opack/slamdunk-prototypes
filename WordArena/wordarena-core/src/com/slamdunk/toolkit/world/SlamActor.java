@@ -24,6 +24,11 @@ public class SlamActor extends Actor {
 	 * Objet gérant les particules
 	 */
 	private ParticleDrawer particleDrawer;
+	
+	/**
+	 * Couche du monde dans laquelle se trouve cet acteur.
+	 */
+	private SlamWorldLayer worldLayer;
 
 	public SlamActor(TextureRegion textureRegion, boolean isTextureRegionActive,
 			float posX, float posY,
@@ -62,6 +67,27 @@ public class SlamActor extends Actor {
 	public SlamActor() {
 		super();
 	}
+	
+
+	public AnimationDrawer getAnimationDrawer() {
+		return animationDrawer;
+	}
+
+	public TextureDrawer getTextureDrawer() {
+		return textureDrawer;
+	}
+
+	public ParticleDrawer getParticleDrawer() {
+		return particleDrawer;
+	}
+	
+	public SlamWorldLayer getWorldLayer() {
+		return worldLayer;
+	}
+	
+	public void setWorldLayer(SlamWorldLayer worldLayer) {
+		this.worldLayer = worldLayer;
+	}
 
 	@Override
 	public void act(float delta) {
@@ -84,17 +110,5 @@ public class SlamActor extends Actor {
 
 		// Dessine les particules
 		particleDrawer.draw(this, batch);
-	}
-
-	public AnimationDrawer getAnimationDrawer() {
-		return animationDrawer;
-	}
-
-	public TextureDrawer getTextureDrawer() {
-		return textureDrawer;
-	}
-
-	public ParticleDrawer getParticleDrawer() {
-		return particleDrawer;
 	}
 }
