@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>MTX</name>
-			<type>2</type>
-			<location>C:/Users/Didier/Dropbox/Dev/SlamdunkToolkit/MTX-master/core/src/main/java</location>
-		</link>
-	</linkedResources>
 </projectDescription>
