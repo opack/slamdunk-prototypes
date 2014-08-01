@@ -25,11 +25,12 @@ public class SlamWorld extends Group {
 	private float startTime;
 	
 	public SlamWorld() {
+		super();
 		layers = new LinkedHashMap<String, SlamWorldLayer>();
 	}
 	
 	public SlamWorld(float posX, float posY, float worldWidth, float worldHeight) {
-		super();
+		this();
 		setSize(worldWidth, worldHeight);
 		setPosition(posX, posY);
 	}
@@ -60,24 +61,24 @@ public class SlamWorld extends Group {
 	 * Renvoie le premier acteur de la couche spécifiée qui est
 	 * en collision avec l'acteur
 	 */
-	public Actor resolveCollision(Actor actor, String layerName) {
+	public Actor resolveCollision(Actor actor, String layerName, boolean touchableOnly, boolean visibleOnly) {
 		SlamWorldLayer layer = layers.get(layerName);
 		if (layer == null) {
 			return null;
 		}
-		return layer.resolveCollision(actor);
+		return layer.resolveCollision(actor, touchableOnly, visibleOnly);
 	}
 	
 	/**
 	 * Renvoie le premier acteur du monde qui est en collision avec
 	 * l'acteur. Les couches sont parcourues dans l'ordre d'ajout.
 	 */
-	public Actor resolveCollision(Actor actor) {
+	public Actor resolveCollision(Actor actor, boolean touchableOnly, boolean visibleOnly) {
 		SlamWorldLayer layer;
 		Actor collided = null;
 		for (Actor child : getChildren()) {
 			layer = (SlamWorldLayer)child;
-			collided = layer.resolveCollision(actor);
+			collided = layer.resolveCollision(actor, touchableOnly, visibleOnly);
 			if (collided != null) {
 				break;
 			}
