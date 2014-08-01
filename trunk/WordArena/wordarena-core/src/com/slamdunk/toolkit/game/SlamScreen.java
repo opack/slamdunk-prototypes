@@ -2,37 +2,119 @@ package com.slamdunk.toolkit.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.slamdunk.toolkit.game.overlays.MiniMapOverlay;
+import com.slamdunk.toolkit.game.overlays.SlamStageOverlay;
+import com.slamdunk.toolkit.game.overlays.UIOverlay;
+import com.slamdunk.toolkit.game.overlays.WorldOverlay;
 import com.slamdunk.toolkit.settings.SlamViewportSettings;
 
 /**
- * Représente un écran du jeu.
- * @author Yed
- *
+ * Représente un écran du jeu. Cet écran peut contenir plusieurs couches (monde, IHM, minimap...).
  */
-public abstract class SlamScreen implements Screen {
+public abstract class SlamScreen implements Screen, InputProcessor {
 
 	private SlamGame game;
 	
-	private Stage stage;
+	private WorldOverlay worldOverlay;
+	private UIOverlay uiOverlay;
+	private MiniMapOverlay minimapOverlay;
+	private InputMultiplexer inputMux;
 	
 	private boolean backButtonActive;
 	
 	public SlamScreen() {
-		// Crée le stage
-		if (!SlamViewportSettings.viewportSet) {
-			System.err.println("Les réglages n'ont pas été définis !");
+		// Création de l'input processor
+		inputMux = new InputMultiplexer();
+		inputMux.addProcessor(this);
+		Gdx.input.setInputProcessor(inputMux);
+	}
+	
+	/**
+	 * Initialise un overlay et ajoute son stage aux input processors
+	 * @param overlay
+	 * @param processInputs Si true, alors le stage est ajouté aux input processors
+	 */
+	private void setupOverlay(SlamStageOverlay overlay, float width, float height, boolean processInputs) {
+		// Initialisation de la couche
+		if (width <= 0 || height <= 0) {
+			if (!SlamViewportSettings.viewportSet) {
+				System.err.println("Impossible de créer le UIOverlay car les réglages n'ont pas été définis !");
+			} else {
+				if (width <= 0) {
+					width = SlamViewportSettings.SCREEN_W;
+				}
+				if (height <= 0) {
+					height = SlamViewportSettings.SCREEN_H;
+				}
+			}
 		}
-		stage = new Stage(SlamViewportSettings.SCREEN_W, SlamViewportSettings.SCREEN_H, false);
-		stage.getCamera().position.set(SlamViewportSettings.SCREEN_W / 2, SlamViewportSettings.SCREEN_H / 2, 0);
-		Gdx.input.setInputProcessor(stage);
+		overlay.createStage(width, height);
 		
-		// Crée le listener sur le bouton Back
-		createBackButtonListener();
+		// Ajout du Stage de cette couche en tant qu'input processor
+		if (processInputs) {
+			inputMux.addProcessor(overlay.getStage());
+		}
+	}
+	
+	/**
+	 * Crée un overlay destiné à afficher le monde
+	 */
+	public void setupWorldOverlay() {
+		// Création de la couche
+		worldOverlay = new WorldOverlay();
+		setupOverlay(worldOverlay, 0, 0, true);
+	}
+	
+	public WorldOverlay getWorldOverlay() {
+		return worldOverlay;
+	}
+	
+	/**
+	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
+	 * Cet overlay sera positionné à l'emplacement indiqué et aura la taille indiquée.
+	 */
+	public void setupUIOverlay(float x, float y, float width, float height) {
+		// Création de la couche
+		uiOverlay = new UIOverlay();
+		setupOverlay(uiOverlay, width, height, true);
+	}
+	
+	/**
+	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
+	 * Cet overlay s'étalera sur toute la surface de l'écran.
+	 */
+	public void setupUIOverlay() {
+		setupUIOverlay(0, 0, 0, 0);
+	}
+	
+	public UIOverlay getUIOverlay() {
+		return uiOverlay;
+	}
+	
+	/**
+	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
+	 * Cet overlay sera positionné à l'emplacement indiqué et aura la taille indiquée.
+	 */
+	public void setupMiniMapOverlay(float x, float y, float width, float height) {
+		// Création de la couche
+		minimapOverlay = new MiniMapOverlay();
+		setupOverlay(minimapOverlay, width, height, true);
+	}
+	
+	/**
+	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
+	 * Cet overlay s'étalera sur toute la surface de l'écran.
+	 */
+	public void setupMiniMapOverlay() {
+		setupMiniMapOverlay(0, 0, 0, 0);
+	}
+	
+	public MiniMapOverlay getMiniMapOverlay() {
+		return minimapOverlay;
 	}
 	
 	/**
@@ -53,15 +135,6 @@ public abstract class SlamScreen implements Screen {
 	 */
 	public void setGame(SlamGame game) {
 		this.game = game;
-	}
-	
-	/**
-	 * Retourne le Stage dans lequel les acteurs
-	 * évoluent.
-	 * @return
-	 */
-	public Stage getStage() {
-		return stage;
 	}
 
 	/**
@@ -86,18 +159,14 @@ public abstract class SlamScreen implements Screen {
 	 * activé.
 	 * @see #keyBackPressed()
 	 */
-	private void createBackButtonListener() {
-		stage.addListener(new InputListener() {
-			@Override
-			public boolean keyUp(InputEvent event, int keycode) {
-				if (keycode == Keys.BACK || keycode == Keys.ESCAPE) {
-					if (backButtonActive) {
-						keyBackPressed();
-					}
-				}
-				return false;
+	@Override
+	public boolean keyUp (int keycode) {
+		if (keycode == Keys.BACK || keycode == Keys.ESCAPE) {
+			if (backButtonActive) {
+				keyBackPressed();
 			}
-		});
+		}
+		return false;
 	}
 	
 	/**
@@ -117,10 +186,26 @@ public abstract class SlamScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		// Fait agir les acteurs (mise à jour de la logique du jeu)
-		stage.act(delta);
+		if (worldOverlay != null) {
+			worldOverlay.act(delta);
+		}
+		if (uiOverlay != null) {
+			uiOverlay.act(delta);
+		}
+		if (minimapOverlay != null) {
+			minimapOverlay.act(delta);
+		}
 
-		// Dessine le stage (affichage de l'état)
-		stage.draw();
+		// Dessine les couches (affichage de l'état)
+		if (worldOverlay != null) {
+			worldOverlay.draw();
+		}
+		if (uiOverlay != null) {
+			uiOverlay.draw();
+		}
+		if (minimapOverlay != null) {
+			minimapOverlay.draw();
+		}
 	}
 
 	@Override
