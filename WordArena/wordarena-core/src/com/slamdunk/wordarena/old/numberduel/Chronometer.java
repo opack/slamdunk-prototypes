@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.numberduel;
+package com.slamdunk.wordarena.old.numberduel;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 

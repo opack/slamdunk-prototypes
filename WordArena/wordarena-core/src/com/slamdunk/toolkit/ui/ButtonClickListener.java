@@ -1,4 +1,4 @@
-package com.slamdunk.utils.ui;
+package com.slamdunk.toolkit.ui;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -6,8 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * Un simple listener qui ne fait rien si le bouton est désactivé
- * @author Yed
- *
  */
 public abstract class ButtonClickListener extends ClickListener {
 	@Override

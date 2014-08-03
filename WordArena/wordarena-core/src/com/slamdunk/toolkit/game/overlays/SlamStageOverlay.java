@@ -11,10 +11,23 @@ import com.slamdunk.toolkit.settings.SlamViewportSettings;
 public class SlamStageOverlay {
 	private Stage stage;
 	
+	/**
+	 * Indique si l'overlay souhaite recevoir les inputs
+	 */
+	private boolean processInputs;
+	
 	public Stage getStage() {
 		return stage;
 	}
 	
+	public boolean isProcessInputs() {
+		return processInputs;
+	}
+
+	public void setProcessInputs(boolean processInputs) {
+		this.processInputs = processInputs;
+	}
+
 	public void createStage(float width, float height) {
 		if (!SlamViewportSettings.viewportSet) {
 			System.err.println("Les réglages n'ont pas été définis !");
@@ -29,5 +42,11 @@ public class SlamStageOverlay {
 	
 	public void draw() {
 		stage.draw();
+	}
+	
+	public void dispose() {
+		if (stage != null) {
+			stage.dispose();
+		}
 	}
 }
