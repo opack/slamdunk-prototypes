@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.letters;
+package com.slamdunk.wordarena.old.letters;
 
 public enum Letters {
 	A(9, 1, "A"),

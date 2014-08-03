@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.numberduel;
+package com.slamdunk.wordarena.old.numberduel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,12 +23,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.slamdunk.utils.ui.ButtonClickListener;
-import com.slamdunk.wordarena.numberduel.Bonus;
-import com.slamdunk.wordarena.numberduel.GridCell;
-import com.slamdunk.wordarena.numberduel.Numbers;
-import com.slamdunk.wordarena.numberduel.Player;
-import com.slamdunk.wordarena.numberduel.Rules;
+import com.slamdunk.toolkit.ui.ButtonClickListener;
+import com.slamdunk.wordarena.old.numberduel.Bonus;
+import com.slamdunk.wordarena.old.numberduel.GridCell;
+import com.slamdunk.wordarena.old.numberduel.Numbers;
+import com.slamdunk.wordarena.old.numberduel.Player;
+import com.slamdunk.wordarena.old.numberduel.Rules;
 
 public class WordArenaGame implements ApplicationListener {
 	private static final int NB_ROUNDS_BY_MATCH = 6;

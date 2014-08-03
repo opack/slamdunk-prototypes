@@ -8,8 +8,6 @@ import com.badlogic.gdx.Screen;
 
 /**
  * Un Game maintenant les liens vers un ensemble de SlamScreens
- * @author Yed
- *
  */
 public class SlamGame extends Game {
 
@@ -25,4 +23,11 @@ public class SlamGame extends Game {
 		screens.put(screen.getName(), screen);
 	}
 
+	public void setScreen(String name) {
+		Screen screen = screens.get(name);
+		if (screen == null) {
+			throw new IllegalArgumentException("There is no screen with name " + name);
+		}
+		setScreen(screen);
+	}
 }

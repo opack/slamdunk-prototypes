@@ -1,8 +1,8 @@
-package com.slamdunk.wordarena;
+package com.slamdunk.wordarena.old;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.slamdunk.wordarena.letters.Letters;
-import com.slamdunk.wordarena.numberduel.Player;
+import com.slamdunk.wordarena.old.letters.Letters;
+import com.slamdunk.wordarena.old.numberduel.Player;
 
 public class LetterCell {
 	/**

@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.numberduel;
+package com.slamdunk.wordarena.old.numberduel;
 
 public enum Bonus {
 	SIMPLE_LETTER {

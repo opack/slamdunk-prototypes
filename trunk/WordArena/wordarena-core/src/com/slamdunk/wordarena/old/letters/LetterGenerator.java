@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.letters;
+package com.slamdunk.wordarena.old.letters;
 
 import java.util.ArrayList;
 import java.util.Collections;

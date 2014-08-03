@@ -38,11 +38,11 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	 * @param overlay
 	 * @param processInputs Si true, alors le stage est ajouté aux input processors
 	 */
-	private void setupOverlay(SlamStageOverlay overlay, float width, float height, boolean processInputs) {
+	private void setupOverlay(SlamStageOverlay overlay, float width, float height) {
 		// Initialisation de la couche
 		if (width <= 0 || height <= 0) {
 			if (!SlamViewportSettings.viewportSet) {
-				System.err.println("Impossible de créer le UIOverlay car les réglages n'ont pas été définis !");
+				System.err.println("Impossible de créer l'overlay car les réglages n'ont pas été définis !");
 			} else {
 				if (width <= 0) {
 					width = SlamViewportSettings.SCREEN_W;
@@ -55,7 +55,7 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 		overlay.createStage(width, height);
 		
 		// Ajout du Stage de cette couche en tant qu'input processor
-		if (processInputs) {
+		if (overlay.isProcessInputs()) {
 			inputMux.addProcessor(overlay.getStage());
 		}
 	}
@@ -66,7 +66,7 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	public void setupWorldOverlay() {
 		// Création de la couche
 		worldOverlay = new WorldOverlay();
-		setupOverlay(worldOverlay, 0, 0, true);
+		setupOverlay(worldOverlay, 0, 0);
 	}
 	
 	public WorldOverlay getWorldOverlay() {
@@ -80,7 +80,7 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	public void setupUIOverlay(float x, float y, float width, float height) {
 		// Création de la couche
 		uiOverlay = new UIOverlay();
-		setupOverlay(uiOverlay, width, height, true);
+		setupOverlay(uiOverlay, width, height);
 	}
 	
 	/**
@@ -102,7 +102,7 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	public void setupMiniMapOverlay(float x, float y, float width, float height) {
 		// Création de la couche
 		minimapOverlay = new MiniMapOverlay();
-		setupOverlay(minimapOverlay, width, height, true);
+		setupOverlay(minimapOverlay, width, height);
 	}
 	
 	/**
@@ -210,8 +210,6 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 
 	@Override
 	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -240,8 +238,57 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 
 	@Override
 	public void dispose() {
+		if (worldOverlay != null) {
+			worldOverlay.dispose();
+		}
+		if (uiOverlay != null) {
+			uiOverlay.dispose();
+		}
+		if (minimapOverlay != null) {
+			minimapOverlay.dispose();
+		}
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
-		
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
