@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.game.overlays.MiniMapOverlay;
 import com.slamdunk.toolkit.game.overlays.SlamStageOverlay;
 import com.slamdunk.toolkit.game.overlays.UIOverlay;
@@ -16,7 +17,7 @@ import com.slamdunk.toolkit.settings.SlamViewportSettings;
  * Représente un écran du jeu. Cet écran peut contenir plusieurs couches (monde, IHM, minimap...).
  */
 public abstract class SlamScreen implements Screen, InputProcessor {
-
+	public static final String DEFAULT_SKIN = "skins/uiskin/uiskin.json";
 	private SlamGame game;
 	
 	private WorldOverlay worldOverlay;
@@ -80,6 +81,8 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	public void setupUIOverlay(float x, float y, float width, float height) {
 		// Création de la couche
 		uiOverlay = new UIOverlay();
+		Skin uiSkin = new Skin(Gdx.files.internal(DEFAULT_SKIN));
+		uiOverlay.setSkin(uiSkin);
 		setupOverlay(uiOverlay, width, height);
 	}
 	

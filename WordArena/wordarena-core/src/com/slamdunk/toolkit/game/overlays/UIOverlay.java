@@ -1,8 +1,11 @@
 package com.slamdunk.toolkit.game.overlays;
 
+import java.util.LinkedList;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.esotericsoftware.tablelayout.Cell;
 
 /**
@@ -17,19 +20,16 @@ public class UIOverlay extends SlamStageOverlay {
 	private Skin skin;
 	
 	/**
-	 * Composant racine qui permet d'organiser tous les autres
+	 * Les différents niveaux de tables courantes pour l'ajout de composants
 	 */
-	private Table mainTable;
-	
-	/**
-	 * Table courante pour l'ajout de composants
-	 */
-	private Table curTable;
+	private LinkedList<Table> tables;
 
 	public UIOverlay() {
-		mainTable = new Table();
+		tables = new LinkedList<Table>();
+		
+		Table mainTable = new Table();
 		mainTable.setFillParent(true);
-		curTable = mainTable;
+		tables.addFirst(mainTable);
 	}
 	
 	public Skin getSkin() {
@@ -44,24 +44,27 @@ public class UIOverlay extends SlamStageOverlay {
 	 * Ajoute une cellule vide à la prochaine position de la table
 	 * courante
 	 */
-	public Cell add() {
-		return curTable.add();
+	@SuppressWarnings("unchecked")
+	public Cell<Actor> add() {
+		return (Cell<Actor>)tables.getFirst().add();
 	}
 	
 	/**
 	 * Ajoute une cellule contenant le widget indiqué à la prochaine
 	 * position de la table courante
 	 */
-	public Cell add(Actor widget) {
-		return curTable.add(widget);
+	@SuppressWarnings("unchecked")
+	public Cell<Actor> add(Actor widget) {
+		return (Cell<Actor>)tables.getFirst().add(widget);
 	}
 	
 	/**
 	 * Termine la ligne actuelle et passe à la suivante
 	 * @return
 	 */
-	public Cell row() {
-		return curTable.row();
+	@SuppressWarnings("unchecked")
+	public Cell<Actor> row() {
+		return (Cell<Actor>)tables.getFirst().row();
 	}
 	
 	/**
@@ -69,19 +72,31 @@ public class UIOverlay extends SlamStageOverlay {
 	 * la table courante
 	 * @return
 	 */
-	public Cell subTable() {
+	@SuppressWarnings("unchecked")
+	public Cell<Actor> subTableBegin() {
 		Table subTable = new Table();
-		Cell cell = curTable.add(subTable);
-		curTable = subTable;
+		Cell<Actor> cell = (Cell<Actor>)tables.getFirst().add(subTable);
+		tables.addFirst(subTable);
 		return cell;
+	}
+	
+	/**
+	 * Ferme la sous-table
+	 * @return
+	 */
+	public void subTableEnd() {
+		// Pack la table
+		tables.getFirst().pack();
+		// Supprime la table courante de la liste
+		tables.removeFirst();
 	}
 	
 	/**
 	 * Ajoute un bouton text utilisant la skin définie pour l'overlay
 	 * à la prochaine position dans la même ligne de la table courante
 	 */
-	public void addTextButton() {
-		// TODO Auto-generated method stub
-		
+	public Cell<Actor> addTextButton(String text) {
+		TextButton button = new TextButton(text, skin);
+		return add(button);
 	}
 }

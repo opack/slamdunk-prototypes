@@ -8,7 +8,7 @@ public class HomeScreen extends SlamScreen {
 		// On va utiliser une couche de contrôles
 		setupUIOverlay();
 		// Ajout de boutons
-		getUIOverlay().addTextButton();
+		getUIOverlay().addTextButton("DBG");
 	}
 	
 	@Override
