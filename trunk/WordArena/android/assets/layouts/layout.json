@@ -1,0 +1,77 @@
+{
+	"widgets": [
+		{
+			"class": "Label",
+			"name": "title",
+			"text-key": "label-title",
+			"width-key": "screen-width"
+		},
+		{
+			"class": "Table",
+			"name": "form",
+			"rows": [
+				[
+					{
+						"width": 10,
+						"widget": {
+							"class": "Label",
+							"name": "label-username",
+							"text-key": "label-username"
+						},
+					},
+					{
+						"widget": {
+							"class": "TextField",
+							"name": "txt-username"
+						}
+					}
+				],
+				[
+					{
+						"width": 10,
+						"widget": {
+							"class": "Label",
+							"name": "label-password",
+							"text-key": "label-password"
+						},
+					},
+					{
+						"widget": {
+							"class": "TextField",
+							"name": "txt-password"
+						}
+					}
+				],
+				[
+					{
+						"colspan": 2,
+						"widget": {
+							"class": "TextButton",
+							"name": "connect",
+							"text-key": "btn-connect"
+						},
+					}
+				]
+			]
+		}
+	],
+	"values": {
+		"label-title": {
+			"fr": "Entrez vos identifiants",
+			"en": "Input your credentials"
+		},
+		"label-username": {
+			"fr": "Utilisateur : ",
+			"en": "Username : "
+		},
+		"label-password": {
+			"fr": "Mot de passe : ",
+			"en": "Password : "
+		},
+		"btn-connect": {
+			"fr": "Connexion",
+			"en": "Login"
+		},
+		"width-key": 480
+	}
+}
