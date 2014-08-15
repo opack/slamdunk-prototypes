@@ -4,9 +4,12 @@ import java.util.LinkedList;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.slamdunk.toolkit.ui.layout.json.JsonUICreator;
 
 /**
@@ -29,8 +32,18 @@ public class UIOverlay extends SlamStageOverlay {
 		tables = new LinkedList<Table>();
 		
 		Table mainTable = new Table();
+		mainTable.debug();
 		mainTable.setFillParent(true);
 		tables.addFirst(mainTable);
+	}
+	
+	@Override
+	public void createStage(Viewport viewport) {
+		super.createStage(viewport);
+		
+		Table mainTable = tables.get(0);
+		mainTable.pack();
+		getStage().addActor(mainTable);
 	}
 	
 	public Skin getSkin() {
@@ -97,6 +110,24 @@ public class UIOverlay extends SlamStageOverlay {
 	public Cell<Actor> addTextButton(String text) {
 		TextButton button = new TextButton(text, skin);
 		return add(button);
+	}
+	
+	/**
+	 * Ajoute un label utilisant la skin définie pour l'overlay
+	 * à la prochaine position dans la même ligne de la table courante
+	 */
+	public Cell<Actor> addLabel(String text) {
+		Label label = new Label(text, skin);
+		return add(label);
+	}
+	
+	/**
+	 * Ajoute un champ d'édition de texte utilisant la skin définie pour l'overlay
+	 * à la prochaine position dans la même ligne de la table courante
+	 */
+	public Cell<Actor> addTextField(String text) {
+		TextField textField = new TextField(text, skin);
+		return add(textField);
 	}
 
 	/**
