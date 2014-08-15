@@ -12,10 +12,12 @@
 			name: form,
 			fill-parent: true,
 			debug: true,
-			defaults: {
+			COMMENTED-defaults: {
+				comment: "Cette propriété correspond à la méthode Table.defaults(). A décommenter pour rendre active.",
 				width: 100,
 			},
-			columnDefaults: {
+			COMMENTED-columnDefaults: {
+				comment: "Cette propriété correspond à la méthode Table.columnDefaults(). A décommenter pour rendre active.",
 				1: {
 					width: 200
 				}
