@@ -187,7 +187,7 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 		if (minimapOverlay != null) {
 			minimapOverlay.act(delta);
 		}
-
+		
 		// Dessine les couches (affichage de l'état)
 		if (worldOverlay != null) {
 			worldOverlay.draw();
