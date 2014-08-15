@@ -1,4 +1,4 @@
-package com.slamdunk.utils.graphics.clip;
+package com.slamdunk.toolkit.clip;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -101,7 +101,7 @@ public class ClipLoader {
         clip.scaleY = properties.getFloatProperty("scale.y", 1.0f);
         clip.stretchX = properties.getBooleanProperty("stretch.x", false);
         clip.stretchY = properties.getBooleanProperty("stretch.y", false);
-        clip.setPlayMode(properties.getIntegerProperty("playMode", Animation.LOOP));
+        clip.setPlayMode(Animation.PlayMode.valueOf(properties.getStringProperty("playMode", Animation.PlayMode.LOOP.name())));
 
         // Chargement des sons à jouer
         for (int frame = 0; frame < clip.getFrameCount(); frame++) {
@@ -111,7 +111,7 @@ public class ClipLoader {
                 clip.setKeyFrameRunnable(frame, new Runnable(){
                     @Override
                     public void run() {
-                        Assets.playSound(sound);
+                        sound.play();
                     }
                 });
             }

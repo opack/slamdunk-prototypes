@@ -1,4 +1,4 @@
-package com.slamdunk.utils.graphics.clip;
+package com.slamdunk.toolkit.clip;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -98,7 +98,7 @@ public class Clip extends Animation {
     private Map<String, Point[]> anchors;
 
     public Clip(Clip clip) {
-        super(clip.frameDuration, clip.keyFrames);
+        super(clip.getFrameDuration(), clip.keyFrames);
         this.alignX = clip.alignX;
         this.alignY = clip.alignY;
         if (clip.anchors != null) {

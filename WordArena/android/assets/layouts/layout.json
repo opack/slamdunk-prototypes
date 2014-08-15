@@ -4,54 +4,70 @@
 			"class": "Label",
 			"name": "title",
 			"text-key": "label-title",
-			"width-key": "screen-width"
+			"width-key": "screen-width",
+			"y": 700
 		},
 		{
 			"class": "Table",
 			"name": "form",
+			"fill-parent": "true",
+			"debug": "false",
 			"rows": [
-				[
-					{
-						"width": 10,
-						"widget": {
-							"class": "Label",
-							"name": "label-username",
-							"text-key": "label-username"
+				{
+					"pad-tlbr": [0, 0, 10, 0],
+					"cells": [
+						{
+							"align": "left",
+							"widget": {
+								"class": "Label",
+								"name": "label-username",
+								"text-key": "label-username"
+							},
 						},
-					},
-					{
-						"widget": {
-							"class": "TextField",
-							"name": "txt-username"
+						{
+							"expand-xy": ["true", "false"],
+							"fill-xy": ["true", "false"],
+							"widget": {
+								"class": "TextField",
+								"name": "txt-username",
+								"text": "Entrez votre nom d'utilisateur"
+							}
 						}
-					}
-				],
-				[
-					{
-						"width": 10,
-						"widget": {
-							"class": "Label",
-							"name": "label-password",
-							"text-key": "label-password"
+					]
+				},
+				{
+					"cells": [
+						{
+							"align": "left",
+							"widget": {
+								"class": "Label",
+								"name": "label-password",
+								"text-key": "label-password"
+							},
 						},
-					},
-					{
-						"widget": {
-							"class": "TextField",
-							"name": "txt-password"
+						{
+							"expand-xy": ["true", "false"],
+							"fill-xy": ["true", "false"],
+							"widget": {
+								"class": "TextField",
+								"name": "txt-password",
+								"text-key": "txt-password"
+							}
 						}
-					}
-				],
-				[
-					{
-						"colspan": 2,
-						"widget": {
-							"class": "TextButton",
-							"name": "connect",
-							"text-key": "btn-connect"
-						},
-					}
-				]
+					]
+				},
+				{
+					"cells": [
+						{
+							"colspan": 2,
+							"widget": {
+								"class": "TextButton",
+								"name": "connect",
+								"text-key": "btn-connect"
+							},
+						}
+					]
+				}
 			]
 		}
 	],
@@ -67,6 +83,10 @@
 		"label-password": {
 			"fr": "Mot de passe : ",
 			"en": "Password : "
+		},
+		"txt-password": {
+			"fr": "Saisissez votre mot de passe",
+			"en": "Input your password"
 		},
 		"btn-connect": {
 			"fr": "Connexion",

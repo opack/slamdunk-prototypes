@@ -54,7 +54,6 @@ public class UIOverlay extends SlamStageOverlay {
 	 * Ajoute une cellule contenant le widget indiqué à la prochaine
 	 * position de la table courante
 	 */
-	@SuppressWarnings("unchecked")
 	public Cell<Actor> add(Actor widget) {
 		return (Cell<Actor>)tables.getFirst().add(widget);
 	}
