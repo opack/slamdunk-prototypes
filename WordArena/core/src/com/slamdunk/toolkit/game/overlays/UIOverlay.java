@@ -32,7 +32,6 @@ public class UIOverlay extends SlamStageOverlay {
 		tables = new LinkedList<Table>();
 		
 		Table mainTable = new Table();
-		mainTable.debug();
 		mainTable.setFillParent(true);
 		tables.addFirst(mainTable);
 	}
