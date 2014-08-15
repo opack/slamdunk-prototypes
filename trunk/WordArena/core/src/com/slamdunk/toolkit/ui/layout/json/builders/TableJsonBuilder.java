@@ -24,6 +24,12 @@ public class TableJsonBuilder extends JsonComponentBuilder {
 		// Gère les propriétés basiques du widget
 		Table table = (Table)super.build(skin);
 		
+		// Gère les propriétés par défaut de la table
+		parseDefaults(table);
+		
+		// Gère les propriétés par défaut des colonnes
+		parseColumnDefaults(table);
+		
 		// Gère la propriété fillParent
 		parseFillParent(table);
 		
@@ -37,6 +43,26 @@ public class TableJsonBuilder extends JsonComponentBuilder {
 		return table;
 	}
 	
+	private void parseColumnDefaults(Table table) {
+		if (hasProperty("columnDefaults")) {
+			JsonValue allColumnDefaults = actorDescription.get("columnDefaults");
+			JsonValue columnDefaults;
+			Cell<?> defaultsCell;
+			for (int curDef = 0; curDef < allColumnDefaults.size; curDef++) {
+				columnDefaults = allColumnDefaults.get(curDef);
+				defaultsCell = table.columnDefaults(Integer.parseInt(columnDefaults.name()));
+				parseCellProperties(columnDefaults, defaultsCell);
+			}
+		}
+	}
+	
+	private void parseDefaults(Table table) {
+		if (hasProperty("defaults")) {
+			Cell<?> defaultsCell = table.defaults();
+			parseCellProperties(actorDescription.get("defaults"), defaultsCell);
+		}
+	}
+
 	private void parseDebug(Table table) {
 		if (hasProperty("debug")) {
 			table.setDebug(actorDescription.getBoolean("debug"));
@@ -62,7 +88,11 @@ public class TableJsonBuilder extends JsonComponentBuilder {
 	}
 
 	private void parseRow(JsonValue row, Table table) {
-		// Chargement des cellules
+		// Applique les propriétés sur la ligne
+		Cell<?> rowCell = table.row();
+		parseCellProperties(row, rowCell);
+		
+		// Ajoute les cellules
 		if (row.has("cells")) {
 			JsonValue cells = row.get("cells");
 			JsonValue cell;
@@ -70,16 +100,6 @@ public class TableJsonBuilder extends JsonComponentBuilder {
 				cell = cells.get(curCell);
 				parseCell(cell, table);
 			}
-		}
-		
-		// Lecture des propriétés pour la ligne
-		Cell<?> rowCell = table.row();
-		if (row.has("pad")) {
-			rowCell.pad(row.getFloat("pad"));
-		}
-		if (row.has("pad-tlbr")) {
-			JsonValue padValues = row.get("pad-tlbr");
-			rowCell.pad(padValues.getFloat(0), padValues.getFloat(1), padValues.getFloat(2), padValues.getFloat(3));
 		}
 	}
 
@@ -89,6 +109,10 @@ public class TableJsonBuilder extends JsonComponentBuilder {
 		
 		// Crée la cellule et lui applique les propriétés voulues
 		Cell<Actor> cell = table.add(widget);
+		parseCellProperties(jsonCell, cell);
+	}
+	
+	private void parseCellProperties(JsonValue jsonCell, Cell<?> cell) {
 		if (jsonCell.has("width")) {
 			cell.width(jsonCell.getFloat("width"));
 		}
