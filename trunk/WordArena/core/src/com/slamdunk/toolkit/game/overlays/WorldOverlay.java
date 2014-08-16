@@ -17,4 +17,9 @@ public class WorldOverlay extends SlamStageOverlay {
 		super.createStage(viewport);
 		world = new SlamWorld(viewport);
 	}
+	
+	@Override
+	public boolean isProcessInputs() {
+		return true;
+	}
 }
