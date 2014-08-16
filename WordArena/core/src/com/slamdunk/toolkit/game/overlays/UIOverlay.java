@@ -138,4 +138,9 @@ public class UIOverlay extends SlamStageOverlay {
 		uiCreator.load(layoutFile);
 		uiCreator.populate(getStage());
 	}
+
+	@Override
+	public boolean isProcessInputs() {
+		return true;
+	}
 }

@@ -8,25 +8,17 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * Cela permet d'avoir plusieurs stages et donc plusieurs caméras différentes, utiles pour superposer
  * par exemple le monde, une minimap, une couche d'UI...
  */
-public class SlamStageOverlay {
+public abstract class SlamStageOverlay {
 	private Stage stage;
-	
-	/**
-	 * Indique si l'overlay souhaite recevoir les inputs
-	 */
-	private boolean processInputs;
 	
 	public Stage getStage() {
 		return stage;
 	}
 	
-	public boolean isProcessInputs() {
-		return processInputs;
-	}
-
-	public void setProcessInputs(boolean processInputs) {
-		this.processInputs = processInputs;
-	}
+	/**
+	 * Indique si l'overlay souhaite recevoir les inputs
+	 */
+	public abstract boolean isProcessInputs();
 
 	public void createStage(Viewport viewport) {
 		stage = new Stage(viewport);
