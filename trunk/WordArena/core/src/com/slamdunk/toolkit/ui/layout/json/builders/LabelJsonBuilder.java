@@ -2,6 +2,7 @@ package com.slamdunk.toolkit.ui.layout.json.builders;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class LabelJsonBuilder extends JsonComponentBuilder {
 	private String language;
@@ -51,15 +52,33 @@ public class LabelJsonBuilder extends JsonComponentBuilder {
 	
 	protected void parseAlign(Label label) {
 		if (hasProperty("align")) {
-			label.setAlignment(actorDescription.getInt("align"));
+			applyAlign(label, actorDescription.getString("align"));
 		}
 	}
 	
 	protected void parseAlignKey(Label label) {
 		if (hasProperty("align-key")) {
 			String key = actorDescription.getString("align-key");
-			label.setAlignment(values.getInt(key));
+			applyAlign(label, values.getString(key));
 		}
+	}
+	
+	protected void applyAlign(Label label, String align) {
+		int alignInt = 0;
+		if (align.contains("top")) {
+			alignInt |= Align.top;
+		} else if (align.contains("bottom")) {
+			alignInt |= Align.bottom;
+		}
+		if (align.contains("left")) {
+			alignInt |= Align.left;
+		} else if (align.contains("right")) {
+			alignInt |= Align.right;
+		}
+		if (align.contains("center")) {
+			alignInt |= Align.center;
+		}
+		label.setAlignment(alignInt);
 	}
 	
 	protected void parseWrap(Label label) {
