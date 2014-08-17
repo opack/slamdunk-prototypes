@@ -58,12 +58,12 @@ public abstract class JsonComponentBuilder {
 		parseY(actor);
 		
 		// Gère la propriété w
-		parseWKey(actor);
-		parseW(actor);
+		parseWidthKey(actor);
+		parseWidth(actor);
 		
 		// Gère la propriété h
-		parseHKey(actor);
-		parseH(actor);
+		parseHeightKey(actor);
+		parseHeight(actor);
 		
 		// Gère la propriété visible
 		parseVisibleKey(actor);
@@ -143,9 +143,9 @@ public abstract class JsonComponentBuilder {
 	 * @param actor
 	 * @return true si la propriété a été trouvée et lue
 	 */
-	protected boolean parseW(Actor actor) {
-		if (hasProperty("w")) {
-			actor.setWidth(actorDescription.getFloat("w"));
+	protected boolean parseWidth(Actor actor) {
+		if (hasProperty("width")) {
+			actor.setWidth(actorDescription.getFloat("width"));
 			return true;
 		}
 		return false;
@@ -156,9 +156,9 @@ public abstract class JsonComponentBuilder {
 	 * @param actor
 	 * @return true si la propriété a été trouvée et lue
 	 */
-	protected boolean parseWKey(Actor actor) {
-		if (hasProperty("w-key")) {
-			String key = actorDescription.getString("w-key");
+	protected boolean parseWidthKey(Actor actor) {
+		if (hasProperty("width-key")) {
+			String key = actorDescription.getString("width-key");
 			actor.setWidth(values.getFloat(key));
 			return true;
 		}
@@ -170,9 +170,9 @@ public abstract class JsonComponentBuilder {
 	 * @param actor
 	 * @return true si la propriété a été trouvée et lue
 	 */
-	protected boolean parseH(Actor actor) {
-		if (hasProperty("h")) {
-			actor.setHeight(actorDescription.getFloat("h"));
+	protected boolean parseHeight(Actor actor) {
+		if (hasProperty("height")) {
+			actor.setHeight(actorDescription.getFloat("height"));
 			return true;
 		}
 		return false;
@@ -183,9 +183,9 @@ public abstract class JsonComponentBuilder {
 	 * @param actor
 	 * @return true si la propriété a été trouvée et lue
 	 */
-	protected boolean parseHKey(Actor actor) {
-		if (hasProperty("h-key")) {
-			String key = actorDescription.getString("h-key");
+	protected boolean parseHeightKey(Actor actor) {
+		if (hasProperty("height-key")) {
+			String key = actorDescription.getString("height-key");
 			actor.setHeight(values.getFloat(key));
 			return true;
 		}

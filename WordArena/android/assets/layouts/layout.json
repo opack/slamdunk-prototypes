@@ -5,13 +5,14 @@
 			name: title,
 			text-key: label-title,
 			width-key: screen-width,
-			y: 700
+			y: 475,
+			align: "center"
 		},
 		{
 			class: Table,
 			name: form,
 			fill-parent: true,
-			debug: true,
+			debug: false,
 			COMMENTED-defaults: {
 				comment: "Cette propriété correspond à la méthode Table.defaults(). A décommenter pour rendre active.",
 				width: 100,
@@ -46,6 +47,7 @@
 					]
 				},
 				{
+					pad-tlbr: [0, 0, 10, 0],
 					cells: [
 						{
 							align: left,
@@ -102,6 +104,6 @@
 			fr: "Connexion",
 			en: "Login"
 		},
-		width-key: 480
+		screen-width: 480
 	}
 }
