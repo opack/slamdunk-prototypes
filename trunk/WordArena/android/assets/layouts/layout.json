@@ -1,6 +1,11 @@
 {
 	widgets: [
 		{
+			class: Window,
+			name: popup,
+			
+		},
+		{
 			class: Label,
 			name: title,
 			text-key: label-title,
