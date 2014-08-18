@@ -67,7 +67,6 @@ public class SlamActor extends Actor {
 	public SlamActor() {
 		super();
 	}
-	
 
 	public AnimationDrawer getAnimationDrawer() {
 		return animationDrawer;

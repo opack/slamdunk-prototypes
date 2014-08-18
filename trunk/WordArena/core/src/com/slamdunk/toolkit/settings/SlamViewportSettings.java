@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 /**
  * Contient les réglages de l'application. Ces réglages peuvent être définis
  * à l'aide d'une des méthodes setup().
- * @author Yed
  * @see #setup()
  * @see #setup(float, float, float, float)
  * @see #setup(float, float, float, float, float, float)
