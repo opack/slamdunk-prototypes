@@ -8,7 +8,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.slamdunk.toolkit.ui.layout.json.JsonUICreator;
 
 public class TableJsonBuilder extends JsonComponentBuilder {
-	private JsonUICreator creator;
+	protected JsonUICreator creator;
 	
 	public TableJsonBuilder(JsonUICreator creator) {
 		this.creator = creator;

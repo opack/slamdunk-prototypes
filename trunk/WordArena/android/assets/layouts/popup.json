@@ -1,0 +1,45 @@
+{
+	debug: false,
+	rows: [
+		{
+			pad-tlbr: [0, 0, 10, 0],
+			cells: [
+				{
+					align: left,
+					widget: {
+						class: Label,
+						name: label-hello,
+						text-key: label-username
+					}
+				},
+				{
+					expand-xy: [true, false],
+					fill-xy: [true, false],
+					widget: {
+						class: TextField,
+						name: txt-username,
+						text: "Essai popup !"
+					}
+				}
+			]
+		},
+		{
+			cells: [
+				{
+					widget: {
+						class: TextButton,
+						name: ok,
+						text: "OK"
+					},
+				},
+				{
+					widget: {
+						class: TextButton,
+						name: cancel,
+						text: "Cancel"
+					},
+				}
+			]
+		}
+	]
+}

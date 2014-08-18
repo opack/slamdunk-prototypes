@@ -17,6 +17,7 @@ import com.slamdunk.toolkit.ui.layout.json.builders.ScrollPaneJsonBuilder;
 import com.slamdunk.toolkit.ui.layout.json.builders.TableJsonBuilder;
 import com.slamdunk.toolkit.ui.layout.json.builders.TextButtonJsonBuilder;
 import com.slamdunk.toolkit.ui.layout.json.builders.TextFieldJsonBuilder;
+import com.slamdunk.toolkit.ui.layout.json.builders.WindowJsonBuilder;
 
 /**
  * Crée l'IHM à partir d'un descripteur json
@@ -47,6 +48,7 @@ public class JsonUICreator {
 		builders.put("Image", new ImageJsonBuilder());
 		builders.put("Group", new GroupJsonBuilder());
 		builders.put("Table", new TableJsonBuilder(this));
+		builders.put("Window", new WindowJsonBuilder(this));
 		builders.put("TextField", new TextFieldJsonBuilder("fr"));// DBG langCode à variabiliser !
 	}
 
