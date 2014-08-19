@@ -19,6 +19,9 @@ public class PropertiesManager {
 	static {
 		propertiesMap = new HashMap<String, TypedProperties>();
 	}
+
+	private PropertiesManager () {
+	}
 	
 	public static void init(String propertiesKey) {
 		TypedProperties properties = new TypedProperties();
@@ -68,8 +71,5 @@ public class PropertiesManager {
 			return fallback;
 		}
 		return properties.getStringProperty(name, fallback);
-	}
-
-	private PropertiesManager () {
 	}
 }
