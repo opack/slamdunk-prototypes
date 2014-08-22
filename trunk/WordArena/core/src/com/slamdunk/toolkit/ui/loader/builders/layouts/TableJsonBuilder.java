@@ -112,26 +112,31 @@ public class TableJsonBuilder extends LayoutJsonBuilder {
 	}
 	
 	private void parseCellProperties(JsonValue jsonCell, Cell<?> cell) {
-		if (jsonCell.has("width")) {
-			cell.width(jsonCell.getFloat("width"));
+		parseCellWidth(jsonCell, cell);
+		parseCellColspan(jsonCell, cell);
+		parseCellExpand(jsonCell, cell);
+		parseCellExpandXY(jsonCell, cell);
+		parseCellFill(jsonCell, cell);
+		parseCellFillXY(jsonCell, cell);
+		parseCellAlign(jsonCell, cell);
+		parseCellPad(jsonCell, cell);
+		parseCellPadTLBR(jsonCell, cell);
+	}
+
+	private void parseCellPadTLBR(JsonValue jsonCell, Cell<?> cell) {
+		if (jsonCell.has("pad-tlbr")) {
+			JsonValue padValues = jsonCell.get("pad-tlbr");
+			cell.pad(padValues.getFloat(0), padValues.getFloat(1), padValues.getFloat(2), padValues.getFloat(3));
 		}
-		if (jsonCell.has("colspan")) {
-			cell.colspan(jsonCell.getInt("colspan"));
+	}
+
+	private void parseCellPad(JsonValue jsonCell, Cell<?> cell) {
+		if (jsonCell.has("pad")) {
+			cell.pad(jsonCell.getFloat("pad"));
 		}
-		if (jsonCell.has("expand")) {
-			cell.expand();
-		}
-		if (jsonCell.has("expand-xy")) {
-			JsonValue expandValues = jsonCell.get("expand-xy");
-			cell.expand(expandValues.getBoolean(0), expandValues.getBoolean(1));
-		}
-		if (jsonCell.has("fill")) {
-			cell.fill();
-		}
-		if (jsonCell.has("fill-xy")) {
-			JsonValue fillValues = jsonCell.get("fill-xy");
-			cell.fill(fillValues.getBoolean(0), fillValues.getBoolean(1));
-		}
+	}
+
+	private void parseCellAlign(JsonValue jsonCell, Cell<?> cell) {
 		if (jsonCell.has("align")) {
 			String align = jsonCell.getString("align");
 			if ("top".equals(align)) {
@@ -143,14 +148,71 @@ public class TableJsonBuilder extends LayoutJsonBuilder {
 			} else if ("right".equals(align)) {
 				cell.right();
 			}
+		}
+	}
+
+	/**
+	 * Prend un tableau de 2 entrées. Chaque valeur peut être
+	 * float ou boolean.
+	 * Si float, indique le pourcentage (0.0-1.0) de la
+	 * largeur/hauteur à occuper.
+	 * Si boolean, true représente 1.0 et false représente 0.0.
+	 */
+	private void parseCellFillXY(JsonValue jsonCell, Cell<?> cell) {
+		if (jsonCell.has("fill-xy")) {
+			JsonValue fillValues = jsonCell.get("fill-xy");
 			
+			float fillX = parseFillFromJson(fillValues.get(0));
+			float fillY = parseFillFromJson(fillValues.get(1));
+			cell.fill(fillX, fillY);
 		}
-		if (jsonCell.has("pad")) {
-			cell.pad(jsonCell.getFloat("pad"));
+	}
+	
+	/**
+	 * La valeur peut être float ou boolean.
+	 * Si float, indique le pourcentage (0.0-1.0) de la
+	 * largeur/hauteur à occuper.
+	 * Si boolean, true représente 1.0 et false représente 0.0.
+	 * @return
+	 */
+	private float parseFillFromJson(JsonValue jsonValue) {
+		float fill = 0;
+		if (jsonValue.isNumber()) {
+			fill = jsonValue.asFloat();
+		} else if (jsonValue.isBoolean() && jsonValue.asBoolean()) {
+			fill = 1;
 		}
-		if (jsonCell.has("pad-tlbr")) {
-			JsonValue padValues = jsonCell.get("pad-tlbr");
-			cell.pad(padValues.getFloat(0), padValues.getFloat(1), padValues.getFloat(2), padValues.getFloat(3));
+		return fill;
+	}
+
+	private void parseCellFill(JsonValue jsonCell, Cell<?> cell) {
+		if (jsonCell.has("fill")) {
+			cell.fill();
+		}
+	}
+
+	private void parseCellExpandXY(JsonValue jsonCell, Cell<?> cell) {
+		if (jsonCell.has("expand-xy")) {
+			JsonValue expandValues = jsonCell.get("expand-xy");
+			cell.expand(expandValues.getBoolean(0), expandValues.getBoolean(1));
+		}
+	}
+
+	private void parseCellExpand(JsonValue jsonCell, Cell<?> cell) {
+		if (jsonCell.has("expand")) {
+			cell.expand();
+		}
+	}
+
+	private void parseCellColspan(JsonValue jsonCell, Cell<?> cell) {
+		if (jsonCell.has("colspan")) {
+			cell.colspan(jsonCell.getInt("colspan"));
+		}
+	}
+
+	private void parseCellWidth(JsonValue jsonCell, Cell<?> cell) {
+		if (jsonCell.has("width")) {
+			cell.width(jsonCell.getFloat("width"));
 		}
 	}
 }

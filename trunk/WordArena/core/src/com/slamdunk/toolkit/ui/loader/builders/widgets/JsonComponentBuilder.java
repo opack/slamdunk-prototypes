@@ -235,6 +235,10 @@ public abstract class JsonComponentBuilder {
 		return actorDescription.getInt(property);
 	}
 	
+	protected float getFloatProperty(String property) {
+		return actorDescription.getFloat(property);
+	}
+	
 	protected JsonValue getJsonProperty(String property) {
 		return actorDescription.get(property);
 	}
@@ -250,7 +254,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * Retourne la valeur de la table values associée à la clé key.
 	 * Si cette valeur est un objet, la valeur correspondant à
-	 * la clé discriminant est retournée.
+	 * la clé <code>discriminant</code> est retournée.
 	 * 
 	 * @param key
 	 * @param discriminant

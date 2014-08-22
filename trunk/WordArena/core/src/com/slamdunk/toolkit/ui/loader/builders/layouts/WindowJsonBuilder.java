@@ -1,13 +1,9 @@
 package com.slamdunk.toolkit.ui.loader.builders.layouts;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
-import com.badlogic.gdx.utils.JsonReader;
-import com.badlogic.gdx.utils.JsonValue;
 import com.slamdunk.toolkit.ui.loader.JsonUIBuilder;
 
 public class WindowJsonBuilder extends TableJsonBuilder {
@@ -23,13 +19,6 @@ public class WindowJsonBuilder extends TableJsonBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère la propriété layout.
-		// Cela doit être fait AVANT l'appel à super.build() car
-		// si un layout est spécifié alors on va inclure son contenu
-		// dans actorDescription de façon à déléguer la création
-		// des widgets à TableJsonBuilder.
-		parseLayout();
-		
 		// Gère les propriétés basiques du widget et celles de Table
 		Window window = (Window)super.build(skin);
 		
@@ -105,27 +94,6 @@ public class WindowJsonBuilder extends TableJsonBuilder {
 				alignInt = Align.center;
 			}
 			window.setTitleAlignment(alignInt);
-		}
-	}
-
-	private void parseLayout() {
-		if (hasProperty("layout")) {
-			// Ouverture du fichier
-			String layout = getStringProperty("layout");
-			FileHandle file = Gdx.files.internal(layout);
-			
-			// Lecture de la racine
-			JsonValue root = new JsonReader().parse(file);
-			
-			// Recherche de la dernière propriété de actorDescription
-			JsonValue lastActorDescriptionEntry;
-			for (lastActorDescriptionEntry = getWidgetDescription().child; lastActorDescriptionEntry.next != null; lastActorDescriptionEntry = lastActorDescriptionEntry.next);
-			
-			// Ajout du layout à la fin de actorDescription
-			for (JsonValue entry = root.child; entry != null; entry = entry.next) {
-				lastActorDescriptionEntry.next = entry;
-				lastActorDescriptionEntry = entry;
-			}
 		}
 	}
 }
