@@ -1,4 +1,4 @@
-package com.slamdunk.toolkit.ui.loader.builders;
+package com.slamdunk.toolkit.ui.loader.builders.widgets;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;

@@ -1,4 +1,4 @@
-package com.slamdunk.toolkit.ui.loader.builders;
+package com.slamdunk.toolkit.ui.loader.builders.widgets;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -33,14 +33,14 @@ public class TextButtonJsonBuilder extends JsonComponentBuilder {
 
 	protected void parseText(TextButton button) {
 		if (hasProperty("text")) {
-			button.setText(actorDescription.getString("text"));
+			button.setText(getStringProperty("text"));
 		}
 	}
 	
 	protected void parseTextKey(TextButton button) {
 		if (hasProperty("text-key")) {
-			String key = actorDescription.getString("text-key");
-			button.setText(getValueString(key, language));
+			String key = getStringProperty("text-key");
+			button.setText(getStringValue(key, language));
 		}
 	}
 }

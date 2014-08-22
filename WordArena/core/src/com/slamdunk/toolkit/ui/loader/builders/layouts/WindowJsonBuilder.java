@@ -1,4 +1,4 @@
-package com.slamdunk.toolkit.ui.loader.builders;
+package com.slamdunk.toolkit.ui.loader.builders.layouts;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -59,43 +59,43 @@ public class WindowJsonBuilder extends TableJsonBuilder {
 
 	private void parseResizeBorder(Window window) {
 		if (hasProperty("resize-border")) {
-			window.setResizeBorder(actorDescription.getInt("resize-border"));
+			window.setResizeBorder(getIntProperty("resize-border"));
 		}
 	}
 
 	private void parseResizable(Window window) {
 		if (hasProperty("resizable")) {
-			window.setResizable(actorDescription.getBoolean("resizable"));
+			window.setResizable(getBooleanProperty("resizable"));
 		}
 	}
 
 	private void parseKeepWithinStage(Window window) {
 		if (hasProperty("keep-within-stage")) {
-			window.setKeepWithinStage(actorDescription.getBoolean("keep-within-stage"));
+			window.setKeepWithinStage(getBooleanProperty("keep-within-stage"));
 		}
 	}
 
 	private void parseModal(Window window) {
 		if (hasProperty("modal")) {
-			window.setModal(actorDescription.getBoolean("modal"));
+			window.setModal(getBooleanProperty("modal"));
 		}
 	}
 
 	private void parseMovable(Window window) {
 		if (hasProperty("movable")) {
-			window.setMovable(actorDescription.getBoolean("movable"));
+			window.setMovable(getBooleanProperty("movable"));
 		}
 	}
 
 	private void parseTitle(Window window) {
 		if (hasProperty("title")) {
-			window.setTitle(actorDescription.getString("title"));
+			window.setTitle(getStringProperty("title"));
 		}
 	}
 	
 	private void parseTitleAlign(Window window) {
 		if (hasProperty("title-align")) {
-			String align = actorDescription.getString("title-align");
+			String align = getStringProperty("title-align");
 			int alignInt = 0;
 			if ("left".equals(align)) {
 				alignInt = Align.left;
@@ -111,7 +111,7 @@ public class WindowJsonBuilder extends TableJsonBuilder {
 	private void parseLayout() {
 		if (hasProperty("layout")) {
 			// Ouverture du fichier
-			String layout = actorDescription.getString("layout");
+			String layout = getStringProperty("layout");
 			FileHandle file = Gdx.files.internal(layout);
 			
 			// Lecture de la racine
@@ -119,7 +119,7 @@ public class WindowJsonBuilder extends TableJsonBuilder {
 			
 			// Recherche de la dernière propriété de actorDescription
 			JsonValue lastActorDescriptionEntry;
-			for (lastActorDescriptionEntry = actorDescription.child; lastActorDescriptionEntry.next != null; lastActorDescriptionEntry = lastActorDescriptionEntry.next);
+			for (lastActorDescriptionEntry = getWidgetDescription().child; lastActorDescriptionEntry.next != null; lastActorDescriptionEntry = lastActorDescriptionEntry.next);
 			
 			// Ajout du layout à la fin de actorDescription
 			for (JsonValue entry = root.child; entry != null; entry = entry.next) {

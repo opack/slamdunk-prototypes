@@ -1,4 +1,4 @@
-package com.slamdunk.toolkit.ui.loader.builders;
+package com.slamdunk.toolkit.ui.loader.builders.widgets;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -9,8 +9,8 @@ import com.badlogic.gdx.utils.JsonValue;
  * Doit être stateless !!!
  */
 public abstract class JsonComponentBuilder {
-	protected JsonValue actorDescription;
-	protected JsonValue values;
+	private JsonValue actorDescription;
+	private JsonValue values;
 	
 	public JsonValue getWidgetDescription() {
 		return actorDescription;
@@ -223,6 +223,30 @@ public abstract class JsonComponentBuilder {
 		return actorDescription.get(property) != null;
 	}
 	
+	protected String getStringProperty(String property) {
+		return actorDescription.getString(property);
+	}
+	
+	protected boolean getBooleanProperty(String property) {
+		return actorDescription.getBoolean(property);
+	}
+	
+	protected int getIntProperty(String property) {
+		return actorDescription.getInt(property);
+	}
+	
+	protected JsonValue getJsonProperty(String property) {
+		return actorDescription.get(property);
+	}
+	
+	protected String getStringValue(String key) {
+		return values.getString(key);
+	}
+	
+	protected boolean getBooleanValue(String key) {
+		return values.getBoolean(key);
+	}
+	
 	/**
 	 * Retourne la valeur de la table values associée à la clé key.
 	 * Si cette valeur est un objet, la valeur correspondant à
@@ -232,7 +256,7 @@ public abstract class JsonComponentBuilder {
 	 * @param discriminant
 	 * @return
 	 */
-	protected String getValueString(String key, String discriminant) {
+	protected String getStringValue(String key, String discriminant) {
 		JsonValue value = values.get(key);
 		if (value.isString()) {
 			return value.asString();

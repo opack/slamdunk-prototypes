@@ -1,4 +1,4 @@
-package com.slamdunk.toolkit.ui.loader.builders;
+package com.slamdunk.toolkit.ui.loader.builders.widgets;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -39,27 +39,27 @@ public class LabelJsonBuilder extends JsonComponentBuilder {
 
 	protected void parseText(Label label) {
 		if (hasProperty("text")) {
-			label.setText(actorDescription.getString("text"));
+			label.setText(getStringProperty("text"));
 		}
 	}
 	
 	protected void parseTextKey(Label label) {
 		if (hasProperty("text-key")) {
-			String key = actorDescription.getString("text-key");
-			label.setText(getValueString(key, language));
+			String key = getStringProperty("text-key");
+			label.setText(getStringValue(key, language));
 		}
 	}
 	
 	protected void parseAlign(Label label) {
 		if (hasProperty("align")) {
-			applyAlign(label, actorDescription.getString("align"));
+			applyAlign(label, getStringProperty("align"));
 		}
 	}
 	
 	protected void parseAlignKey(Label label) {
 		if (hasProperty("align-key")) {
-			String key = actorDescription.getString("align-key");
-			applyAlign(label, values.getString(key));
+			String align = getStringValue("align-key");
+			applyAlign(label, align);
 		}
 	}
 	
@@ -83,14 +83,14 @@ public class LabelJsonBuilder extends JsonComponentBuilder {
 	
 	protected void parseWrap(Label label) {
 		if (hasProperty("wrap")) {
-			label.setWrap(actorDescription.getBoolean("wrap"));
+			label.setWrap(getBooleanProperty("wrap"));
 		}
 	}
 	
 	protected void parseWrapKey(Label label) {
 		if (hasProperty("wrap-key")) {
-			String key = actorDescription.getString("wrap-key");
-			label.setWrap(values.getBoolean(key));
+			boolean wrap = getBooleanValue("wrap-key");
+			label.setWrap(wrap);
 		}
 	}
 }
