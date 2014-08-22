@@ -9,12 +9,6 @@
 				fill-xy: [0.75, 0.25],
 				expand-xy: [true, true]
 			},
-			COMMENTED-columnDefaults: {
-				comment: "Cette propriété correspond à la méthode Table.columnDefaults(). A décommenter pour rendre active.",
-				1: {
-					width: 200
-				}
-			},
 			rows: [
 				{
 					cells: [
