@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 /**
- * Ce group permet quelques petites choses de plus
+ * Ce Group permet quelques petites choses de plus
  * que le Group de LibGDX, comme par exemple
  * retourner une taille cohérente avec les acteurs
  * contenus dedans.

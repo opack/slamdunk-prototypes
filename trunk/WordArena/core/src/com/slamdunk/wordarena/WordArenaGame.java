@@ -1,6 +1,6 @@
 package com.slamdunk.wordarena;
 
-import com.slamdunk.toolkit.game.SlamGame;
+import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.wordarena.screens.HomeScreen;
 
 public class WordArenaGame extends SlamGame {

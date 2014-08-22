@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.slamdunk.utils.graphics.point.Point;
+import com.slamdunk.toolkit.world.point.Point;
 
 /**
  * Classe fournissant des fonctionnalités supplémentaires à une animation,
