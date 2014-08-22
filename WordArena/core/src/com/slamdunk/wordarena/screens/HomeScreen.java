@@ -1,6 +1,6 @@
 package com.slamdunk.wordarena.screens;
 
-import com.slamdunk.toolkit.game.SlamScreen;
+import com.slamdunk.toolkit.screen.SlamScreen;
 
 public class HomeScreen extends SlamScreen {
 

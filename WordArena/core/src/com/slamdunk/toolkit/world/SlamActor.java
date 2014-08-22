@@ -3,9 +3,9 @@ package com.slamdunk.toolkit.world;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.slamdunk.toolkit.drawers.AnimationDrawer;
-import com.slamdunk.toolkit.drawers.ParticleDrawer;
-import com.slamdunk.toolkit.drawers.TextureDrawer;
+import com.slamdunk.toolkit.graphics.drawers.AnimationDrawer;
+import com.slamdunk.toolkit.graphics.drawers.ParticleDrawer;
+import com.slamdunk.toolkit.graphics.drawers.TextureDrawer;
 import com.slamdunk.toolkit.settings.SlamViewportSettings;
 
 public class SlamActor extends Actor {
