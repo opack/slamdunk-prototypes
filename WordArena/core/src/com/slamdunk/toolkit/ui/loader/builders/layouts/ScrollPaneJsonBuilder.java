@@ -24,6 +24,7 @@ public class ScrollPaneJsonBuilder extends LayoutJsonBuilder {
 		// Gère la propriété widget
 		parseWidget(scrollPane);
 		
+		scrollPane.pack();
 		return scrollPane;
 	}
 
