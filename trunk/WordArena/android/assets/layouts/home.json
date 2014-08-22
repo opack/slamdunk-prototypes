@@ -1,0 +1,55 @@
+{
+	widgets: [
+		{
+			class: Table,
+			name: table-buttons,
+			fill-parent: true,
+			COMMENTED-defaults: {
+				comment: "Cette propriété correspond à la méthode Table.defaults(). A décommenter pour rendre active.",
+				width: 100,
+			},
+			COMMENTED-columnDefaults: {
+				comment: "Cette propriété correspond à la méthode Table.columnDefaults(). A décommenter pour rendre active.",
+				1: {
+					width: 200
+				}
+			},
+			rows: [
+				{
+					pad-tlbr: [0, 0, 10, 0],
+					cells: [
+						{
+							widget: {
+								class: TextButton,
+								name: play,
+								text-key: btn-play
+							}
+						}
+					]
+				},
+				{
+					pad-tlbr: [0, 0, 10, 0],
+					cells: [
+						{
+							widget: {
+								class: TextButton,
+								name: quit,
+								text-key: btn-quit
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	values: {
+		btn-play: {
+			en: "Play",
+			fr: "Jouer"
+		},
+		btn-quit: {
+			en: "Quit",
+			fr: "Quitter"
+		}
+	}
+}

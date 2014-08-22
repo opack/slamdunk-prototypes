@@ -1,5 +1,12 @@
 package com.slamdunk.toolkit.settings;
 
+import com.slamdunk.toolkit.settings.values.FacebookAccountSetting;
+import com.slamdunk.toolkit.settings.values.LanguageSetting;
+import com.slamdunk.toolkit.settings.values.MusicActivatedSetting;
+import com.slamdunk.toolkit.settings.values.MusicVolumeSetting;
+import com.slamdunk.toolkit.settings.values.SfxActivatedSetting;
+import com.slamdunk.toolkit.settings.values.SfxVolumeSetting;
+
 
 /**
  * Contient les différents réglages de l'application
@@ -23,6 +30,7 @@ public class SlamSettings {
 	public static MusicActivatedSetting MUSIC_ACTIVATED;
 	public static MusicVolumeSetting MUSIC_VOLUME;
 	public static FacebookAccountSetting FACEBOOK_ACCOUNT;
+	public static LanguageSetting LANGUAGE;
 	
 	public static void init(String preferencesTag) {
 		PreferencesManager preferences = new PreferencesManager(preferencesTag);
@@ -32,5 +40,6 @@ public class SlamSettings {
 		MUSIC_ACTIVATED = new MusicActivatedSetting(preferences);
 		MUSIC_VOLUME = new MusicVolumeSetting(preferences);
 		FACEBOOK_ACCOUNT = new FacebookAccountSetting(preferences);
+		LANGUAGE = new LanguageSetting(preferences);
 	}
 }

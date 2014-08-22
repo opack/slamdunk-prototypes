@@ -1,4 +1,4 @@
-package com.slamdunk.toolkit.ui.loader.builders;
+package com.slamdunk.toolkit.ui.loader.builders.widgets;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -25,7 +25,7 @@ public class ImageJsonBuilder extends JsonComponentBuilder {
 
 	private void parseImage(Skin skin, Image image) {
 		if (hasProperty("image")) {
-			String atlasRegionName = actorDescription.getString("image");
+			String atlasRegionName = getStringProperty("image");
 			if (skin.has(atlasRegionName, Drawable.class)) {
 				Drawable drawable = skin.getDrawable(atlasRegionName);
 				image.setDrawable(drawable);

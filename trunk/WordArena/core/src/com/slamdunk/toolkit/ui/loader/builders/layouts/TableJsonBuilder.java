@@ -1,4 +1,4 @@
-package com.slamdunk.toolkit.ui.loader.builders;
+package com.slamdunk.toolkit.ui.loader.builders.layouts;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
@@ -7,11 +7,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.JsonValue;
 import com.slamdunk.toolkit.ui.loader.JsonUIBuilder;
 
-public class TableJsonBuilder extends JsonComponentBuilder {
-	protected JsonUIBuilder creator;
+public class TableJsonBuilder extends LayoutJsonBuilder {
 	
 	public TableJsonBuilder(JsonUIBuilder creator) {
-		this.creator = creator;
+		super(creator);
 	}
 
 	@Override
@@ -45,7 +44,7 @@ public class TableJsonBuilder extends JsonComponentBuilder {
 	
 	private void parseColumnDefaults(Table table) {
 		if (hasProperty("columnDefaults")) {
-			JsonValue allColumnDefaults = actorDescription.get("columnDefaults");
+			JsonValue allColumnDefaults = getJsonProperty("columnDefaults");
 			JsonValue columnDefaults;
 			Cell<?> defaultsCell;
 			for (int curDef = 0; curDef < allColumnDefaults.size; curDef++) {
@@ -59,25 +58,25 @@ public class TableJsonBuilder extends JsonComponentBuilder {
 	private void parseDefaults(Table table) {
 		if (hasProperty("defaults")) {
 			Cell<?> defaultsCell = table.defaults();
-			parseCellProperties(actorDescription.get("defaults"), defaultsCell);
+			parseCellProperties(getJsonProperty("defaults"), defaultsCell);
 		}
 	}
 
 	private void parseDebug(Table table) {
 		if (hasProperty("debug")) {
-			table.setDebug(actorDescription.getBoolean("debug"));
+			table.setDebug(getBooleanProperty("debug"));
 		}
 	}
 
 	private void parseFillParent(Table table) {
 		if (hasProperty("fill-parent")) {
-			table.setFillParent(actorDescription.getBoolean("fill-parent"));
+			table.setFillParent(getBooleanProperty("fill-parent"));
 		}
 	}
 
 	private void parseRows(Table table) {
 		if (hasProperty("rows")) {
-			JsonValue rows = actorDescription.get("rows");
+			JsonValue rows = getJsonProperty("rows");
 			JsonValue row;
 			// Parcours toutes les lignes...
 			for (int curRow = 0; curRow < rows.size; curRow++) {
@@ -105,7 +104,7 @@ public class TableJsonBuilder extends JsonComponentBuilder {
 
 	private void parseCell(JsonValue jsonCell, Table table) {
 		// Crée le widget qui ira dans la cellule
-		Actor widget = creator.build(jsonCell.get("widget"));
+		Actor widget = getCreator().build(jsonCell.get("widget"));
 		
 		// Crée la cellule et lui applique les propriétés voulues
 		Cell<Actor> cell = table.add(widget);

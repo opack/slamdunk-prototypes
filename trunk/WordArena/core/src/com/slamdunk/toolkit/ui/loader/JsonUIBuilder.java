@@ -9,15 +9,17 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.slamdunk.toolkit.ui.loader.builders.GroupJsonBuilder;
-import com.slamdunk.toolkit.ui.loader.builders.ImageJsonBuilder;
-import com.slamdunk.toolkit.ui.loader.builders.JsonComponentBuilder;
-import com.slamdunk.toolkit.ui.loader.builders.LabelJsonBuilder;
-import com.slamdunk.toolkit.ui.loader.builders.ScrollPaneJsonBuilder;
-import com.slamdunk.toolkit.ui.loader.builders.TableJsonBuilder;
-import com.slamdunk.toolkit.ui.loader.builders.TextButtonJsonBuilder;
-import com.slamdunk.toolkit.ui.loader.builders.TextFieldJsonBuilder;
-import com.slamdunk.toolkit.ui.loader.builders.WindowJsonBuilder;
+import com.slamdunk.toolkit.settings.SlamSettings;
+import com.slamdunk.toolkit.ui.loader.builders.layouts.ScrollPaneJsonBuilder;
+import com.slamdunk.toolkit.ui.loader.builders.layouts.TableJsonBuilder;
+import com.slamdunk.toolkit.ui.loader.builders.layouts.VerticalGroupJsonBuilder;
+import com.slamdunk.toolkit.ui.loader.builders.layouts.WindowJsonBuilder;
+import com.slamdunk.toolkit.ui.loader.builders.widgets.GroupJsonBuilder;
+import com.slamdunk.toolkit.ui.loader.builders.widgets.ImageJsonBuilder;
+import com.slamdunk.toolkit.ui.loader.builders.widgets.JsonComponentBuilder;
+import com.slamdunk.toolkit.ui.loader.builders.widgets.LabelJsonBuilder;
+import com.slamdunk.toolkit.ui.loader.builders.widgets.TextButtonJsonBuilder;
+import com.slamdunk.toolkit.ui.loader.builders.widgets.TextFieldJsonBuilder;
 
 /**
  * Crée l'IHM à partir d'un descripteur JSON.
@@ -48,14 +50,18 @@ public class JsonUIBuilder {
 	 */
 	private void initBuilders() {
 		builders = new HashMap<String, JsonComponentBuilder>();
-		builders.put("Label", new LabelJsonBuilder("fr"));// DBG langCode à variabiliser !
-		builders.put("TextButton", new TextButtonJsonBuilder("fr"));// DBG langCode à variabiliser !
-		builders.put("ScrollPane", new ScrollPaneJsonBuilder());
-		builders.put("Image", new ImageJsonBuilder());
-		builders.put("Group", new GroupJsonBuilder());
+		
+		builders.put("ScrollPane", new ScrollPaneJsonBuilder(this));
 		builders.put("Table", new TableJsonBuilder(this));
+		builders.put("VerticalGroup", new VerticalGroupJsonBuilder(this));
 		builders.put("Window", new WindowJsonBuilder(this));
-		builders.put("TextField", new TextFieldJsonBuilder("fr"));// DBG langCode à variabiliser !
+		
+		final String lang = SlamSettings.LANGUAGE.get();
+		builders.put("Group", new GroupJsonBuilder());
+		builders.put("Image", new ImageJsonBuilder());
+		builders.put("Label", new LabelJsonBuilder(lang));
+		builders.put("TextButton", new TextButtonJsonBuilder(lang));
+		builders.put("TextField", new TextFieldJsonBuilder(lang));
 	}
 
 	/**

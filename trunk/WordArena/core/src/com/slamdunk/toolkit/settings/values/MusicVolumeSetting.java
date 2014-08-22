@@ -1,4 +1,7 @@
-package com.slamdunk.toolkit.settings;
+package com.slamdunk.toolkit.settings.values;
+
+import com.slamdunk.toolkit.settings.FloatSetting;
+import com.slamdunk.toolkit.settings.PreferencesManager;
 
 public class MusicVolumeSetting extends FloatSetting {
 

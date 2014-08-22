@@ -8,7 +8,7 @@ public class HomeScreen extends SlamScreen {
 		// On va utiliser une couche de contrôles
 		setupUIOverlay();
 		// Chargement d'une interface déclarée dans un fichier externe
-		getUIOverlay().loadLayout("layouts/layout.json");
+		getUIOverlay().loadLayout("layouts/home.json");
 	}
 	
 	@Override
