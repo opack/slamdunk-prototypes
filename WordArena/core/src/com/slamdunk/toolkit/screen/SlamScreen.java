@@ -1,34 +1,31 @@
 package com.slamdunk.toolkit.screen;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
-import com.slamdunk.toolkit.screen.overlays.MiniMapOverlay;
-import com.slamdunk.toolkit.screen.overlays.SlamStageOverlay;
-import com.slamdunk.toolkit.screen.overlays.UIOverlay;
-import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
+import com.slamdunk.toolkit.screen.overlays.SlamOverlay;
 
 /**
  * Représente un écran du jeu. Cet écran peut contenir plusieurs couches (monde, IHM, minimap...).
  */
 public abstract class SlamScreen implements Screen, InputProcessor {
-	public static final String DEFAULT_SKIN = "skins/uiskin/uiskin.json";
 	private SlamGame game;
 	
-	private WorldOverlay worldOverlay;
-	private UIOverlay uiOverlay;
-	private MiniMapOverlay minimapOverlay;
+	private List<SlamOverlay> overlays;
 	private InputMultiplexer inputMux;
 	
 	private boolean backButtonActive;
 	
 	public SlamScreen() {
+		// Création de la liste d'overlays
+		overlays = new ArrayList<SlamOverlay>();
+		
 		// Création de l'input processor
 		inputMux = new InputMultiplexer();
 		inputMux.addProcessor(this);
@@ -36,77 +33,17 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	}
 	
 	/**
-	 * Initialise un overlay et ajoute son stage aux input processors
+	 * Ajoute un overlay à la liste et enregistre son input processor
 	 * @param overlay
-	 * @param processInputs Si true, alors le stage est ajouté aux input processors
 	 */
-	private void setupOverlay(SlamStageOverlay overlay, Viewport viewport) {
-		// Initialisation de la couche
-		overlay.createStage(viewport);
+	public void addOverlay(SlamOverlay overlay) {
+		// Ajout de la couche à la liste
+		overlays.add(overlay);
 		
-		// Ajout du Stage de cette couche en tant qu'input processor
+		// Ajout de l'input processor de cette couche
 		if (overlay.isProcessInputs()) {
-			inputMux.addProcessor(overlay.getStage());
+			inputMux.addProcessor(overlay.getInputProcessor());
 		}
-	}
-	
-	/**
-	 * Crée un overlay destiné à afficher le monde
-	 */
-	public void setupWorldOverlay() {
-		// Création de la couche
-		worldOverlay = new WorldOverlay();
-		setupOverlay(worldOverlay, new ScreenViewport());
-	}
-	
-	public WorldOverlay getWorldOverlay() {
-		return worldOverlay;
-	}
-	
-	/**
-	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
-	 * Cet overlay sera positionné à l'emplacement indiqué et aura la taille indiquée.
-	 */
-	public void setupUIOverlay(Viewport viewport) {
-		// Création de la couche
-		uiOverlay = new UIOverlay();
-		Skin uiSkin = new Skin(Gdx.files.internal(DEFAULT_SKIN));
-		uiOverlay.setSkin(uiSkin);
-		setupOverlay(uiOverlay, viewport);
-	}
-	
-	/**
-	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
-	 * Cet overlay s'étalera sur toute la surface de l'écran.
-	 */
-	public void setupUIOverlay() {
-		setupUIOverlay(new ScreenViewport());
-	}
-	
-	public UIOverlay getUIOverlay() {
-		return uiOverlay;
-	}
-	
-	/**
-	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
-	 * Cet overlay sera positionné à l'emplacement indiqué et aura la taille indiquée.
-	 */
-	public void setupMiniMapOverlay(Viewport viewport) {
-		// Création de la couche
-		minimapOverlay = new MiniMapOverlay();
-		setupOverlay(minimapOverlay, viewport);
-	}
-	
-	/**
-	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
-	 * Cet overlay s'étalera sur toute la surface de l'écran.
-	 */
-	public void setupMiniMapOverlay() {
-		setupMiniMapOverlay(new ScreenViewport());
-	}
-	
-	public MiniMapOverlay getMiniMapOverlay() {
-		return minimapOverlay;
 	}
 	
 	/**
@@ -178,25 +115,13 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		// Fait agir les acteurs (mise à jour de la logique du jeu)
-		if (worldOverlay != null) {
-			worldOverlay.act(delta);
-		}
-		if (uiOverlay != null) {
-			uiOverlay.act(delta);
-		}
-		if (minimapOverlay != null) {
-			minimapOverlay.act(delta);
+		for (SlamOverlay overlay : overlays) {
+			overlay.act(delta);
 		}
 		
 		// Dessine les couches (affichage de l'état)
-		if (worldOverlay != null) {
-			worldOverlay.draw();
-		}
-		if (uiOverlay != null) {
-			uiOverlay.draw();
-		}
-		if (minimapOverlay != null) {
-			minimapOverlay.draw();
+		for (SlamOverlay overlay : overlays) {
+			overlay.draw();
 		}
 	}
 
@@ -230,14 +155,8 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 
 	@Override
 	public void dispose() {
-		if (worldOverlay != null) {
-			worldOverlay.dispose();
-		}
-		if (uiOverlay != null) {
-			uiOverlay.dispose();
-		}
-		if (minimapOverlay != null) {
-			minimapOverlay.dispose();
+		for (SlamOverlay overlay : overlays) {
+			overlay.dispose();
 		}
 	}
 

@@ -16,7 +16,7 @@ import com.slamdunk.toolkit.ui.loader.JsonUIBuilder;
  * Une couche d'affichage qui a son propre Stage et peut être utilisée
  * pour gérer l'interface utilisateur.
  */
-public class UIOverlay extends SlamStageOverlay {
+public class UIOverlay extends StageOverlay {
 	
 	/**
 	 * Skin utilisée pour dessiner les composants de l'interface
