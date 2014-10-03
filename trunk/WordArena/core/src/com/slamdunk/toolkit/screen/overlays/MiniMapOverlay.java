@@ -1,6 +1,6 @@
 package com.slamdunk.toolkit.screen.overlays;
 
-public class MiniMapOverlay extends SlamStageOverlay {
+public class MiniMapOverlay extends StageOverlay {
 
 	@Override
 	public boolean isProcessInputs() {

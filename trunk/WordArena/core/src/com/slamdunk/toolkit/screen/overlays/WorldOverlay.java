@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.slamdunk.toolkit.world.SlamWorld;
 
 
-public class WorldOverlay extends SlamStageOverlay {
+public class WorldOverlay extends StageOverlay {
 	
 	private SlamWorld world;
 	
