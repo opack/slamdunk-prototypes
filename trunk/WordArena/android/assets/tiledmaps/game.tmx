@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="30" height="24" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" source="Terrain.tsx"/>
+ <layer name="ground" width="30" height="24">
+  <data encoding="base64" compression="zlib">
+   eJy9VMERgzAMg3aStpO0nSSQsP8I5NHc+XRS7FCOhx6E2LJkO/M8TbeLca94VDwJkjg/Ay/gzU4NxZytcGf5g1dh++GovlZTIrzW1+LEe/lH9FrfNuIjgvWE1buSu1GfI+jViT4oXpzlzeSOetmbB8Z7xv6gdvxG3qgWvOvNQgL90f5iXuYh+qTeggjvqOeNq4h4tr/KK7XLzJMs+Eb1Wt7Fyen1WOm1sSy3mjlPG6tH6e3NxBkYmavIjKE2G5ONniiv6h3mVXky/G+8ES2Z8B1926zeQvIy3xLhUzPX0N6ZqM8jUD6z8yO8kT31ZpHxLoG4SG6vv++Kz8X4Vuxj33n6
+  </data>
+ </layer>
+ <layer name="paths" width="30" height="24">
+  <data encoding="base64" compression="zlib">
+   eJxjYBhY4AjETgSwMw3sTQTiJAI4mYb2MgFxExpmpoO92MzGJzdq7/CxV4mBcF4jNS8SYy81MLr5+OxtZMDMW6RiXHmRlnGIz/xRe0ftHbV36NtLjTIYG1YmYC+tMbq91CiDicHNDAMLAEOXYOg=
+  </data>
+ </layer>
+ <objectgroup name="castles">
+  <object name="castle1" x="96" y="352" width="32" height="32"/>
+  <object name="castle2" x="864" y="480" width="32" height="32"/>
+ </objectgroup>
+</map>

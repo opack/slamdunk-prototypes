@@ -62,4 +62,12 @@ public class OverlayFactory {
 	public static UIOverlay createUIOverlay() {
 		return createUIOverlay(new ScreenViewport());
 	}
+	
+	/**
+	 * Crée un overlay destiné à afficher une tiledmap.
+	 * @param pixelsByUnit 
+	 */
+	public static TiledMapOverlay createTiledMapOverlay() {
+		return new TiledMapOverlay();
+	}
 }

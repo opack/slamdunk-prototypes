@@ -48,9 +48,8 @@ public abstract class JsonComponentBuilder {
 		parseName(actor);
 		
 		// Gère la propriété x
-		if (!parseX(actor)) {
-			parseXKey(actor);
-		}
+		parseXKey(actor);
+		parseX(actor);
 		
 		
 		// Gère la propriété y

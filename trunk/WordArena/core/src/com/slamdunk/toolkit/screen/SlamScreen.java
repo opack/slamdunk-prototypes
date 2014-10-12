@@ -131,8 +131,7 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
-		
+		Gdx.input.setInputProcessor(inputMux);
 	}
 
 	@Override

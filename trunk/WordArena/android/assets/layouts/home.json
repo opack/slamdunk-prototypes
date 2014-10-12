@@ -1,6 +1,17 @@
 {
 	widgets: [
 		{
+			class: Popup,
+			name: quit-confirm,
+			visible: false,
+			modal: true,
+			center-on-show: true,
+			layout: layouts/popup-confirm.json,
+			message-widget: message,
+			ok-widget: ok,
+			cancel-widget: cancel
+		},
+		{
 			class: Table,
 			name: table-buttons,
 			fill-parent: true,

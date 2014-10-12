@@ -1,8 +1,11 @@
 package com.slamdunk.toolkit.screen.overlays;
 
 import java.util.LinkedList;
+import java.util.Map;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.EventListener;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -133,14 +136,48 @@ public class UIOverlay extends StageOverlay {
 	 * Charge l'IHM décrite dans le fichier JSON spécifié
 	 * @param string
 	 */
-	public void loadLayout(String layoutFile) {
+	public void loadLayout(String layoutFile, Map<String, EventListener> listeners) {
+		// Crée l'IHM et peuple le stage
 		JsonUIBuilder uiCreator = new JsonUIBuilder(skin);
 		uiCreator.load(layoutFile);
 		uiCreator.populate(getStage());
+		
+		// Ajoute les éventuels listeners aux acteurs
+		if (listeners != null) {
+			setListeners(listeners);
+		}
+	}
+	
+	/**
+	 * Charge l'IHM décrite dans le fichier JSON spécifié
+	 * @param string
+	 */
+	public void loadLayout(String layoutFile) {
+		loadLayout(layoutFile, null);
+	}
+	
+	/**
+	 * Affecte les listeners indiqués aux objets dont le nom correspond à la
+	 * clé de la table.
+	 * @param listeners
+	 */
+	public void setListeners(Map<String, EventListener> listeners) {
+		Group stageRoot = getStage().getRoot();
+		Actor actor;
+		for (Map.Entry<String, EventListener> entry : listeners.entrySet()) {
+			actor = stageRoot.findActor(entry.getKey());
+			if (actor != null) {
+				actor.addListener(entry.getValue());
+			}
+		}
 	}
 
 	@Override
 	public boolean isProcessInputs() {
 		return true;
+	}
+	
+	public Actor getActor(String name) {
+		return getStage().getRoot().findActor(name);
 	}
 }
