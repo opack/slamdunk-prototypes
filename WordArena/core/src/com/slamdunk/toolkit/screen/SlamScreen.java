@@ -22,6 +22,11 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	
 	private boolean backButtonActive;
 	
+	public SlamScreen(SlamGame game) {
+		this();
+		this.game = game;
+	}
+	
 	public SlamScreen() {
 		// Création de la liste d'overlays
 		overlays = new ArrayList<SlamOverlay>();
@@ -83,9 +88,9 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	}
 	
 	/**
-	 * Ajoute un listener au Stage afin de gérer le bouton back.
-	 * Une méthode déléguée sera appelée si le bouton back est
-	 * activé.
+	 * La méthode par défaut dans SlamScreen gère le bouton back en
+	 * appelant la méthode keyBackPressed(), appelée si le bouton back
+	 * est activé.
 	 * @see #keyBackPressed()
 	 */
 	@Override

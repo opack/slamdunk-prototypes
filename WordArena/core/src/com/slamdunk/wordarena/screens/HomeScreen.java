@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.screen.overlays.OverlayFactory;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
@@ -16,7 +17,9 @@ import com.slamdunk.toolkit.ui.Popup;
 
 public class HomeScreen extends SlamScreen {
 
-	public HomeScreen() {
+	public HomeScreen(SlamGame game) {
+		super(game);
+		
 		// On va utiliser une couche de contrôles
 		UIOverlay ui = OverlayFactory.createUIOverlay();
 		// Chargement d'une interface déclarée dans un fichier externe
@@ -24,6 +27,11 @@ public class HomeScreen extends SlamScreen {
 		// Création des listeners qui interprèteront les clics sur les boutons
 		final Popup popup = (Popup)ui.getActor("quit-confirm");
 		Map<String, EventListener> listeners = new HashMap<String, EventListener>();
+		listeners.put("play", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				getGame().setScreen(GameScreen.NAME);
+			}
+		});
 		listeners.put("quit", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				popup.setMessage("Voulez-vous vraiment quitter ?");

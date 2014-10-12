@@ -2,6 +2,7 @@ package com.slamdunk.wordarena;
 
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.settings.SlamSettings;
+import com.slamdunk.wordarena.screens.GameScreen;
 import com.slamdunk.wordarena.screens.HomeScreen;
 
 public class WordArenaGame extends SlamGame {
@@ -14,9 +15,9 @@ public class WordArenaGame extends SlamGame {
 		SlamSettings.init("WordArena");
 		
 		// Crée les écrans
-		HomeScreen home = new HomeScreen();
+		HomeScreen home = new HomeScreen(this);
 		addScreen(home);
-		addScreen(new GameScreen());
+		addScreen(new GameScreen(this));
 		
 		// Affiche le premier écran
 		setScreen(home);
