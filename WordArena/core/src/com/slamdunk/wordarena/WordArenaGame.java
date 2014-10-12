@@ -16,6 +16,7 @@ public class WordArenaGame extends SlamGame {
 		// Crée les écrans
 		HomeScreen home = new HomeScreen();
 		addScreen(home);
+		addScreen(new GameScreen());
 		
 		// Affiche le premier écran
 		setScreen(home);

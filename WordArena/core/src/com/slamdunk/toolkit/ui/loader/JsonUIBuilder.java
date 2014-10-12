@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.slamdunk.toolkit.settings.SlamSettings;
+import com.slamdunk.toolkit.ui.loader.builders.layouts.PopupJsonBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.layouts.ScrollPaneJsonBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.layouts.TableJsonBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.layouts.VerticalGroupJsonBuilder;
@@ -55,6 +56,7 @@ public class JsonUIBuilder {
 		builders.put("Table", new TableJsonBuilder(this));
 		builders.put("VerticalGroup", new VerticalGroupJsonBuilder(this));
 		builders.put("Window", new WindowJsonBuilder(this));
+		builders.put("Popup", new PopupJsonBuilder(this));
 		
 		final String lang = SlamSettings.LANGUAGE.get();
 		builders.put("Group", new GroupJsonBuilder());
