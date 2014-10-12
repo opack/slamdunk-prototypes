@@ -1,7 +1,10 @@
 package com.slamdunk.toolkit.screen.overlays;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -16,7 +19,23 @@ public class TiledMapOverlay implements SlamOverlay {
 
 		@Override
 		public boolean keyUp(int keycode) {
-			return false;
+			switch (keycode) {
+			case Keys.UP:
+				camera.position.y++;
+				break;
+			case Keys.DOWN:
+				camera.position.y--;
+				break;
+			case Keys.LEFT:
+				camera.position.x--;
+				break;
+			case Keys.RIGHT:
+				camera.position.x++;
+				break;
+			default:
+				return false;
+			}
+			return true;
 		}
 
 		@Override
@@ -70,6 +89,9 @@ public class TiledMapOverlay implements SlamOverlay {
 	private OrthographicCamera camera;
 	private TiledMapInputProcessor inputProcessor;
 	
+	private int tileWidth;
+	private int tileHeight;
+	
 	// DBG Params values
 	// mapFile="data/maps/tiled/super-koalio/level1.tmx"
 	// pixelsByUnit=16
@@ -79,6 +101,8 @@ public class TiledMapOverlay implements SlamOverlay {
 		// Charge la carte et définit l'échelle (1 unité ==  pixelsByUnit pixels)
 		map = new TmxMapLoader().load(mapFile);
 		renderer = new OrthogonalTiledMapRenderer(map, 1 / pixelsByUnit);
+		tileWidth = (Integer)map.getProperties().get("tilewidth");
+		tileHeight = (Integer)map.getProperties().get("tileheight");
 		
 		// Crée une caméra qui montre fieldOfViewWidth x fieldOfViewHeight unités du monde 
 		camera = new OrthographicCamera();
@@ -139,9 +163,6 @@ public class TiledMapOverlay implements SlamOverlay {
 		if (map == null) {
 			return;
 		}
-		// DBG let the camera follow the koala, x-axis only
-		//camera.position.x = koala.position.x;
-		
 		// Met à jour les matrices de la caméra
 		camera.update();
 		// Configure le renderer en fonction de ce que voit la caméra
@@ -171,4 +192,28 @@ public class TiledMapOverlay implements SlamOverlay {
 		return camera;
 	}
 
+	public TiledMap getMap() {
+		return map;
+	}
+	
+	/**
+	 * Déplace la caméra pour la centrer sur la case où se trouve l'objet
+	 * indiqué sur la couche indiquée
+	 * @param layerName
+	 * @param objectName
+	 */
+	public void setCameraOnObject(String layerName, String objectName) {
+		MapLayer layer = map.getLayers().get(layerName);
+		MapObject castle1 = layer.getObjects().get(objectName);
+		camera.position.x = convertFromPixelToMapX((Float)castle1.getProperties().get("x"));
+		camera.position.y = convertFromPixelToMapY((Float)castle1.getProperties().get("y"));
+	}
+
+	public float convertFromPixelToMapX(float pixelX) {
+		return pixelX / tileWidth;
+	}
+	
+	public float convertFromPixelToMapY(float pixelY) {
+		return pixelY / tileHeight;
+	}
 }
