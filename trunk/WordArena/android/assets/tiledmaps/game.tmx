@@ -3,15 +3,16 @@
  <tileset firstgid="1" source="Terrain.tsx"/>
  <layer name="ground" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJy9VMERgzAMg3aStpO0nSSQsP8I5NHc+XRS7FCOhx6E2LJkO/M8TbeLca94VDwJkjg/Ay/gzU4NxZytcGf5g1dh++GovlZTIrzW1+LEe/lH9FrfNuIjgvWE1buSu1GfI+jViT4oXpzlzeSOetmbB8Z7xv6gdvxG3qgWvOvNQgL90f5iXuYh+qTeggjvqOeNq4h4tr/KK7XLzJMs+Eb1Wt7Fyen1WOm1sSy3mjlPG6tH6e3NxBkYmavIjKE2G5ONniiv6h3mVXky/G+8ES2Z8B1926zeQvIy3xLhUzPX0N6ZqM8jUD6z8yO8kT31ZpHxLoG4SG6vv++Kz8X4Vuxj33n6
+   eJy9VMERwyAMS9pJ2k7SdhIIsP8I5VHufD4JG8LloUcIlixh2Pdtu12Me8Wj4gkQyPoKvJRuMnrIYu1Qe+IJXYbyx6y/1lMAujLXbNRb/CN+ZW4F5KiBzgT1e4C93pw96PWpc2C6epaL4PZm2ZsHpLvi/mjv+vtMzrHDi/IrE7qaF2Woc2JvgUd3NPOmlUk9ur8sK3aXUSaJ6I36lbrR4LTOmPmVtYg7Glze2ej57c3ECozMlWfGtDdZk4Qfry47O83LeJL633Q9XhLQm33bpN8MeFFuAeixmWto74w35xGwnNH6jK7nnlqziHSjo87DbZ3vu+JzMb4VP6TBebo=
   </data>
  </layer>
- <layer name="paths" width="30" height="24">
+ <layer name="path" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJzt1NsNgCAMBdAGN9FJ1EnUSdSpfA3iaxfrLypFKRASm9wvYg8xtADfaxAAozBogJViMiK59M2K5mboFpiSSGVGKN3z+o2UyIF711t19rvhuIJwY6Bn7e0s6rgckfur3Bqus/U2T7Oocjnq6Y3YfDuhuZPh7v/q7p5cjnLpdvifeuHendFcPLg6/Tl38F0SwrUd2eXYwTppwW8dFrtnag==
+   eJztlMkJgDAQRYfYiVaiVqJWolblVohbL44nIcbsC0g+vFPwvxCZAdDPRABmYlCAyZFCQEl9s6PzMPRWSC2gMVNwvff1O4rEg5fVzTuL3v94UxDPmuosynhtQPfzvC28Z0uVr1l0+Q95/dH7ZDHc/breM5DXRnx6B3ynkfj3rujcAnhl+m3uYBaZwOsa2mtjB8vQQ9hcN1Fo6g==
   </data>
  </layer>
- <objectgroup name="objects">
+ <objectgroup name="sprites"/>
+ <objectgroup name="markers">
   <object name="spawn11" type="path" x="96" y="320" width="32" height="32"/>
   <object name="spawn12" type="path" x="96" y="384" width="32" height="32"/>
   <object name="spawn21" type="path" x="864" y="448" width="32" height="32"/>
