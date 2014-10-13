@@ -1,14 +1,18 @@
 package com.slamdunk.toolkit.screen.overlays;
 
-import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Array;
+import com.slamdunk.toolkit.world.point.Point;
 
 public class TiledMapOverlay implements SlamOverlay {
 	private class TiledMapInputProcessor implements InputProcessor {
@@ -47,30 +51,33 @@ public class TiledMapOverlay implements SlamOverlay {
 		public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 			Vector3 clickCoordinates = new Vector3(screenX,screenY,0);
 		    Vector3 worldPosition = camera.unproject(clickCoordinates);
-		    // TODO Déterminer la tuile touchée
-			int tileX = 0;
-			int tileY = 0;
-			return TiledMapOverlay.this.tileTouchDown(worldPosition, tileX, tileY);
+		    Point mapPosition = new Point(
+		    	(int)(worldPosition.x * pixelsByTile / tileWidth),
+		    	(int)(worldPosition.y * pixelsByTile / tileHeight));
+		    
+			return TiledMapOverlay.this.tileTouchDown(worldPosition, mapPosition);
 		}
 
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
 			Vector3 clickCoordinates = new Vector3(screenX,screenY,0);
 		    Vector3 worldPosition = camera.unproject(clickCoordinates);
-	    	// TODO Déterminer la tuile touchée
-			int tileX = 0;
-			int tileY = 0;
-			return TiledMapOverlay.this.tileTouchUp(worldPosition, tileX, tileY);
+		    Point mapPosition = new Point(
+		    	(int)(worldPosition.x * pixelsByTile / tileWidth),
+		    	(int)(worldPosition.y * pixelsByTile / tileHeight));
+		    
+			return TiledMapOverlay.this.tileTouchUp(worldPosition, mapPosition);
 		}
 
 		@Override
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
 			Vector3 clickCoordinates = new Vector3(screenX,screenY,0);
 		    Vector3 worldPosition = camera.unproject(clickCoordinates);
-		    // TODO Déterminer la tuile touchée
-			int tileX = 0;
-			int tileY = 0;
-			return TiledMapOverlay.this.tileTouchDragged(worldPosition, tileX, tileY);
+		    Point mapPosition = new Point(
+		    	(int)(worldPosition.x * pixelsByTile / tileWidth),
+		    	(int)(worldPosition.y * pixelsByTile / tileHeight));
+		    
+			return TiledMapOverlay.this.tileTouchDragged(worldPosition, mapPosition);
 		}
 
 		@Override
@@ -91,26 +98,48 @@ public class TiledMapOverlay implements SlamOverlay {
 	
 	private int tileWidth;
 	private int tileHeight;
+	private float pixelsByTile;
 	
-	// DBG Params values
-	// mapFile="data/maps/tiled/super-koalio/level1.tmx"
-	// pixelsByUnit=16
-	// fieldOfViewWidth=30
-	// fieldOfViewHeight=20
+	/**
+	 * Charge la carte depuis le fichier spécifié.
+	 * @param mapFile
+	 * @param pixelsByUnit Nombre de pixels par unité du monde. Si -1, 1 tuile fait autant de pixels qu'indiqués
+	 * dans le fichier de carte.
+	 * @param fieldOfViewWidth Nombre de tuiles affichées en largeur. Si -1, affiche autant de tuiles que possible.
+	 * @param fieldOfViewHeight Nombre de tuiles affichées en hauteur. Si -1, affiche autant de tuiles que possible.
+	 */
 	public void load(String mapFile, float pixelsByUnit, int fieldOfViewWidth, int fieldOfViewHeight) {
 		// Charge la carte et définit l'échelle (1 unité ==  pixelsByUnit pixels)
 		map = new TmxMapLoader().load(mapFile);
-		renderer = new OrthogonalTiledMapRenderer(map, 1 / pixelsByUnit);
 		tileWidth = (Integer)map.getProperties().get("tilewidth");
 		tileHeight = (Integer)map.getProperties().get("tileheight");
+		pixelsByTile = (pixelsByUnit == -1) ? tileWidth : pixelsByUnit;
+		
+		renderer = new OrthogonalTiledMapRenderer(map, 1 / pixelsByTile);
 		
 		// Crée une caméra qui montre fieldOfViewWidth x fieldOfViewHeight unités du monde 
+		if (fieldOfViewWidth == -1) {
+			fieldOfViewWidth = Gdx.graphics.getWidth() / tileWidth;
+		}
+		if (fieldOfViewHeight == -1) {
+			fieldOfViewHeight = Gdx.graphics.getHeight() / tileHeight;
+		}
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, fieldOfViewWidth, fieldOfViewHeight);
 		camera.update();
 		
 		// Crée un objet chargé de gérer les touches sur la carte
 		inputProcessor = new TiledMapInputProcessor();
+	}
+	
+	/**
+	 * Charge la carte depuis le fichier spécifié en affichant autant de tuiles que possible
+	 * à l'écran.
+	 * @param mapFile
+	 * @param pixelsByUnit
+	 */
+	public void load(String mapFile) {
+		load(mapFile, -1, -1, -1);
 	}
 	
 	/**
@@ -122,7 +151,7 @@ public class TiledMapOverlay implements SlamOverlay {
 	 * @param tileY
 	 * @return
 	 */
-	public boolean tileTouchDragged(Vector3 worldPosition, int tileX, int tileY) {
+	public boolean tileTouchDragged(Vector3 worldPosition, Point mapPosition) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -136,7 +165,7 @@ public class TiledMapOverlay implements SlamOverlay {
 	 * @param tileY
 	 * @return
 	 */
-	public boolean tileTouchUp(Vector3 worldPosition, int tileX, int tileY) {
+	public boolean tileTouchUp(Vector3 worldPosition, Point mapPosition) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -149,7 +178,7 @@ public class TiledMapOverlay implements SlamOverlay {
 	 * @param tileY
 	 * @return
 	 */
-	public boolean tileTouchDown(Vector3 worldPosition, int tileX, int tileY) {
+	public boolean tileTouchDown(Vector3 worldPosition, Point mapPosition) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -196,6 +225,14 @@ public class TiledMapOverlay implements SlamOverlay {
 		return map;
 	}
 	
+	public int getTileWidth() {
+		return tileWidth;
+	}
+
+	public int getTileHeight() {
+		return tileHeight;
+	}
+
 	/**
 	 * Déplace la caméra pour la centrer sur la case où se trouve l'objet
 	 * indiqué sur la couche indiquée
@@ -207,6 +244,49 @@ public class TiledMapOverlay implements SlamOverlay {
 		MapObject castle1 = layer.getObjects().get(objectName);
 		camera.position.x = convertFromPixelToMapX((Float)castle1.getProperties().get("x"));
 		camera.position.y = convertFromPixelToMapY((Float)castle1.getProperties().get("y"));
+	}
+	
+	/**
+	 * Retourne les objets de la classe objectClass sur la couche layerName
+	 * @param layerName
+	 * @param objectClass
+	 * @return
+	 */
+	public Array<? extends MapObject> getObjects(String layerName, Class<? extends MapObject> objectClass) {
+		MapLayer layer = map.getLayers().get(layerName);
+		if (layer == null) {
+			return null;
+		}
+		
+		return layer.getObjects().getByType(objectClass);
+	}
+	
+	/**
+	 * Retourne les objets de la classe objectClass sur la couche layerName, ayant la propriété
+	 * property à la valeur value. 
+	 * @param layerName
+	 * @param objectClass
+	 * @param property
+	 * @param value
+	 * @return
+	 */
+	public MapObjects getObjects(String layerName, Class<? extends MapObject> objectClass, String property, Object value) {
+		MapLayer layer = map.getLayers().get(layerName);
+		if (layer == null) {
+			return null;
+		}
+		
+		@SuppressWarnings("unchecked")
+		Array<? extends MapObject> objects = layer.getObjects().getByType(objectClass);
+		Object readValue;
+		MapObjects mapObjects = new MapObjects();
+		for (MapObject object : objects) {
+			readValue = object.getProperties().get(property);
+			if (readValue != null && readValue.equals(value)) {
+				mapObjects.add(object);
+			}
+		}
+		return mapObjects;
 	}
 
 	public float convertFromPixelToMapX(float pixelX) {
