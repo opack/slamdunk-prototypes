@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.graphics.tiled.SpriteMapObject;
 import com.slamdunk.toolkit.screen.SlamGame;
@@ -38,8 +40,8 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	    hero.setPixelPosition((Float)spawnPoint.getProperties().get("x"), (Float)spawnPoint.getProperties().get("y"));
 	    tiledmap.setCameraOnObject(hero);
 		
-//DBG		MapObjects paths = tiledmap.getObjects("markers", RectangleMapObject.class, "type", "path");
-//DBG		MapObjects castles = tiledmap.getObjects("markers", RectangleMapObject.class, "type", "castle");
+		MapObjects paths = tiledmap.getObjects("markers", RectangleMapObject.class, "type", "path");
+		MapObjects castles = tiledmap.getObjects("markers", RectangleMapObject.class, "type", "castle");
 	}
 
 	@Override
