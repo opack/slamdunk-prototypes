@@ -432,7 +432,6 @@
   <tile id="708" terrain="17,17,,"/>
   <tile id="709" terrain="17,,,"/>
  </tileset>
- <tileset firstgid="1025" name="test" tilewidth="1" tileheight="1"/>
  <layer name="ground" width="30" height="24">
   <data encoding="base64" compression="zlib">
    eJy9VMERwyAMS9pJ2k7SdhIIsP8I5VHufD4JG8LloUcIlixh2Pdtu12Me8Wj4gkQyPoKvJRuMnrIYu1Qe+IJXYbyx6y/1lMAujLXbNRb/CN+ZW4F5KiBzgT1e4C93pw96PWpc2C6epaL4PZm2ZsHpLvi/mjv+vtMzrHDi/IrE7qaF2Woc2JvgUd3NPOmlUk9ur8sK3aXUSaJ6I36lbrR4LTOmPmVtYg7Glze2ej57c3ECozMlWfGtDdZk4Qfry47O83LeJL633Q9XhLQm33bpN8MeFFuAeixmWto74w35xGwnNH6jK7nnlqziHSjo87DbZ3vu+JzMb4VP6TBebo=
@@ -440,15 +439,15 @@
  </layer>
  <layer name="path" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlMkJgDAQRYfYiVaiVqJWolblVohbL44nIcbsC0g+vFPwvxCZAdDPRABmYlCAyZFCQEl9s6PzMPRWSC2gMVNwvff1O4rEg5fVzTuL3v94UxDPmuosynhtQPfzvC28Z0uVr1l0+Q95/dH7ZDHc/breM5DXRnx6B3ynkfj3rujcAnhl+m3uYBaZwOsa2mtjB8vQQ9hcN1Fo6g==
+   eJztlUkOwjAMRa1wEzgJcJLCGu4APRXTQZjugruIhKL8+GdARQJLf9PEfq3rQaTcTk7k7CoCqM1VC0PLwOeuzIfjfFGMTrUytAbvzPiiGN53SNs+0ITkxnytGB14bp0x56k7f+73cKcS741ZJXfj0tzSPrO4W8DdCe6Pd/WFXPS9Lazk//4a95Kxc9COQDWf4j4zuL4+h1rJ2Qu1efb1iXZEWPMtuT7OQeFHI1ef4F6VeRuBm3MfzWBWzKyOcVuJ5bIzmFVqVo9pLy3TeBA=
   </data>
  </layer>
  <objectgroup name="sprites"/>
  <objectgroup name="markers">
   <object name="spawn11" type="path" x="96" y="320" width="32" height="32"/>
   <object name="spawn12" type="path" x="96" y="384" width="32" height="32"/>
-  <object name="spawn21" type="path" x="864" y="448" width="32" height="32"/>
-  <object name="spawn22" type="path" x="864" y="512" width="32" height="32"/>
+  <object name="spawn21" type="path" x="704" y="480" width="32" height="32"/>
+  <object name="spawn22" type="path" x="672" y="512" width="32" height="32"/>
   <object type="path" x="96" y="288" width="32" height="32"/>
   <object type="path" x="96" y="256" width="32" height="32"/>
   <object type="path" x="96" y="224" width="32" height="32"/>
@@ -479,29 +478,29 @@
   <object type="path" x="512" y="288" width="32" height="32"/>
   <object type="path" x="544" y="288" width="32" height="32"/>
   <object type="path" x="576" y="288" width="32" height="32"/>
-  <object type="path" x="608" y="288" width="32" height="32"/>
-  <object type="path" x="640" y="288" width="32" height="32"/>
-  <object type="path" x="672" y="288" width="32" height="32"/>
-  <object type="path" x="704" y="288" width="32" height="32"/>
-  <object type="path" x="736" y="288" width="32" height="32"/>
-  <object type="path" x="768" y="288" width="32" height="32"/>
-  <object type="path" x="800" y="288" width="32" height="32"/>
-  <object type="path" x="832" y="288" width="32" height="32"/>
-  <object type="path" x="864" y="288" width="32" height="32"/>
-  <object type="path" x="864" y="320" width="32" height="32"/>
-  <object type="path" x="864" y="352" width="32" height="32"/>
-  <object type="path" x="864" y="384" width="32" height="32"/>
-  <object type="path" x="864" y="416" width="32" height="32"/>
-  <object type="path" x="864" y="544" width="32" height="32"/>
-  <object type="path" x="864" y="576" width="32" height="32"/>
-  <object type="path" x="864" y="608" width="32" height="32"/>
-  <object type="path" x="864" y="640" width="32" height="32"/>
-  <object type="path" x="864" y="672" width="32" height="32"/>
-  <object type="path" x="832" y="672" width="32" height="32"/>
-  <object type="path" x="800" y="672" width="32" height="32"/>
-  <object type="path" x="768" y="672" width="32" height="32"/>
-  <object type="path" x="736" y="672" width="32" height="32"/>
-  <object type="path" x="704" y="672" width="32" height="32"/>
+  <object type="path" x="576" y="256" width="32" height="32"/>
+  <object type="path" x="576" y="224" width="32" height="32"/>
+  <object type="path" x="576" y="192" width="32" height="32"/>
+  <object type="path" x="576" y="160" width="32" height="32"/>
+  <object type="path" x="576" y="128" width="32" height="32"/>
+  <object type="path" x="576" y="96" width="32" height="32"/>
+  <object type="path" x="576" y="64" width="32" height="32"/>
+  <object type="path" x="608" y="64" width="32" height="32"/>
+  <object type="path" x="640" y="64" width="32" height="32"/>
+  <object type="path" x="672" y="64" width="32" height="32"/>
+  <object type="path" x="704" y="64" width="32" height="32"/>
+  <object type="path" x="736" y="64" width="32" height="32"/>
+  <object type="path" x="768" y="64" width="32" height="32"/>
+  <object type="path" x="800" y="64" width="32" height="32"/>
+  <object type="path" x="832" y="64" width="32" height="32"/>
+  <object type="path" x="864" y="64" width="32" height="32"/>
+  <object type="path" x="864" y="96" width="32" height="32"/>
+  <object type="path" x="864" y="128" width="32" height="32"/>
+  <object type="path" x="736" y="480" width="32" height="32"/>
+  <object type="path" x="672" y="544" width="32" height="32"/>
+  <object type="path" x="672" y="576" width="32" height="32"/>
+  <object type="path" x="672" y="608" width="32" height="32"/>
+  <object type="path" x="672" y="640" width="32" height="32"/>
   <object type="path" x="672" y="672" width="32" height="32"/>
   <object type="path" x="640" y="672" width="32" height="32"/>
   <object type="path" x="608" y="672" width="32" height="32"/>
@@ -530,6 +529,20 @@
   <object type="path" x="96" y="512" width="32" height="32"/>
   <object type="path" x="96" y="544" width="32" height="32"/>
   <object name="castle1" type="castle" x="96" y="352" width="32" height="32"/>
-  <object name="castle2" type="castle" x="864" y="480" width="32" height="32"/>
+  <object name="castle2" type="castle" x="672" y="480" width="32" height="32"/>
+  <object type="path" x="864" y="320" width="32" height="32"/>
+  <object type="path" x="864" y="384" width="32" height="32"/>
+  <object type="path" x="800" y="480" width="32" height="32"/>
+  <object type="path" x="832" y="480" width="32" height="32"/>
+  <object type="path" x="768" y="480" width="32" height="32"/>
+  <object type="path" x="864" y="352" width="32" height="32"/>
+  <object type="path" x="864" y="448" width="32" height="32"/>
+  <object type="path" x="864" y="288" width="32" height="32"/>
+  <object type="path" x="864" y="480" width="32" height="32"/>
+  <object type="path" x="864" y="416" width="32" height="32"/>
+  <object type="path" x="864" y="256" width="32" height="32"/>
+  <object type="path" x="864" y="224" width="32" height="32"/>
+  <object type="path" x="864" y="192" width="32" height="32"/>
+  <object type="path" x="864" y="160" width="32" height="32"/>
  </objectgroup>
 </map>

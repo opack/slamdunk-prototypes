@@ -79,8 +79,8 @@ public class PathFinder {
     }
     
     /**
-     * Creates an AStar object. Call this function when the map dimension
-     * has changed or if the free positions are not the same.
+     * Creates an AStar object.
+     * @param resetValue default value for each position in the map
      */
     public PathFinder(int width, int height, boolean resetValue) {
     	if (width < 1 || height < 1) {
@@ -289,22 +289,48 @@ public class PathFinder {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder("  ");
-		for (int col = 0; col < walkables[0].length; col ++) {
-			sb.append(col);
+		StringBuilder sb = new StringBuilder();
+		// Print column number
+		sb.append("  |");
+		for (int col = 0; col < walkables.length - 1; col ++) {
+			sb.append(col / 10).append("|");
+		}
+		sb.append("\n  |");
+		for (int col = 0; col < walkables.length - 1; col ++) {
+			sb.append(col % 10).append("|");
 		}
 		sb.append("\n");
-		for (int row = walkables.length - 1; row >= 0; row--) {
-			sb.append(row).append(" ");
-			for (int col = 0; col < walkables[0].length; col ++) {
+		
+		// Print row data
+		for (int row = walkables[0].length - 1; row >= 0; row--) {
+			// Print row number
+			if (row < 10) {
+				sb.append(" ");
+			}
+			sb.append(row).append("|");
+			// Print row data
+			for (int col = 0; col < walkables.length - 1; col ++) {
 				if (walkables[col][row]) {
-					sb.append("O");
+					sb.append(" |");
 				} else {
-					sb.append("X");
+					sb.append("X|");
 				}
 			}
+			// Print row number at end of line
+			sb.append(row);
 			sb.append("\n");
 		}
+		
+		// Print column number
+		sb.append("  |");
+		for (int col = 0; col < walkables.length - 1; col ++) {
+			sb.append(col / 10).append("|");
+		}
+		sb.append("\n  |");
+		for (int col = 0; col < walkables.length - 1; col ++) {
+			sb.append(col % 10).append("|");
+		}
+		sb.append("\n");
 		return sb.toString();
 	}
 }

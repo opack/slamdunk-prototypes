@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.slamdunk.toolkit.graphics.tiled.OrthogonalTiledMapRendererWithSprites;
 import com.slamdunk.toolkit.graphics.tiled.SpriteMapObject;
+import com.slamdunk.toolkit.world.pathfinder.PathFinder;
 import com.slamdunk.toolkit.world.point.Point;
 
 public class TiledMapOverlay implements SlamOverlay {
@@ -142,6 +143,8 @@ public class TiledMapOverlay implements SlamOverlay {
 	private int tileHeight;
 	private float pixelsByTile;
 	
+	private PathFinder pathfinder;
+	
 	/**
 	 * Charge la carte depuis le fichier spécifié.
 	 * @param mapFile
@@ -232,6 +235,20 @@ public class TiledMapOverlay implements SlamOverlay {
 		return map;
 	}
 	
+	public int getMapWidth() {
+		if (map == null) {
+			return 0;
+		}
+		return (Integer)map.getProperties().get("width");
+	}
+	
+	public int getMapHeight() {
+		if (map == null) {
+			return 0;
+		}
+		return (Integer)map.getProperties().get("height");
+	}
+	
 	public int getTileWidth() {
 		return tileWidth;
 	}
@@ -309,7 +326,6 @@ public class TiledMapOverlay implements SlamOverlay {
 			return null;
 		}
 		
-		@SuppressWarnings("unchecked")
 		Array<? extends MapObject> objects = layer.getObjects().getByType(objectClass);
 		Object readValue;
 		MapObjects mapObjects = new MapObjects();
@@ -357,5 +373,25 @@ public class TiledMapOverlay implements SlamOverlay {
 	 */
 	public SpriteMapObject addSprite(Sprite sprite, String name) {
 		return addSprite(sprite, name, SPRITES_LAYER);
+	}
+
+	public void initPathfinder(boolean defaultWalkable) {
+		pathfinder = new PathFinder(getMapWidth(), getMapHeight(), defaultWalkable);
+	}
+	
+	/**
+	 * Indique au pathfinder de cette carte la position des cases traversables en utilisant
+	 * la position des objets de la classe objectClass ayant la propriété property à la
+	 * valeur value sur la couche layerName
+	 */
+	public void setWalkables(String layerName, Class<? extends MapObject> objectClass, String property, Object value) {
+		MapObjects paths = getObjects(layerName, objectClass, property, value);
+		int tileX;
+		int tileY;
+		for (MapObject path : paths) {
+			tileX = (int)convertFromPixelToMapX((Float)path.getProperties().get("x"));
+			tileY = (int)convertFromPixelToMapY((Float)path.getProperties().get("y"));
+			pathfinder.setWalkable(tileX, tileY, true);
+		}
 	}
 }
