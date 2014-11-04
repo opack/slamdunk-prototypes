@@ -23,9 +23,9 @@ public class TiledMapOverlay implements SlamOverlay {
 	
 	public interface TiledMapInputProcessor {
 		/**
-		 * Appelée lorsque le joueur déplace sa touche sur la carte. La méthode reçoit 
-		 * les coordonnées de la touche en pixels du monde ainsi que les coordonnées 
-		 * de la tuile touchée.
+		 * AppelÃ©e lorsque le joueur dÃ©place sa touche sur la carte. La mÃ©thode reÃ§oit 
+		 * les coordonnÃ©es de la touche en pixels du monde ainsi que les coordonnÃ©es 
+		 * de la tuile touchÃ©e.
 		 * @param worldPosition
 		 * @param tilePosition
 		 * @return
@@ -33,9 +33,9 @@ public class TiledMapOverlay implements SlamOverlay {
 		boolean tileTouchDragged(Vector3 worldPosition, Point tilePosition);
 
 		/**
-		 * Appelée lorsque le joueur relache sa touche sur la carte. La méthode reçoit  
-		 * les coordonnées de la touche en pixels du monde ainsi que les coordonnées de 
-		 * la tuile touchée.
+		 * AppelÃ©e lorsque le joueur relache sa touche sur la carte. La mÃ©thode reÃ§oit  
+		 * les coordonnÃ©es de la touche en pixels du monde ainsi que les coordonnÃ©es de 
+		 * la tuile touchÃ©e.
 		 * @param worldPosition
 		 * @param tilePosition
 		 * @return
@@ -43,8 +43,8 @@ public class TiledMapOverlay implements SlamOverlay {
 		boolean tileTouchUp(Vector3 worldPosition, Point tilePosition);
 
 		/**
-		 * Appelée lorsque le joueur touche la carte. La méthode reçoit les coordonnées 
-		 * de la touche en pixels du monde ainsi que les coordonnées de la tuile touchée.
+		 * AppelÃ©e lorsque le joueur touche la carte. La mÃ©thode reÃ§oit les coordonnÃ©es 
+		 * de la touche en pixels du monde ainsi que les coordonnÃ©es de la tuile touchÃ©e.
 		 * @param worldPosition
 		 * @param tilePosition
 		 * @return
@@ -146,15 +146,15 @@ public class TiledMapOverlay implements SlamOverlay {
 	private PathFinder pathfinder;
 	
 	/**
-	 * Charge la carte depuis le fichier spécifié.
+	 * Charge la carte depuis le fichier spÃ©cifiÃ©.
 	 * @param mapFile
-	 * @param pixelsByUnit Nombre de pixels par unité du monde. Si -1, 1 tuile fait autant de pixels qu'indiqués
+	 * @param pixelsByUnit Nombre de pixels par unitÃ© du monde. Si -1, 1 tuile fait autant de pixels qu'indiquÃ©s
 	 * dans le fichier de carte.
-	 * @param fieldOfViewWidth Nombre de tuiles affichées en largeur. Si -1, affiche autant de tuiles que possible.
-	 * @param fieldOfViewHeight Nombre de tuiles affichées en hauteur. Si -1, affiche autant de tuiles que possible.
+	 * @param fieldOfViewWidth Nombre de tuiles affichÃ©es en largeur. Si -1, affiche autant de tuiles que possible.
+	 * @param fieldOfViewHeight Nombre de tuiles affichÃ©es en hauteur. Si -1, affiche autant de tuiles que possible.
 	 */
 	public void load(String mapFile, float pixelsByUnit, int fieldOfViewWidth, int fieldOfViewHeight) {
-		// Charge la carte et définit l'échelle (1 unité ==  pixelsByUnit pixels)
+		// Charge la carte et dÃ©finit l'Ã©chelle (1 unitÃ© ==  pixelsByUnit pixels)
 		map = new TmxMapLoader().load(mapFile);
 		tileWidth = (Integer)map.getProperties().get("tilewidth");
 		tileHeight = (Integer)map.getProperties().get("tileheight");
@@ -162,7 +162,7 @@ public class TiledMapOverlay implements SlamOverlay {
 		
 		renderer = new OrthogonalTiledMapRendererWithSprites(map, 1 / pixelsByTile/*DBG, SPRITES_LAYER*/);
 		
-		// Crée une caméra qui montre fieldOfViewWidth x fieldOfViewHeight unités du monde 
+		// CrÃ©e une camÃ©ra qui montre fieldOfViewWidth x fieldOfViewHeight unitÃ©s du monde 
 		if (fieldOfViewWidth == -1) {
 			fieldOfViewWidth = Gdx.graphics.getWidth() / tileWidth;
 		}
@@ -175,17 +175,17 @@ public class TiledMapOverlay implements SlamOverlay {
 	}
 	
 	/**
-	 * Définit l'objet qui recevra les actions effectuées sur la map
+	 * DÃ©finit l'objet qui recevra les actions effectuÃ©es sur la map
 	 * @param tileInputProcessor
 	 */
 	public void setTileInputProcessor(TiledMapInputProcessor tileInputProcessor) {
-		// Crée un objet chargé de gérer les touches sur la carte
+		// CrÃ©e un objet chargÃ© de gÃ©rer les touches sur la carte
 		inputProcessor = new TiledMapOverlayInputProcessor(tileInputProcessor);
 	}
 	
 	/**
-	 * Charge la carte depuis le fichier spécifié en affichant autant de tuiles que possible
-	 * à l'écran.
+	 * Charge la carte depuis le fichier spÃ©cifiÃ© en affichant autant de tuiles que possible
+	 * Ã  l'Ã©cran.
 	 * @param mapFile
 	 * @param pixelsByUnit
 	 */
@@ -202,11 +202,11 @@ public class TiledMapOverlay implements SlamOverlay {
 		if (map == null) {
 			return;
 		}
-		// Met à jour les matrices de la caméra
+		// Met Ã  jour les matrices de la camÃ©ra
 		camera.update();
-		// Configure le renderer en fonction de ce que voit la caméra
+		// Configure le renderer en fonction de ce que voit la camÃ©ra
 		renderer.setView(camera);
-		// Procède au rendu de la map
+		// ProcÃ¨de au rendu de la map
 		renderer.render();
 	}
 
@@ -258,8 +258,8 @@ public class TiledMapOverlay implements SlamOverlay {
 	}
 
 	/**
-	 * Déplace la caméra pour la centrer sur la case où se trouve l'objet
-	 * indiqué sur la couche indiquée
+	 * DÃ©place la camÃ©ra pour la centrer sur la case oÃ¹ se trouve l'objet
+	 * indiquÃ© sur la couche indiquÃ©e
 	 * @param layerName
 	 * @param objectName
 	 */
@@ -271,8 +271,8 @@ public class TiledMapOverlay implements SlamOverlay {
 	}
 	
 	/**
-	 * Déplace la caméra pour la centrer sur la case où se trouve l'objet
-	 * indiqué
+	 * DÃ©place la camÃ©ra pour la centrer sur la case oÃ¹ se trouve l'objet
+	 * indiquÃ©
 	 * @param layerName
 	 * @param objectName
 	 */
@@ -312,8 +312,8 @@ public class TiledMapOverlay implements SlamOverlay {
 	}
 	
 	/**
-	 * Retourne les objets de la classe objectClass sur la couche layerName, ayant la propriété
-	 * property à la valeur value. 
+	 * Retourne les objets de la classe objectClass sur la couche layerName, ayant la propriÃ©tÃ©
+	 * property Ã  la valeur value. 
 	 * @param layerName
 	 * @param objectClass
 	 * @param property
@@ -347,16 +347,16 @@ public class TiledMapOverlay implements SlamOverlay {
 	}
 
 	/**
-	 * Ajoute le sprite indiqué à la map, en adaptant sa taille (en pixels) pour qu'elle
-	 * soit cohérente avec le reste de la map (en unités).
+	 * Ajoute le sprite indiquÃ© Ã  la map, en adaptant sa taille (en pixels) pour qu'elle
+	 * soit cohÃ©rente avec le reste de la map (en unitÃ©s).
 	 * @param sprite
 	 * @return 
 	 */
 	public SpriteMapObject addSprite(Sprite sprite, String name, String layerName) {
-		// Adapte la taille du sprite (exprimée en pixels) à celle du monde
+		// Adapte la taille du sprite (exprimÃ©e en pixels) Ã  celle du monde
 		sprite.setSize(sprite.getWidth() / pixelsByTile, sprite.getHeight() / pixelsByTile);
 		
-		// Ajoute le sprite à la couche adéquate
+		// Ajoute le sprite Ã  la couche adÃ©quate
 		MapLayer layer = map.getLayers().get(layerName);
 		if (layer == null) {
 			return null;
@@ -367,8 +367,8 @@ public class TiledMapOverlay implements SlamOverlay {
 	}
 	
 	/**
-	 * Ajoute le sprite indiqué à la map, en adaptant sa taille (en pixels) pour qu'elle
-	 * soit cohérente avec le reste de la map (en unités).
+	 * Ajoute le sprite indiquÃ© Ã  la map, en adaptant sa taille (en pixels) pour qu'elle
+	 * soit cohÃ©rente avec le reste de la map (en unitÃ©s).
 	 * @param sprite
 	 */
 	public SpriteMapObject addSprite(Sprite sprite, String name) {
@@ -381,7 +381,7 @@ public class TiledMapOverlay implements SlamOverlay {
 	
 	/**
 	 * Indique au pathfinder de cette carte la position des cases traversables en utilisant
-	 * la position des objets de la classe objectClass ayant la propriété property à la
+	 * la position des objets de la classe objectClass ayant la propriÃ©tÃ© property Ã  la
 	 * valeur value sur la couche layerName
 	 */
 	public void setWalkables(String layerName, Class<? extends MapObject> objectClass, String property, Object value) {

@@ -19,28 +19,28 @@ public class WindowJsonBuilder extends TableJsonBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère les propriétés basiques du widget et celles de Table
+		// GÃ¨re les propriÃ©tÃ©s basiques du widget et celles de Table
 		Window window = (Window)super.build(skin);
 		
-		// Gère la propriété title
+		// GÃ¨re la propriÃ©tÃ© title
 		parseTitle(window);
 		
-		// Gère la propriété title-align
+		// GÃ¨re la propriÃ©tÃ© title-align
 		parseTitleAlign(window);
 		
-		// Gère la propriété movable
+		// GÃ¨re la propriÃ©tÃ© movable
 		parseMovable(window);
 		
-		// Gère la propriété modal
+		// GÃ¨re la propriÃ©tÃ© modal
 		parseModal(window);
 		
-		// Gère la propriété keep-within-stage
+		// GÃ¨re la propriÃ©tÃ© keep-within-stage
 		parseKeepWithinStage(window);
 		
-		// Gère la propriété resizable
+		// GÃ¨re la propriÃ©tÃ© resizable
 		parseResizable(window);
 		
-		// Gère la propriété resize-border
+		// GÃ¨re la propriÃ©tÃ© resize-border
 		parseResizeBorder(window);
 		
 		return window;

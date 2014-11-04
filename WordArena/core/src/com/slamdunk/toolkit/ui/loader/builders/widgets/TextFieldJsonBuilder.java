@@ -18,10 +18,10 @@ public class TextFieldJsonBuilder extends JsonComponentBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère les propriétés basiques du widget
+		// GÃ¨re les propriÃ©tÃ©s basiques du widget
 		TextField textField = (TextField)super.build(skin);
 		
-		// Gère la propriété TextField
+		// GÃ¨re la propriÃ©tÃ© TextField
 		parseTextKey(textField);
 		parseText(textField);
 		

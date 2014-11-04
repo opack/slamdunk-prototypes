@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 
 // DBG TODO Supprimer : la classe Viewport et ses filles permettent une meilleure gestion
 /**
- * Contient les réglages de l'application. Ces réglages peuvent être définis
- * à l'aide d'une des méthodes setup().
+ * Contient les rÃ©glages de l'application. Ces rÃ©glages peuvent Ãªtre dÃ©finis
+ * Ã  l'aide d'une des mÃ©thodes setup().
  * @see #setup()
  * @see #setup(float, float, float, float)
  * @see #setup(float, float, float, float, float, float)
@@ -172,7 +172,7 @@ public class SlamViewportSettings {
 	}
 
 	/**
-	 * Remet l'ensemble des valeurs à 0.
+	 * Remet l'ensemble des valeurs Ã  0.
 	 */
 	private static void reset() {
 		SCREEN_W = 0.0f;

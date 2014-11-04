@@ -11,17 +11,17 @@ import com.slamdunk.toolkit.settings.SlamViewportSettings;
 public class SlamActor extends Actor {
 
 	/**
-	 * Objet gérant le dessin d'une texture simple
+	 * Objet gÃ©rant le dessin d'une texture simple
 	 */
 	private TextureDrawer textureDrawer;
 	
 	/**
-	 * Objet gérant les animations
+	 * Objet gÃ©rant les animations
 	 */
 	private AnimationDrawer animationDrawer;
 
 	/**
-	 * Objet gérant les particules
+	 * Objet gÃ©rant les particules
 	 */
 	private ParticleDrawer particleDrawer;
 	
@@ -101,7 +101,7 @@ public class SlamActor extends Actor {
 		// Pour l'effet de fade in/out
 		batch.setColor(getColor().r, getColor().g, getColor().b, parentAlpha * getColor().a);
 
-		// Dessine la texture si elle est définie
+		// Dessine la texture si elle est dÃ©finie
 		textureDrawer.draw(this, batch);
 
 		// Dessine les animations (principale et temporaire)

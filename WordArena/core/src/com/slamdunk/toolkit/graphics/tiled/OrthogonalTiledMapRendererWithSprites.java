@@ -27,7 +27,7 @@ public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRen
 //    /**
 //     * 
 //     * @param map
-//     * @param spriteLayerName La couche après laquelle dessiner les sprites
+//     * @param spriteLayerName La couche aprÃ¨s laquelle dessiner les sprites
 //     */
 //    public OrthogonalTiledMapRendererWithSprites(TiledMap map, float unitScale, String spriteLayerName) {
 //        super(map, unitScale);
@@ -58,7 +58,7 @@ public class OrthogonalTiledMapRendererWithSprites extends OrthogonalTiledMapRen
 //                }
 //            }
 //            
-//            // Dessin des sprites juste après (donc "sur") la couche demandée
+//            // Dessin des sprites juste aprÃ¨s (donc "sur") la couche demandÃ©e
 //            if(spriteLayerName.equals(layer.getName())){
 //                for(Sprite sprite : sprites) {
 //                    sprite.draw(getSpriteBatch());

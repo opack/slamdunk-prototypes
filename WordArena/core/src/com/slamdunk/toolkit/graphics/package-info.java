@@ -1,5 +1,5 @@
 /**
- * Contient les classes de réalisation d'effets graphiques divers et de manipulation
+ * Contient les classes de rÃ©alisation d'effets graphiques divers et de manipulation
  * du rendu.
  */
 package com.slamdunk.toolkit.graphics;

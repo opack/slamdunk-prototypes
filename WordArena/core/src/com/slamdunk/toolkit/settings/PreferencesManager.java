@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
 /**
- * Gestionnaire de préférence qui simplifie l'accès aux préférences
+ * Gestionnaire de prÃ©fÃ©rence qui simplifie l'accÃ¨s aux prÃ©fÃ©rences
  * persistantes de l'application
  */
 public class PreferencesManager {
@@ -14,7 +14,7 @@ public class PreferencesManager {
 	
 	/**
 	 * 
-	 * @param preferencesTag Tag des préférences, habituellement
+	 * @param preferencesTag Tag des prÃ©fÃ©rences, habituellement
 	 * le nom de l'application
 	 */
 	public PreferencesManager(String preferencesTag) {

@@ -63,7 +63,7 @@ public class PathFinder {
     private PointManager pointManager;
     
     /**
-     * Valeur avec laquelle est initilisé le tableau de walkable en cas de reset()
+     * Valeur avec laquelle est initilisÃ© le tableau de walkable en cas de reset()
      */
     private boolean resetValue;
     
@@ -106,7 +106,7 @@ public class PathFinder {
 	private void addIfWalkable(ArrayList<Point> listPoint2, int x, int y, int ignoredWalkabilityIndex) {
     	Point pos = pointManager.getPoint(x, y);
         if (pos != null
-        // La position est ajoutée si on doit ignorer sa walkability ou si elle est walkable
+        // La position est ajoutÃ©e si on doit ignorer sa walkability ou si elle est walkable
         && (pos.getIndex() == ignoredWalkabilityIndex || walkables[pos.getX()][pos.getY()])) {
             listPoint.add(pos);
         }		
@@ -271,7 +271,7 @@ public class PathFinder {
 	}
 
 	public void reset() {
-    	// Par défaut toute la map est walkable
+    	// Par dÃ©faut toute la map est walkable
         for (int curCol = 0; curCol < walkables.length; curCol++) {
         	for (int curRow = 0; curRow < walkables[0].length; curRow++) {
         		walkables[curCol][curRow] = resetValue;

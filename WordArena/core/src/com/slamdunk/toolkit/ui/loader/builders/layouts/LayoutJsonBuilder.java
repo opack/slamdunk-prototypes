@@ -10,13 +10,13 @@ import com.slamdunk.toolkit.ui.loader.JsonUIBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.widgets.JsonComponentBuilder;
 
 /**
- * Classe abstraite qui sert de mère aux layout widgets. Ce sont des
+ * Classe abstraite qui sert de mÃ¨re aux layout widgets. Ce sont des
  * widgets qui contiennent d'autres widgets.
- * Les LayoutJsonBuilder ont notamment la possibilité de déclarer
- * leur contenu dans un autre fichier json. Ce fichier est désigné
- * au moyen de la propriété <code>layout</code>. Les descriptions
- * trouvées dans ce fichier seront ajoutées à celles lues dans le
- * Json du Layout ; c'est donc une inclusion qui est réalisée.
+ * Les LayoutJsonBuilder ont notamment la possibilitÃ© de dÃ©clarer
+ * leur contenu dans un autre fichier json. Ce fichier est dÃ©signÃ©
+ * au moyen de la propriÃ©tÃ© <code>layout</code>. Les descriptions
+ * trouvÃ©es dans ce fichier seront ajoutÃ©es Ã  celles lues dans le
+ * Json du Layout ; c'est donc une inclusion qui est rÃ©alisÃ©e.
  */
 public abstract class LayoutJsonBuilder extends JsonComponentBuilder {
 	private JsonUIBuilder creator;
@@ -31,10 +31,10 @@ public abstract class LayoutJsonBuilder extends JsonComponentBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère la propriété layout.
-		// Cela doit être fait AVANT l'appel à super.build() car
-		// si un layout est spécifié alors on va inclure son contenu
-		// dans actorDescription de façon à déléguer la création
+		// GÃ¨re la propriÃ©tÃ© layout.
+		// Cela doit Ãªtre fait AVANT l'appel Ã  super.build() car
+		// si un layout est spÃ©cifiÃ© alors on va inclure son contenu
+		// dans actorDescription de faÃ§on Ã  dÃ©lÃ©guer la crÃ©ation
 		// des widgets.
 		parseLayout();
 		
@@ -50,11 +50,11 @@ public abstract class LayoutJsonBuilder extends JsonComponentBuilder {
 			// Lecture de la racine
 			JsonValue root = new JsonReader().parse(file);
 			
-			// Recherche de la dernière propriété de actorDescription
+			// Recherche de la derniÃ¨re propriÃ©tÃ© de actorDescription
 			JsonValue lastActorDescriptionEntry;
 			for (lastActorDescriptionEntry = getWidgetDescription().child; lastActorDescriptionEntry.next != null; lastActorDescriptionEntry = lastActorDescriptionEntry.next);
 			
-			// Ajout du layout à la fin de actorDescription
+			// Ajout du layout Ã  la fin de actorDescription
 			for (JsonValue entry = root.child; entry != null; entry = entry.next) {
 				lastActorDescriptionEntry.next = entry;
 				lastActorDescriptionEntry = entry;

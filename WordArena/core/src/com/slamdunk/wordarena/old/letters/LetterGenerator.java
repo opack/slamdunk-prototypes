@@ -6,8 +6,8 @@ import java.util.List;
 
 public class LetterGenerator {
 	public static List<Letters> generate(int nbLetters) {
-		// Crée une pioche de lettre en respectant la distribution des lettres
-		// de l'énumération Letters
+		// CrÃ©e une pioche de lettre en respectant la distribution des lettres
+		// de l'Ã©numÃ©ration Letters
 		List<Letters> letters = new ArrayList<Letters>();
 		do {
 			for (Letters letter : Letters.values()) {
@@ -17,7 +17,7 @@ public class LetterGenerator {
 			}
 		} while (letters.size() < nbLetters);
 		
-		// Mélance la pioche et tire autant de lettres que demandé
+		// MÃ©lance la pioche et tire autant de lettres que demandÃ©
 		Collections.shuffle(letters);
 		List<Letters> selected = new ArrayList<Letters>();
 		for (int count = 0; count < nbLetters; count++) {

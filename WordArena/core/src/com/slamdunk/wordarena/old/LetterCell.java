@@ -10,11 +10,11 @@ public class LetterCell {
 	 */
 	public Letters letter;
 	/**
-	 * Le bouton associé à la case
+	 * Le bouton associÃ© Ã  la case
 	 */
 	public TextButton button;
 	/**
-	 * Le joueur qui contrôle actuellement la case
+	 * Le joueur qui contrÃ´le actuellement la case
 	 */
 	public Player controler;
 }

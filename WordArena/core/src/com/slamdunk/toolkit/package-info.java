@@ -1,5 +1,5 @@
 /**
- * Contient les classes de la boîte à outils Slamdunk Toolkit, destinée à simplifier
- * les développements de jeu avec LibGDX.
+ * Contient les classes de la boÃ®te Ã  outils Slamdunk Toolkit, destinÃ©e Ã  simplifier
+ * les dÃ©veloppements de jeu avec LibGDX.
  */
 package com.slamdunk.toolkit;

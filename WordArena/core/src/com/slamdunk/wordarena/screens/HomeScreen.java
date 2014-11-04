@@ -20,11 +20,11 @@ public class HomeScreen extends SlamScreen {
 	public HomeScreen(SlamGame game) {
 		super(game);
 		
-		// On va utiliser une couche de contrôles
+		// On va utiliser une couche de contrÃ´les
 		UIOverlay ui = OverlayFactory.createUIOverlay();
-		// Chargement d'une interface déclarée dans un fichier externe
+		// Chargement d'une interface dÃ©clarÃ©e dans un fichier externe
 		ui.loadLayout("layouts/home.json");
-		// Création des listeners qui interprèteront les clics sur les boutons
+		// CrÃ©ation des listeners qui interprÃ¨teront les clics sur les boutons
 		final Popup popup = (Popup)ui.getActor("quit-confirm");
 		Map<String, EventListener> listeners = new HashMap<String, EventListener>();
 		listeners.put("play", new ClickListener() {
@@ -39,21 +39,21 @@ public class HomeScreen extends SlamScreen {
 			}
 		});
 		listeners.put("ok", new ButtonClickListener() {
-			// Click sur ok lorsqu'on demande à confirmer qu'on veut bien quitter
+			// Click sur ok lorsqu'on demande Ã  confirmer qu'on veut bien quitter
 			@Override
 			public void clicked(Button button) {
 				Gdx.app.exit();
 			}
 		});
 		listeners.put("cancel", new ButtonClickListener() {
-			// Click sur ok lorsqu'on demande à confirmer qu'on veut bien quitter
+			// Click sur ok lorsqu'on demande Ã  confirmer qu'on veut bien quitter
 			@Override
 			public void clicked(Button button) {
 				popup.hide();
 			}
 		});
 		ui.setListeners(listeners);
-		// Ajout de la couche à l'écran
+		// Ajout de la couche Ã  l'Ã©cran
 		addOverlay(ui);
 	}
 	

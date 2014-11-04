@@ -67,14 +67,14 @@ public class WordArenaGame implements ApplicationListener {
 			
 			@Override
 			public boolean touchDragged(int screenX, int screenY, int pointer) {
-				// Calcul des coordonnées pour le stage
+				// Calcul des coordonnÃ©es pour le stage
 				screenCoords.set(screenX, screenY);
 				stageCoords = stage.screenToStageCoordinates(screenCoords);
 				
-				// Récupération de l'éventuel bouton
+				// RÃ©cupÃ©ration de l'Ã©ventuel bouton
 				Actor hit = stage.hit(stageCoords.x, stageCoords.y, true);
 				if (hit != null && (hit.getParent() instanceof TextButton)) {
-					// Récupère la cellule associée et sélectionne la lettre
+					// RÃ©cupÃ¨re la cellule associÃ©e et sÃ©lectionne la lettre
 					LetterCell cell = getCell((TextButton)hit.getParent());
 					if (cell != null) {
 						select(cell, true);

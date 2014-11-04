@@ -21,10 +21,10 @@ public class LabelJsonBuilder extends JsonComponentBuilder {
 	
 	@Override
 	public Label build(Skin skin) {
-		// Gère les propriétés basiques du widget
+		// GÃ¨re les propriÃ©tÃ©s basiques du widget
 		Label label = (Label)super.build(skin);
 		
-		// Gère les propriétés spécifiques du Label
+		// GÃ¨re les propriÃ©tÃ©s spÃ©cifiques du Label
 		parseTextKey(label);
 		parseText(label);
 		

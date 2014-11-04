@@ -13,12 +13,12 @@ import com.badlogic.gdx.utils.Scaling;
 
 /**
  * Une couche du monde. La couche peut contenir des acteurs
- * et possède des propriétés comme la transparence...
+ * et possÃ¨de des propriÃ©tÃ©s comme la transparence...
  */
 public class SlamWorldLayer extends Group {
 	
 	/**
-	 * Référence vers le monde auquel appartient cette couche
+	 * RÃ©fÃ©rence vers le monde auquel appartient cette couche
 	 */
 	private SlamWorld world;
 	
@@ -57,7 +57,7 @@ public class SlamWorldLayer extends Group {
 	}
 	
 	/**
-	 * Ajoute un SlamActor à la couche et définit le lien dans la couche
+	 * Ajoute un SlamActor Ã  la couche et dÃ©finit le lien dans la couche
 	 * vers le SlamWorldLayer
 	 * @param actor
 	 */
@@ -69,7 +69,7 @@ public class SlamWorldLayer extends Group {
 	}
 	
 	/**
-	 * Ajoute un SlamActor à la couche après un autre, et définit le lien dans la couche
+	 * Ajoute un SlamActor Ã  la couche aprÃ¨s un autre, et dÃ©finit le lien dans la couche
 	 * vers le SlamWorldLayer
 	 * @param actor
 	 */
@@ -81,7 +81,7 @@ public class SlamWorldLayer extends Group {
 	}
 	
 	/**
-	 * Ajoute un SlamActor à la couche à un z-index donné, et définit le lien dans la couche
+	 * Ajoute un SlamActor Ã  la couche Ã  un z-index donnÃ©, et dÃ©finit le lien dans la couche
 	 * vers le SlamWorldLayer
 	 * @param actor
 	 */
@@ -93,7 +93,7 @@ public class SlamWorldLayer extends Group {
 	}
 	
 	/**
-	 * Ajoute un SlamActor à la couche avant un autre, et définit le lien dans la couche
+	 * Ajoute un SlamActor Ã  la couche avant un autre, et dÃ©finit le lien dans la couche
 	 * vers le SlamWorldLayer
 	 * @param actor
 	 */
@@ -104,9 +104,9 @@ public class SlamWorldLayer extends Group {
 		actor.setWorldLayer(this);
 	}
 
-	// TODO Faire une version plus efficace du test de collision, éventuellement en utilisant Box2D
+	// TODO Faire une version plus efficace du test de collision, Ã©ventuellement en utilisant Box2D
 	/**
-	 * Retourne le premier acteur qui est en collision avec l'acteur indiqué.
+	 * Retourne le premier acteur qui est en collision avec l'acteur indiquÃ©.
 	 * ATTENTION ! NE TESTE PAS les enfants des enfants !!!
 	 * @param actor
 	 * @param touchableOnly Indique si l'on prend en compte uniquement les acteurs
@@ -116,11 +116,11 @@ public class SlamWorldLayer extends Group {
 	 * @return
 	 */
 	public Actor resolveCollision(Actor actor, boolean touchableOnly, boolean visibleOnly) {
-		// Prépare les rectangles contenant les bounds
+		// PrÃ©pare les rectangles contenant les bounds
 		Rectangle bounds = WorldUtils.computeBounds(actor);
 		Rectangle otherBounds = new Rectangle();
 		
-		// Si la couche n'est pas touchable elle-même, alors ce qu'elle contient
+		// Si la couche n'est pas touchable elle-mÃªme, alors ce qu'elle contient
 		// ne peut pas entrer en collision avec quoi que ce soit
 		if ((visibleOnly && !isVisible())
 		|| (touchableOnly && getTouchable() == Touchable.disabled)) {

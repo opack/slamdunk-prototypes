@@ -3,8 +3,8 @@ package com.slamdunk.toolkit.lang;
 import java.util.Properties;
 
 /**
- * Classe de propriétés étendues permettant de récupérer directement le bon
- * type de donnée plutôt qu'un String.
+ * Classe de propriÃ©tÃ©s Ã©tendues permettant de rÃ©cupÃ©rer directement le bon
+ * type de donnÃ©e plutÃ´t qu'un String.
  */
 public class TypedProperties extends Properties {
     private static final long serialVersionUID = 5448778341923435054L;

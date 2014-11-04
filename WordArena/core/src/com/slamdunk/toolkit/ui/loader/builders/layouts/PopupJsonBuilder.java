@@ -21,19 +21,19 @@ public class PopupJsonBuilder extends WindowJsonBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère les propriétés basiques du widget, celles de Table et de Window
+		// GÃ¨re les propriÃ©tÃ©s basiques du widget, celles de Table et de Window
 		Popup popup = (Popup)super.build(skin);
 		
-		// Gère la propriété message-widget
+		// GÃ¨re la propriÃ©tÃ© message-widget
 		parseMessageWidget(popup);
 		
-		// Gère la propriété ok-widget
+		// GÃ¨re la propriÃ©tÃ© ok-widget
 		parseOkWidget(popup);
 		
-		// Gère la propriété cancel-widget
+		// GÃ¨re la propriÃ©tÃ© cancel-widget
 		parseCancelWidget(popup);
 		
-		// Gère la propriété center-on-show
+		// GÃ¨re la propriÃ©tÃ© center-on-show
 		parseCenterOnShow(popup);
 		
 		return popup;

@@ -25,7 +25,7 @@ public class AnimationDrawer {
 	private boolean isAnimationMomentaryFinished = true;
 	
 	/**
-	 * Variables de contrôle de l'animation
+	 * Variables de contrÃ´le de l'animation
 	 */
 	private boolean isLooping = false;
 	private boolean killAllAnimations = false;
@@ -40,8 +40,8 @@ public class AnimationDrawer {
 	}
 
 	/**
-	 * Définit si l'animation est active. L'animation n'est dessinée
-	 * que si elle est définie et active.
+	 * DÃ©finit si l'animation est active. L'animation n'est dessinÃ©e
+	 * que si elle est dÃ©finie et active.
 	 * 
 	 * @param isActive
 	 */
@@ -57,8 +57,8 @@ public class AnimationDrawer {
 	}
 
 	/**
-	 * Définit si l'animation boucle. Effectif uniquement
-	 * si l'animation est définie et active.
+	 * DÃ©finit si l'animation boucle. Effectif uniquement
+	 * si l'animation est dÃ©finie et active.
 	 * @param isAnimationLooping
 	 */
 	public void setLooping(boolean isLooping) {
@@ -74,21 +74,21 @@ public class AnimationDrawer {
 	}
 
 	/**
-	 * Définit le state time
+	 * DÃ©finit le state time
 	 */
 	public void setStateTime(float stateTime) {
 		this.stateTime = stateTime;
 	}
 
 	/**
-	 * Indique si killAllAnimation est activé
+	 * Indique si killAllAnimation est activÃ©
 	 */
 	public boolean isKillAllAnimations() {
 		return killAllAnimations;
 	}
 
 	/**
-	 * Définit si, une fois l'animation achevée, toutes les animations
+	 * DÃ©finit si, une fois l'animation achevÃ©e, toutes les animations
 	 * doivent cesser.
 	 */
 	public void setKillAllAnimations(boolean killAllAnimations) {
@@ -96,7 +96,7 @@ public class AnimationDrawer {
 	}
 	
 	/**
-	 * Dessine l'animation dans le batch indiqué, à la position
+	 * Dessine l'animation dans le batch indiquÃ©, Ã  la position
 	 * de l'acteur
 	 * @param actor
 	 * @param batch
@@ -153,7 +153,7 @@ public class AnimationDrawer {
 	}
 
 	/**
-	 * Met à jour le compteur de temps
+	 * Met Ã  jour le compteur de temps
 	 * @param delta
 	 */
 	public void updateTime(float delta) {
@@ -169,8 +169,8 @@ public class AnimationDrawer {
 	}
 
 	/**
-	 * Définit l'animation courante, si elle est active et si elle doit être
-	 * jouée en boucle.
+	 * DÃ©finit l'animation courante, si elle est active et si elle doit Ãªtre
+	 * jouÃ©e en boucle.
 	 * @param animation
 	 * @param isActive
 	 * @param isLooping
@@ -182,7 +182,7 @@ public class AnimationDrawer {
 	}
 	
 	/**
-	 * Retourne l'animation temporaire utilisée
+	 * Retourne l'animation temporaire utilisÃ©e
 	 * @return
 	 */
 	public Animation getAnimationMomentary() {
@@ -190,7 +190,7 @@ public class AnimationDrawer {
 	}
 	
 	/**
-	 * Définit une animation temporaire pour cet acteur.
+	 * DÃ©finit une animation temporaire pour cet acteur.
 	 * 
 	 * <p>
 	 * EXAMPLE<br>

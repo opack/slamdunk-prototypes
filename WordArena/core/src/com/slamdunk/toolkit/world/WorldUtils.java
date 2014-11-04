@@ -4,14 +4,14 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * Différentes méthodes utilitaires liées au monde
+ * DiffÃ©rentes mÃ©thodes utilitaires liÃ©es au monde
  * @author didem93n
  *
  */
 public class WorldUtils {
 
 	/**
-	 * Crée un Rectangle faisant le tour de l'acteur.
+	 * CrÃ©e un Rectangle faisant le tour de l'acteur.
 	 * @param actor
 	 * @return
 	 */
@@ -20,7 +20,7 @@ public class WorldUtils {
 	}
 	
 	/**
-	 * Remplit le rectangle objectToFill avec les coordonnées et la taille de l'acteur.
+	 * Remplit le rectangle objectToFill avec les coordonnÃ©es et la taille de l'acteur.
 	 * @param actor
 	 * @param objectToFill
 	 * @return

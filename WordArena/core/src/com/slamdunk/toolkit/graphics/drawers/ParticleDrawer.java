@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * Particules créées avec l'éditeur (http://code.google.com/p/libgdx/wiki/ParticleEditor). 
- * Exporter les données de la particule (example: particle.p) et l'ajouter au projet Android 
- * dans le dossier Assets/Data (y placer aussi l'image utilisée dans la particule le cas
- * échéant). 
+ * Particules crÃ©Ã©es avec l'Ã©diteur (http://code.google.com/p/libgdx/wiki/ParticleEditor). 
+ * Exporter les donnÃ©es de la particule (example: particle.p) et l'ajouter au projet Android 
+ * dans le dossier Assets/Data (y placer aussi l'image utilisÃ©e dans la particule le cas
+ * Ã©chÃ©ant). 
  */
 public class ParticleDrawer {
 	private ParticleEffect particleEffect;
@@ -22,9 +22,9 @@ public class ParticleDrawer {
 	}
 
 	/**
-	 * Définit la particule.
+	 * DÃ©finit la particule.
 	 * @param centerPosition Permet de centrer la particule par rapport
-	 * à la taille de l'acteur
+	 * Ã  la taille de l'acteur
 	 * */
 	public void setParticleEffect(Actor actor,
 			ParticleEffect particleEffect,

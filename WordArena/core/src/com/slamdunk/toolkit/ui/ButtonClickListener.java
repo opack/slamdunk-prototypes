@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
- * Un simple listener qui ne fait rien si le bouton est désactivé
+ * Un simple listener qui ne fait rien si le bouton est dÃ©sactivÃ©
  */
 public abstract class ButtonClickListener extends ClickListener {
 	@Override
@@ -18,7 +18,7 @@ public abstract class ButtonClickListener extends ClickListener {
 	}
 	
 	/**
-	 * Méthode appelée lorsque le bouton est cliqué alors qu'il est actif
+	 * MÃ©thode appelÃ©e lorsque le bouton est cliquÃ© alors qu'il est actif
 	 * @param button
 	 */
 	public abstract void clicked(Button button);

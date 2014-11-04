@@ -5,8 +5,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.JsonValue;
 
 /**
- * Crée un actor à partir de données JSON.
- * Doit être stateless !!!
+ * CrÃ©e un actor Ã  partir de donnÃ©es JSON.
+ * Doit Ãªtre stateless !!!
  */
 public abstract class JsonComponentBuilder {
 	private JsonValue actorDescription;
@@ -44,27 +44,27 @@ public abstract class JsonComponentBuilder {
 		}
 		Actor actor = createEmpty(skin, style);
 		
-		// Gère la propriété name
+		// GÃ¨re la propriÃ©tÃ© name
 		parseName(actor);
 		
-		// Gère la propriété x
+		// GÃ¨re la propriÃ©tÃ© x
 		parseXKey(actor);
 		parseX(actor);
 		
 		
-		// Gère la propriété y
+		// GÃ¨re la propriÃ©tÃ© y
 		parseYKey(actor);
 		parseY(actor);
 		
-		// Gère la propriété w
+		// GÃ¨re la propriÃ©tÃ© w
 		parseWidthKey(actor);
 		parseWidth(actor);
 		
-		// Gère la propriété h
+		// GÃ¨re la propriÃ©tÃ© h
 		parseHeightKey(actor);
 		parseHeight(actor);
 		
-		// Gère la propriété visible
+		// GÃ¨re la propriÃ©tÃ© visible
 		parseVisibleKey(actor);
 		parseVisible(actor);
 		
@@ -76,7 +76,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseName(Actor actor) {
 		actor.setName(actorDescription.getString("name"));
@@ -86,7 +86,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseX(Actor actor) {
 		if (hasProperty("x")) {
@@ -99,7 +99,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseXKey(Actor actor) {
 		if (hasProperty("x-key")) {
@@ -113,7 +113,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseY(Actor actor) {
 		if (hasProperty("y")) {
@@ -126,7 +126,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseYKey(Actor actor) {
 		if (hasProperty("y-key")) {
@@ -140,7 +140,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseWidth(Actor actor) {
 		if (hasProperty("width")) {
@@ -153,7 +153,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseWidthKey(Actor actor) {
 		if (hasProperty("width-key")) {
@@ -167,7 +167,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseHeight(Actor actor) {
 		if (hasProperty("height")) {
@@ -180,7 +180,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseHeightKey(Actor actor) {
 		if (hasProperty("height-key")) {
@@ -194,7 +194,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseVisible(Actor actor) {
 		if (hasProperty("visible")) {
@@ -207,7 +207,7 @@ public abstract class JsonComponentBuilder {
 	/**
 	 * 
 	 * @param actor
-	 * @return true si la propriété a été trouvée et lue
+	 * @return true si la propriÃ©tÃ© a Ã©tÃ© trouvÃ©e et lue
 	 */
 	protected boolean parseVisibleKey(Actor actor) {
 		if (hasProperty("visible-key")) {
@@ -251,9 +251,9 @@ public abstract class JsonComponentBuilder {
 	}
 	
 	/**
-	 * Retourne la valeur de la table values associée à la clé key.
-	 * Si cette valeur est un objet, la valeur correspondant à
-	 * la clé <code>discriminant</code> est retournée.
+	 * Retourne la valeur de la table values associÃ©e Ã  la clÃ© key.
+	 * Si cette valeur est un objet, la valeur correspondant Ã 
+	 * la clÃ© <code>discriminant</code> est retournÃ©e.
 	 * 
 	 * @param key
 	 * @param discriminant

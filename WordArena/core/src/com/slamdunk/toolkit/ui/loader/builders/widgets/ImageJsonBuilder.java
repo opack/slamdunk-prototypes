@@ -14,10 +14,10 @@ public class ImageJsonBuilder extends JsonComponentBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère les propriétés basiques du widget
+		// GÃ¨re les propriÃ©tÃ©s basiques du widget
 		Image image = (Image)super.build(skin);
 		
-		// Gère la propriété image
+		// GÃ¨re la propriÃ©tÃ© image
 		parseImage(skin, image);
 		
 		return image;

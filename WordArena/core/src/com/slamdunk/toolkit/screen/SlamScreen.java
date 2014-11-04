@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.slamdunk.toolkit.screen.overlays.SlamOverlay;
 
 /**
- * Représente un écran du jeu. Cet écran peut contenir plusieurs couches (monde, IHM, minimap...).
+ * ReprÃ©sente un Ã©cran du jeu. Cet Ã©cran peut contenir plusieurs couches (monde, IHM, minimap...).
  */
 public abstract class SlamScreen implements Screen, InputProcessor {
 	private SlamGame game;
@@ -28,21 +28,21 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	}
 	
 	public SlamScreen() {
-		// Création de la liste d'overlays
+		// CrÃ©ation de la liste d'overlays
 		overlays = new ArrayList<SlamOverlay>();
 		
-		// Création de l'input processor
+		// CrÃ©ation de l'input processor
 		inputMux = new InputMultiplexer();
 		inputMux.addProcessor(this);
 		Gdx.input.setInputProcessor(inputMux);
 	}
 	
 	/**
-	 * Ajoute un overlay à la liste et enregistre son input processor
+	 * Ajoute un overlay Ã  la liste et enregistre son input processor
 	 * @param overlay
 	 */
 	public void addOverlay(SlamOverlay overlay) {
-		// Ajout de la couche à la liste
+		// Ajout de la couche Ã  la liste
 		overlays.add(overlay);
 		
 		// Ajout de l'input processor de cette couche
@@ -52,7 +52,7 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	}
 	
 	/**
-	 * Renvoit le nom unique associé à cet écran
+	 * Renvoit le nom unique associÃ© Ã  cet Ã©cran
 	 * @return
 	 */
 	public abstract String getName();
@@ -65,7 +65,7 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	}
 	
 	/**
-	 * Définit le jeu auquel est rattaché cet écran
+	 * DÃ©finit le jeu auquel est rattachÃ© cet Ã©cran
 	 */
 	public void setGame(SlamGame game) {
 		this.game = game;
@@ -79,8 +79,8 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	}
 
 	/**
-	 * Définit si le bouton back est activé et permet donc
-	 * de revenir à l'écran précédent, ou s'il n'a aucun effet.
+	 * DÃ©finit si le bouton back est activÃ© et permet donc
+	 * de revenir Ã  l'Ã©cran prÃ©cÃ©dent, ou s'il n'a aucun effet.
 	 */
 	public void setBackButtonActive(boolean active) {
 		Gdx.input.setCatchBackKey(active);
@@ -88,9 +88,9 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	}
 	
 	/**
-	 * La méthode par défaut dans SlamScreen gère le bouton back en
-	 * appelant la méthode keyBackPressed(), appelée si le bouton back
-	 * est activé.
+	 * La mÃ©thode par dÃ©faut dans SlamScreen gÃ¨re le bouton back en
+	 * appelant la mÃ©thode keyBackPressed(), appelÃ©e si le bouton back
+	 * est activÃ©.
 	 * @see #keyBackPressed()
 	 */
 	@Override
@@ -104,10 +104,10 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	}
 	
 	/**
-	 * Méthode à redéfinir pour effectuer du traitement lors de l'appui
+	 * MÃ©thode Ã  redÃ©finir pour effectuer du traitement lors de l'appui
 	 * sur le bouton back.
-	 * Attention ! Cette méthode n'est appelée que si un appel
-	 * à {@link #setBackButtonActive(boolean)} a été fait.
+	 * Attention ! Cette mÃ©thode n'est appelÃ©e que si un appel
+	 * Ã  {@link #setBackButtonActive(boolean)} a Ã©tÃ© fait.
 	 * @see #setBackButtonActive(boolean)
 	 */
 	public void keyBackPressed() {
@@ -115,16 +115,16 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta) {
-		// Efface l'écran
+		// Efface l'Ã©cran
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		// Fait agir les acteurs (mise à jour de la logique du jeu)
+		// Fait agir les acteurs (mise Ã  jour de la logique du jeu)
 		for (SlamOverlay overlay : overlays) {
 			overlay.act(delta);
 		}
 		
-		// Dessine les couches (affichage de l'état)
+		// Dessine les couches (affichage de l'Ã©tat)
 		for (SlamOverlay overlay : overlays) {
 			overlay.draw();
 		}
