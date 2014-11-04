@@ -9,8 +9,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 /**
- * Assemble plusieurs textures pour en créer une nouvelle. Le travail avec des
- * clips s'effectue avec plusieurs clips contenant le même nombre de frames.
+ * Assemble plusieurs textures pour en crÃ©er une nouvelle. Le travail avec des
+ * clips s'effectue avec plusieurs clips contenant le mÃªme nombre de frames.
  */
 public class DynamicTextureBuilder {
     private int maxWidth;

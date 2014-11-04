@@ -9,7 +9,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 /**
- * Gestionnaire de fichiers de propriétés, capable de stocker plusieurs
+ * Gestionnaire de fichiers de propriÃ©tÃ©s, capable de stocker plusieurs
  * fichiers
  */
 public class PropertiesManager {

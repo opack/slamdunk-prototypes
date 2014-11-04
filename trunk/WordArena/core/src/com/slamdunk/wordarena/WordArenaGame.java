@@ -11,15 +11,15 @@ public class WordArenaGame extends SlamGame {
 	public void create() {
 		super.create();
 		
-		// Initialise les réglages
+		// Initialise les rÃ©glages
 		SlamSettings.init("WordArena");
 		
-		// Crée les écrans
+		// CrÃ©e les Ã©crans
 		HomeScreen home = new HomeScreen(this);
 		addScreen(home);
 		addScreen(new GameScreen(this));
 		
-		// Affiche le premier écran
+		// Affiche le premier Ã©cran
 		setScreen(home);
 	}
 	

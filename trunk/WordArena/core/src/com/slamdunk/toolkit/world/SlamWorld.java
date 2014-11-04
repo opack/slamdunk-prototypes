@@ -8,19 +8,19 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- * Le monde du jeu. Ce monde est composé de plusieurs couches.
+ * Le monde du jeu. Ce monde est composÃ© de plusieurs couches.
  * Le monde est capable de retrouver un objet parmi les couches,
- * de savoir si deux objets se touchent (même à travers plusieurs
+ * de savoir si deux objets se touchent (mÃªme Ã  travers plusieurs
  * couches)...
  */
 public class SlamWorld extends Group {
 	/**
-	 * Accès rapide aux différentes couches
+	 * AccÃ¨s rapide aux diffÃ©rentes couches
 	 */
 	private Map<String, SlamWorldLayer> layers;
 	
 	/**
-	 * Compte le temps écoulé
+	 * Compte le temps Ã©coulÃ©
 	 */
 	private float secondsElapsed;
 	private float startTime;
@@ -41,7 +41,7 @@ public class SlamWorld extends Group {
 	}
 
 	public void addLayer(SlamWorldLayer layer) {
-		// Chaque couche occupe la totalité du monde
+		// Chaque couche occupe la totalitÃ© du monde
 		layer.setSize(getWidth(), getHeight());
 		layer.setPosition(0, 0);
 		
@@ -59,7 +59,7 @@ public class SlamWorld extends Group {
 	}
 	
 	/**
-	 * Renvoie le premier acteur de la couche spécifiée qui est
+	 * Renvoie le premier acteur de la couche spÃ©cifiÃ©e qui est
 	 * en collision avec l'acteur
 	 */
 	public Actor resolveCollision(Actor actor, String layerName, boolean touchableOnly, boolean visibleOnly) {

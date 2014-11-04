@@ -21,10 +21,10 @@ public class TextButtonJsonBuilder extends JsonComponentBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère les propriétés basiques du widget
+		// GÃ¨re les propriÃ©tÃ©s basiques du widget
 		TextButton button = (TextButton)super.build(skin);
 		
-		// Gère les propriétés spécifiques du bouton
+		// GÃ¨re les propriÃ©tÃ©s spÃ©cifiques du bouton
 		parseTextKey(button);
 		parseText(button);
 		

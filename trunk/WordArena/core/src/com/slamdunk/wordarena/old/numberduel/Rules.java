@@ -42,7 +42,7 @@ public enum Rules {
 
 		@Override
 		public String getRule() {
-			return "Chiffres inférieurs ou égaux à 5";
+			return "Chiffres infÃ©rieurs ou Ã©gaux Ã  5";
 		}
 	},
 	MIN_5 {
@@ -53,7 +53,7 @@ public enum Rules {
 
 		@Override
 		public String getRule() {
-			return "Chiffres supérieurs ou égaux à 5";
+			return "Chiffres supÃ©rieurs ou Ã©gaux Ã  5";
 		}
 	},
 	PLUS {
@@ -88,13 +88,13 @@ public enum Rules {
 
 		@Override
 		public String getRule() {
-			return "Chiffres immédiatement après";
+			return "Chiffres immÃ©diatement aprÃ¨s";
 		}
 	};
 	
 	/**
-	 * Indique si la cellule peut être sélectionnée pour la règle. C'est principalement
-	 * un test sur sa valeur qui est effectué ici.
+	 * Indique si la cellule peut Ãªtre sÃ©lectionnÃ©e pour la rÃ¨gle. C'est principalement
+	 * un test sur sa valeur qui est effectuÃ© ici.
 	 * @param cell
 	 * @return
 	 */
@@ -103,12 +103,12 @@ public enum Rules {
 	}
 	
 	/**
-	 * Indique si la cellule cell peut être sélectionnée après la cellule previousCell.
-	 * On suppose que isValidCell() a été appelée pour les 2 cellules.
-	 * C'est principalement un test de position d'une cellule par rapport à l'autre
-	 * et de leur valeur l'une par rapport à l'autre qui sont effectués ici.
-	 * Par défaut, on s'assure que la nouvelle cellule est autour de la précédente
-	 * et que sa valeur est supérieure à la précédente (ou qu'elle a un bonus INFERIOR).
+	 * Indique si la cellule cell peut Ãªtre sÃ©lectionnÃ©e aprÃ¨s la cellule previousCell.
+	 * On suppose que isValidCell() a Ã©tÃ© appelÃ©e pour les 2 cellules.
+	 * C'est principalement un test de position d'une cellule par rapport Ã  l'autre
+	 * et de leur valeur l'une par rapport Ã  l'autre qui sont effectuÃ©s ici.
+	 * Par dÃ©faut, on s'assure que la nouvelle cellule est autour de la prÃ©cÃ©dente
+	 * et que sa valeur est supÃ©rieure Ã  la prÃ©cÃ©dente (ou qu'elle a un bonus INFERIOR).
 	 * @param previousCell
 	 * @param cell
 	 * @return
@@ -118,29 +118,29 @@ public enum Rules {
 	}
 	
 	/**
-	 * Indique si la position de la nouvelle cellule est valide par rapport à celle
-	 * de la précédente.
-	 * Par défaut, elle est valide si elle est autour de la précédente.
+	 * Indique si la position de la nouvelle cellule est valide par rapport Ã  celle
+	 * de la prÃ©cÃ©dente.
+	 * Par dÃ©faut, elle est valide si elle est autour de la prÃ©cÃ©dente.
 	 * @param previousCell
 	 * @param cell
 	 * @return
 	 */
 	protected boolean isValidNextPosition(GridCell previousCell, GridCell cell) {
-		// La cellule est-elle autour de la précédente ?
+		// La cellule est-elle autour de la prÃ©cÃ©dente ?
 		return previousCell.isNeighbor(cell);
 	}
 	
 	/**
-	 * Indique si la valeur de la nouvelle cellule est valide par rapport à celle
-	 * de la précédente.
-	 * Par défaut, elle est valide si elle est supérieure ou que c'est un bonus
+	 * Indique si la valeur de la nouvelle cellule est valide par rapport Ã  celle
+	 * de la prÃ©cÃ©dente.
+	 * Par dÃ©faut, elle est valide si elle est supÃ©rieure ou que c'est un bonus
 	 * INFERIOR
 	 * @param previousCell
 	 * @param cell
 	 * @return
 	 */
 	protected boolean isValidNextValue(GridCell previousCell, GridCell cell) {
-		// La valeur est-elle supérieure à la précédente
+		// La valeur est-elle supÃ©rieure Ã  la prÃ©cÃ©dente
 		return (previousCell.value.getValue() < cell.value.getValue()
 		// Ou est-ce un bonus INFERIOR ?
 			|| cell.bonus == Bonus.INFERIOR);

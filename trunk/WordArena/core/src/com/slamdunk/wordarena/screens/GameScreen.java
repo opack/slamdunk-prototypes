@@ -28,17 +28,17 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		tiledmap = OverlayFactory.createTiledMapOverlay();
 		// Chargement d'une tiledmap
 		tiledmap.load("tiledmaps/game.tmx");
-		// DÈfinit le gestionnaire des entrÈes utilisateur
+		// D√©finit le gestionnaire des entr√©es utilisateur
 		tiledmap.setTileInputProcessor(this);
 		// Initialise le pathfinder
 		tiledmap.initPathfinder(false);
 		tiledmap.setWalkables("markers", RectangleMapObject.class, "type", "path");
-		// Place la camera ‡ l'endroit du premier ch‚teau
+		// Place la camera √† l'endroit du premier ch√¢teau
 		tiledmap.setCameraOnObject("markers", "castle1");
-		// Ajout de la couche ‡ l'Ècran
+		// Ajout de la couche √† l'√©cran
 		addOverlay(tiledmap);
 		
-		// Ajoute un sprite pour le hÈros
+		// Ajoute un sprite pour le h√©ros
 	    Sprite sprite = new Sprite(new Texture(Gdx.files.internal("textures/hero2.png")));
 	    hero = tiledmap.addSprite(sprite, "hero");
 	    MapObject spawnPoint = tiledmap.getObject("markers", "spawn11");

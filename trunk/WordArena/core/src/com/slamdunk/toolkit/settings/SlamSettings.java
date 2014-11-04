@@ -9,19 +9,19 @@ import com.slamdunk.toolkit.settings.values.SfxVolumeSetting;
 
 
 /**
- * Contient les différents réglages de l'application
+ * Contient les diffÃ©rents rÃ©glages de l'application
  * (activation des SFX, de la musique, nom du compte FB...).
  * 
- * Le développeur récupère ou définit une préférence via
+ * Le dÃ©veloppeur rÃ©cupÃ¨re ou dÃ©finit une prÃ©fÃ©rence via
  * SlamSettings.NOM_PREF.get()/set(). Exemple :
  * SlamSettings.SFX_ACTIVATED.set(true);
  * 
- * Pour ajouter d'autres préférences, il suffit de :
- *    1. Créer une nouvelle classe xxxSetting qui étends le BooleanSetting,
+ * Pour ajouter d'autres prÃ©fÃ©rences, il suffit de :
+ *    1. CrÃ©er une nouvelle classe xxxSetting qui Ã©tends le BooleanSetting,
  *    StringSetting, FloatSetting...
  *    2. Etendre SlamSettings
- *    3. Déclarer un nouveau champ public static du nouveau type de Setting
- *    4. Redéfinir la méthode init() pour appeler super.init() et construire
+ *    3. DÃ©clarer un nouveau champ public static du nouveau type de Setting
+ *    4. RedÃ©finir la mÃ©thode init() pour appeler super.init() et construire
  *    le Setting
  */
 public class SlamSettings {

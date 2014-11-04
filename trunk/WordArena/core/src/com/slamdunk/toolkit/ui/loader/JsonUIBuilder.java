@@ -23,20 +23,20 @@ import com.slamdunk.toolkit.ui.loader.builders.widgets.TextButtonJsonBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.widgets.TextFieldJsonBuilder;
 
 /**
- * Crée l'IHM à partir d'un descripteur JSON.
- * Le créateur est initialisé en appelant la méthode {@link #load(String)}
+ * CrÃ©e l'IHM Ã  partir d'un descripteur JSON.
+ * Le crÃ©ateur est initialisÃ© en appelant la mÃ©thode {@link #load(String)}
  * afin de charger la description des composants contenue dans un fichier JSON. Des
- * objets Actor sont alors créés à partir de ces propriétés.
+ * objets Actor sont alors crÃ©Ã©s Ã  partir de ces propriÃ©tÃ©s.
  * 
- * Ensuite, la méthode {@link #populate(Stage)} remplit le Stage indiqué avec
- * les Actors précédemment créés.
+ * Ensuite, la mÃ©thode {@link #populate(Stage)} remplit le Stage indiquÃ© avec
+ * les Actors prÃ©cÃ©demment crÃ©Ã©s.
  */
 public class JsonUIBuilder {
 	private Map<String, JsonComponentBuilder> builders;
 	private Map<String, Actor> actorsMap;
 	private Skin skin;
 	/**
-	 * Table de valeurs à utiliser pendant la création de ce layout
+	 * Table de valeurs Ã  utiliser pendant la crÃ©ation de ce layout
 	 */
 	private JsonValue values; 
 	
@@ -67,19 +67,19 @@ public class JsonUIBuilder {
 	}
 
 	/**
-	 * Parse le fichier indiqué et crée les widgets décrits
+	 * Parse le fichier indiquÃ© et crÃ©e les widgets dÃ©crits
 	 * @param uiFile
 	 */
 	public void load(String uiFile) {
-		// Ouvre le fichier et récupère les racines
+		// Ouvre le fichier et rÃ©cupÃ¨re les racines
 		JsonValue root = new JsonReader().parse(Gdx.files.internal(uiFile));
 		JsonValue widgets = root.get("widgets");
 		values = root.get("values");
 		
-		// Crée les widgets
+		// CrÃ©e les widgets
 		JsonValue widget = widgets.child();
 		while (widget != null) {
-			// Crée l'objet
+			// CrÃ©e l'objet
 			Actor actor = build(widget);
 			
 			// Stocke l'objet dans la table
@@ -91,14 +91,14 @@ public class JsonUIBuilder {
 	}
 
 	/**
-	 * Crée un objet en s'appuyant sur les builders définis
-	 * et les données lues dans le json
+	 * CrÃ©e un objet en s'appuyant sur les builders dÃ©finis
+	 * et les donnÃ©es lues dans le json
 	 * @param values
 	 * @param widget
 	 * @return
 	 */
 	public Actor build(JsonValue widget) {
-		// Récupère et configure le builder adéquat
+		// RÃ©cupÃ¨re et configure le builder adÃ©quat
 		JsonComponentBuilder builder = getBuilder(widget);
 		if (builder == null) {
 			throw new IllegalArgumentException("Aucun builder pour le widget " + widget);
@@ -106,13 +106,13 @@ public class JsonUIBuilder {
 		builder.setWidgetDescription(widget);
 		builder.setValues(values);
 		
-		// Crée l'objet indiqué
+		// CrÃ©e l'objet indiquÃ©
 		Actor actor = builder.build(skin);
 		return actor;
 	}
 
 	/**
-	 * Retourne le builder capable de créer le widget indiqué, d'après sa classe
+	 * Retourne le builder capable de crÃ©er le widget indiquÃ©, d'aprÃ¨s sa classe
 	 * @param widget
 	 * @return
 	 */
@@ -126,7 +126,7 @@ public class JsonUIBuilder {
 	}
 
 	/**
-	 * Ajoute les widgets créés au stage indiqué
+	 * Ajoute les widgets crÃ©Ã©s au stage indiquÃ©
 	 * @param stage
 	 */
 	public void populate(Stage stage) {

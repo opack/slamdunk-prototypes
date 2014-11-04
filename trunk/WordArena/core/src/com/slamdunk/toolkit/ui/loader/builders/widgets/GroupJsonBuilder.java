@@ -13,7 +13,7 @@ public class GroupJsonBuilder extends JsonComponentBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère les propriétés basiques du widget
+		// GÃ¨re les propriÃ©tÃ©s basiques du widget
 		Group group = (Group)super.build(skin);
 		return group;
 	}

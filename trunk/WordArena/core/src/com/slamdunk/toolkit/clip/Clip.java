@@ -12,48 +12,48 @@ import com.badlogic.gdx.math.Rectangle;
 import com.slamdunk.toolkit.world.point.Point;
 
 /**
- * Classe fournissant des fonctionnalités supplémentaires à une animation,
- * comme (en autres) le paramétrage via un fichier de propriétés et la gestion du son.
+ * Classe fournissant des fonctionnalitÃ©s supplÃ©mentaires Ã  une animation,
+ * comme (en autres) le paramÃ©trage via un fichier de propriÃ©tÃ©s et la gestion du son.
  */
 public class Clip extends Animation {
     /**
-     * Indique quelle proportion (en %) de l'espace restant doit être
-     * laissée à gauche du dessin de la frame.
-     * Mettre 0.0 indique qu'il faut aligner la frame à gauche de
+     * Indique quelle proportion (en %) de l'espace restant doit Ãªtre
+     * laissÃ©e Ã  gauche du dessin de la frame.
+     * Mettre 0.0 indique qu'il faut aligner la frame Ã  gauche de
      * la zone de dessin du clip. Mettre 1.0 indique qu'il faut
-     * aligner à droite.
+     * aligner Ã  droite.
      */
     public float alignX;
     /**
-     * Indique quelle proportion (en %) de l'espace restant doit être
-     * laissée en bas du dessin de la frame.
+     * Indique quelle proportion (en %) de l'espace restant doit Ãªtre
+     * laissÃ©e en bas du dessin de la frame.
      * Mettre 0.0 indique qu'il faut aligner la frame en bas de
      * la zone de dessin du clip. Mettre 1.0 indique qu'il faut
      * aligner en haut.
      */
     public float alignY;
     /**
-     * Zone de dessin dans laquelle seront dessinées les frames
+     * Zone de dessin dans laquelle seront dessinÃ©es les frames
      */
     public Rectangle drawArea;
     /**
-     * Indique si la frame doit être inversée horizontalement
+     * Indique si la frame doit Ãªtre inversÃ©e horizontalement
      */
     public boolean flipH;
     /**
-     * Indique si la frame doit être inversée verticalement
+     * Indique si la frame doit Ãªtre inversÃ©e verticalement
      */
     public boolean flipV;
     /**
-     * Hérésie ! Ce champ n'existe que parce qu'il n'est pas possible d'accéder au champ Animation.keyFrames !
+     * HÃ©rÃ©sie ! Ce champ n'existe que parce qu'il n'est pas possible d'accÃ©der au champ Animation.keyFrames !
      */
     private TextureRegion[] keyFrames;
     /**
-     * Tableau avec les Runnables à exécuter à la fin de chaque keyFrame
+     * Tableau avec les Runnables Ã  exÃ©cuter Ã  la fin de chaque keyFrame
      */
     private Runnable[] keyFrameRunnables;
     /**
-     * Indique un offset par rapport à la gauche, en pixels.
+     * Indique un offset par rapport Ã  la gauche, en pixels.
      */
     public float offsetX;
     /**
@@ -61,35 +61,35 @@ public class Clip extends Animation {
      */
     public float offsetY;
     /**
-     * Facteur d'échelle à appliquer en largeur
+     * Facteur d'Ã©chelle Ã  appliquer en largeur
      */
     public float scaleX;
     /**
-     * Facteur d'échelle à appliquer en hauteur
+     * Facteur d'Ã©chelle Ã  appliquer en hauteur
      */
     public float scaleY;
     /**
-     * Indique s'il faut étirer les trames pour qu'elles
+     * Indique s'il faut Ã©tirer les trames pour qu'elles
      * occupent toute la largeur de l'espace de dessin.
-     * Si true, la valeur de scaleX est ignorée.
+     * Si true, la valeur de scaleX est ignorÃ©e.
      */
     public boolean stretchX;
     /**
-     * Indique s'il faut étirer les trames pour qu'elles
+     * Indique s'il faut Ã©tirer les trames pour qu'elles
      * occupent toute la hauteur de l'espace de dessin.
-     * Si true, la valeur de scaleY est ignorée.
+     * Si true, la valeur de scaleY est ignorÃ©e.
      */
     public boolean stretchY;
     /**
-     * Horloge permettant de savoir où on en est dans l'animation
+     * Horloge permettant de savoir oÃ¹ on en est dans l'animation
      */
     public float stateTime;
     /**
-     * Index de la dernière image affichée (et donc dont le runnable a été exécuté)
+     * Index de la derniÃ¨re image affichÃ©e (et donc dont le runnable a Ã©tÃ© exÃ©cutÃ©)
      */
     private int lastKeyFrameIndex;
     /**
-     * Sprite utilisé pour afficher et gérer la géométrie du clip
+     * Sprite utilisÃ© pour afficher et gÃ©rer la gÃ©omÃ©trie du clip
      */
     private Sprite sprite;
     /**
@@ -137,14 +137,14 @@ public class Clip extends Animation {
     }
 
     /**
-     * Initialise le clip avec des valeurs par défaut
+     * Initialise le clip avec des valeurs par dÃ©faut
      * @param frameCount
      */
     private void init(TextureRegion[] keyFrames) {
         this.keyFrames = keyFrames;
         keyFrameRunnables = new Runnable[keyFrames.length];
 
-        // Pas de mise à l'échelle
+        // Pas de mise Ã  l'Ã©chelle
         scaleX = 1.0f;
         scaleY = 1.0f;
 
@@ -152,23 +152,23 @@ public class Clip extends Animation {
         stretchX = false;
         stretchY = false;
 
-        // Par défaut, pas de flip
+        // Par dÃ©faut, pas de flip
         flipH = false;
         flipV = false;
 
-        // Alignement en bas à gauche
+        // Alignement en bas Ã  gauche
         alignX = 0.0f;
         alignY = 0.0f;
 
-        // Pas de décalage
+        // Pas de dÃ©calage
         offsetX = 0.0f;
         offsetY = 0.0f;
 
-        // Animation au début
+        // Animation au dÃ©but
         sprite = new Sprite();
         setStateTime(0);
 
-        // Taille de la zone d'affichage inconnue, initialisée à
+        // Taille de la zone d'affichage inconnue, initialisÃ©e Ã 
         // la taille d'une frame
         drawArea = new Rectangle(0, 0, sprite.getRegionWidth(), sprite.getRegionHeight());
     }
@@ -178,11 +178,11 @@ public class Clip extends Animation {
     }
 
     /**
-     * Dessine la frame courante et réalise l'actions associée
+     * Dessine la frame courante et rÃ©alise l'actions associÃ©e
      * ? cette frame (son...)
      */
     public void play(float delta, SpriteBatch batch) {
-        // Choisit l'image en fonction du temps écoulé
+        // Choisit l'image en fonction du temps Ã©coulÃ©
         update(delta);
 
         // Dessine l'image
@@ -190,13 +190,13 @@ public class Clip extends Animation {
     }
 
     /**
-     * Dessine la frame courante et réalise l'actions associée
-     * à cette frame (son...). Utilisée après update(delta) pour
-     * découper en 2 étapes le dessin du clip, au lieu de tout
+     * Dessine la frame courante et rÃ©alise l'actions associÃ©e
+     * Ã  cette frame (son...). UtilisÃ©e aprÃ¨s update(delta) pour
+     * dÃ©couper en 2 Ã©tapes le dessin du clip, au lieu de tout
      * faire en une fois avec play(float, SpriteBatch).
      */
     public void playCurrentFrame(SpriteBatch batch) {
-        // Détermine la taille du dessin
+        // DÃ©termine la taille du dessin
         float frameWidth = sprite.getRegionWidth() * scaleX;
         float frameHeight = sprite.getRegionHeight() * scaleY;
 
@@ -208,20 +208,20 @@ public class Clip extends Animation {
             frameHeight = drawArea.height;
         }
 
-        // Détermine la position de la frame
+        // DÃ©termine la position de la frame
         float posX = drawArea.x + (drawArea.width - frameWidth) * alignX + offsetX;
         float posY = drawArea.y + (drawArea.height - frameHeight) * alignY + offsetY;
 
-        // Fixe les dimensions grâce aux calculs précédents
+        // Fixe les dimensions grÃ¢ce aux calculs prÃ©cÃ©dents
         sprite.setBounds(posX, posY, frameWidth, frameHeight);
 
-        // Détermine les flips
+        // DÃ©termine les flips
         sprite.flip(flipH, flipV);
 
         // Dessine la frame
         sprite.draw(batch);
 
-        // Réalise l'action associée si on vient de changer de frame
+        // RÃ©alise l'action associÃ©e si on vient de changer de frame
         final int index = getKeyFrameIndex(stateTime);
         if (lastKeyFrameIndex != index) {
             lastKeyFrameIndex = index;
@@ -233,7 +233,7 @@ public class Clip extends Animation {
     }
 
     /**
-     * Replace l'animation au début
+     * Replace l'animation au dÃ©but
      */
     public void rewind() {
         stateTime = 0;
@@ -241,7 +241,7 @@ public class Clip extends Animation {
 
     /**
      * Raccourci vers setKeyFrameRunnable() pour ajouter le runnable
-     * sur la première frame
+     * sur la premiÃ¨re frame
      * @param runnable
      */
     public void setFirstKeyFrameRunnable(Runnable runnable) {
@@ -256,7 +256,7 @@ public class Clip extends Animation {
 
     /**
      * Raccourci vers setKeyFrameRunnable() pour ajouter le runnable
-     * sur la dernière frame
+     * sur la derniÃ¨re frame
      * @param runnable
      */
     public void setLastKeyFrameRunnable(Runnable runnable) {
@@ -264,21 +264,21 @@ public class Clip extends Animation {
     }
 
     /**
-     * Choisit l'image en fonction du temps indiqué. Peut être appelé
-     * avec playCurrentFrame(SpriteBatch) pour découper en 2 étapes le dessin
-     * du clip. Utile notamment pour réutiliser le même clip plusieurs fois.
+     * Choisit l'image en fonction du temps indiquÃ©. Peut Ãªtre appelÃ©
+     * avec playCurrentFrame(SpriteBatch) pour dÃ©couper en 2 Ã©tapes le dessin
+     * du clip. Utile notamment pour rÃ©utiliser le mÃªme clip plusieurs fois.
      * @param stateTime
      */
     public void setStateTime(float stateTime) {
         // Mise ? jour de l'horloge
         this.stateTime = stateTime;
-        // Récup?re la trame courante
+        // RÃ©cup?re la trame courante
         sprite.setRegion(getKeyFrame(stateTime, true));
     }
 
     /**
-     * Choisit l'image en fonction du temps écoulé. Peut être appelé
-     * avec playCurrentFrame(SpriteBatch) pour découper en 2 étapes le dessin
+     * Choisit l'image en fonction du temps Ã©coulÃ©. Peut Ãªtre appelÃ©
+     * avec playCurrentFrame(SpriteBatch) pour dÃ©couper en 2 Ã©tapes le dessin
      * du clip, au lieu de tout faire en une fois avec play(float, SpriteBatch).
      * @param delta
      */

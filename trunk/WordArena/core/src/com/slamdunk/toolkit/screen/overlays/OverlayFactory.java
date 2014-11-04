@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 /**
- * Usine capable de créer tout un tas d'overlays
+ * Usine capable de crÃ©er tout un tas d'overlays
  * @author Didier
  *
  */
@@ -14,40 +14,40 @@ public class OverlayFactory {
 	public static final String DEFAULT_SKIN = "skins/uiskin/uiskin.json";
 	
 	/**
-	 * Crée un overlay destiné à afficher le monde
+	 * CrÃ©e un overlay destinÃ© Ã  afficher le monde
 	 */
 	public static WorldOverlay createWorldOverlay() {
-		// Création de la couche
+		// CrÃ©ation de la couche
 		WorldOverlay worldOverlay = new WorldOverlay();
 		worldOverlay.createStage(new ScreenViewport());
 		return worldOverlay;
 	}
 	
 	/**
-	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
-	 * Cet overlay sera positionné à l'emplacement indiqué et aura la taille indiquée.
+	 * CrÃ©e un overlay destinÃ© Ã  afficher les boutons et autres composants d'interface.
+	 * Cet overlay sera positionnÃ© Ã  l'emplacement indiquÃ© et aura la taille indiquÃ©e.
 	 */
 	public static MiniMapOverlay createMiniMapOverlay(Viewport viewport) {
-		// Création de la couche
+		// CrÃ©ation de la couche
 		MiniMapOverlay minimapOverlay = new MiniMapOverlay();
 		minimapOverlay.createStage(viewport);
 		return minimapOverlay;
 	}
 	
 	/**
-	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
-	 * Cet overlay s'étalera sur toute la surface de l'écran.
+	 * CrÃ©e un overlay destinÃ© Ã  afficher les boutons et autres composants d'interface.
+	 * Cet overlay s'Ã©talera sur toute la surface de l'Ã©cran.
 	 */
 	public static MiniMapOverlay createMiniMapOverlay() {
 		return createMiniMapOverlay(new ScreenViewport());
 	}
 	
 	/**
-	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
-	 * Cet overlay sera positionné à l'emplacement indiqué et aura la taille indiquée.
+	 * CrÃ©e un overlay destinÃ© Ã  afficher les boutons et autres composants d'interface.
+	 * Cet overlay sera positionnÃ© Ã  l'emplacement indiquÃ© et aura la taille indiquÃ©e.
 	 */
 	public static UIOverlay createUIOverlay(Viewport viewport) {
-		// Création de la couche
+		// CrÃ©ation de la couche
 		UIOverlay uiOverlay = new UIOverlay();
 		Skin uiSkin = new Skin(Gdx.files.internal(DEFAULT_SKIN));
 		uiOverlay.setSkin(uiSkin);
@@ -56,15 +56,15 @@ public class OverlayFactory {
 	}
 	
 	/**
-	 * Crée un overlay destiné à afficher les boutons et autres composants d'interface.
-	 * Cet overlay s'étalera sur toute la surface de l'écran.
+	 * CrÃ©e un overlay destinÃ© Ã  afficher les boutons et autres composants d'interface.
+	 * Cet overlay s'Ã©talera sur toute la surface de l'Ã©cran.
 	 */
 	public static UIOverlay createUIOverlay() {
 		return createUIOverlay(new ScreenViewport());
 	}
 	
 	/**
-	 * Crée un overlay destiné à afficher une tiledmap.
+	 * CrÃ©e un overlay destinÃ© Ã  afficher une tiledmap.
 	 * @param pixelsByUnit 
 	 */
 	public static TiledMapOverlay createTiledMapOverlay() {

@@ -20,31 +20,31 @@ public class VerticalGroupJsonBuilder extends LayoutJsonBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère les propriétés basiques du widget
+		// GÃ¨re les propriÃ©tÃ©s basiques du widget
 		VerticalGroup verticalGroup = (VerticalGroup)super.build(skin);
 		
-		// Gère la propriété widgets
+		// GÃ¨re la propriÃ©tÃ© widgets
 		parseWidgets(verticalGroup);
 		
-		// Gère la propriété fillParent
+		// GÃ¨re la propriÃ©tÃ© fillParent
 		parseFillParent(verticalGroup);
 		
-		// Gère la propriété align
+		// GÃ¨re la propriÃ©tÃ© align
 		parseAlign(verticalGroup);
 		
-		// Gère la propriété pad
+		// GÃ¨re la propriÃ©tÃ© pad
 		parsePad(verticalGroup);
 		
-		// Gère la propriété pad-tlbr
+		// GÃ¨re la propriÃ©tÃ© pad-tlbr
 		parsePadTLBR(verticalGroup);
 		
-		// Gère la propriété space
+		// GÃ¨re la propriÃ©tÃ© space
 		parseSpace(verticalGroup);
 		
-		// Gère la propriété reverse
+		// GÃ¨re la propriÃ©tÃ© reverse
 		parseReverse(verticalGroup);
 		
-		// Gère la propriété fill
+		// GÃ¨re la propriÃ©tÃ© fill
 		parseFill(verticalGroup);
 		
 		verticalGroup.pack();
@@ -52,10 +52,10 @@ public class VerticalGroupJsonBuilder extends LayoutJsonBuilder {
 	}
 	
 	/**
-	 * La propriété fill accepte une valeur boolean ou float.
+	 * La propriÃ©tÃ© fill accepte une valeur boolean ou float.
 	 * Si float, indique le pourcentage (0.0-1.0) de la largeur
-	 * à occuper.
-	 * Si boolean, true représente 1.0 et false représente 0.0.
+	 * Ã  occuper.
+	 * Si boolean, true reprÃ©sente 1.0 et false reprÃ©sente 0.0.
 	 */
 	private void parseFill(VerticalGroup verticalGroup) {
 		if (hasProperty("fill")) {

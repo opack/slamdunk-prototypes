@@ -10,7 +10,7 @@ public class GridCell {
 	public int y;
 	
 	public boolean isNeighbor(GridCell cell) {
-		// La cellule peut être sélectionnée après celle-ci si
+		// La cellule peut Ãªtre sÃ©lectionnÃ©e aprÃ¨s celle-ci si
 		// c'est une voisine
 		return Math.abs(cell.x - x) <= 1 && Math.abs(cell.y - y) <= 1;
 	}

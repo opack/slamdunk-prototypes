@@ -3,7 +3,7 @@ package com.slamdunk.wordarena.old.numberduel;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 /**
- * Le temps géré est en secondes
+ * Le temps gÃ©rÃ© est en secondes
  */
 public class Chronometer {
 	private float elapsedTime = 0;
@@ -50,14 +50,14 @@ public class Chronometer {
 			return;
 		}
 		
-		// Mise à jour du compteur
+		// Mise Ã  jour du compteur
 		float updateInterval = 0.1f;
 		if (pausing) {
 			updateInterval = pausedUpdateInterval;
 			pausedTime -= deltaTime;
 			if (pausedTime <= 0) {
 				pausing = false;
-				// Force un rafraîchissement
+				// Force un rafraÃ®chissement
 				timeSinceLastUpdate = standardUpdateInterval;
 			}
 		} else {
@@ -65,7 +65,7 @@ public class Chronometer {
 			elapsedTime += deltaTime;
 		}
 		
-		// Mise à jour du libellé
+		// Mise Ã  jour du libellÃ©
 	    timeSinceLastUpdate += deltaTime;
 	    if (timeSinceLastUpdate >= updateInterval) {
 	    	// Appel du listner
@@ -104,14 +104,14 @@ public class Chronometer {
 	}
 
 	/**
-	 * Met le chronomètre en pause pendant le temps indiqué.
-	 * Le chronomètre affiche le décompte pendant la pause.
+	 * Met le chronomÃ¨tre en pause pendant le temps indiquÃ©.
+	 * Le chronomÃ¨tre affiche le dÃ©compte pendant la pause.
 	 * @param time
 	 */
 	public void pause(float time) {
 		pausing = true;
 		pausedTime = time;
-		// Force un rafraîchissement
+		// Force un rafraÃ®chissement
 		timeSinceLastUpdate = pausedUpdateInterval;
 	}
 }

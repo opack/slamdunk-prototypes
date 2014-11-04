@@ -11,7 +11,7 @@ public class SpriteBatchUtils {
     }
 
     /**
-     * Dessine le texte indiqué en le centrant dans la zone bounds.
+     * Dessine le texte indiquÃ© en le centrant dans la zone bounds.
      * @param spriteBatch
      * @param font
      * @param text
@@ -19,10 +19,10 @@ public class SpriteBatchUtils {
      * @param bounds
      */
     public static void drawString(SpriteBatch spriteBatch, BitmapFont font, String text, TextAlignment align, Rectangle bounds) {
-        // Détermine la taille du texte
+        // DÃ©termine la taille du texte
         TextBounds textBounds = font.getBounds(text);
 
-        // Détermine les coordonnées
+        // DÃ©termine les coordonnÃ©es
         float x = bounds.x;
         float y = bounds.y;
         switch (align) {

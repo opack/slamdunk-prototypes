@@ -3,24 +3,24 @@ package com.slamdunk.toolkit.screen.overlays;
 import com.badlogic.gdx.InputProcessor;
 
 /**
- * Représente une couche qui peut être affichée par un SlamScreen. C'est dans cette couche
- * qu'on retrouvera les éléments du jeu.
+ * ReprÃ©sente une couche qui peut Ãªtre affichÃ©e par un SlamScreen. C'est dans cette couche
+ * qu'on retrouvera les Ã©lÃ©ments du jeu.
  */
 public interface SlamOverlay {
 	/**
-	 * Méthode appelée périodiquement pour mettre à jour la logique du jeu liée à cette couche
-	 * (déplacement de personnages, évènements météo...)
+	 * MÃ©thode appelÃ©e pÃ©riodiquement pour mettre Ã  jour la logique du jeu liÃ©e Ã  cette couche
+	 * (dÃ©placement de personnages, Ã©vÃ¨nements mÃ©tÃ©o...)
 	 * @param delta
 	 */
 	void act(float delta);
 	
 	/**
-	 * Méthode appelée à chaque render pour dessinée la couche
+	 * MÃ©thode appelÃ©e Ã  chaque render pour dessinÃ©e la couche
 	 */
 	void draw();
 	
 	/**
-	 * Méthode chargée de nettoyer les ressources allouées pour la couche
+	 * MÃ©thode chargÃ©e de nettoyer les ressources allouÃ©es pour la couche
 	 */
 	void dispose();
 
@@ -31,7 +31,7 @@ public interface SlamOverlay {
 	boolean isProcessInputs();
 
 	/**
-	 * Renvoie le processor chargé de recevoir les inputs
+	 * Renvoie le processor chargÃ© de recevoir les inputs
 	 * @return
 	 */
 	InputProcessor getInputProcessor();

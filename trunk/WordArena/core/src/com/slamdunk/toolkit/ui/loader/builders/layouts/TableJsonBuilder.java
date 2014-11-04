@@ -20,22 +20,22 @@ public class TableJsonBuilder extends LayoutJsonBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère les propriétés basiques du widget
+		// GÃ¨re les propriÃ©tÃ©s basiques du widget
 		Table table = (Table)super.build(skin);
 		
-		// Gère les propriétés par défaut de la table
+		// GÃ¨re les propriÃ©tÃ©s par dÃ©faut de la table
 		parseDefaults(table);
 		
-		// Gère les propriétés par défaut des colonnes
+		// GÃ¨re les propriÃ©tÃ©s par dÃ©faut des colonnes
 		parseColumnDefaults(table);
 		
-		// Gère la propriété fillParent
+		// GÃ¨re la propriÃ©tÃ© fillParent
 		parseFillParent(table);
 		
-		// Gère la propriété rows
+		// GÃ¨re la propriÃ©tÃ© rows
 		parseRows(table);
 
-		// Gère la propriété debug
+		// GÃ¨re la propriÃ©tÃ© debug
 		parseDebug(table);
 		
 		table.pack();
@@ -87,7 +87,7 @@ public class TableJsonBuilder extends LayoutJsonBuilder {
 	}
 
 	private void parseRow(JsonValue row, Table table) {
-		// Applique les propriétés sur la ligne
+		// Applique les propriÃ©tÃ©s sur la ligne
 		Cell<?> rowCell = table.row();
 		parseCellProperties(row, rowCell);
 		
@@ -103,10 +103,10 @@ public class TableJsonBuilder extends LayoutJsonBuilder {
 	}
 
 	private void parseCell(JsonValue jsonCell, Table table) {
-		// Crée le widget qui ira dans la cellule
+		// CrÃ©e le widget qui ira dans la cellule
 		Actor widget = getCreator().build(jsonCell.get("widget"));
 		
-		// Crée la cellule et lui applique les propriétés voulues
+		// CrÃ©e la cellule et lui applique les propriÃ©tÃ©s voulues
 		Cell<Actor> cell = table.add(widget);
 		parseCellProperties(jsonCell, cell);
 	}
@@ -152,11 +152,11 @@ public class TableJsonBuilder extends LayoutJsonBuilder {
 	}
 
 	/**
-	 * Prend un tableau de 2 entrées. Chaque valeur peut être
+	 * Prend un tableau de 2 entrÃ©es. Chaque valeur peut Ãªtre
 	 * float ou boolean.
 	 * Si float, indique le pourcentage (0.0-1.0) de la
-	 * largeur/hauteur à occuper.
-	 * Si boolean, true représente 1.0 et false représente 0.0.
+	 * largeur/hauteur Ã  occuper.
+	 * Si boolean, true reprÃ©sente 1.0 et false reprÃ©sente 0.0.
 	 */
 	private void parseCellFillXY(JsonValue jsonCell, Cell<?> cell) {
 		if (jsonCell.has("fill-xy")) {
@@ -169,10 +169,10 @@ public class TableJsonBuilder extends LayoutJsonBuilder {
 	}
 	
 	/**
-	 * La valeur peut être float ou boolean.
+	 * La valeur peut Ãªtre float ou boolean.
 	 * Si float, indique le pourcentage (0.0-1.0) de la
-	 * largeur/hauteur à occuper.
-	 * Si boolean, true représente 1.0 et false représente 0.0.
+	 * largeur/hauteur Ã  occuper.
+	 * Si boolean, true reprÃ©sente 1.0 et false reprÃ©sente 0.0.
 	 * @return
 	 */
 	private float parseFillFromJson(JsonValue jsonValue) {

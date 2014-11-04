@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Cette classe permet de gérer un tableau à double entrée dont chaque entrée
+ * Cette classe permet de gÃ©rer un tableau Ã  double entrÃ©e dont chaque entrÃ©e
  * est de type EntryType, et dont la valeur est de type ValueType.
  */
 public class DoubleEntryArray<Entry1Type, Entry2Type, ValueType> {
@@ -41,7 +41,7 @@ public class DoubleEntryArray<Entry1Type, Entry2Type, ValueType> {
 	}
 
 	/**
-	 * Retourne l'ensemble des clés de type Entry1Type
+	 * Retourne l'ensemble des clÃ©s de type Entry1Type
 	 * @return 
 	 */
 	public Set<Entry1Type> getEntries1() {

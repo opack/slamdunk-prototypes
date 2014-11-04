@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 /**
  * Ce Group permet quelques petites choses de plus
  * que le Group de LibGDX, comme par exemple
- * retourner une taille cohérente avec les acteurs
+ * retourner une taille cohÃ©rente avec les acteurs
  * contenus dedans.
  */
 public class GroupEx extends Group  {
@@ -16,7 +16,7 @@ public class GroupEx extends Group  {
     @Override
     protected void childrenChanged() {
         super.childrenChanged();
-        // Mise à jour de la taille du groupe lors du prochain getWidth() ou getHeight()
+        // Mise Ã  jour de la taille du groupe lors du prochain getWidth() ou getHeight()
         isSizeValid = false;
     }
 

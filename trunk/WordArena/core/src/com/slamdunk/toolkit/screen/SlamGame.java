@@ -15,7 +15,7 @@ public class SlamGame extends Game {
 	
 	@Override
 	public void create() {
-		// Crée la table des écrans
+		// CrÃ©e la table des Ã©crans
 		screens = new HashMap<String, Screen>();
 	}
 	

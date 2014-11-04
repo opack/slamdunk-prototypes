@@ -87,14 +87,14 @@ public class WordArenaGame implements ApplicationListener {
 			
 			@Override
 			public boolean touchDragged(int screenX, int screenY, int pointer) {
-				// Calcul des coordonnées pour le stage
+				// Calcul des coordonnÃ©es pour le stage
 				screenCoords.set(screenX, screenY);
 				stageCoords = stage.screenToStageCoordinates(screenCoords);
 				
-				// Récupération de l'éventuel bouton
+				// RÃ©cupÃ©ration de l'Ã©ventuel bouton
 				Actor hit = stage.hit(stageCoords.x, stageCoords.y, true);
 				if (hit != null && (hit.getParent() instanceof TextButton)) {
-					// Récupère la cellule associée et sélectionne la lettre
+					// RÃ©cupÃ¨re la cellule associÃ©e et sÃ©lectionne la lettre
 					GridCell cell = getCell((TextButton)hit.getParent());
 					if (cell != null) {
 						select(cell, true);
@@ -260,8 +260,8 @@ public class WordArenaGame implements ApplicationListener {
 	}
 
 	private void initGrid(Skin skin) {
-		// Crée une liste de nombre en tenant compte
-		// de la représentativité de chacun
+		// CrÃ©e une liste de nombre en tenant compte
+		// de la reprÃ©sentativitÃ© de chacun
 		List<Numbers> numbers = new ArrayList<Numbers>();
 		for (Numbers number : Numbers.values()) {
 			for (int count = 0; count < number.getRepresentation(); count++) {
@@ -269,7 +269,7 @@ public class WordArenaGame implements ApplicationListener {
 			}
 		}
 		
-		// Mélange la liste
+		// MÃ©lange la liste
 		Collections.shuffle(numbers);
 		
 		// Remplit la grille
@@ -327,11 +327,11 @@ public class WordArenaGame implements ApplicationListener {
 	}
 	
 	private void select(GridCell cell, boolean swiping) {
-		// Si on sélectionne une cellule déjà sélectionnée, on regarde
-		// s'il n'y a rien à faire ou si on la désélectionne
+		// Si on sÃ©lectionne une cellule dÃ©jÃ  sÃ©lectionnÃ©e, on regarde
+		// s'il n'y a rien Ã  faire ou si on la dÃ©sÃ©lectionne
 		String style = cell.bonus.getNormalStyle();
 		if (selected.contains(cell)) {
-			// Si on clique sur la dernière case sélectionnée, on la désélectionne
+			// Si on clique sur la derniÃ¨re case sÃ©lectionnÃ©e, on la dÃ©sÃ©lectionne
 			if (!swiping && cell.equals(selected.getLast())) {
 				// Retire la cellule
 				selected.remove(cell);
@@ -340,27 +340,27 @@ public class WordArenaGame implements ApplicationListener {
 				style = cell.bonus.getSelectedStyle();
 			}
 		}
-		// Si on sélectionne une case valide, on l'ajoute à la liste des sélections
+		// Si on sÃ©lectionne une case valide, on l'ajoute Ã  la liste des sÃ©lections
 		// et on change le style du bouton
 		else if (!cell.button.isDisabled() && rule.isValidCell(cell)) {
-			// On ajoute cette case à la sélection si c'est la première ou qu'on a
-			// le droit de la sélectionner après la précédente
+			// On ajoute cette case Ã  la sÃ©lection si c'est la premiÃ¨re ou qu'on a
+			// le droit de la sÃ©lectionner aprÃ¨s la prÃ©cÃ©dente
 			if (selected.isEmpty() || rule.isValidNextCell(selected.getLast(), cell)){
 				selected.add(cell);
 				style = cell.bonus.getSelectedStyle();
 			}
 		}
 		
-		// Met à jour le style du bouton
+		// Met Ã  jour le style du bouton
 		TextButtonStyle buttonStyle = skin.get(style, TextButtonStyle.class);
 		cell.button.setStyle(buttonStyle);
 		
-		// Mise à jour du score
+		// Mise Ã  jour du score
 		updateScore();
 	}
 	
 	private void validate() {
-		// Retire le score à l'HP de l'autre joueur
+		// Retire le score Ã  l'HP de l'autre joueur
 		// ou le rajoute au joueur courant
 		Player taker = p1;
 		if ((score > 0 && turn % 2 == 0)
@@ -372,33 +372,33 @@ public class WordArenaGame implements ApplicationListener {
 		if (taker.hp <= 0) {
 			taker.label.setText(taker.name + "\nKO !");
 			
-			// La partie est terminée, on cache la grille
+			// La partie est terminÃ©e, on cache la grille
 			endGame();
 		} else {
-			// Met à jour le libellé de HP
+			// Met Ã  jour le libellÃ© de HP
 			taker.updateLabel();
 			
 			// Cache la grille
 			showGrid(false);
 			
-			// Désactive les cases utilisées
+			// DÃ©sactive les cases utilisÃ©es
 			for (GridCell cell : selected) {
 				cell.button.setDisabled(true);
 			}
 			
-			// Prépare le prochain tour
+			// PrÃ©pare le prochain tour
 			nextTurn();
 		}
 	}
 	
 	private void nextTurn() {
-		// Arrêt du chrono
+		// ArrÃªt du chrono
 		counting = false;
 		
-		// Raz de la sélection
+		// Raz de la sÃ©lection
 		reset();
 		
-		// Passe au tour suivant et si nécessaire au round suivant
+		// Passe au tour suivant et si nÃ©cessaire au round suivant
 		turn++;
 		if ((turn - 1) % NB_TURNS_BY_ROUND + 1 == 1) {
 			if (!nextRound()) {
@@ -408,10 +408,10 @@ public class WordArenaGame implements ApplicationListener {
 		}
 		updateRoundLabel();
 		
-		// Nouveau nombre fétiche
+		// Nouveau nombre fÃ©tiche
 		chooseFetichNumber();
 		
-		// Réinitialise le timer
+		// RÃ©initialise le timer
 		resetTimer();
 	}
 	
@@ -426,7 +426,7 @@ public class WordArenaGame implements ApplicationListener {
 		round++;
 		
 		if (round <= NB_ROUNDS_BY_MATCH) {
-			// Nouvelle règle de jeu pour chaque round
+			// Nouvelle rÃ¨gle de jeu pour chaque round
 			chooseRule();
 			
 			// Nouvelle grille
@@ -434,7 +434,7 @@ public class WordArenaGame implements ApplicationListener {
 			
 			return true;
 		} else {
-			// Déclare le TKO
+			// DÃ©clare le TKO
 			if (p1.hp > p2.hp) {
 				p2.label.setText(p2.name + "\nTKO !");
 			} else if (p2.hp > p1.hp) {
@@ -443,14 +443,14 @@ public class WordArenaGame implements ApplicationListener {
 				Label roundLabel = (Label)stage.getRoot().findActor("round");
 				roundLabel.setText("MATCH NUL !");
 			}
-			// La partie est terminée, on cache la grille et le bouton start
+			// La partie est terminÃ©e, on cache la grille et le bouton start
 			endGame();
 			return false;
 		}
 	}
 
 	private void chooseFetichNumber() {
-		// Récupère toutes les cellules (hormis les bords) et les mélange
+		// RÃ©cupÃ¨re toutes les cellules (hormis les bords) et les mÃ©lange
 		List<GridCell> cellsList = new ArrayList<GridCell>();
 		for (int x = 1; x < gridWidth - 1; x++) {
 			for (int y = 1; y < gridHeight - 1; y++) {
@@ -459,20 +459,20 @@ public class WordArenaGame implements ApplicationListener {
 		}
 		Collections.shuffle(cellsList);
 		
-		// RAZ nombre fétiche
+		// RAZ nombre fÃ©tiche
 		favoriteNumber[0] = -1;
 		favoriteNumber[1] = -1;
 		
-		// Choix d'une nouveau nombre fétiche
+		// Choix d'une nouveau nombre fÃ©tiche
 		GridCell secondCell;
 		searchFavorite : for (GridCell firstCell : cellsList) {
-			// On s'assure que la première cellule est valide pour la règle
+			// On s'assure que la premiÃ¨re cellule est valide pour la rÃ¨gle
 			if (firstCell.button.isDisabled()
 			|| !rule.isValidCell(firstCell)) {
 				continue;
 			}
 			
-			// Récupère les voisins de cette cellule
+			// RÃ©cupÃ¨re les voisins de cette cellule
 			for (int[] neighbor : NEIGHBORS) {
 				secondCell = cells[firstCell.x + neighbor[0]][firstCell.y + neighbor[1]];
 				if (rule.isValidCell(secondCell)
@@ -485,17 +485,17 @@ public class WordArenaGame implements ApplicationListener {
 			}
 		}
 
-		// Affichage du nombre fétiche
+		// Affichage du nombre fÃ©tiche
 		Label label = (Label)stage.getRoot().findActor("favorite");
 		if (favoriteNumber[0] != -1) {
-			label.setText("Nombre fétiche (+10pts) : " + favoriteNumber[0] + favoriteNumber[1]);
+			label.setText("Nombre fÃ©tiche (+10pts) : " + favoriteNumber[0] + favoriteNumber[1]);
 		} else {
-			label.setText("Nombre fétiche (+10pts) : Aucun possible respectant la règle");
+			label.setText("Nombre fÃ©tiche (+10pts) : Aucun possible respectant la rÃ¨gle");
 		}
 	}
 
 	private void chooseRule() {
-		// Construit une liste en prenant en compte la représentation de chaque règle
+		// Construit une liste en prenant en compte la reprÃ©sentation de chaque rÃ¨gle
 		List<Rules> rules = new ArrayList<Rules>();
 		for (Rules rule : Rules.values()) {
 			for (int count = 0; count < rule.getRepresentation(); count++) {
@@ -504,12 +504,12 @@ public class WordArenaGame implements ApplicationListener {
 		}
 		Collections.shuffle(rules);
 		
-		// Choisit une règle aléatoirement dans la liste
+		// Choisit une rÃ¨gle alÃ©atoirement dans la liste
 		rule = rules.get(0);
 		
-		// Met à jour le libellé
+		// Met Ã  jour le libellÃ©
 		Label label = (Label)stage.getRoot().findActor("rule");
-		label.setText("Règle du round : " + rule.getRule());
+		label.setText("RÃ¨gle du round : " + rule.getRule());
 	}
 
 	private void reset() {
@@ -533,7 +533,7 @@ public class WordArenaGame implements ApplicationListener {
 			// Applique le bonus sur le chiffre
 			score -= cell.bonus.getLetterValue(cell.value.getValue());
 			
-			// Vérifie si on a le nombre fétiche
+			// VÃ©rifie si on a le nombre fÃ©tiche
 			if (previous != null
 			&& previous.value.getValue() == favoriteNumber[0]
 			&& cell.value.getValue() == favoriteNumber[1]) {
@@ -550,10 +550,10 @@ public class WordArenaGame implements ApplicationListener {
 		label.setText(score > 0 ? "+" + score : String.valueOf(score));
 		int align = Align.center;
 		if (score < 0) {
-			// Si on fait des dégâts et que J1 joue, alors les dégâts sont pour le J2 donc le texte sera à droite, et inversement.
+			// Si on fait des dÃ©gÃ¢ts et que J1 joue, alors les dÃ©gÃ¢ts sont pour le J2 donc le texte sera Ã  droite, et inversement.
 			align = turn % 2 != 0 ? Align.right : Align.left;
 		} else {
-			// Si on récupère de la vie et que J1 joue, alors le texte sera à gauhe, sinon à droite
+			// Si on rÃ©cupÃ¨re de la vie et que J1 joue, alors le texte sera Ã  gauhe, sinon Ã  droite
 			align = turn % 2 != 0 ? Align.left : Align.right;
 		}
 		label.setAlignment(align);

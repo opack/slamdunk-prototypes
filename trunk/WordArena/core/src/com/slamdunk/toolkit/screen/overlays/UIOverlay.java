@@ -16,18 +16,18 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.slamdunk.toolkit.ui.loader.JsonUIBuilder;
 
 /**
- * Une couche d'affichage qui a son propre Stage et peut être utilisée
- * pour gérer l'interface utilisateur.
+ * Une couche d'affichage qui a son propre Stage et peut Ãªtre utilisÃ©e
+ * pour gÃ©rer l'interface utilisateur.
  */
 public class UIOverlay extends StageOverlay {
 	
 	/**
-	 * Skin utilisée pour dessiner les composants de l'interface
+	 * Skin utilisÃ©e pour dessiner les composants de l'interface
 	 */
 	private Skin skin;
 	
 	/**
-	 * Les différents niveaux de tables courantes pour l'ajout de composants
+	 * Les diffÃ©rents niveaux de tables courantes pour l'ajout de composants
 	 */
 	private LinkedList<Table> tables;
 
@@ -57,7 +57,7 @@ public class UIOverlay extends StageOverlay {
 	}
 
 	/**
-	 * Ajoute une cellule vide à la prochaine position de la table
+	 * Ajoute une cellule vide Ã  la prochaine position de la table
 	 * courante
 	 */
 	@SuppressWarnings("unchecked")
@@ -66,7 +66,7 @@ public class UIOverlay extends StageOverlay {
 	}
 	
 	/**
-	 * Ajoute une cellule contenant le widget indiqué à la prochaine
+	 * Ajoute une cellule contenant le widget indiquÃ© Ã  la prochaine
 	 * position de la table courante
 	 */
 	public Cell<Actor> add(Actor widget) {
@@ -74,7 +74,7 @@ public class UIOverlay extends StageOverlay {
 	}
 	
 	/**
-	 * Termine la ligne actuelle et passe à la suivante
+	 * Termine la ligne actuelle et passe Ã  la suivante
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -106,8 +106,8 @@ public class UIOverlay extends StageOverlay {
 	}
 	
 	/**
-	 * Ajoute un bouton text utilisant la skin définie pour l'overlay
-	 * à la prochaine position dans la même ligne de la table courante
+	 * Ajoute un bouton text utilisant la skin dÃ©finie pour l'overlay
+	 * Ã  la prochaine position dans la mÃªme ligne de la table courante
 	 */
 	public Cell<Actor> addTextButton(String text) {
 		TextButton button = new TextButton(text, skin);
@@ -115,8 +115,8 @@ public class UIOverlay extends StageOverlay {
 	}
 	
 	/**
-	 * Ajoute un label utilisant la skin définie pour l'overlay
-	 * à la prochaine position dans la même ligne de la table courante
+	 * Ajoute un label utilisant la skin dÃ©finie pour l'overlay
+	 * Ã  la prochaine position dans la mÃªme ligne de la table courante
 	 */
 	public Cell<Actor> addLabel(String text) {
 		Label label = new Label(text, skin);
@@ -124,8 +124,8 @@ public class UIOverlay extends StageOverlay {
 	}
 	
 	/**
-	 * Ajoute un champ d'édition de texte utilisant la skin définie pour l'overlay
-	 * à la prochaine position dans la même ligne de la table courante
+	 * Ajoute un champ d'Ã©dition de texte utilisant la skin dÃ©finie pour l'overlay
+	 * Ã  la prochaine position dans la mÃªme ligne de la table courante
 	 */
 	public Cell<Actor> addTextField(String text) {
 		TextField textField = new TextField(text, skin);
@@ -133,23 +133,23 @@ public class UIOverlay extends StageOverlay {
 	}
 
 	/**
-	 * Charge l'IHM décrite dans le fichier JSON spécifié
+	 * Charge l'IHM dÃ©crite dans le fichier JSON spÃ©cifiÃ©
 	 * @param string
 	 */
 	public void loadLayout(String layoutFile, Map<String, EventListener> listeners) {
-		// Crée l'IHM et peuple le stage
+		// CrÃ©e l'IHM et peuple le stage
 		JsonUIBuilder uiCreator = new JsonUIBuilder(skin);
 		uiCreator.load(layoutFile);
 		uiCreator.populate(getStage());
 		
-		// Ajoute les éventuels listeners aux acteurs
+		// Ajoute les Ã©ventuels listeners aux acteurs
 		if (listeners != null) {
 			setListeners(listeners);
 		}
 	}
 	
 	/**
-	 * Charge l'IHM décrite dans le fichier JSON spécifié
+	 * Charge l'IHM dÃ©crite dans le fichier JSON spÃ©cifiÃ©
 	 * @param string
 	 */
 	public void loadLayout(String layoutFile) {
@@ -157,8 +157,8 @@ public class UIOverlay extends StageOverlay {
 	}
 	
 	/**
-	 * Affecte les listeners indiqués aux objets dont le nom correspond à la
-	 * clé de la table.
+	 * Affecte les listeners indiquÃ©s aux objets dont le nom correspond Ã  la
+	 * clÃ© de la table.
 	 * @param listeners
 	 */
 	public void setListeners(Map<String, EventListener> listeners) {

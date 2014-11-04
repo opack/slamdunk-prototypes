@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Table de hachage stockant une liste de valeurs pour chaque clé
+ * Table de hachage stockant une liste de valeurs pour chaque clÃ©
  */
 public class KeyListMap<KeyType, ValueType> extends HashMap<KeyType, List<ValueType>> {
     private static final long serialVersionUID = 2307777834556752856L;

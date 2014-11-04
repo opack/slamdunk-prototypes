@@ -18,10 +18,10 @@ public class ScrollPaneJsonBuilder extends LayoutJsonBuilder {
 	
 	@Override
 	public Actor build(Skin skin) {
-		// Gère les propriétés basiques du widget
+		// GÃ¨re les propriÃ©tÃ©s basiques du widget
 		ScrollPane scrollPane = (ScrollPane)super.build(skin);
 		
-		// Gère la propriété widget
+		// GÃ¨re la propriÃ©tÃ© widget
 		parseWidget(scrollPane);
 		
 		scrollPane.pack();

@@ -1,5 +1,5 @@
 /**
- * Contient les classes capables de lire et écrire les différents réglages
+ * Contient les classes capables de lire et Ã©crire les diffÃ©rents rÃ©glages
  * de l'application.
  */
 package com.slamdunk.toolkit.settings;
