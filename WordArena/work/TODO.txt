@@ -1,5 +1,7 @@
 - Gestion de la carte
 	- Le héros trouve un chemin grâce au Pathfinder et le suit
+    --> Voir s'il ne serait pas préférable de n'utiliser le TiledMapOverlay que pour l'affichage de la carte
+    et utiliser un StageOverlay au-dessus pour gérer des Actor, qui peuvent aisément avoir des Actions
 	- Ajouter un UIOverlay avec un bouton pour spawner une unité
 	- Choisir de quel côté sort cette unité et la faire partir vers le château adverse
 	- Ajouter un second château adverse et un avant-poste. Permettre la sélection du château à attaquer.
