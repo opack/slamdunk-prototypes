@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.graphics.tiled.SpriteMapObject;
@@ -13,7 +12,6 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.screen.overlays.OverlayFactory;
 import com.slamdunk.toolkit.screen.overlays.TiledMapOverlay;
 import com.slamdunk.toolkit.screen.overlays.TiledMapOverlay.TiledMapInputProcessor;
-import com.slamdunk.toolkit.world.pathfinder.PathFinder;
 import com.slamdunk.toolkit.world.point.Point;
 
 public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
@@ -44,9 +42,13 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	    MapObject spawnPoint = tiledmap.getObject("markers", "spawn11");
 	    hero.setPixelPosition((Float)spawnPoint.getProperties().get("x"), (Float)spawnPoint.getProperties().get("y"));
 	    tiledmap.setCameraOnObject(hero);
-		
-		
-		MapObjects castles = tiledmap.getObjects("markers", RectangleMapObject.class, "type", "castle");
+	    
+	    // Ajoute un actor pour le héros
+	    Actor
+	    
+//DBG	    // Envoie le héros vers le château adverse
+//	    MapObject enemyCastle = tiledmap.getObject("markers", "castle2");
+//	    List<Point> tiledmap.findPath((int)hero.getMapX(), (int)hero.getMapY());
 	}
 
 	@Override
