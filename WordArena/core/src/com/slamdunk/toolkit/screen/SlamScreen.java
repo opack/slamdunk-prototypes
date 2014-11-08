@@ -47,7 +47,9 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 		
 		// Ajout de l'input processor de cette couche
 		if (overlay.isProcessInputs()) {
-			inputMux.addProcessor(overlay.getInputProcessor());
+			// La dernière couche sera celle qui sera la plus "haute", donc
+			// la première à recevoir les inputs
+			inputMux.addProcessor(0, overlay.getInputProcessor());
 		}
 	}
 	

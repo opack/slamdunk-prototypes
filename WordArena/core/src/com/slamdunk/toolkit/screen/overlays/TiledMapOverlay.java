@@ -39,6 +39,7 @@ public class TiledMapOverlay implements SlamOverlay {
 		 * la tuile touchée.
 		 * @param worldPosition
 		 * @param tilePosition
+		 * @param offset 
 		 * @return
 		 */
 		boolean tileTouchUp(Vector3 worldPosition, Point tilePosition);
@@ -120,7 +121,6 @@ public class TiledMapOverlay implements SlamOverlay {
 		    Point tilePosition = new Point(
 		    	(int)(worldPosition.x * pixelsByTile / tileWidth),
 		    	(int)(worldPosition.y * pixelsByTile / tileHeight));
-		    
 			return tileInputProcessor.tileTouchDragged(worldPosition, tilePosition);
 		}
 
