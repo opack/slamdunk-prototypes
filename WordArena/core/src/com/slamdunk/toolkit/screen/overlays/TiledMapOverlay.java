@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.slamdunk.toolkit.graphics.tiled.OrthogonalTiledMapRendererWithSprites;
 import com.slamdunk.toolkit.graphics.tiled.SpriteMapObject;
+import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.pathfinder.PathFinder;
 import com.slamdunk.toolkit.world.point.Point;
 
@@ -257,6 +258,10 @@ public class TiledMapOverlay implements SlamOverlay {
 		return tileHeight;
 	}
 
+	public float getPixelsByTile() {
+		return pixelsByTile;
+	}
+	
 	/**
 	 * Déplace la caméra pour la centrer sur la case où se trouve l'objet
 	 * indiqué sur la couche indiquée
@@ -277,8 +282,8 @@ public class TiledMapOverlay implements SlamOverlay {
 	 * @param objectName
 	 */
 	public void setCameraOnObject(MapObject object) {
-		camera.position.x = convertFromPixelToMapX((Float)object.getProperties().get("x"));
-		camera.position.y = convertFromPixelToMapY((Float)object.getProperties().get("y"));
+		camera.position.x = convertFromPixelToMapX(MapObjectHelper.getX(object));
+		camera.position.y = convertFromPixelToMapY(MapObjectHelper.getY(object));
 	}
 	
 	/**
@@ -327,11 +332,9 @@ public class TiledMapOverlay implements SlamOverlay {
 		}
 		
 		Array<? extends MapObject> objects = layer.getObjects().getByType(objectClass);
-		Object readValue;
 		MapObjects mapObjects = new MapObjects();
 		for (MapObject object : objects) {
-			readValue = object.getProperties().get(property);
-			if (readValue != null && readValue.equals(value)) {
+			if (MapObjectHelper.hasValue(object, property, value)) {
 				mapObjects.add(object);
 			}
 		}
@@ -389,9 +392,28 @@ public class TiledMapOverlay implements SlamOverlay {
 		int tileX;
 		int tileY;
 		for (MapObject path : paths) {
-			tileX = (int)convertFromPixelToMapX((Float)path.getProperties().get("x"));
-			tileY = (int)convertFromPixelToMapY((Float)path.getProperties().get("y"));
+			tileX = (int)convertFromPixelToMapX(MapObjectHelper.getX(path));
+			tileY = (int)convertFromPixelToMapY(MapObjectHelper.getY(path));
 			pathfinder.setWalkable(tileX, tileY, true);
 		}
 	}
+
+	/**
+	 * Calcule le chemin entre 2 points de la carte
+	 * @param fromX
+	 * @param fromY
+	 * @param toX
+	 * @param toY
+	 * @return
+	 */
+	public Path findPath(int fromX, int fromY, int toX, int toY) {
+		return new Path(pathfinder.findPath(fromX, fromY, toX, toY, true));
+	}
+
+	public Path findPath(MapObject from, MapObject to) {
+		return findPath(
+			(int)convertFromPixelToMapX(MapObjectHelper.getX(from)), (int)convertFromPixelToMapY(MapObjectHelper.getY(from)),
+			(int)convertFromPixelToMapX(MapObjectHelper.getX(to)), (int)convertFromPixelToMapY(MapObjectHelper.getY(to)));
+	}
+	
 }

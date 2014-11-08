@@ -89,8 +89,8 @@ public class Point {
     public boolean equals(Object o) {
         if (o instanceof Point) {
             Point point = (Point) o;
-            return (point.getX() == x) && (point.getY() == y)
-                    && (point.getIndex() == index);
+            return (point.x == x) && (point.y == y);
+//                    && (point.getIndex() == index);
         }
         return false;
     }

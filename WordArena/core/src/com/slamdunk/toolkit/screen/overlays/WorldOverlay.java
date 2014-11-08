@@ -16,6 +16,7 @@ public class WorldOverlay extends StageOverlay {
 	public void createStage(Viewport viewport) {
 		super.createStage(viewport);
 		world = new SlamWorld(viewport);
+		getStage().addActor(world);
 	}
 	
 	@Override
