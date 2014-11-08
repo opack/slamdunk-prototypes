@@ -44,6 +44,7 @@ public class SlamActor extends Actor {
 			float width, float height,
 			boolean isDIPActive) {
 		this(posX, posY, width, height, isDIPActive);
+		createDrawers(true, false, false);
 		textureDrawer.setTextureRegion(textureRegion);
 		textureDrawer.setActive(isTextureRegionActive);
 	}
@@ -66,6 +67,18 @@ public class SlamActor extends Actor {
 
 	public SlamActor() {
 		super();
+	}
+	
+	public void createDrawers(boolean createTextureDrawer, boolean createAnimationDrawer, boolean createParticleDrawer) {
+		if (createTextureDrawer) {
+			textureDrawer = new TextureDrawer();
+		}
+		if (createAnimationDrawer) {
+			animationDrawer = new AnimationDrawer();
+		}
+		if (createParticleDrawer) {
+			particleDrawer = new ParticleDrawer();
+		}
 	}
 
 	public AnimationDrawer getAnimationDrawer() {
@@ -91,7 +104,9 @@ public class SlamActor extends Actor {
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		animationDrawer.updateTime(delta);
+		if (animationDrawer != null) {
+			animationDrawer.updateTime(delta);
+		}
 	}
 
 	@Override
@@ -102,12 +117,20 @@ public class SlamActor extends Actor {
 		batch.setColor(getColor().r, getColor().g, getColor().b, parentAlpha * getColor().a);
 
 		// Dessine la texture si elle est définie
-		textureDrawer.draw(this, batch);
+		if (textureDrawer != null) {
+			textureDrawer.draw(this, batch);
+		}
 
 		// Dessine les animations (principale et temporaire)
-		animationDrawer.draw(this, batch);
+		if (animationDrawer != null) {
+			animationDrawer.draw(this, batch);
+		}
 
 		// Dessine les particules
-		particleDrawer.draw(this, batch);
+		if (particleDrawer != null) {
+			particleDrawer.draw(this, batch);
+		}
 	}
+	
+	
 }

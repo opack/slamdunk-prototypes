@@ -439,15 +439,31 @@
  </layer>
  <layer name="path" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJztlUkOwjAMRa1wEzgJcJLCGu4APRXTQZjugruIhKL8+GdARQJLf9PEfq3rQaTcTk7k7CoCqM1VC0PLwOeuzIfjfFGMTrUytAbvzPiiGN53SNs+0ITkxnytGB14bp0x56k7f+73cKcS741ZJXfj0tzSPrO4W8DdCe6Pd/WFXPS9Lazk//4a95Kxc9COQDWf4j4zuL4+h1rJ2Qu1efb1iXZEWPMtuT7OQeFHI1ef4F6VeRuBm3MfzWBWzKyOcVuJ5bIzmFVqVo9pLy3TeBA=
+   eJztlU0OAiEMhRu8iZ5EPcnoWu+gnsq/g/h3FzsLEkN49MGA48ImbzPQfkwprUi5nZ3IxQ0IoDZXLQwtA5+HMp+O80UxOtXK0BqcmfFFMbxvn7Z9oAnJjflaMTrw3Vpj1lN7/tzf4U4l/jZmjbml78ziblzcdyf4fXzqUMjdAm4NK/nf1lzrjr7NvWbMHDQjUM2nuK8Mrq+T/s5y5sLQPPs6QTMirPmaXB/nqPCTkasW3Jsy7yNwc/ajHsyK6dUxbi2xXLYHs0r16jHtDRsTeBA=
   </data>
  </layer>
  <objectgroup name="sprites"/>
  <objectgroup name="markers">
-  <object name="spawn11" type="path" x="96" y="320" width="32" height="32"/>
-  <object name="spawn12" type="path" x="96" y="384" width="32" height="32"/>
-  <object name="spawn21" type="path" x="704" y="480" width="32" height="32"/>
-  <object name="spawn22" type="path" x="672" y="512" width="32" height="32"/>
+  <object type="path" x="96" y="320" width="32" height="32">
+   <properties>
+    <property name="spawn" value="castle1"/>
+   </properties>
+  </object>
+  <object type="path" x="96" y="384" width="32" height="32">
+   <properties>
+    <property name="spawn" value="castle1"/>
+   </properties>
+  </object>
+  <object type="path" x="704" y="480" width="32" height="32">
+   <properties>
+    <property name="spawn" value="castle2"/>
+   </properties>
+  </object>
+  <object type="path" x="672" y="512" width="32" height="32">
+   <properties>
+    <property name="spawn" value="castle2"/>
+   </properties>
+  </object>
   <object type="path" x="96" y="288" width="32" height="32"/>
   <object type="path" x="96" y="256" width="32" height="32"/>
   <object type="path" x="96" y="224" width="32" height="32"/>

@@ -16,11 +16,18 @@ public class OverlayFactory {
 	/**
 	 * Crée un overlay destiné à afficher le monde
 	 */
-	public static WorldOverlay createWorldOverlay() {
+	public static WorldOverlay createWorldOverlay(Viewport viewport) {
 		// Création de la couche
 		WorldOverlay worldOverlay = new WorldOverlay();
-		worldOverlay.createStage(new ScreenViewport());
+		worldOverlay.createStage(viewport);
 		return worldOverlay;
+	}
+	
+	/**
+	 * Crée un overlay destiné à afficher le monde
+	 */
+	public static WorldOverlay createWorldOverlay() {
+		return createWorldOverlay(new ScreenViewport());
 	}
 	
 	/**
