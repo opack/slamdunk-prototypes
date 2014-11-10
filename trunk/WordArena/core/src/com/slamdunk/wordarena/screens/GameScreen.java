@@ -25,6 +25,8 @@ import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
 import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.point.Point;
+import com.slamdunk.wordarena.ai.AI;
+import com.slamdunk.wordarena.ai.BasicAI;
 
 public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	public static final String NAME = "GAME";
@@ -33,7 +35,8 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	private WorldOverlay worldOverlay;
 	private UIOverlay uiOverlay;
 	
-	private List<Path> paths;
+	private List<Path> playerPaths;
+	private AI enemyAI;
 	
 	private boolean isSpawingUnits;
 	
@@ -44,15 +47,47 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		createUIOverlay();
 		
 	    // Recherche les chemins depuis les points de spawn vers le château adverse
-	    MapObjects spawnPoints = tiledmapOverlay.getObjects("markers", RectangleMapObject.class, "spawn", "castle1");
-	    MapObject enemyCastle = tiledmapOverlay.getObject("markers", "castle2");
-	    paths = new ArrayList<Path>();
+		playerPaths = searchPaths("castle1", "castle2");
+		List<Path> enemyPaths = searchPaths("castle2", "castle1");
+		
+		// Initialise l'IA
+		createAI(enemyPaths);
+	}
+
+	@Override
+	public void render(float delta) {
+		// Fait agir l'adversaire
+		enemyAI.act(delta);
+		
+		super.render(delta);
+	}
+	
+	/**
+	 * Crée l'IA chargée de gérer le spawn des unités ennemies
+	 * @param enemyPaths
+	 */
+	private void createAI(List<Path> enemyPaths) {
+		enemyAI = new BasicAI(this, enemyPaths);
+	}
+
+	/**
+	 * Recherche les chemins depuis les emplacements spawn du château
+	 * fromCastle vers le château toCastle
+	 * @param string
+	 * @param string2
+	 * @return
+	 */
+	private List<Path> searchPaths(String fromCastle, String toCastle) {
+		MapObjects spawnPoints = tiledmapOverlay.getObjects("markers", RectangleMapObject.class, "spawn", fromCastle);
+	    MapObject enemyCastle = tiledmapOverlay.getObject("markers", toCastle);
+	    List<Path> paths = new ArrayList<Path>();
 	    for (MapObject spawnPoint : spawnPoints) {
 	    	Path path = tiledmapOverlay.findPath(spawnPoint, enemyCastle);
 	    	if (path != null) {
 	    		paths.add(path);
 	    	}
 	    }
+		return paths;
 	}
 
 	/**
@@ -133,13 +168,9 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		if (isSpawingUnits) {
 			// Si un chemin contient le tile touché, alors on crée une nouvelle
 			// unité sur ce chemin et on l'envoie en direction du château ennemi
-			for (Path path : paths) {
+			for (Path path : playerPaths) {
 				if (path.contains(tilePosition)) {
-					UnitMapObjet unit = createUnit();
-					unit.setSpeed(3);
-					Point departure = path.getPosition(0);
-					unit.setPosition(departure.getX(), departure.getY());
-					unit.follow(path);
+					spawnUnit(path, "hero.png");
 					break;
 				}
 			}
@@ -151,9 +182,21 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		return true;
 	}
 
-	private UnitMapObjet createUnit() {
+	/**
+	 * Crée une unité et l'envoie sur le chemin indiqué
+	 * @param path
+	 */
+	public void spawnUnit(Path path, String textureFile) {
+		UnitMapObjet unit = createUnit(textureFile);
+		unit.setSpeed(3);
+		Point departure = path.getPosition(0);
+		unit.setPosition(departure.getX(), departure.getY());
+		unit.follow(path);
+	}
+
+	private UnitMapObjet createUnit(String textureFile) {
 		final float pixelsByUnit = tiledmapOverlay.getPixelsByTile();
-		TextureRegion textureRegion = new TextureRegion(new Texture(Gdx.files.internal("textures/hero2.png")));
+		TextureRegion textureRegion = new TextureRegion(new Texture(Gdx.files.internal("textures/" + textureFile)));
 		UnitMapObjet unit = new UnitMapObjet();
 		
 		unit.createDrawers(true, false, false);
