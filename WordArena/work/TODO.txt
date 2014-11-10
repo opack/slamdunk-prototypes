@@ -6,8 +6,8 @@
 	- Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
 - Combat
 	x Mettre en place une IA qui spwan des ennemis (pour simplifier au début, spwan d'une unité à un interval aléatoire)
+	x Engager le combat entre unités ennemies
 	- Ajouter des animations pour le déplacement et l'action d'une unité
-	- Engager le combat entre unités ennemies
 - Monde
 	- Evoluer sur une carte du monde
 	- Ouvrir le champ de bataille sur une touche
