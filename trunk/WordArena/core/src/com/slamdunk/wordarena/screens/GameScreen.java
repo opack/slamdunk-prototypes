@@ -1,13 +1,11 @@
 package com.slamdunk.wordarena.screens;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
@@ -16,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.slamdunk.toolkit.lang.KeyListMap;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.screen.overlays.OverlayFactory;
@@ -27,6 +26,9 @@ import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.ai.AI;
 import com.slamdunk.wordarena.ai.BasicAI;
+import com.slamdunk.wordarena.units.Factions;
+import com.slamdunk.wordarena.units.Paladin;
+import com.slamdunk.wordarena.units.SimpleUnit;
 
 public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	public static final String NAME = "GAME";
@@ -40,11 +42,18 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	
 	private boolean isSpawingUnits;
 	
+	/**
+	 * Unités par faction
+	 */
+	private KeyListMap<Factions, SimpleUnit> units;
+	
 	public GameScreen(SlamGame game) {
 		super(game);
 		createTiledMapOverlay();
 		createWorldOverlay();
 		createUIOverlay();
+		
+		units = new KeyListMap<Factions, SimpleUnit>();
 		
 	    // Recherche les chemins depuis les points de spawn vers le château adverse
 		playerPaths = searchPaths("castle1", "castle2");
@@ -170,7 +179,9 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 			// unité sur ce chemin et on l'envoie en direction du château ennemi
 			for (Path path : playerPaths) {
 				if (path.contains(tilePosition)) {
-					spawnUnit(path, "hero.png");
+					spawnUnit(
+						new Paladin(this),
+						path);
 					break;
 				}
 			}
@@ -186,25 +197,39 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	 * Crée une unité et l'envoie sur le chemin indiqué
 	 * @param path
 	 */
-	public void spawnUnit(Path path, String textureFile) {
-		UnitMapObjet unit = createUnit(textureFile);
-		unit.setSpeed(3);
+	public void spawnUnit(SimpleUnit unit, Path path) {
+		// Ajoute l'unité au monde
+		worldOverlay.getWorld().addActor(unit);
+		units.putValue(unit.getFaction(), unit);
+		
+		// Envoie l'unité sur le chemin spécifié
 		Point departure = path.getPosition(0);
 		unit.setPosition(departure.getX(), departure.getY());
 		unit.follow(path);
 	}
+	
+	/**
+	 * Retire l'unité du monde
+	 * @param unit
+	 */
+	public void removeUnit(SimpleUnit unit) {
+		worldOverlay.getWorld().removeActor(unit);
+		units.get(unit.getFaction()).remove(unit);
+	}
 
-	private UnitMapObjet createUnit(String textureFile) {
-		final float pixelsByUnit = tiledmapOverlay.getPixelsByTile();
-		TextureRegion textureRegion = new TextureRegion(new Texture(Gdx.files.internal("textures/" + textureFile)));
-		UnitMapObjet unit = new UnitMapObjet();
-		
-		unit.createDrawers(true, false, false);
-		unit.getTextureDrawer().setTextureRegion(textureRegion);
-		unit.getTextureDrawer().setActive(true);
-		unit.setSize(textureRegion.getRegionWidth() / pixelsByUnit, textureRegion.getRegionHeight() / pixelsByUnit);
-		
-		worldOverlay.getWorld().addActor(unit);
-		return unit;
+	/**
+	 * Retourne la liste des unités du camp indiqué
+	 * @return
+	 */
+	public Collection<SimpleUnit> getUnits(Factions faction) {
+		return units.get(faction);
+	}
+
+	/**
+	 * Retourne le nombre de pixels dans 1 unité du monde
+	 * @return
+	 */
+	public float getPixelsByUnit() {
+		return tiledmapOverlay.getPixelsByTile();
 	}
 }

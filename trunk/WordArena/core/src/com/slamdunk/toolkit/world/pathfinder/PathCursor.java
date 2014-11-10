@@ -18,8 +18,14 @@ public class PathCursor {
 	 */
 	private int index;
 	
+	/**
+	 * Emplacement courant du curseur
+	 */
+	private Point current;
+	
 	public PathCursor(Path path) {
 		this.path = path;
+		current = path.getPosition(index);
 	}
 	
 	public Path getPath() {
@@ -50,6 +56,15 @@ public class PathCursor {
 		}
 		// Sinon, on retourne la prochaine position
 		index++;
-		return path.getPosition(index);
+		current = path.getPosition(index);
+		return current;
+	}
+
+	/**
+	 * Retourne la position sans déplacer le curseur
+	 * @return
+	 */
+	public Point current() {
+		return current;
 	}
 }
