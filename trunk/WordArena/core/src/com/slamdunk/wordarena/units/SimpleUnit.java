@@ -98,6 +98,20 @@ public class SimpleUnit extends SlamActor {
 		setSize(preferedPixelsWidth / pixelsByUnit, preferedPixelsHeight / pixelsByUnit);
 	}
 	
+	public Directions getDirection() {
+		return direction;
+	}
+
+	/**
+	 * Change la direction de l'unité et donc éventuellement l'animation
+	 * en cours
+	 * @param direction
+	 */
+	public void setDirection(Directions direction) {
+		this.direction = direction;
+		chooseAnimation();
+	}
+
 	public int getHp() {
 		return hp;
 	}

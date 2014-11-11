@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.slamdunk.toolkit.world.pathfinder.PathCursor;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.GameScreen;
 
@@ -81,6 +80,14 @@ public class OffensiveUnit extends SimpleUnit {
 	protected void performMove(float delta) {
 		super.performMove(delta);
 		
+		// Cherche un ennemi à portée et l'attaque le cas échéant
+		searchAndAttackEnnemy();
+	}
+	
+	/**
+	 * Recherche un ennemi à portée et l'attaque
+	 */
+	protected void searchAndAttackEnnemy() {
 		// Vérifie s'il y a des ennemis à attaquer à portée
 		List<SimpleUnit> nearbyEnemies = findAttackableEnemies();
 		
@@ -91,7 +98,7 @@ public class OffensiveUnit extends SimpleUnit {
 			setState(States.ATTACKING);
 		}
 	}
-	
+
 	@Override
 	protected void handleEventReceiveDamage(SimpleUnit attacker, int damage) {
 		// Gère les dégâts recçus
@@ -119,11 +126,6 @@ public class OffensiveUnit extends SimpleUnit {
 	 * @return
 	 */
 	private List<SimpleUnit> findAttackableEnemies() {
-		// S'il n'y a pas de curseur, alors pas de position donc pas d'ennemis proches
-		PathCursor pathCursor = getPathCursor();
-		if (pathCursor == null) {
-			return null;
-		}
 		// S'il n'y a pas d'ennemis, alors il n'y a personne à attaquer
 		final Factions enemyFaction = Factions.enemyOf(getFaction());
 		Collection<SimpleUnit> enemies = UnitManager.getInstance().getUnits(enemyFaction);

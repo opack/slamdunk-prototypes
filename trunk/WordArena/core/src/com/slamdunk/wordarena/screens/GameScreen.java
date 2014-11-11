@@ -24,9 +24,9 @@ import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.ai.AI;
 import com.slamdunk.wordarena.ai.BasicAI;
-import com.slamdunk.wordarena.units.Paladin;
 import com.slamdunk.wordarena.units.SimpleUnit;
 import com.slamdunk.wordarena.units.UnitManager;
+import com.slamdunk.wordarena.units.Units;
 
 public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	public static final String NAME = "GAME";
@@ -38,7 +38,7 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	private List<Path> playerPaths;
 	private AI enemyAI;
 	
-	private boolean isSpawingUnits;
+	private Units spawningUnit;
 	
 	public GameScreen(SlamGame game) {
 		super(game);
@@ -99,9 +99,19 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		
 		// Création des listeners qui interprèteront les clics sur les boutons
 		Map<String, EventListener> listeners = new HashMap<String, EventListener>();
-		listeners.put("spawn", new ClickListener() {
+		listeners.put("move_camera", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				isSpawingUnits = !isSpawingUnits;
+				spawningUnit = null;
+			}
+		});
+		listeners.put("spawn_paladin", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				spawningUnit = Units.PALADIN;
+			}
+		});
+		listeners.put("spawn_ranger", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				spawningUnit = Units.RANGER;
 			}
 		});
 		ui.setListeners(listeners);
@@ -166,21 +176,21 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	
 	@Override
 	public boolean tileTouchUp(Vector3 worldPosition, Point tilePosition) {
-		if (isSpawingUnits) {
+		if (spawningUnit == null) {
+			// Si on n'a pas cliqué pour créer une unité, alors on déplace la caméra
+			worldOverlay.getStage().getCamera().position.x = worldPosition.x;
+			worldOverlay.getStage().getCamera().position.y = worldPosition.y;
+		} else {
 			// Si un chemin contient le tile touché, alors on crée une nouvelle
 			// unité sur ce chemin et on l'envoie en direction du château ennemi
 			for (Path path : playerPaths) {
 				if (path.contains(tilePosition)) {
 					spawnUnit(
-						new Paladin(this),
+						spawningUnit.create(this),
 						path);
 					break;
 				}
 			}
-		} else {
-			// Si on n'a pas cliqué pour créer une unité, alors on déplace la caméra
-			worldOverlay.getStage().getCamera().position.x = worldPosition.x;
-			worldOverlay.getStage().getCamera().position.y = worldPosition.y;
 		}
 		return true;
 	}

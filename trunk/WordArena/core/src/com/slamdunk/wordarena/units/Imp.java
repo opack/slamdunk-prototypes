@@ -43,6 +43,6 @@ public class Imp extends OffensiveUnit {
 	
 	@Override
 	public String toString() {
-		return "Orc " + getHp() + "HP" + getPosition();
+		return "Imp " + getHp() + "HP" + getPosition();
 	}
 }

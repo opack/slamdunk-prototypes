@@ -36,6 +36,6 @@ public class Ninja extends OffensiveUnit {
 	
 	@Override
 	public String toString() {
-		return "Orc " + getHp() + "HP" + getPosition();
+		return "Ninja " + getHp() + "HP" + getPosition();
 	}
 }
