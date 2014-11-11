@@ -5,9 +5,8 @@ import java.util.List;
 import com.badlogic.gdx.math.MathUtils;
 import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.wordarena.screens.GameScreen;
-import com.slamdunk.wordarena.units.Imp;
-import com.slamdunk.wordarena.units.Ninja;
 import com.slamdunk.wordarena.units.SimpleUnit;
+import com.slamdunk.wordarena.units.Units;
 
 /**
  * AI simple : spawn une unité à des moments aléatoires
@@ -38,9 +37,9 @@ public class BasicAI implements AI {
 			SimpleUnit unit;
 			if (choosenUnit == 0) {
 				// 1 chance sur 10 de créer un Imp
-				unit = new Imp(game);
+				unit = Units.IMP.create(game);
 			} else {
-				unit = new Ninja(game);
+				unit = Units.NINJA.create(game);
 			}
 			// Choix d'un chemin au hasard
 			int choosenPathIndex = MathUtils.random(paths.size() - 1);

@@ -2,17 +2,44 @@
 	widgets: [
 		{
 			class: TextButton,
-			name: spawn,
-			text-key: btn-spawn,
+			name: move_camera,
+			text-key: btn-move_camera,
+			x: 10,
+			y: 10,
+			width: 100,
+			height: 50
+		},
+		{
+			class: TextButton,
+			name: spawn_paladin,
+			text-key: btn-spawn_paladin,
+			x: 120,
+			y: 10,
+			width: 100,
+			height: 50
+		},
+		{
+			class: TextButton,
+			name: spawn_ranger,
+			text-key: btn-spawn_ranger,
+			x: 230,
 			y: 10,
 			width: 100,
 			height: 50
 		}
 	],
 	values: {
-		btn-spawn: {
-			en: "Unit creation",
-			fr: "Création d'unités"
+		btn-move_camera: {
+			en: "Move camera",
+			fr: "Déplacer caméra"
+		},
+		btn-spawn_paladin: {
+			en: "Paladin",
+			fr: "Paladin"
+		},
+		btn-spawn_ranger: {
+			en: "Ranger",
+			fr: "Archer"
 		}
 	}
 }
