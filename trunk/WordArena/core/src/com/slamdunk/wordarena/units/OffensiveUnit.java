@@ -46,9 +46,9 @@ public class OffensiveUnit extends SimpleUnit {
 	 */
 	private SimpleUnit target;
 	
-	public OffensiveUnit(GameScreen game, Factions faction, String textureFile,
+	public OffensiveUnit(GameScreen game, Factions faction, 
 			int minRange, int maxRange, int damage, float attackInterval) {
-		super(game, faction, textureFile);
+		super(game, faction);
 		this.minRange = minRange;
 		this.maxRange = maxRange;
 		this.damage = damage;
@@ -142,7 +142,7 @@ public class OffensiveUnit extends SimpleUnit {
 		}
 		// S'il n'y a pas d'ennemis, alors il n'y a personne à attaquer
 		final Factions enemyFaction = Factions.enemyOf(getFaction());
-		Collection<SimpleUnit> enemies = getGame().getUnits(enemyFaction);
+		Collection<SimpleUnit> enemies = UnitManager.getInstance().getUnits(enemyFaction);
 		if (enemies == null || enemies.isEmpty()) {
 			return null;
 		}

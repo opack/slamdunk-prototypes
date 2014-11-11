@@ -1,10 +1,15 @@
 package com.slamdunk.wordarena.units;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.slamdunk.toolkit.world.SlamActor;
+import com.slamdunk.toolkit.world.pathfinder.Directions;
 import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.pathfinder.PathCursor;
 import com.slamdunk.toolkit.world.point.Point;
@@ -38,16 +43,26 @@ public class SimpleUnit extends SlamActor {
 	private States state;
 	private int hp;
 	
-	public SimpleUnit(GameScreen game, Factions faction, String textureFile) {
+	private Map<Directions, Animation> animations;
+	
+	public SimpleUnit(GameScreen game, Factions faction) {
 		this.game = game;
 		this.faction = faction;
 		speed = 1;
 		state = States.IDLE;
-		
-		initUnit(textureFile);
+		animations = new HashMap<Directions, Animation>();
 	}
 	
-	private void initUnit(String textureFile) {
+	/**
+	 * Définit l'animation à utiliser pour une direction donnée
+	 * @param direction
+	 * @param animation
+	 */
+	public void setMoveAnimation(Directions direction, Animation animation) {
+		animations.put(direction, animation);
+	}
+	
+	public void initTextureRendering(String textureFile) {
 		TextureRegion textureRegion = new TextureRegion(new Texture(Gdx.files.internal("textures/" + textureFile)));
 		
 		createDrawers(true, false, false);
@@ -57,6 +72,13 @@ public class SimpleUnit extends SlamActor {
 		
 		final float pixelsByUnit = game.getPixelsByUnit();
 		setSize(textureRegion.getRegionWidth() / pixelsByUnit, textureRegion.getRegionHeight() / pixelsByUnit);
+	}
+	
+	public void initAnimationRendering(float preferedPixelsWidth, float preferedPixelsHeight) {
+		createDrawers(false, true, false);
+		getAnimationDrawer().setActive(true);
+		final float pixelsByUnit = game.getPixelsByUnit();
+		setSize(preferedPixelsWidth / pixelsByUnit, preferedPixelsHeight / pixelsByUnit);
 	}
 	
 	public int getHp() {
@@ -158,7 +180,7 @@ public class SimpleUnit extends SlamActor {
 	 * @param delta 
 	 */
 	protected void performDeath(float delta) {
-		game.removeUnit(this);
+		UnitManager.getInstance().removeUnit(this);
 	}
 	
 	/**
@@ -178,13 +200,21 @@ public class SimpleUnit extends SlamActor {
 			} else {
 				handleEventMovedOnePosition();
 				
-				Point destination = pathCursor.current();
+				
+				Point current = pathCursor.current();
+				Point destination = current;
 				if (getX() == destination.getX()
 				&& getY() == destination.getY()){
 					destination = pathCursor.next();
+					
+					// Modification de l'animation en fonction de la direction du déplacement
+					Directions direction = Directions.getDirection(current, destination);
+					Animation animation = animations.get(direction);
+					if (animation != null) {
+						getAnimationDrawer().setAnimation(animation, true, true);
+					}
 				}
 				
-				//Point nextPosition = pathCursor.next();
 				addAction(Actions.moveTo(destination.getX(), destination.getY(), 1 / speed));
 			}
 		}
