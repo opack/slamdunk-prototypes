@@ -32,6 +32,13 @@ public class AnimationDrawer {
 	
 	
 	/**
+	 * Indique si l'animation est terminée
+	 */
+	public boolean isAnimationFinished() {
+		return animation.isAnimationFinished(stateTime);
+	}
+	
+	/**
 	 * Indique si l'animation est active
 	 * @return 
 	 */
@@ -179,6 +186,7 @@ public class AnimationDrawer {
 		this.animation = animation;
 		this.isActive = isActive;
 		this.isLooping = isLooping;
+		stateTime = 0;
 	}
 	
 	/**

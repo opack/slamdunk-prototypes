@@ -1,13 +1,11 @@
 package com.slamdunk.wordarena.units;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.world.SlamActor;
 import com.slamdunk.toolkit.world.pathfinder.Directions;
 import com.slamdunk.toolkit.world.pathfinder.Path;
@@ -37,29 +35,48 @@ public class SimpleUnit extends SlamActor {
 	 */
 	private Factions faction;
 	
+	/**
+	 * Vitesse de déplacement (en cases par secondes)
+	 */
 	private float speed;
+	
+	/**
+	 * Curseur de déplacement qui permet de suivre un chemin
+	 */
 	private PathCursor pathCursor;
 	
+	/**
+	 * La direction dans laquelle regarde l'unité
+	 */
+	private Directions direction;
+	
+	/**
+	 * L'état qui identifie l'action en cours
+	 */
 	private States state;
+	
+	/**
+	 * Nombre de points de vie restants
+	 */
 	private int hp;
 	
-	private Map<Directions, Animation> animations;
+	private DoubleEntryArray<States, Directions, Animation> animations;
 	
 	public SimpleUnit(GameScreen game, Factions faction) {
 		this.game = game;
 		this.faction = faction;
 		speed = 1;
 		state = States.IDLE;
-		animations = new HashMap<Directions, Animation>();
+		animations = new DoubleEntryArray<States, Directions, Animation>();
 	}
 	
 	/**
-	 * Définit l'animation à utiliser pour une direction donnée
+	 * Définit l'animation à utiliser pour une direction donnée et l'état donné
 	 * @param direction
 	 * @param animation
 	 */
-	public void setMoveAnimation(Directions direction, Animation animation) {
-		animations.put(direction, animation);
+	public void setAnimation(States state, Directions direction, Animation animation) {
+		animations.put(state, direction, animation);
 	}
 	
 	public void initTextureRendering(String textureFile) {
@@ -129,6 +146,7 @@ public class SimpleUnit extends SlamActor {
 	public void setState(States state) {
 		this.state = state;
 		clearActions();
+		chooseAnimation();
 	}
 
 	/**
@@ -180,7 +198,9 @@ public class SimpleUnit extends SlamActor {
 	 * @param delta 
 	 */
 	protected void performDeath(float delta) {
-		UnitManager.getInstance().removeUnit(this);
+		if (getAnimationDrawer().isAnimationFinished()) {
+			UnitManager.getInstance().removeUnit(this);
+		}
 	}
 	
 	/**
@@ -200,7 +220,6 @@ public class SimpleUnit extends SlamActor {
 			} else {
 				handleEventMovedOnePosition();
 				
-				
 				Point current = pathCursor.current();
 				Point destination = current;
 				if (getX() == destination.getX()
@@ -208,15 +227,24 @@ public class SimpleUnit extends SlamActor {
 					destination = pathCursor.next();
 					
 					// Modification de l'animation en fonction de la direction du déplacement
-					Directions direction = Directions.getDirection(current, destination);
-					Animation animation = animations.get(direction);
-					if (animation != null) {
-						getAnimationDrawer().setAnimation(animation, true, true);
-					}
+					direction = Directions.getDirection(current, destination);
+					chooseAnimation();
 				}
 				
 				addAction(Actions.moveTo(destination.getX(), destination.getY(), 1 / speed));
 			}
+		}
+	}
+
+	/**
+	 * Choisit l'animation à utiliser en fonction de l'état de l'unité 
+	 * et de la direction dans laquelle elle regarde.
+	 * Si une animation existe pour ces paramètres, elle est utilisée.
+	 */
+	protected void chooseAnimation() {
+		Animation animation = animations.get(state, direction);
+		if (animation != null) {
+			getAnimationDrawer().setAnimation(animation, true, true);
 		}
 	}
 
@@ -259,5 +287,13 @@ public class SimpleUnit extends SlamActor {
 	@Override
 	public String toString() {
 		return "Unit " + hp + "HP" + getPosition();
+	}
+
+	/**
+	 * Indique si cette unité n'a plus d'HP
+	 * @return
+	 */
+	public boolean isDead() {
+		return hp <= 0;
 	}
 }
