@@ -7,7 +7,7 @@
 - Combat
 	x Mettre en place une IA qui spwan des ennemis (pour simplifier au début, spwan d'une unité à un interval aléatoire)
 	x Engager le combat entre unités ennemies
-	- Ajouter des animations pour le déplacement et l'action d'une unité
+	x Ajouter des animations pour le déplacement et l'action d'une unité
 - Monde
 	- Evoluer sur une carte du monde
 	- Ouvrir le champ de bataille sur une touche
