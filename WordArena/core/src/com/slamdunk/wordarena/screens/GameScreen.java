@@ -1,7 +1,6 @@
 package com.slamdunk.wordarena.screens;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.slamdunk.toolkit.lang.KeyListMap;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.screen.overlays.OverlayFactory;
@@ -26,9 +24,9 @@ import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.ai.AI;
 import com.slamdunk.wordarena.ai.BasicAI;
-import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.Paladin;
 import com.slamdunk.wordarena.units.SimpleUnit;
+import com.slamdunk.wordarena.units.UnitManager;
 
 public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	public static final String NAME = "GAME";
@@ -42,18 +40,11 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	
 	private boolean isSpawingUnits;
 	
-	/**
-	 * Unités par faction
-	 */
-	private KeyListMap<Factions, SimpleUnit> units;
-	
 	public GameScreen(SlamGame game) {
 		super(game);
 		createTiledMapOverlay();
 		createWorldOverlay();
 		createUIOverlay();
-		
-		units = new KeyListMap<Factions, SimpleUnit>();
 		
 	    // Recherche les chemins depuis les points de spawn vers le château adverse
 		playerPaths = searchPaths("castle1", "castle2");
@@ -129,8 +120,9 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		viewport.setUnitsPerPixel(1 / tiledmapOverlay.getPixelsByTile());
 		
 		worldOverlay = OverlayFactory.createWorldOverlay(viewport);
-		
 		addOverlay(worldOverlay);
+		
+		UnitManager.getInstance().setStageContainer(worldOverlay.getWorld());
 	}
 
 	/**
@@ -199,8 +191,7 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	 */
 	public void spawnUnit(SimpleUnit unit, Path path) {
 		// Ajoute l'unité au monde
-		worldOverlay.getWorld().addActor(unit);
-		units.putValue(unit.getFaction(), unit);
+		UnitManager.getInstance().addUnit(unit);
 		
 		// Envoie l'unité sur le chemin spécifié
 		Point departure = path.getPosition(0);
@@ -208,23 +199,6 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		unit.follow(path);
 	}
 	
-	/**
-	 * Retire l'unité du monde
-	 * @param unit
-	 */
-	public void removeUnit(SimpleUnit unit) {
-		worldOverlay.getWorld().removeActor(unit);
-		units.get(unit.getFaction()).remove(unit);
-	}
-
-	/**
-	 * Retourne la liste des unités du camp indiqué
-	 * @return
-	 */
-	public Collection<SimpleUnit> getUnits(Factions faction) {
-		return units.get(faction);
-	}
-
 	/**
 	 * Retourne le nombre de pixels dans 1 unité du monde
 	 * @return
