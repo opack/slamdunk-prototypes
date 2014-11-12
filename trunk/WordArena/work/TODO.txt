@@ -9,6 +9,7 @@
 	x Engager le combat entre unités ennemies
 	x Ajouter des animations pour le déplacement et l'action d'une unité
 	- Gérer des projectiles
+		=> BUG sur la gestion du range : l'archer semble détecter les ennemis au sud de lui quand il est orienté vers le nord
 - Monde
 	- Evoluer sur une carte du monde
 	- Ouvrir le champ de bataille sur une touche

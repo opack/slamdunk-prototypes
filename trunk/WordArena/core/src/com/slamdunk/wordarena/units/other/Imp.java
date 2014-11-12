@@ -1,10 +1,12 @@
-package com.slamdunk.wordarena.units;
+package com.slamdunk.wordarena.units.other;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.pathfinder.Directions;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.GameScreen;
+import com.slamdunk.wordarena.units.Factions;
+import com.slamdunk.wordarena.units.OffensiveUnit;
 
 public class Imp extends OffensiveUnit {
 	private static final Animation ANIM_MOVE_UP = AnimationCreator.create("textures/imp_moving.png", 4, 4, 0.25f, 0, 1, 2, 3);
@@ -20,10 +22,16 @@ public class Imp extends OffensiveUnit {
 	private static final Animation ANIM_DYING = AnimationCreator.create("textures/imp_dying.png", 7, 1, 0.25f);
 	
 	public Imp(GameScreen game) {
-		super(game, Factions.OTHER, 1, 1, 2, 1);
+		super(game);
+		setFaction(Factions.OTHER);
+		
 		setHp(30);
 		setSpeed(1);
 
+		setRange(0, 0);
+		setDamage(2);
+		setAttackInterval(1);
+		
 		initAnimationRendering(32, 32);
 		setAnimation(States.MOVING, Directions.UP, ANIM_MOVE_UP);
 		setAnimation(States.MOVING, Directions.RIGHT, ANIM_MOVE_RIGHT);
