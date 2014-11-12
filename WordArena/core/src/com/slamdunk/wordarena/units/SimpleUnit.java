@@ -56,17 +56,23 @@ public class SimpleUnit extends SlamActor {
 	private States state;
 	
 	/**
+	 * L'état au moment du précédent appel à act()
+	 */
+	private States previousState;
+	
+	/**
 	 * Nombre de points de vie restants
 	 */
 	private int hp;
 	
 	private DoubleEntryArray<States, Directions, Animation> animations;
 	
-	public SimpleUnit(GameScreen game, Factions faction) {
+	public SimpleUnit(GameScreen game) {
 		this.game = game;
-		this.faction = faction;
+		direction = Directions.UP;
 		speed = 1;
 		state = States.IDLE;
+		previousState = States.IDLE;
 		animations = new DoubleEntryArray<States, Directions, Animation>();
 	}
 	
@@ -100,6 +106,10 @@ public class SimpleUnit extends SlamActor {
 	
 	public Directions getDirection() {
 		return direction;
+	}
+
+	public States getPreviousState() {
+		return previousState;
 	}
 
 	/**
@@ -198,6 +208,8 @@ public class SimpleUnit extends SlamActor {
 				System.err.println("Unhandled state (" + state + ") !");
 				break;			
 		}
+		
+		previousState = state;
 	}
 	
 	/**

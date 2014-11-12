@@ -111,7 +111,7 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		});
 		listeners.put("spawn_ranger", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				spawningUnit = Units.RANGER;
+				spawningUnit = Units.ARCHER;
 			}
 		});
 		ui.setListeners(listeners);
@@ -215,5 +215,9 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	 */
 	public float getPixelsByUnit() {
 		return tiledmapOverlay.getPixelsByTile();
+	}
+
+	public TiledMapOverlay getTiledMap() {
+		return tiledmapOverlay;
 	}
 }

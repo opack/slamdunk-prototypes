@@ -2,7 +2,6 @@ package com.slamdunk.wordarena.units;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.slamdunk.toolkit.world.pathfinder.Directions;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.GameScreen;
 
@@ -12,9 +11,15 @@ import com.slamdunk.wordarena.screens.GameScreen;
 public class ProjectileUnit extends OffensiveUnit {
 	private boolean launched;
 	
-	public ProjectileUnit(GameScreen game, Factions faction, Directions direction, int damage, float attackDelay) {
-		super(game, faction, 0, 0, damage, attackDelay);
-		setDirection(direction);
+	public ProjectileUnit(GameScreen game) {
+		super(game);
+		// Par défaut, on touche à l'impact
+		setRange(0, 0);
+		// Par défaut, on fait 1 point de dégât
+		setDamage(1);
+		// Par défaut, on frappe dès qu'on passe en mode ATTACKING, donc à l'impact
+		setAttackInterval(0);
+		
 		launched = false;
 	}
 	
@@ -37,12 +42,16 @@ public class ProjectileUnit extends OffensiveUnit {
 			Vector2 destination = new Vector2(getX(), getY());
 			switch (getDirection()) {
 			case UP:
+				destination.y = getGame().getTiledMap().getMapHeight();
 				break;
 			case DOWN:
+				destination.y = -1;
 				break;
 			case LEFT:
+				destination.x = -1;
 				break;
 			case RIGHT:
+				destination.x = getGame().getTiledMap().getMapWidth();
 				break;
 			}
 			float timeToArrival = destination.dst(getX(), getY()) / getSpeed();

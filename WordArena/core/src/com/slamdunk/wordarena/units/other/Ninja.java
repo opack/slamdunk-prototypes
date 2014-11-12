@@ -1,10 +1,12 @@
-package com.slamdunk.wordarena.units;
+package com.slamdunk.wordarena.units.other;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.pathfinder.Directions;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.GameScreen;
+import com.slamdunk.wordarena.units.Factions;
+import com.slamdunk.wordarena.units.OffensiveUnit;
 
 public class Ninja extends OffensiveUnit {
 	private static final Animation ANIM_MOVE_UP = AnimationCreator.create("textures/ninja_moving.png", 3, 4, 0.25f, 0, 1, 2);
@@ -18,10 +20,16 @@ public class Ninja extends OffensiveUnit {
 	private static final Animation ANIM_ATTACK_LEFT = AnimationCreator.create("textures/ninja_attacking.png", 4, 4, 0.25f, 12, 13, 14, 15);
 	
 	public Ninja(GameScreen game) {
-		super(game, Factions.OTHER, 1, 1, 1, 1);
+		super(game);
+		setFaction(Factions.OTHER);
+		
 		setHp(10);
 		setSpeed(2);
 
+		setRange(0, 0);
+		setDamage(1);
+		setAttackInterval(1);
+		
 		initAnimationRendering(32, 32);
 		setAnimation(States.MOVING, Directions.UP, ANIM_MOVE_UP);
 		setAnimation(States.MOVING, Directions.RIGHT, ANIM_MOVE_RIGHT);

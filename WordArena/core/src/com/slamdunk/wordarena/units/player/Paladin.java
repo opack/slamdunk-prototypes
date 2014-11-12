@@ -1,10 +1,12 @@
-package com.slamdunk.wordarena.units;
+package com.slamdunk.wordarena.units.player;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.pathfinder.Directions;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.GameScreen;
+import com.slamdunk.wordarena.units.Factions;
+import com.slamdunk.wordarena.units.OffensiveUnit;
 
 public class Paladin extends OffensiveUnit {
 	private static final Animation ANIM_MOVE_UP = AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, 0, 1, 2);
@@ -18,9 +20,15 @@ public class Paladin extends OffensiveUnit {
 	private static final Animation ANIM_ATTACK_LEFT = AnimationCreator.create("textures/warrior_attacking.png", 4, 4, 0.125f, 12, 13, 14, 15);
 	
 	public Paladin(GameScreen game) {
-		super(game, Factions.PLAYER, 1, 1, 1, 0.5f);
+		super(game);
+		setFaction(Factions.PLAYER);
+		
 		setHp(10);
 		setSpeed(2);
+		
+		setRange(0, 0);
+		setDamage(1);
+		setAttackInterval(0.5f);
 		
 		initAnimationRendering(32, 32);
 		setAnimation(States.MOVING, Directions.UP, ANIM_MOVE_UP);
