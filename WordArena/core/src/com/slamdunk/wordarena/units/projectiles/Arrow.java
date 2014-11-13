@@ -8,19 +8,19 @@ import com.slamdunk.wordarena.screens.GameScreen;
 import com.slamdunk.wordarena.units.ProjectileUnit;
 
 public class Arrow extends ProjectileUnit {
-	private static final Animation ANIM_MOVE_UP = AnimationCreator.create("textures/arrow_moving.png", 8, 1, 0.25f, 2);
-	private static final Animation ANIM_MOVE_RIGHT = AnimationCreator.create("textures/arrow_moving.png", 8, 1, 0.25f, 4);
-	private static final Animation ANIM_MOVE_DOWN = AnimationCreator.create("textures/arrow_moving.png", 8, 1, 0.25f, 6);
-	private static final Animation ANIM_MOVE_LEFT = AnimationCreator.create("textures/arrow_moving.png", 8, 1, 0.25f, 0);
+	private static final Animation ANIM_MOVE_UP = AnimationCreator.create("textures/arrow_moving.png", 4, 1, 0.25f, 0);
+	private static final Animation ANIM_MOVE_RIGHT = AnimationCreator.create("textures/arrow_moving.png", 4, 1, 0.25f, 1);
+	private static final Animation ANIM_MOVE_DOWN = AnimationCreator.create("textures/arrow_moving.png", 4, 1, 0.25f, 2);
+	private static final Animation ANIM_MOVE_LEFT = AnimationCreator.create("textures/arrow_moving.png", 4, 1, 0.25f, 3);
 	
-	private static final Animation ANIM_ATTACK_UP = AnimationCreator.create("textures/arrow_attacking.png", 8, 1, 0.125f, 2);
-	private static final Animation ANIM_ATTACK_RIGHT = AnimationCreator.create("textures/arrow_attacking.png", 8, 1, 0.125f, 4);
-	private static final Animation ANIM_ATTACK_DOWN = AnimationCreator.create("textures/arrow_attacking.png", 8, 1, 0.125f, 6);
-	private static final Animation ANIM_ATTACK_LEFT = AnimationCreator.create("textures/arrow_attacking.png", 8, 1, 0.125f, 0);
+	private static final Animation ANIM_ATTACK_UP = AnimationCreator.create("textures/arrow_attacking.png", 4, 1, 0.125f, 0);
+	private static final Animation ANIM_ATTACK_RIGHT = AnimationCreator.create("textures/arrow_attacking.png", 4, 1, 0.125f, 1);
+	private static final Animation ANIM_ATTACK_DOWN = AnimationCreator.create("textures/arrow_attacking.png", 4, 1, 0.125f, 2);
+	private static final Animation ANIM_ATTACK_LEFT = AnimationCreator.create("textures/arrow_attacking.png", 4, 1, 0.125f, 3);
 	
 	public Arrow(GameScreen game) {
 		super(game);
-		setSpeed(4);
+		setSpeed(5);
 		
 		setRange(0, 0);
 		setDamage(1);

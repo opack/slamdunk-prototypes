@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.slamdunk.toolkit.world.pathfinder.Directions;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.GameScreen;
 
@@ -47,7 +46,7 @@ public class OffensiveUnit extends SimpleUnit {
 	/**
 	 * Dégâts causés à chaque attaque
 	 */
-	private int damage;
+	private float damage;
 	
 	/**
 	 * La cible à attaquer
@@ -68,63 +67,41 @@ public class OffensiveUnit extends SimpleUnit {
 	public void setRange(float min, float max) {
 		rangeMin = min;
 		rangeMax = max;
-		updateRangeBounds();
-	}
-	
-	@Override
-	public void setDirection(Directions direction) {
-		super.setDirection(direction);
-		updateRangeBounds();
-	}
-	
-	@Override
-	public void setSize(float width, float height) {
-		super.setSize(width, height);
-		updateRangeBounds();
-	}
-	
-	@Override
-	public void setWidth(float width) {
-		super.setWidth(width);
-		updateRangeBounds();
-	}
-	
-	@Override
-	public void setHeight(float height) {
-		super.setHeight(height);
-		updateRangeBounds();
 	}
 	
 	/**
-	 * Met à jour la position et la dimension du rectangle
+	 * Met à jour la position et la dimension du rectangle de bounds
+	 * qui permet de déterminée si une unité ennemie est à portée
+	 * d'attaque.
+	 * La portée est évaluée en face de l'unité. Les propriétés du
+	 * rectangle dépendent donc de la direction vers laquelle fait
+	 * face l'unité.
 	 */
 	protected void updateRangeBounds() {
-		// La portée est évaluée en face de l'unité.
-		// Les propriétés des bounds dépendent donc de la direction
-		// vers laquelle fait face l'unité.
+		final float rangeLength = rangeMax - rangeMin;
 		switch (getDirection()) {
 		case UP:
 			rangeBounds.x = getX();
-			rangeBounds.y = getY();
+			rangeBounds.y = getY() + getHeight() + rangeMin;
 			rangeBounds.width = 1; // 1 case de large
-			rangeBounds.height = getHeight() + rangeMax;
+			rangeBounds.height = rangeLength;
 			break;
 		case DOWN:
 			rangeBounds.x = getX();
-			rangeBounds.y = getY() - rangeMax;
+			rangeBounds.y = getY() - rangeMin - rangeMax;
 			rangeBounds.width = 1; // 1 case de large
-			rangeBounds.height = getHeight() + rangeMax;
+			rangeBounds.height = rangeLength;
 			break;
 		case LEFT:
-			rangeBounds.x = getX() - rangeMax;
+			rangeBounds.x = getX() - rangeMin - rangeMax;
 			rangeBounds.y = getY();
-			rangeBounds.width = getWidth() + rangeMax;
+			rangeBounds.width = rangeLength;
 			rangeBounds.height = 1; // 1 case de large
 			break;
 		case RIGHT:
-			rangeBounds.x = getX();
+			rangeBounds.x = getX() + getWidth() + rangeMin;
 			rangeBounds.y = getY();
-			rangeBounds.width = getWidth() + rangeMax;
+			rangeBounds.width = rangeLength;
 			rangeBounds.height = 1; // 1 case de large
 			break;
 		}
@@ -138,11 +115,11 @@ public class OffensiveUnit extends SimpleUnit {
 		this.attackInterval = attackInterval;
 	}
 
-	public int getDamage() {
+	public float getDamage() {
 		return damage;
 	}
 
-	public void setDamage(int damage) {
+	public void setDamage(float damage) {
 		this.damage = damage;
 	}
 
@@ -216,7 +193,7 @@ public class OffensiveUnit extends SimpleUnit {
 	}
 
 	@Override
-	protected void handleEventReceiveDamage(SimpleUnit attacker, int damage) {
+	protected void handleEventReceiveDamage(SimpleUnit attacker, float damage) {
 		// Gère les dégâts recçus
 		super.handleEventReceiveDamage(attacker, damage);
 		
@@ -250,9 +227,9 @@ public class OffensiveUnit extends SimpleUnit {
 		}
 		
 		// Ajustement de la portée
-		rangeBounds.setCenter(getCenterX(), getCenterY());
+		updateRangeBounds();
 		
-		// On vérifie si chaque unité est sur une des positions dans la portée
+		// On vérifie si chaque unité est sur une des positions dans la portée.
 		List<SimpleUnit> nearbyEnemies = new ArrayList<SimpleUnit>();
 		for (SimpleUnit enemy : enemies) {
 			if (!enemy.isDead()
@@ -264,12 +241,19 @@ public class OffensiveUnit extends SimpleUnit {
 	}
 	
 	/**
-	 * Indique si l'unité spécifiée est à portée de cette unité
+	 * Indique si l'unité spécifiée est à portée de cette unité.
+	 * On s'assure aussi que cette position est sur le chemin de l'unité
+	 * pour éviter qu'elle n'attaque des ennemis sur des chemins voisins.
 	 * @param unit
 	 * @return
 	 */
 	public boolean isInRange(SimpleUnit unit) {
 		enemyBounds.set(unit.getX(), unit.getY(), unit.getWidth(), unit.getHeight());
-		return enemyBounds.overlaps(rangeBounds);
+		return enemyBounds.overlaps(rangeBounds)
+		// Soit l'unité n'est pas sur un chemin (typiquement pour les
+		// projectiles) soit elle est sur un chemin et on s'assure que
+		// l'ennemi est sur le trajet de l'unité, sans quoi il est
+		// interdit qu'elle l'attaque
+		&& (getPath() == null || getPath().contains(unit.getPosition()));
 	}
 }
