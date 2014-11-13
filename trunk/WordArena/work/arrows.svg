@@ -15,7 +15,7 @@
    version="1.1"
    inkscape:version="0.48.2 r9819"
    sodipodi:docname="arrows.svg"
-   inkscape:export-filename="D:\Dev\Slamdunk.Prototypes\WordArena\work\arrows2.png"
+   inkscape:export-filename="D:\Dev\Slamdunk.Prototypes\WordArena\work\arrows.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -54,7 +54,7 @@
      inkscape:groupmode="layer"
      id="layer2"
      inkscape:label="background"
-     style="display:inline"
+     style="display:none"
      transform="translate(0,-988.36218)">
     <g
        id="g4038"
