@@ -15,10 +15,10 @@ public class Archer extends RangedUnit {
 	private static final Animation ANIM_MOVE_DOWN = AnimationCreator.create("textures/ranger_moving.png", 3, 4, 0.25f, 6, 7, 8);
 	private static final Animation ANIM_MOVE_LEFT = AnimationCreator.create("textures/ranger_moving.png", 3, 4, 0.25f, 9, 10, 11);
 	
-	private static final Animation ANIM_ATTACK_UP = AnimationCreator.create("textures/ranger_attacking.png", 4, 4, 0.375f, 0, 1, 2, 3);
-	private static final Animation ANIM_ATTACK_RIGHT = AnimationCreator.create("textures/ranger_attacking.png", 4, 4, 0.375f, 4, 5, 6, 7);
-	private static final Animation ANIM_ATTACK_DOWN = AnimationCreator.create("textures/ranger_attacking.png", 4, 4, 0.375f, 8, 9, 10, 11);
-	private static final Animation ANIM_ATTACK_LEFT = AnimationCreator.create("textures/ranger_attacking.png", 4, 4, 0.375f, 12, 13, 14, 15);
+	private static final Animation ANIM_ATTACK_UP = AnimationCreator.create("textures/ranger_attacking.png", 4, 4, 0.25f, 0, 1, 2, 3);
+	private static final Animation ANIM_ATTACK_RIGHT = AnimationCreator.create("textures/ranger_attacking.png", 4, 4, 0.25f, 4, 5, 6, 7);
+	private static final Animation ANIM_ATTACK_DOWN = AnimationCreator.create("textures/ranger_attacking.png", 4, 4, 0.25f, 8, 9, 10, 11);
+	private static final Animation ANIM_ATTACK_LEFT = AnimationCreator.create("textures/ranger_attacking.png", 4, 4, 0.25f, 12, 13, 14, 15);
 	
 	public Archer(GameScreen game) {
 		super(game);
@@ -27,9 +27,9 @@ public class Archer extends RangedUnit {
 		setHp(10);
 		setSpeed(2);
 		
-		setRange(0, 3);
-		setDamage(1);
-		setAttackInterval(1.5f);
+		setRange(0, 4);
+		setDamage(0.75f);
+		setAttackInterval(1f);
 		
 		setProjectileUnit(Units.ARROW);
 		

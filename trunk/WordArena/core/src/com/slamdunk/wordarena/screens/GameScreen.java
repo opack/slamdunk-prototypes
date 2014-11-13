@@ -206,7 +206,7 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		// Envoie l'unité sur le chemin spécifié
 		Point departure = path.getPosition(0);
 		unit.setPosition(departure.getX(), departure.getY());
-		unit.follow(path);
+		unit.setPath(path);
 	}
 	
 	/**

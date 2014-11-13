@@ -46,6 +46,11 @@ public class SimpleUnit extends SlamActor {
 	private PathCursor pathCursor;
 	
 	/**
+	 * Le chemin sur lequel se déplace l'unité
+	 */
+	private Path path;
+	
+	/**
 	 * La direction dans laquelle regarde l'unité
 	 */
 	private Directions direction;
@@ -63,7 +68,7 @@ public class SimpleUnit extends SlamActor {
 	/**
 	 * Nombre de points de vie restants
 	 */
-	private int hp;
+	private float hp;
 	
 	private DoubleEntryArray<States, Directions, Animation> animations;
 	
@@ -122,11 +127,11 @@ public class SimpleUnit extends SlamActor {
 		chooseAnimation();
 	}
 
-	public int getHp() {
+	public float getHp() {
 		return hp;
 	}
 
-	public void setHp(int hp) {
+	public void setHp(float hp) {
 		this.hp = hp;
 	}
 
@@ -158,6 +163,25 @@ public class SimpleUnit extends SlamActor {
 		return pathCursor;
 	}
 	
+	public Path getPath() {
+		return path;
+	}
+
+	/**
+	 * Fait suivre le chemin. Si path == null , alors
+	 * l'acteur ne suit plus aucun chemin.
+	 * @param path
+	 */
+	public void setPath(Path path) {
+		this.path = path;
+		if (path == null) {
+			pathCursor = null;
+		} else {
+			pathCursor = new PathCursor(path);
+			setState(States.MOVING);
+		}
+	}
+
 	public States getState() {
 		return state;
 	}
@@ -173,20 +197,6 @@ public class SimpleUnit extends SlamActor {
 		chooseAnimation();
 	}
 
-	/**
-	 * Fait suivre le chemin. Si path == null , alors
-	 * l'acteur ne suit plus aucun chemin.
-	 * @param path
-	 */
-	public void follow(Path path) {
-		if (path == null) {
-			pathCursor = null;
-		} else {
-			pathCursor = new PathCursor(path);
-			setState(States.MOVING);
-		}
-	}
-	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
@@ -292,7 +302,7 @@ public class SimpleUnit extends SlamActor {
 	 * @param attacker
 	 * @param damage
 	 */
-	protected void handleEventReceiveDamage(SimpleUnit attacker, int damage) {
+	protected void handleEventReceiveDamage(SimpleUnit attacker, float damage) {
 		hp -= damage;
 		if (hp <= 0) {
 			setState(States.DYING);
