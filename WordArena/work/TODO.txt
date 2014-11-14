@@ -12,3 +12,5 @@
 - Monde
 	- Evoluer sur une carte du monde
 	- Ouvrir le champ de bataille sur une touche
+- Gestion des unités
+	x Réagir sur une touche sur une unité
