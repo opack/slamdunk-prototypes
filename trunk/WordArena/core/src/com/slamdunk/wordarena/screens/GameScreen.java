@@ -94,8 +94,8 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	 * Crée et initialise la couche qui contient l'UI du jeu
 	 */
 	private void createUIOverlay() {
-		UIOverlay ui = OverlayFactory.createUIOverlay();
-		ui.loadLayout("layouts/game.json");
+		uiOverlay = OverlayFactory.createUIOverlay();
+		uiOverlay.loadLayout("layouts/game.json");
 		
 		// Création des listeners qui interprèteront les clics sur les boutons
 		Map<String, EventListener> listeners = new HashMap<String, EventListener>();
@@ -114,9 +114,9 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 				spawningUnit = Units.ARCHER;
 			}
 		});
-		ui.setListeners(listeners);
+		uiOverlay.setListeners(listeners);
 		
-		addOverlay(ui);
+		addOverlay(uiOverlay);
 	}
 
 	/**
