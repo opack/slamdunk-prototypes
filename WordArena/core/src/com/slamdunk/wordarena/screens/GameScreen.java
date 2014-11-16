@@ -11,6 +11,8 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.slamdunk.toolkit.screen.SlamGame;
@@ -30,6 +32,7 @@ import com.slamdunk.wordarena.units.Units;
 
 public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	public static final String NAME = "GAME";
+	private static final int NB_SPAWN_BUTTONS = 8;
 
 	private TiledMapOverlay tiledmapOverlay;
 	private WorldOverlay worldOverlay;
@@ -44,11 +47,14 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		super(game);
 		createTiledMapOverlay();
 		createWorldOverlay();
-		createUIOverlay();
+		createUIOverlay(Units.PALADIN, Units.ARCHER);
 		
 	    // Recherche les chemins depuis les points de spawn vers le château adverse
 		playerPaths = searchPaths("castle1", "castle2");
+		playerPaths.addAll(searchPaths("castle1", "castle3"));
 		List<Path> enemyPaths = searchPaths("castle2", "castle1");
+		enemyPaths.addAll(searchPaths("castle3", "castle1"));
+		
 		
 		// Initialise l'IA
 		createAI(enemyPaths);
@@ -77,12 +83,12 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	 * @param string2
 	 * @return
 	 */
-	private List<Path> searchPaths(String fromCastle, String toCastle) {
-		MapObjects spawnPoints = tiledmapOverlay.getObjects("markers", RectangleMapObject.class, "spawn", fromCastle);
-	    MapObject enemyCastle = tiledmapOverlay.getObject("markers", toCastle);
+	private List<Path> searchPaths(String fromCastle, String toCastleAttackPoints) {
+	    MapObject castle = tiledmapOverlay.getObject("markers", fromCastle);
+	    MapObjects attackPoints = tiledmapOverlay.getObjects("markers", RectangleMapObject.class, "attackPoint", toCastleAttackPoints);
 	    List<Path> paths = new ArrayList<Path>();
-	    for (MapObject spawnPoint : spawnPoints) {
-	    	Path path = tiledmapOverlay.findPath(spawnPoint, enemyCastle);
+	    for (MapObject attackPoint : attackPoints) {
+	    	Path path = tiledmapOverlay.findPath(castle, attackPoint);
 	    	if (path != null) {
 	    		paths.add(path);
 	    	}
@@ -93,9 +99,27 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	/**
 	 * Crée et initialise la couche qui contient l'UI du jeu
 	 */
-	private void createUIOverlay() {
+	private void createUIOverlay(final Units... spawnables) {
 		uiOverlay = OverlayFactory.createUIOverlay();
 		uiOverlay.loadLayout("layouts/game.json");
+		
+		// Tous les boutons sont placés dans un groupe pour que seul un soit actif à la fois
+		ButtonGroup group = new ButtonGroup();
+		Button spawnButton;
+		for (int curButton = 0; curButton < NB_SPAWN_BUTTONS; curButton++) {
+			spawnButton = (Button)uiOverlay.getActor("spawn_unit" + curButton);
+			if (curButton < spawnables.length) {
+				spawnButton.setUserObject(spawnables[curButton]);
+				group.add(spawnButton);
+			} else {
+				spawnButton.remove();
+			}
+		}
+		
+		// Par défaut, c'est le bouton de déplacement de la caméra qui est actif
+		final Button moveCamera = (Button)uiOverlay.getActor("move_camera");
+		group.add(moveCamera);
+		moveCamera.setChecked(true);
 		
 		// Création des listeners qui interprèteront les clics sur les boutons
 		Map<String, EventListener> listeners = new HashMap<String, EventListener>();
@@ -104,16 +128,17 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 				spawningUnit = null;
 			}
 		});
-		listeners.put("spawn_paladin", new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				spawningUnit = Units.PALADIN;
-			}
-		});
-		listeners.put("spawn_ranger", new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				spawningUnit = Units.ARCHER;
-			}
-		});
+		for (int curSpawn = 0; curSpawn < NB_SPAWN_BUTTONS; curSpawn++) {
+			listeners.put("spawn_unit" + curSpawn, new ClickListener() {
+				public void clicked(InputEvent event, float x, float y) {
+					Button clickedButton = (Button)event.getTarget();
+					// Définit l'unité à créer
+					if (clickedButton.isChecked()) {
+						spawningUnit = (Units)clickedButton.getUserObject();
+					}
+				}
+			});
+		}
 		uiOverlay.setListeners(listeners);
 		
 		addOverlay(uiOverlay);

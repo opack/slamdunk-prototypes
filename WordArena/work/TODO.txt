@@ -1,16 +1,16 @@
 - Gestion de la carte
-	x Le héros trouve un chemin grâce au Pathfinder et le suit
-	x Ajouter un UIOverlay avec un bouton pour spawner une unité
-	x Choisir de quel côté sort cette unité et la faire partir vers le château adverse
-	- Ajouter un second château adverse et un avant-poste. Permettre la sélection du château à attaquer.
-	- Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
+	[X] Le héros trouve un chemin grâce au Pathfinder et le suit
+	[X] Ajouter un UIOverlay avec un bouton pour spawner une unité
+	[X] Choisir de quel côté sort cette unité et la faire partir vers le château adverse
+	[X] Ajouter un second château adverse et un avant-poste. Permettre la sélection du château à attaquer.
+	[ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
 - Combat
-	x Mettre en place une IA qui spwan des ennemis (pour simplifier au début, spwan d'une unité à un interval aléatoire)
-	x Engager le combat entre unités ennemies
-	x Ajouter des animations pour le déplacement et l'action d'une unité
-	x Gérer des projectiles
+	[X] Mettre en place une IA qui spwan des ennemis (pour simplifier au début, spwan d'une unité à un interval aléatoire)
+	[X] Engager le combat entre unités ennemies
+	[X] Ajouter des animations pour le déplacement et l'action d'une unité
+	[X] Gérer des projectiles
 - Monde
 	- Evoluer sur une carte du monde
 	- Ouvrir le champ de bataille sur une touche
 - Gestion des unités
-	x Réagir sur une touche sur une unité
+	[X] Réagir sur une touche sur une unité

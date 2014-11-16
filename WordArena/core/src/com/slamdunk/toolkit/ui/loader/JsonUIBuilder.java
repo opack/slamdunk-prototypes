@@ -15,6 +15,7 @@ import com.slamdunk.toolkit.ui.loader.builders.layouts.ScrollPaneJsonBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.layouts.TableJsonBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.layouts.VerticalGroupJsonBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.layouts.WindowJsonBuilder;
+import com.slamdunk.toolkit.ui.loader.builders.widgets.ButtonJsonBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.widgets.GroupJsonBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.widgets.ImageJsonBuilder;
 import com.slamdunk.toolkit.ui.loader.builders.widgets.JsonComponentBuilder;
@@ -62,6 +63,7 @@ public class JsonUIBuilder {
 		builders.put("Group", new GroupJsonBuilder());
 		builders.put("Image", new ImageJsonBuilder());
 		builders.put("Label", new LabelJsonBuilder(lang));
+		builders.put("Button", new ButtonJsonBuilder());
 		builders.put("TextButton", new TextButtonJsonBuilder(lang));
 		builders.put("TextField", new TextFieldJsonBuilder(lang));
 	}
