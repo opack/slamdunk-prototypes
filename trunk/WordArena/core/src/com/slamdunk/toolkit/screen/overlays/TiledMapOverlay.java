@@ -1,5 +1,7 @@
 package com.slamdunk.toolkit.screen.overlays;
 
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
@@ -407,7 +409,11 @@ public class TiledMapOverlay implements SlamOverlay {
 	 * @return
 	 */
 	public Path findPath(int fromX, int fromY, int toX, int toY) {
-		return new Path(pathfinder.findPath(fromX, fromY, toX, toY, true));
+		List<Point> positions = pathfinder.findPath(fromX, fromY, toX, toY, true);
+		if (positions != null && !positions.isEmpty()) {
+			return new Path(positions);
+		}
+		return null;
 	}
 
 	public Path findPath(MapObject from, MapObject to) {
