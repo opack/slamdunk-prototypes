@@ -30,4 +30,8 @@ public class SlamGame extends Game {
 		}
 		setScreen(screen);
 	}
+	
+	public Screen getScreen(String name) {
+		return screens.get(name);
+	}
 }

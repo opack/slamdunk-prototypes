@@ -1,6 +1,11 @@
 package com.slamdunk.toolkit.lang;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 
 /**
  * Classe de propriétés étendues permettant de récupérer directement le bon
@@ -9,7 +14,45 @@ import java.util.Properties;
 public class TypedProperties extends Properties {
     private static final long serialVersionUID = 5448778341923435054L;
 
-    public boolean getBooleanProperty(String name, boolean fallback) {
+    /**
+     * Indique si le fichier .properties a correctement été lu et chargé
+     * dans cet objet
+     */
+    private boolean loaded;
+    
+    /**
+     * Crée un nouvel objet en le remplissant avec les données du fichier spécifié
+     * @param fh
+     */
+    public TypedProperties(FileHandle fileHandle) {
+    	InputStream inStream = fileHandle.read();
+		try {
+			load(inStream);
+			inStream.close();
+			loaded = true;
+		} catch (IOException e) {
+			if (inStream != null) {
+				try {
+					inStream.close();
+				} catch (IOException ex) {
+				}
+			}
+		}
+	}
+    
+    /**
+     * Crée un nouvel objet en le remplissant avec les données du fichier spécifié
+     * @param fh
+     */
+    public TypedProperties(String filename) {
+    	this(Gdx.files.internal(filename));
+    }
+    
+	public boolean isLoaded() {
+		return loaded;
+	}
+
+	public boolean getBooleanProperty(String name, boolean fallback) {
         String v = getProperty(name);
         if (v == null) return fallback;
         return Boolean.parseBoolean(v);

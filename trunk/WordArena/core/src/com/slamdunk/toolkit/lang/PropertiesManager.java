@@ -1,12 +1,7 @@
 package com.slamdunk.toolkit.lang;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 
 /**
  * Gestionnaire de fichiers de propriétés, capable de stocker plusieurs
@@ -24,20 +19,9 @@ public class PropertiesManager {
 	}
 	
 	public static void init(String propertiesKey) {
-		TypedProperties properties = new TypedProperties();
-		FileHandle fh = Gdx.files.internal("properties/" + propertiesKey + ".properties");
-		InputStream inStream = fh.read();
-		try {
-			properties.load(inStream);
-			inStream.close();
+		TypedProperties properties = new TypedProperties("properties/" + propertiesKey + ".properties");
+		if (properties.isLoaded()) {
 			propertiesMap.put(propertiesKey, properties);
-		} catch (IOException e) {
-			if (inStream != null) {
-				try {
-					inStream.close();
-				} catch (IOException ex) {
-				}
-			}
 		}
 	}
 	
