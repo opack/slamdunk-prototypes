@@ -3,7 +3,7 @@ package com.slamdunk.wordarena.units;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.slamdunk.wordarena.ai.States;
-import com.slamdunk.wordarena.screens.GameScreen;
+import com.slamdunk.wordarena.screens.game.GameScreen;
 
 /**
  * Un projectile qui est lancé et suit sa course jusqu'à sortir de l'écran
@@ -42,7 +42,7 @@ public class ProjectileUnit extends OffensiveUnit {
 			Vector2 destination = new Vector2(getX(), getY());
 			switch (getDirection()) {
 			case UP:
-				destination.y = getGame().getTiledMap().getMapHeight();
+				destination.y = getGame().getBattlefieldOverlay().getMapHeight();
 				break;
 			case DOWN:
 				destination.y = -1;
@@ -51,7 +51,7 @@ public class ProjectileUnit extends OffensiveUnit {
 				destination.x = -1;
 				break;
 			case RIGHT:
-				destination.x = getGame().getTiledMap().getMapWidth();
+				destination.x = getGame().getBattlefieldOverlay().getMapWidth();
 				break;
 			}
 			float timeToArrival = destination.dst(getX(), getY()) / getSpeed();

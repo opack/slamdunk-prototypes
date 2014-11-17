@@ -1,6 +1,6 @@
 package com.slamdunk.wordarena.units;
 
-import com.slamdunk.wordarena.screens.GameScreen;
+import com.slamdunk.wordarena.screens.game.GameScreen;
 import com.slamdunk.wordarena.units.other.Imp;
 import com.slamdunk.wordarena.units.other.Ninja;
 import com.slamdunk.wordarena.units.player.Paladin;

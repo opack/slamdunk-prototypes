@@ -12,7 +12,7 @@ import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.pathfinder.PathCursor;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.ai.States;
-import com.slamdunk.wordarena.screens.GameScreen;
+import com.slamdunk.wordarena.screens.game.GameScreen;
 
 /**
  * Une unité lambda. Son IA est gérée de la façon suivante :

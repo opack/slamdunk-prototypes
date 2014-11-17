@@ -1,7 +1,7 @@
 package com.slamdunk.wordarena.units;
 
 import com.slamdunk.wordarena.ai.States;
-import com.slamdunk.wordarena.screens.GameScreen;
+import com.slamdunk.wordarena.screens.game.GameScreen;
 
 /**
  * Comportement d'une unité qui envoie des projectiles
