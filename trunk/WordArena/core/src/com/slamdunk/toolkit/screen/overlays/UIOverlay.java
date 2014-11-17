@@ -20,6 +20,7 @@ import com.slamdunk.toolkit.ui.loader.JsonUIBuilder;
  * pour gérer l'interface utilisateur.
  */
 public class UIOverlay extends StageOverlay {
+	public static final String DEFAULT_SKIN = "skins/uiskin/uiskin.json";
 	
 	/**
 	 * Skin utilisée pour dessiner les composants de l'interface
