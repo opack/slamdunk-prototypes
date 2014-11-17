@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.screen.overlays.OverlayFactory;
@@ -45,7 +46,16 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	
 	public GameScreen(SlamGame game) {
 		super(game);
-		createTiledMapOverlay();
+	}
+	
+	/**
+	 * Initialise l'écran de jeu avec les données du fichier de propriété
+	 * spécifié
+	 */
+	public void init(String propertiesFile) {
+		TypedProperties battlefieldProperties = new TypedProperties(propertiesFile);
+				
+		createTiledMapOverlay(battlefieldProperties.getStringProperty("map", ""));
 		createWorldOverlay();
 		createUIOverlay(Units.PALADIN, Units.ARCHER);
 		
@@ -164,11 +174,11 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 	 * Crée et initialise la couche qui contient la tiledmap, affichant
 	 * la cartographie "statique" du monde
 	 */
-	private void createTiledMapOverlay() {
+	private void createTiledMapOverlay(String mapFile) {
 		// On va utiliser une couche contenant une tilemap
 		tiledmapOverlay = OverlayFactory.createTiledMapOverlay();
 		// Chargement d'une tiledmap
-		tiledmapOverlay.load("tiledmaps/game.tmx");
+		tiledmapOverlay.load(mapFile);
 		// Définit le gestionnaire des entrées utilisateur
 		tiledmapOverlay.setTileInputProcessor(this);
 		// Initialise le pathfinder

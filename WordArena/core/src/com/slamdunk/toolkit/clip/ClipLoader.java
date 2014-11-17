@@ -1,8 +1,5 @@
 package com.slamdunk.toolkit.clip;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
@@ -60,20 +57,7 @@ public class ClipLoader {
     
 	public static Clip loadClip(AssetManager assets, String clipProperties) {
         // Chargement du fichier de propriétés
-        TypedProperties properties = new TypedProperties();
-        FileHandle fh = Gdx.files.internal("clips/" + clipProperties);
-        InputStream inStream = fh.read();
-        try {
-            properties.load(inStream);
-            inStream.close();
-        } catch (IOException e) {
-            if (inStream != null) {
-                try {
-                    inStream.close();
-                } catch (IOException ex) {
-                }
-            }
-        }
+        TypedProperties properties = new TypedProperties("clips/" + clipProperties);
 
         // Création du clip
         Clip clip = null;

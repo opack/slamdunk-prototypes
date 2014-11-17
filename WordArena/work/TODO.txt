@@ -10,7 +10,7 @@
 	[X] Ajouter des animations pour le déplacement et l'action d'une unité
 	[X] Gérer des projectiles
 - Monde
-	- Evoluer sur une carte du monde
-	- Ouvrir le champ de bataille sur une touche
+	[X] Evoluer sur une carte du monde
+	[X] Ouvrir le champ de bataille sur une touche
 - Gestion des unités
 	[X] Réagir sur une touche sur une unité

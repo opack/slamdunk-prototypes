@@ -29,7 +29,7 @@ public class HomeScreen extends SlamScreen {
 		Map<String, EventListener> listeners = new HashMap<String, EventListener>();
 		listeners.put("play", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				getGame().setScreen(GameScreen.NAME);
+				getGame().setScreen(WorldScreen.NAME);
 			}
 		});
 		listeners.put("quit", new ClickListener() {
