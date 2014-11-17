@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.slamdunk.toolkit.graphics.tiled.OrthogonalTiledMapRendererWithSprites;
 import com.slamdunk.toolkit.graphics.tiled.SpriteMapObject;
+import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.pathfinder.PathFinder;
 import com.slamdunk.toolkit.world.point.Point;
@@ -136,6 +137,7 @@ public class TiledMapOverlay implements SlamOverlay {
 			return false;
 		}
 	}
+	private SlamScreen screen;
 	
 	private TiledMap map;
 	private OrthogonalTiledMapRenderer renderer;
@@ -148,6 +150,14 @@ public class TiledMapOverlay implements SlamOverlay {
 	
 	private PathFinder pathfinder;
 	
+	public SlamScreen getScreen() {
+		return screen;
+	}
+
+	public void setScreen(SlamScreen screen) {
+		this.screen = screen;
+	}
+
 	/**
 	 * Charge la carte depuis le fichier spécifié.
 	 * @param mapFile

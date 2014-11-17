@@ -44,6 +44,7 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 	public void addOverlay(SlamOverlay overlay) {
 		// Ajout de la couche à la liste
 		overlays.add(overlay);
+		overlay.setScreen(this);
 		
 		// Ajout de l'input processor de cette couche
 		if (overlay.isProcessInputs()) {

@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  *
  */
 public class OverlayFactory {
-	public static final String DEFAULT_SKIN = "skins/uiskin/uiskin.json";
 	
 	/**
 	 * Crée un overlay destiné à afficher le monde
@@ -56,8 +55,7 @@ public class OverlayFactory {
 	public static UIOverlay createUIOverlay(Viewport viewport) {
 		// Création de la couche
 		UIOverlay uiOverlay = new UIOverlay();
-		Skin uiSkin = new Skin(Gdx.files.internal(DEFAULT_SKIN));
-		uiOverlay.setSkin(uiSkin);
+		uiOverlay.setSkin(new Skin(Gdx.files.internal(UIOverlay.DEFAULT_SKIN)));
 		uiOverlay.createStage(viewport);
 		return uiOverlay;
 	}

@@ -1,6 +1,7 @@
 package com.slamdunk.toolkit.screen.overlays;
 
 import com.badlogic.gdx.InputProcessor;
+import com.slamdunk.toolkit.screen.SlamScreen;
 
 /**
  * Représente une couche qui peut être affichée par un SlamScreen. C'est dans cette couche
@@ -35,4 +36,14 @@ public interface SlamOverlay {
 	 * @return
 	 */
 	InputProcessor getInputProcessor();
+	
+	/**
+	 * Définit l'écran dans lequel se trouve cet overlay
+	 */
+	void setScreen(SlamScreen screen);
+	
+	/**
+	 * Renvoie l'écran dans lequel se trouve cet overlay
+	 */
+	SlamScreen getScreen();
 }

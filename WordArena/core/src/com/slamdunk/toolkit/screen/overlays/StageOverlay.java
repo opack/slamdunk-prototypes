@@ -3,6 +3,7 @@ package com.slamdunk.toolkit.screen.overlays;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.slamdunk.toolkit.screen.SlamScreen;
 
 /**
  * Une couche d'affichage qui contient un Stage dans lequel on peut mettre tout et n'importe quoi.
@@ -11,11 +12,20 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  */
 public abstract class StageOverlay implements SlamOverlay {
 	private Stage stage;
+	private SlamScreen screen;
 	
 	public Stage getStage() {
 		return stage;
 	}
 	
+	public SlamScreen getScreen() {
+		return screen;
+	}
+
+	public void setScreen(SlamScreen screen) {
+		this.screen = screen;
+	}
+
 	public void createStage(Viewport viewport) {
 		stage = new Stage(viewport);
 		//DBG TODO Vérifier si on peut supprimer car inutile
