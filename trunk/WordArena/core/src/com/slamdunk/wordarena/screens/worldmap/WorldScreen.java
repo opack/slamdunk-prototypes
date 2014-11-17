@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.screens;
+package com.slamdunk.wordarena.screens.worldmap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;

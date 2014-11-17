@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.slamdunk.wordarena.ai.States;
-import com.slamdunk.wordarena.screens.GameScreen;
+import com.slamdunk.wordarena.screens.game.GameScreen;
 
 /**
  * Une unité qui va attaquer dès qu'une unité ennemie est à portée

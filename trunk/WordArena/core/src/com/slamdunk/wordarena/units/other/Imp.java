@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.pathfinder.Directions;
 import com.slamdunk.wordarena.ai.States;
-import com.slamdunk.wordarena.screens.GameScreen;
+import com.slamdunk.wordarena.screens.game.GameScreen;
 import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.OffensiveUnit;
 

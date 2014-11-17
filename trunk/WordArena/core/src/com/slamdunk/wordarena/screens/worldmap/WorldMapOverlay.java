@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.screens;
+package com.slamdunk.wordarena.screens.worldmap;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
@@ -15,6 +15,7 @@ import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.toolkit.ui.ButtonClickListener;
+import com.slamdunk.wordarena.screens.game.GameScreen;
 
 /**
  * Gère une carte du monde qui contient plusieurs boutons à cliquer
