@@ -2,6 +2,7 @@
 	[X] Le héros trouve un chemin grâce au Pathfinder et le suit
 	[X] Ajouter un UIOverlay avec un bouton pour spawner une unité
 	[X] Choisir de quel côté sort cette unité et la faire partir vers le château adverse
+		[X] Au lieu de choisir un chemin, choisir un attackPoint. L'unité est alors créée sur le château et prend le chemin le plus court vers cet attackPoint
 	[X] Ajouter un second château adverse et un avant-poste. Permettre la sélection du château à attaquer.
 	[ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
 - Combat
