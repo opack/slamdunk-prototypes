@@ -437,6 +437,110 @@
    eJy9VMERwyAMS9pJ2k7SdhIIsP8I5VHufD4JG8LloUcIlixh2Pdtu12Me8Wj4gkQyPoKvJRuMnrIYu1Qe+IJXYbyx6y/1lMAujLXbNRb/CN+ZW4F5KiBzgT1e4C93pw96PWpc2C6epaL4PZm2ZsHpLvi/mjv+vtMzrHDi/IrE7qaF2Woc2JvgUd3NPOmlUk9ur8sK3aXUSaJ6I36lbrR4LTOmPmVtYg7Glze2ej57c3ECozMlWfGtDdZk4Qfry47O83LeJL633Q9XhLQm33bpN8MeFFuAeixmWto74w35xGwnNH6jK7nnlqziHSjo87DbZ3vu+JzMb4VP6TBebo=
   </data>
  </layer>
+ <layer name="path2" width="30" height="24" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJxjYBhY4AjETiRgZyrZmwjESUTiPCYGhmQq2ws0kqGJCNxMZXup5Y9Re0ftHWh7TzAyMCgxkFZ+UFqugOzNZYLYTWz5gQ8TG24w/xJbbuDCzGTYS434JdWc4WAvKfXGQPuX0nykTKa91MLE2tvIQFn+oVX9PAqGJgAAauJOvw==
+  </data>
+ </layer>
+ <objectgroup name="markers2" visible="0">
+  <object type="path" x="96" y="320" width="32" height="32">
+   <properties>
+    <property name="attackPoint" value="castle1"/>
+   </properties>
+  </object>
+  <object type="path" x="96" y="384" width="32" height="32">
+   <properties>
+    <property name="attackPoint" value="castle1"/>
+   </properties>
+  </object>
+  <object type="path" x="672" y="448" width="32" height="32">
+   <properties>
+    <property name="attackPoint" value="castle2"/>
+   </properties>
+  </object>
+  <object type="path" x="672" y="512" width="32" height="32">
+   <properties>
+    <property name="attackPoint" value="castle2"/>
+   </properties>
+  </object>
+  <object type="path" x="96" y="288" width="32" height="32"/>
+  <object type="path" x="96" y="256" width="32" height="32"/>
+  <object type="path" x="96" y="224" width="32" height="32"/>
+  <object type="path" x="96" y="192" width="32" height="32"/>
+  <object type="path" x="96" y="160" width="32" height="32"/>
+  <object type="path" x="96" y="128" width="32" height="32"/>
+  <object type="path" x="96" y="96" width="32" height="32"/>
+  <object type="path" x="96" y="64" width="32" height="32"/>
+  <object type="path" x="128" y="64" width="32" height="32"/>
+  <object type="path" x="160" y="64" width="32" height="32"/>
+  <object type="path" x="192" y="64" width="32" height="32"/>
+  <object type="path" x="224" y="64" width="32" height="32"/>
+  <object type="path" x="256" y="64" width="32" height="32"/>
+  <object type="path" x="288" y="64" width="32" height="32"/>
+  <object type="path" x="320" y="64" width="32" height="32"/>
+  <object type="path" x="160" y="352" width="32" height="32"/>
+  <object type="path" x="192" y="352" width="32" height="32"/>
+  <object type="path" x="224" y="352" width="32" height="32"/>
+  <object type="path" x="256" y="352" width="32" height="32"/>
+  <object type="path" x="288" y="352" width="32" height="32"/>
+  <object type="path" x="320" y="352" width="32" height="32"/>
+  <object type="path" x="352" y="352" width="32" height="32"/>
+  <object type="path" x="384" y="352" width="32" height="32"/>
+  <object type="path" x="640" y="352" width="32" height="32"/>
+  <object type="path" x="672" y="352" width="32" height="32"/>
+  <object type="path" x="672" y="384" width="32" height="32"/>
+  <object type="path" x="672" y="416" width="32" height="32"/>
+  <object type="path" x="672" y="544" width="32" height="32"/>
+  <object type="path" x="672" y="576" width="32" height="32"/>
+  <object type="path" x="640" y="576" width="32" height="32"/>
+  <object type="path" x="608" y="576" width="32" height="32"/>
+  <object type="path" x="576" y="576" width="32" height="32"/>
+  <object type="path" x="544" y="576" width="32" height="32"/>
+  <object type="path" x="512" y="576" width="32" height="32"/>
+  <object type="path" x="480" y="576" width="32" height="32"/>
+  <object type="path" x="448" y="576" width="32" height="32"/>
+  <object type="path" x="416" y="576" width="32" height="32"/>
+  <object type="path" x="384" y="576" width="32" height="32"/>
+  <object type="path" x="352" y="576" width="32" height="32"/>
+  <object type="path" x="320" y="576" width="32" height="32"/>
+  <object type="path" x="288" y="576" width="32" height="32"/>
+  <object type="path" x="256" y="576" width="32" height="32"/>
+  <object type="path" x="224" y="576" width="32" height="32"/>
+  <object type="path" x="192" y="576" width="32" height="32"/>
+  <object type="path" x="160" y="576" width="32" height="32"/>
+  <object type="path" x="128" y="576" width="32" height="32"/>
+  <object type="path" x="96" y="576" width="32" height="32"/>
+  <object type="path" x="96" y="416" width="32" height="32"/>
+  <object type="path" x="96" y="448" width="32" height="32"/>
+  <object type="path" x="96" y="480" width="32" height="32"/>
+  <object type="path" x="96" y="512" width="32" height="32"/>
+  <object type="path" x="96" y="544" width="32" height="32"/>
+  <object name="castle1" type="castle" x="96" y="352" width="32" height="32"/>
+  <object name="castle2" type="castle" x="672" y="480" width="32" height="32"/>
+  <object type="path" x="416" y="352" width="32" height="32"/>
+  <object type="path" x="448" y="352" width="32" height="32"/>
+  <object type="path" x="480" y="352" width="32" height="32"/>
+  <object type="path" x="512" y="352" width="32" height="32"/>
+  <object type="path" x="544" y="352" width="32" height="32"/>
+  <object type="path" x="576" y="352" width="32" height="32"/>
+  <object type="path" x="608" y="352" width="32" height="32">
+   <properties>
+    <property name="attackPoint" value="castle2"/>
+   </properties>
+  </object>
+  <object type="path" x="352" y="64" width="32" height="32"/>
+  <object type="path" x="384" y="64" width="32" height="32">
+   <properties>
+    <property name="attackPoint" value="castle3"/>
+   </properties>
+  </object>
+  <object name="castle3" type="castle" x="416" y="64" width="32" height="32"/>
+  <object type="path" x="128" y="352" width="32" height="32">
+   <properties>
+    <property name="attackPoint" value="castle1"/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer name="path" width="30" height="24">
   <data encoding="base64" compression="zlib">
    eJztldsNwjAMRS2zCUwCnQT4hh2gU/EahNcumL/Ictxrt6gIYen+NLZPlF4nRPk4MdGZezSQmIsWATWiuzAfHKttFHcpWoHaCmudrC3rytr3se2VJsZaC9bqHjWu/t61hqx7OX/u93CnZM/G7MPc6Iz05e6oe670bEW4G/b3jOwxw0V7/Tr3wnZuzd8Rz3vcZ4XrvRvRdwE5O+1vxOs1z2f+mRVln4PAj4znD8W9CvM2AjeSH/Fo9q62uEMJ5Xoezci7q8eMF2bthRk=
@@ -583,9 +687,4 @@
   </object>
   <object name="castle3" type="castle" x="416" y="64" width="32" height="32"/>
  </objectgroup>
- <layer name="Damier" width="30" height="24" visible="0" opacity="0.61">
-  <data encoding="base64" compression="zlib">
-   eJxjYBgFo2AUjIJRMAqwgxWMA+0C+oJR/w6sObQGI9W/1KJHAQIAACcjCpE=
-  </data>
- </layer>
 </map>

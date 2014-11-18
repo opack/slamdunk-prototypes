@@ -6,14 +6,13 @@ import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
-import com.slamdunk.toolkit.screen.overlays.TiledMapOverlay.TiledMapInputProcessor;
 import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.ai.AI;
 import com.slamdunk.wordarena.ai.BasicAI;
 import com.slamdunk.wordarena.units.Units;
 
-public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
+public class GameScreen extends SlamScreen {
 	public static final String NAME = "GAME";
 
 	private BattlefieldOverlay battlefieldOverlay;
@@ -73,37 +72,6 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 		return NAME;
 	}
 
-	@Override
-	public boolean tileTouchDragged(Vector3 worldPosition, Point tilePosition) {
-		return false;
-	}
-
-
-	@Override
-	public boolean tileTouchDown(Vector3 worldPosition, Point tilePosition) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-	
-	@Override
-	public boolean tileTouchUp(Vector3 worldPosition, Point tilePosition) {
-		Units selectedUnit = inGameUIOverlay.getSelectedUnit();
-		if (selectedUnit == null) {
-			// Si on n'a pas cliqué pour créer une unité, alors on déplace la caméra
-			objectsOverlay.getStage().getCamera().position.set(worldPosition);
-		} else {
-			// Si un chemin contient le tile touché, alors on crée une nouvelle
-			// unité sur ce chemin et on l'envoie en direction du château ennemi
-			for (Path path : battlefieldOverlay.getPlayerPaths()) {
-				if (path.contains(tilePosition)) {
-					objectsOverlay.spawnUnit(selectedUnit, path);
-					break;
-				}
-			}
-		}
-		return true;
-	}
-
 	/**
 	 * Retourne le nombre de pixels dans 1 unité du monde
 	 * @return
@@ -118,5 +86,23 @@ public class GameScreen extends SlamScreen implements TiledMapInputProcessor {
 
 	public WorldObjectsOverlay getObjectsOverlay() {
 		return objectsOverlay;
+	}
+
+	public void tileTouched(Vector3 worldPosition, Point tilePosition) {
+		Units selectedUnit = inGameUIOverlay.getSelectedUnit();
+		if (selectedUnit == null) {
+			// Si on n'a pas cliqué pour créer une unité, alors on déplace la caméra
+			objectsOverlay.getStage().getCamera().position.set(worldPosition);
+		} else {
+			// Si le tile touché est un attackPoint (donc le point terminal
+			// d'un des chemins), on envoit l'unité sur le chemin entre le
+			// château et cet attackPoint
+			for (Path path : battlefieldOverlay.getPlayerPaths()) {
+				if (path.endsAt(tilePosition)) {
+					objectsOverlay.spawnUnit(selectedUnit, path);
+					break;
+				}
+			}
+		}
 	}
 }

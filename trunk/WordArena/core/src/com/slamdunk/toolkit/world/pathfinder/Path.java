@@ -44,4 +44,15 @@ public class Path {
 	public boolean contains(Point position) {
 		return positions.contains(position);
 	}
+
+	/**
+	 * Indique si le chemin s'arrête sur la position indiquée
+	 * @param tilePosition
+	 * @return
+	 */
+	public boolean endsAt(Point position) {
+		return position != null
+			&& !positions.isEmpty()
+			&& positions.get(positions.size() - 1).equals(position);
+	}
 }

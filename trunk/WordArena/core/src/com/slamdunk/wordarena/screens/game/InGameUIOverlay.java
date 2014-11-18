@@ -3,11 +3,14 @@ package com.slamdunk.wordarena.screens.game;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.wordarena.units.Units;
 
@@ -18,6 +21,13 @@ public class InGameUIOverlay extends UIOverlay {
 	 * Unité actuellement sélectionnée pour être créée
 	 */
 	private Units selectedUnit;
+	
+	public InGameUIOverlay() {
+		// Par défaut, on travaillera dans un Stage qui prend tout l'écran
+		createStage(new ScreenViewport());
+		// Par défaut, la skin par défaut sera utilisée
+		setSkin(new Skin(Gdx.files.internal(UIOverlay.DEFAULT_SKIN)));
+	}
 	
 	/**
 	 * Initialise la couche

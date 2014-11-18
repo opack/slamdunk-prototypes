@@ -11,12 +11,18 @@ import com.slamdunk.wordarena.units.Units;
 
 public class WorldObjectsOverlay extends WorldOverlay {
 	
+	public WorldObjectsOverlay() {
+		// On crée un Stage en attendant que la méthode init() utilise le bon viewport
+		createStage(new ScreenViewport());
+	}
+	
 	public void init(Camera camera, float worldUnitsPerPixel) {
 		// On va utiliser une couche Stage contenant les objets du monde
 		// avec un viewport qui s'appuie sur la caméra de la tiledmap
 		ScreenViewport viewport = new ScreenViewport(camera);
 		viewport.setWorldSize(camera.viewportWidth, camera.viewportHeight);
 		viewport.setUnitsPerPixel(worldUnitsPerPixel);
+		getStage().setViewport(viewport);
 		
 		UnitManager.getInstance().setStageContainer(getWorld());
 	}
