@@ -91,14 +91,22 @@ public class GameScreen extends SlamScreen {
 	public void tileTouched(Vector3 worldPosition, Point tilePosition) {
 		Units selectedUnit = inGameUIOverlay.getSelectedUnit();
 		if (selectedUnit != null) {
-			// Si le tile touché est un attackPoint (donc le point terminal
-			// d'un des chemins), on envoit l'unité sur le chemin entre le
-			// château et cet attackPoint
+			// Envoie l'unité sur le chemin qui contient le tile touché.
+			// Si ce tile est sur plusieurs chemins, on choisit celui qui
+			// offre la plus courte distance entre le départ et le tile.
+			Path bestPath = null;
+			int shortestDistance = -1;
+			int curDistance;
 			for (Path path : battlefieldOverlay.getPlayerPaths()) {
-				if (path.endsAt(tilePosition)) {
-					objectsOverlay.spawnUnit(selectedUnit, path);
-					break;
+				curDistance = path.distanceTo(tilePosition);
+				if (curDistance != -1
+				&& (shortestDistance == -1 || shortestDistance > curDistance)) {
+					shortestDistance = curDistance;
+					bestPath = path;
 				}
+			}
+			if (bestPath != null) {
+				objectsOverlay.spawnUnit(selectedUnit, bestPath);
 			}
 		}
 	}
