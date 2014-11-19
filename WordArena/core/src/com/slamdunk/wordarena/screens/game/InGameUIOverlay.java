@@ -49,19 +49,10 @@ public class InGameUIOverlay extends UIOverlay {
 				spawnButton.remove();
 			}
 		}
-		group.add((Button)getActor("move_camera"));
-		
-		// Par défaut, c'est le bouton de déplacement de la caméra qui est actif
-		final Button moveCamera = (Button)getActor("move_camera");
-		moveCamera.setChecked(true);
+		group.uncheckAll();
 		
 		// Création des listeners qui interprèteront les clics sur les boutons
 		Map<String, EventListener> listeners = new HashMap<String, EventListener>();
-		listeners.put("move_camera", new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				selectedUnit = null;
-			}
-		});
 		for (int curSpawn = 0; curSpawn < NB_SPAWN_BUTTONS; curSpawn++) {
 			listeners.put("spawn_unit" + curSpawn, new ClickListener() {
 				public void clicked(InputEvent event, float x, float y) {

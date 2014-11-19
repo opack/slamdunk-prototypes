@@ -90,10 +90,7 @@ public class GameScreen extends SlamScreen {
 
 	public void tileTouched(Vector3 worldPosition, Point tilePosition) {
 		Units selectedUnit = inGameUIOverlay.getSelectedUnit();
-		if (selectedUnit == null) {
-			// Si on n'a pas cliqué pour créer une unité, alors on déplace la caméra
-			objectsOverlay.getStage().getCamera().position.set(worldPosition);
-		} else {
+		if (selectedUnit != null) {
 			// Si le tile touché est un attackPoint (donc le point terminal
 			// d'un des chemins), on envoit l'unité sur le chemin entre le
 			// château et cet attackPoint
