@@ -1,14 +1,10 @@
 package com.slamdunk.wordarena.screens.worldmap;
 
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.slamdunk.toolkit.lang.FileHelper;
 import com.slamdunk.toolkit.lang.TypedProperties;
@@ -22,30 +18,9 @@ import com.slamdunk.wordarena.screens.game.GameScreen;
  * pour se rendre sur une mission particulière du jeu.
  */
 public class WorldMapOverlay extends UIOverlay {
-	/**
-	 * Listener chargé de déplacer la caméra en fonction des drags de
-	 * souris/doigt
-	 */
-	private DragListener moveMapListener = new DragListener() {
-		private Vector2 previousDragPos = new Vector2();
-		private Vector3 cameraPos;
-		
-		public void dragStart(InputEvent event, float x, float y, int pointer) {
-			previousDragPos.x = x;
-			previousDragPos.y = y;
-			cameraPos = getStage().getCamera().position;
-		};
-		
-		public void drag(InputEvent event, float x, float y, int pointer) {
-			cameraPos.x += previousDragPos.x - x;
-			cameraPos.y += previousDragPos.y - y;
-		};
-	};
-	
 	public void createStage(Viewport viewport) {
 		super.createStage(viewport);
-		
-		getStage().addListener(moveMapListener);
+		getStage().addListener(new MoveCameraDragListener(getStage().getCamera()));
 	}
 
 	/**

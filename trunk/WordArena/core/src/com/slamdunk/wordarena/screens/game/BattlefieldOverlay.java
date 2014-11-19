@@ -6,6 +6,7 @@ import java.util.List;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.screen.overlays.TiledMapOverlay;
 import com.slamdunk.toolkit.screen.overlays.TiledMapOverlay.TiledMapInputProcessor;
@@ -17,10 +18,23 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 	private List<Path> playerPaths;
 	private List<Path> enemyPaths;
 	
+	/**
+	 * Précédente position pendant le drag, pour calculer le déplacement
+	 * de la caméra
+	 */
+	private Vector2 previousDragPos;
+	
+	/**
+	 * Indique si on est en train de faire un drag
+	 */
+	private boolean dragging;
+	
 	public BattlefieldOverlay() {
 		playerPaths = new ArrayList<Path>();
+		previousDragPos = new Vector2();
 		// Définit le gestionnaire des entrées utilisateur
 		setTileInputProcessor(this);
+		
 	}
 	
 	public void init(String mapFile) {
@@ -71,19 +85,29 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 	
 	@Override
 	public boolean tileTouchDragged(Vector3 worldPosition, Point tilePosition) {
+		getCamera().position.add(
+			previousDragPos.x - worldPosition.x,
+			previousDragPos.y - worldPosition.y,
+			0);
+		dragging = true;
 		return false;
 	}
 
 
 	@Override
 	public boolean tileTouchDown(Vector3 worldPosition, Point tilePosition) {
-		// TODO Auto-generated method stub
+		previousDragPos.x = worldPosition.x;
+		previousDragPos.y = worldPosition.y;
 		return false;
 	}
 	
 	@Override
 	public boolean tileTouchUp(Vector3 worldPosition, Point tilePosition) {
-		((GameScreen)getScreen()).tileTouched(worldPosition, tilePosition);
+		// Si on n'est pas en train de déplacer la caméra, alors on spawn une unité
+		if (!dragging) {
+			((GameScreen)getScreen()).tileTouched(worldPosition, tilePosition);
+		}
+		dragging = false;
 		return true;
 	}
 }
