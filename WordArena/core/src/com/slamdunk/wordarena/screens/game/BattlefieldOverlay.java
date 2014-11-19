@@ -1,6 +1,7 @@
 package com.slamdunk.wordarena.screens.game;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.badlogic.gdx.maps.MapObject;
@@ -47,9 +48,11 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 		// Recherche les chemins depuis le château vers les attackPoints du château adverse
 		playerPaths = searchPathsToAttackPoints("castle1", "castle2");
 		playerPaths.addAll(searchPathsToAttackPoints("castle1", "castle3"));
+		Collections.sort(playerPaths);
 		
 		enemyPaths = searchPathsToAttackPoints("castle2", "castle1");
 		enemyPaths.addAll(searchPathsToAttackPoints("castle3", "castle1"));
+		Collections.sort(enemyPaths);
 		
 		// Place la camera à l'endroit du premier château
 		setCameraOnObject("markers", "castle1");
@@ -64,21 +67,23 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 	}
 
 	/**
-	 * Recherche les chemins depuis le château fromCastle vers les
-	 * attackPoints du château toCastle
-	 * @param string
-	 * @param string2
+	 * Recherche les chemins depuis les spawnPoints du château fromCastle
+	 * vers les attackPoints du château toCastle
+	 * @param fromCastle
+	 * @param toCastle
 	 * @return
 	 */
 	private List<Path> searchPathsToAttackPoints(String fromCastle, String toCastle) {
-	    MapObject castle = getObject("markers", fromCastle);
+	    MapObjects spawnPoints = getObjects("markers", RectangleMapObject.class, "spawnPoint", fromCastle);
 	    MapObjects attackPoints = getObjects("markers", RectangleMapObject.class, "attackPoint", toCastle);
 	    List<Path> paths = new ArrayList<Path>();
-	    for (MapObject attackPoint : attackPoints) {
-	    	Path path = findPath(castle, attackPoint);
-	    	if (path != null) {
-	    		paths.add(path);
-	    	}
+	    for (MapObject spawnPoint : spawnPoints) {
+		    for (MapObject attackPoint : attackPoints) {
+		    	Path path = findPath(spawnPoint, attackPoint);
+		    	if (path != null) {
+		    		paths.add(path);
+		    	}
+		    }
 	    }
 		return paths;
 	}

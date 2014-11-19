@@ -9,7 +9,7 @@ import com.slamdunk.toolkit.world.point.Point;
  * objets. Il faut alors utiliser un PathCursor pour déterminer la position de l'objet
  * qui suit le chemin.
  */
-public class Path {
+public class Path implements Comparable<Path> {
 	/**
 	 * Positions du chemin
 	 */
@@ -54,5 +54,21 @@ public class Path {
 		return position != null
 			&& !positions.isEmpty()
 			&& positions.get(positions.size() - 1).equals(position);
+	}
+
+	@Override
+	public int compareTo(Path other) {
+		// On compare la taille des chemins
+		return positions.size() - other.positions.size();
+	}
+
+	/**
+	 * Retourne le nombre de positions entre le début du chemin et la position
+	 * indiquée. Si 0, cela indique que la position est le début du chemin.
+	 * @param position
+	 * @return -1 si la position n'est pas sur le chemin
+	 */
+	public int distanceTo(Point position) {
+		return positions.indexOf(position);
 	}
 }
