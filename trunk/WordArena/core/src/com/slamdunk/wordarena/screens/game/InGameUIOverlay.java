@@ -49,6 +49,8 @@ public class InGameUIOverlay extends UIOverlay {
 				spawnButton.remove();
 			}
 		}
+		final Button selectUnits = (Button)getActor("select_units");
+		group.add(selectUnits);
 		group.uncheckAll();
 		
 		// Création des listeners qui interprèteront les clics sur les boutons
@@ -64,10 +66,25 @@ public class InGameUIOverlay extends UIOverlay {
 				}
 			});
 		}
+		listeners.put("select_units", new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				selectedUnit = null;
+			}
+		});
 		setListeners(listeners);
 	}
 
 	public Units getSelectedUnit() {
 		return selectedUnit;
+	}
+
+	/**
+	 * Indique si le bouton de création d'un rectangle de sélection
+	 * d'unités est actif
+	 * @return
+	 */
+	public boolean isSelectingUnits() {
+		return ((Button)getActor("select_units")).isChecked();
 	}
 }

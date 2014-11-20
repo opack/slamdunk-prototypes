@@ -2,7 +2,7 @@ package com.slamdunk.wordarena.screens.game;
 
 import java.util.List;
 
-import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.Rectangle;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
@@ -10,6 +10,7 @@ import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.ai.AI;
 import com.slamdunk.wordarena.ai.BasicAI;
+import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.Units;
 
 public class GameScreen extends SlamScreen {
@@ -17,7 +18,7 @@ public class GameScreen extends SlamScreen {
 
 	private BattlefieldOverlay battlefieldOverlay;
 	private WorldObjectsOverlay objectsOverlay;
-	private InGameUIOverlay inGameUIOverlay;
+	private InGameUIOverlay uiOverlay;
 	
 	private AI enemyAI;
 	
@@ -32,8 +33,8 @@ public class GameScreen extends SlamScreen {
 		addOverlay(objectsOverlay);
 		
 		// Crée la couche qui contient l'UI
-		inGameUIOverlay = new InGameUIOverlay();
-		addOverlay(inGameUIOverlay);
+		uiOverlay = new InGameUIOverlay();
+		addOverlay(uiOverlay);
 	}
 	
 	/**
@@ -45,7 +46,7 @@ public class GameScreen extends SlamScreen {
 				
 		battlefieldOverlay.init(battlefieldProperties.getStringProperty("map", ""));
 		objectsOverlay.init(battlefieldOverlay.getCamera(), 1 / battlefieldOverlay.getPixelsByTile());
-		inGameUIOverlay.init(Units.PALADIN, Units.ARCHER);
+		uiOverlay.init(Units.PALADIN, Units.ARCHER);
 		
 		// Initialise l'IA
 		createAI(battlefieldOverlay.getEnemyPaths());
@@ -87,9 +88,21 @@ public class GameScreen extends SlamScreen {
 	public WorldObjectsOverlay getObjectsOverlay() {
 		return objectsOverlay;
 	}
+	
+	public InGameUIOverlay getUIOverlay() {
+		return uiOverlay;
+	}
 
-	public void tileTouched(Vector3 worldPosition, Point tilePosition) {
-		Units selectedUnit = inGameUIOverlay.getSelectedUnit();
+	/**
+	 * Tente de créer une instance de l'unité sélectionnée sur la position
+	 * de la tuile indiquée
+	 * @param tilePosition
+	 */
+	public void createUnit(Point tilePosition) {
+		if (!battlefieldOverlay.isWalkable(tilePosition)) {
+			return;
+		}
+		Units selectedUnit = uiOverlay.getSelectedUnit();
 		if (selectedUnit != null) {
 			// Envoie l'unité sur le chemin qui contient le tile touché.
 			// Si ce tile est sur plusieurs chemins, on choisit celui qui
@@ -109,5 +122,13 @@ public class GameScreen extends SlamScreen {
 				objectsOverlay.spawnUnit(selectedUnit, bestPath);
 			}
 		}
+	}
+
+	/**
+	 * Sélectionne les unités qui se trouvent dans la zone indiquée
+	 * @param selectArea
+	 */
+	public void selectUnitsIn(Rectangle selectArea) {
+		objectsOverlay.selectUnitsIn(Factions.PLAYER, selectArea);
 	}
 }

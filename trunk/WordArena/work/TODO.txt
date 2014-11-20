@@ -1,17 +1,17 @@
-- Gestion de la carte
-	[X] Le héros trouve un chemin grâce au Pathfinder et le suit
-	[X] Ajouter un UIOverlay avec un bouton pour spawner une unité
-	[X] Choisir de quel côté sort cette unité et la faire partir vers le château adverse
-		[X] Au lieu de choisir un chemin, choisir un attackPoint. L'unité est alors créée sur le château et prend le chemin le plus court vers cet attackPoint
-	[X] Ajouter un second château adverse et un avant-poste. Permettre la sélection du château à attaquer.
-	[ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
-- Combat
-	[X] Mettre en place une IA qui spwan des ennemis (pour simplifier au début, spwan d'une unité à un interval aléatoire)
-	[X] Engager le combat entre unités ennemies
-	[X] Ajouter des animations pour le déplacement et l'action d'une unité
-	[X] Gérer des projectiles
-- Monde
-	[X] Evoluer sur une carte du monde
-	[X] Ouvrir le champ de bataille sur une touche
-- Gestion des unités
-	[X] Réagir sur une touche sur une unité
+Champ de bataille
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+[ ]	Mode sélection : lorsque ce bouton est actif, le drag sur l'écran dessine un rectangle. Toutes les unités dans ce rectangle sont sélectionnées.
+	Le joueur touche alors un point sur la carte pour donner une nouvelle direction aux unités.
+[ ] Borner le déplacement de la carte pour qu'elle soit toujours visible   
+[ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
+
+Combat
+¯¯¯¯¯¯
+
+Monde
+¯¯¯¯¯
+[ ] Borner le déplacement de la carte pour qu'elle soit toujours visible
+
+Gestion des unités
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+[ ] Ajouter une image sur les boutons des unités

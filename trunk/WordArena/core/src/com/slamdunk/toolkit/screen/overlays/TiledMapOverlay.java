@@ -409,6 +409,24 @@ public class TiledMapOverlay implements SlamOverlay {
 			pathfinder.setWalkable(tileX, tileY, true);
 		}
 	}
+	
+	/**
+	 * Indique si la position donnée en paramètre peut être parcourue
+	 * @param position
+	 * @return
+	 */
+	public boolean isWalkable(int x, int y) {
+		return pathfinder.isWalkable(x, y);
+	}
+	
+	/**
+	 * Indique si la position donnée en paramètre peut être parcourue
+	 * @param position
+	 * @return
+	 */
+	public boolean isWalkable(Point position) {
+		return pathfinder.isWalkable(position.getX(), position.getY());
+	}
 
 	/**
 	 * Calcule le chemin entre 2 points de la carte

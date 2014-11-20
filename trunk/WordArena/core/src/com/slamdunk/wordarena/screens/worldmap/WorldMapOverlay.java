@@ -11,6 +11,7 @@ import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.toolkit.ui.ButtonClickListener;
+import com.slamdunk.wordarena.screens.MoveCameraDragListener;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 
 /**
