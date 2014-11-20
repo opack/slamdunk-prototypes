@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.screens.worldmap;
+package com.slamdunk.wordarena.screens;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Vector2;
@@ -25,5 +25,13 @@ public class MoveCameraDragListener extends DragListener {
 	public void drag(InputEvent event, float x, float y, int pointer) {
 		camera.position.x += previousDragPos.x - x;
 		camera.position.y += previousDragPos.y - y;
+	}
+
+	public Camera getCamera() {
+		return camera;
+	}
+
+	public void setCamera(Camera camera) {
+		this.camera = camera;
 	};
 }

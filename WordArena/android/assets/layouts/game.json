@@ -2,6 +2,15 @@
 	widgets: [
 		{
 			class: Button,
+			name: select_units,
+			x: 200,
+			y: 9,
+			width: 50,
+			height: 50,
+			style: toggle
+		},
+		{
+			class: Button,
 			name: spawn_unit0,
 			x: 260,
 			y: 9,

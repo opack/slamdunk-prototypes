@@ -267,6 +267,10 @@ public class PathFinder {
 	}
 
 	public boolean isWalkable(int x, int y) {
+		if (x < 0 || x >= walkables.length
+		|| y < 0 || y >= walkables[0].length) {
+			return false;
+		}
 		return walkables[x][y];
 	}
 
