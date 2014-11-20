@@ -123,6 +123,20 @@ public class GameScreen extends SlamScreen {
 			}
 		}
 	}
+	
+	/**
+	 * Met à jour la position et la taille de la zone de sélection
+	 * @param area Si null, la zone n'est plus affichée
+	 */
+	public void updateSelectArea(Rectangle area) {
+		final float worldUnitsByPixel = 1 / battlefieldOverlay.getPixelsByTile(); 
+//		area.x /= worldUnitsByPixel;
+//		area.y /= worldUnitsByPixel;
+//		area.width /= worldUnitsByPixel;
+//		area.height /= worldUnitsByPixel;
+		System.out.println("GameScreen.updateSelectArea()" + area);
+		objectsOverlay.updateSelectArea(area);
+	}
 
 	/**
 	 * Sélectionne les unités qui se trouvent dans la zone indiquée

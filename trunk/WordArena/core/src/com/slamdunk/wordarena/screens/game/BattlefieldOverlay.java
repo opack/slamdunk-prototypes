@@ -36,9 +36,15 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 	 */
 	private boolean selectingUnits;
 	
+	/**
+	 * Zone de sélection actuellement dessinée
+	 */
+	private Rectangle selectArea;
+	
 	public BattlefieldOverlay() {
 		playerPaths = new ArrayList<Path>();
 		touchDownPos = new Vector2();
+		selectArea = new Rectangle();
 		// Définit le gestionnaire des entrées utilisateur
 		setTileInputProcessor(this);
 		
@@ -109,7 +115,8 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 		// Si on est en train de créer un rectangle de sélection d'unités
 		if (selectingUnits) {
 			// Dessin du rectangle de sélection
-			// TODO ...
+			updateSelectArea(worldPosition);
+			((GameScreen)getScreen()).updateSelectArea(selectArea);
 		} else {
 			// Sinon, on déplace la carte, donc la caméra
 			getCamera().position.add(
@@ -126,30 +133,7 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 		// Si on était en train de créer un rectangle de sélection d'unités, c'est fini
 		if (dragging) {
 			if (selectingUnits) {
-				// Détermine le rectangle de sélection
-				final float minX;
-				final float maxX;
-				if (touchDownPos.x < worldPosition.x) {
-					minX = touchDownPos.x;
-					maxX = worldPosition.x;
-				} else {
-					minX = worldPosition.x;
-					maxX = touchDownPos.x;
-				}
-				final float minY;
-				final float maxY;
-				if (touchDownPos.y < worldPosition.y) {
-					minY = touchDownPos.y;
-					maxY = worldPosition.y;
-				} else {
-					minY = worldPosition.y;
-					maxY = touchDownPos.y;
-				}
-				Rectangle selectArea = new Rectangle();
-				selectArea.x = minX;
-				selectArea.y = minY;
-				selectArea.width = maxX - minX;
-				selectArea.height = maxY - minY;
+				updateSelectArea(worldPosition);
 				((GameScreen)getScreen()).selectUnitsIn(selectArea);
 			}
 		} else {
@@ -159,5 +143,37 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 		}
 		dragging = false;
 		return true;
+	}
+	
+	/**
+	 * Met à jour les coordonnées du rectangle de sélection
+	 * en fonction de la position actuelle de la souris/du doigt
+	 * dans le monde
+	 * @param worldPosition
+	 */
+	private void updateSelectArea(Vector3 worldPosition) {
+		// Détermine le rectangle de sélection
+		final float minX;
+		final float maxX;
+		if (touchDownPos.x < worldPosition.x) {
+			minX = touchDownPos.x;
+			maxX = worldPosition.x;
+		} else {
+			minX = worldPosition.x;
+			maxX = touchDownPos.x;
+		}
+		final float minY;
+		final float maxY;
+		if (touchDownPos.y < worldPosition.y) {
+			minY = touchDownPos.y;
+			maxY = worldPosition.y;
+		} else {
+			minY = worldPosition.y;
+			maxY = touchDownPos.y;
+		}
+		selectArea.x = minX;
+		selectArea.y = minY;
+		selectArea.width = maxX - minX;
+		selectArea.height = maxY - minY;
 	}
 }
