@@ -26,6 +26,14 @@ public class Path implements Comparable<Path> {
 	public int length() {
 		return positions.size();
 	}
+	
+	/**
+	 * Indique s'il n'y a aucune position dans ce chemin
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return positions.isEmpty();
+	}
 
 	/**
 	 * Retourne la position à l'indice indiqué
@@ -43,6 +51,15 @@ public class Path implements Comparable<Path> {
 	 */
 	public boolean contains(Point position) {
 		return positions.contains(position);
+	}
+	
+	/**
+	 * Retourne l'indice de la position spécifiée sur le chemin
+	 * @param position
+	 * @return -1 si la position n'est pas sur le chemin
+	 */
+	public int indexOf(Point position) {
+		return positions.indexOf(position);
 	}
 
 	/**

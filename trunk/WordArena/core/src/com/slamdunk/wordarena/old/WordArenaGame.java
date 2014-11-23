@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.wordarena.old.letters.LetterGenerator;
 import com.slamdunk.wordarena.old.letters.Letters;
 
@@ -118,7 +118,7 @@ public class WordArenaGame implements ApplicationListener {
 
 	@Override
 	public void resize(int width, int height) {
-		stage.setViewport(new ScreenViewport());
+		stage.setViewport(new FitViewport(800, 480));
 	}
 
 	@Override

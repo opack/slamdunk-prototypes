@@ -2,11 +2,9 @@ package com.slamdunk.toolkit.screen.overlays;
 
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
@@ -15,15 +13,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.slamdunk.toolkit.graphics.tiled.OrthogonalTiledMapRendererWithSprites;
-import com.slamdunk.toolkit.graphics.tiled.SpriteMapObject;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.pathfinder.PathFinder;
 import com.slamdunk.toolkit.world.point.Point;
 
 public class TiledMapOverlay implements SlamOverlay {
-	private static final String SPRITES_LAYER = "sprites";
 	
 	public interface TiledMapInputProcessor {
 		/**
@@ -59,9 +54,12 @@ public class TiledMapOverlay implements SlamOverlay {
 	
 	private class TiledMapOverlayInputProcessor implements InputProcessor {
 		private TiledMapInputProcessor tileInputProcessor;
+		private Vector3 touchDownPos;
+		private boolean dragging;
 		
 		public TiledMapOverlayInputProcessor(TiledMapInputProcessor tileInputProcessor) {
 			this.tileInputProcessor = tileInputProcessor;
+			touchDownPos = new Vector3();
 		}
 		
 		@Override
@@ -97,8 +95,8 @@ public class TiledMapOverlay implements SlamOverlay {
 
 		@Override
 		public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-			Vector3 clickCoordinates = new Vector3(screenX,screenY,0);
-		    Vector3 worldPosition = camera.unproject(clickCoordinates);
+			touchDownPos.set(screenX, screenY, 0);
+		    Vector3 worldPosition = camera.unproject(new Vector3(screenX,screenY,0));
 		    Point tilePosition = new Point(
 		    	(int)(worldPosition.x * pixelsByTile / tileWidth),
 		    	(int)(worldPosition.y * pixelsByTile / tileHeight));
@@ -108,8 +106,10 @@ public class TiledMapOverlay implements SlamOverlay {
 
 		@Override
 		public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-			Vector3 clickCoordinates = new Vector3(screenX,screenY,0);
-		    Vector3 worldPosition = camera.unproject(clickCoordinates);
+			// Si on était en cours de drag, c'est fini
+			dragging = false;
+			
+			Vector3 worldPosition = camera.unproject(new Vector3(screenX,screenY,0));
 		    Point tilePosition = new Point(
 		    	(int)(worldPosition.x * pixelsByTile / tileWidth),
 		    	(int)(worldPosition.y * pixelsByTile / tileHeight));
@@ -119,8 +119,15 @@ public class TiledMapOverlay implements SlamOverlay {
 
 		@Override
 		public boolean touchDragged(int screenX, int screenY, int pointer) {
-			Vector3 clickCoordinates = new Vector3(screenX,screenY,0);
-		    Vector3 worldPosition = camera.unproject(clickCoordinates);
+			// On décide si on déclenche le dragging. Il y a drag s'il y a au moins
+			// une certaine distance depuis la position du touchDown
+			if (!dragging
+			&& touchDownPos.dst(screenX, screenY, 0) < 14) {
+				return false;
+			}
+			dragging = true;
+			
+		    Vector3 worldPosition = camera.unproject(new Vector3(screenX,screenY,0));
 		    Point tilePosition = new Point(
 		    	(int)(worldPosition.x * pixelsByTile / tileWidth),
 		    	(int)(worldPosition.y * pixelsByTile / tileHeight));
@@ -173,14 +180,14 @@ public class TiledMapOverlay implements SlamOverlay {
 		tileHeight = (Integer)map.getProperties().get("tileheight");
 		pixelsByTile = (pixelsByUnit == -1) ? tileWidth : pixelsByUnit;
 		
-		renderer = new OrthogonalTiledMapRendererWithSprites(map, 1 / pixelsByTile/*DBG, SPRITES_LAYER*/);
+		renderer = new OrthogonalTiledMapRenderer(map, 1 / pixelsByTile);
 		
 		// Crée une caméra qui montre fieldOfViewWidth x fieldOfViewHeight unités du monde 
 		if (fieldOfViewWidth == -1) {
-			fieldOfViewWidth = Gdx.graphics.getWidth() / tileWidth;
+			fieldOfViewWidth = 800 / tileWidth;
 		}
 		if (fieldOfViewHeight == -1) {
-			fieldOfViewHeight = Gdx.graphics.getHeight() / tileHeight;
+			fieldOfViewHeight = 480 / tileHeight;
 		}
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, fieldOfViewWidth, fieldOfViewHeight);
@@ -359,35 +366,6 @@ public class TiledMapOverlay implements SlamOverlay {
 	
 	public float convertFromPixelToMapY(float pixelY) {
 		return pixelY / tileHeight;
-	}
-
-	/**
-	 * Ajoute le sprite indiqué à la map, en adaptant sa taille (en pixels) pour qu'elle
-	 * soit cohérente avec le reste de la map (en unités).
-	 * @param sprite
-	 * @return 
-	 */
-	public SpriteMapObject addSprite(Sprite sprite, String name, String layerName) {
-		// Adapte la taille du sprite (exprimée en pixels) à celle du monde
-		sprite.setSize(sprite.getWidth() / pixelsByTile, sprite.getHeight() / pixelsByTile);
-		
-		// Ajoute le sprite à la couche adéquate
-		MapLayer layer = map.getLayers().get(layerName);
-		if (layer == null) {
-			return null;
-		}
-		SpriteMapObject spriteMapObject = new SpriteMapObject(sprite, name, tileWidth);
-		layer.getObjects().add(spriteMapObject);
-		return spriteMapObject;
-	}
-	
-	/**
-	 * Ajoute le sprite indiqué à la map, en adaptant sa taille (en pixels) pour qu'elle
-	 * soit cohérente avec le reste de la map (en unités).
-	 * @param sprite
-	 */
-	public SpriteMapObject addSprite(Sprite sprite, String name) {
-		return addSprite(sprite, name, SPRITES_LAYER);
 	}
 
 	public void initPathfinder(boolean defaultWalkable) {

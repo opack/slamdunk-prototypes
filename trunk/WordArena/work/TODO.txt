@@ -1,7 +1,17 @@
+Refactoring :
+1 seul overlay : WorldOverlay
+3 SlamWorldLayer : tiledmap, objets, ui.
+	-> Faire un SlamWorldLayer contenant une tiledmap et en faisant le rendu
+	-> Ou avoir une simple image de fond ??? Gérer alors des chemins réels que pourront suivre
+	les unités
+		-> Créer une classe Polyline extends Path qui gère un chemin en ligne droite entre plusieurs waypoints
+Ainsi, on n'a qu'une seule caméra, qu'un seul viewport, qu'un seul système d'unités. 
+
 Champ de bataille
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-[ ]	Mode sélection : lorsque ce bouton est actif, le drag sur l'écran dessine un rectangle. Toutes les unités dans ce rectangle sont sélectionnées.
-	Le joueur touche alors un point sur la carte pour donner une nouvelle direction aux unités.
+[ ] Faire des chemins de type : 1 départ, 1 destination. Donc pas d'embranchement ni de carrefours.
+	[ ] Supprimer la zone de sélection
+	[ ] Choix du chemin : faire simplement le choix en fonction du chemin qui contient le tile touché 
 [ ] Borner le déplacement de la carte pour qu'elle soit toujours visible   
 [ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
 

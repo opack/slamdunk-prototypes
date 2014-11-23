@@ -2,7 +2,6 @@ package com.slamdunk.wordarena.screens.game;
 
 import java.util.List;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
@@ -10,7 +9,6 @@ import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.ai.AI;
 import com.slamdunk.wordarena.ai.BasicAI;
-import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.Units;
 
 public class GameScreen extends SlamScreen {
@@ -98,51 +96,51 @@ public class GameScreen extends SlamScreen {
 	 * de la tuile indiquée
 	 * @param tilePosition
 	 */
-	public void createUnit(Point tilePosition) {
+	public void tileTouched(Point tilePosition) {
 		if (!battlefieldOverlay.isWalkable(tilePosition)) {
 			return;
 		}
-		Units selectedUnit = uiOverlay.getSelectedUnit();
-		if (selectedUnit != null) {
+		// S'il y a une unité sélectionnée, on la spawn.
+		Units spawnUnit = uiOverlay.getSelectedUnit();
+		if (spawnUnit != null) {
 			// Envoie l'unité sur le chemin qui contient le tile touché.
 			// Si ce tile est sur plusieurs chemins, on choisit celui qui
 			// offre la plus courte distance entre le départ et le tile.
-			Path bestPath = null;
-			int shortestDistance = -1;
-			int curDistance;
-			for (Path path : battlefieldOverlay.getPlayerPaths()) {
-				curDistance = path.distanceTo(tilePosition);
-				if (curDistance != -1
-				&& (shortestDistance == -1 || shortestDistance > curDistance)) {
-					shortestDistance = curDistance;
-					bestPath = path;
-				}
-			}
+			Path bestPath = getShortestPathTo(tilePosition, battlefieldOverlay.getPlayerPaths());			
 			if (bestPath != null) {
-				objectsOverlay.spawnUnit(selectedUnit, bestPath);
+				objectsOverlay.spawnUnit(spawnUnit, bestPath);
 			}
 		}
 	}
 	
 	/**
-	 * Met à jour la position et la taille de la zone de sélection
-	 * @param area Si null, la zone n'est plus affichée
+	 * Retourne le chemin le plus court
+	 * @param tilePosition
+	 * @param possiblePaths
+	 * @return
 	 */
-	public void updateSelectArea(Rectangle area) {
-		final float worldUnitsByPixel = 1 / battlefieldOverlay.getPixelsByTile(); 
-//		area.x /= worldUnitsByPixel;
-//		area.y /= worldUnitsByPixel;
-//		area.width /= worldUnitsByPixel;
-//		area.height /= worldUnitsByPixel;
-		System.out.println("GameScreen.updateSelectArea()" + area);
-		objectsOverlay.updateSelectArea(area);
+	private Path getShortestPathTo(Point finishPosition, List<Path> possiblePaths) {
+		return getShortestPathFromTo(null, finishPosition, possiblePaths);
 	}
-
+	
 	/**
-	 * Sélectionne les unités qui se trouvent dans la zone indiquée
-	 * @param selectArea
+	 * Retourne le chemin le plus court
+	 * @param tilePosition
+	 * @param possiblePaths
+	 * @return
 	 */
-	public void selectUnitsIn(Rectangle selectArea) {
-		objectsOverlay.selectUnitsIn(Factions.PLAYER, selectArea);
+	private Path getShortestPathFromTo(Point startPosition, Point finishPosition, List<Path> possiblePaths) {
+		int shortestDistance = -1;
+		int curDistance;
+		Path bestPath = null;
+		for (Path path : battlefieldOverlay.getPlayerPaths()) {
+			curDistance = path.indexOf(finishPosition) - (startPosition == null ? 0 : path.indexOf(startPosition));
+			if (curDistance != -1
+			&& (shortestDistance == -1 || shortestDistance > curDistance)) {
+				shortestDistance = curDistance;
+				bestPath = path;
+			}
+		}
+		return bestPath;
 	}
 }
