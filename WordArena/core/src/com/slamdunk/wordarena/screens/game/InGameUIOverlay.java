@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.wordarena.units.Units;
 
@@ -24,7 +24,7 @@ public class InGameUIOverlay extends UIOverlay {
 	
 	public InGameUIOverlay() {
 		// Par défaut, on travaillera dans un Stage qui prend tout l'écran
-		createStage(new ScreenViewport());
+		createStage(new FitViewport(800, 480));
 		// Par défaut, la skin par défaut sera utilisée
 		setSkin(new Skin(Gdx.files.internal(UIOverlay.DEFAULT_SKIN)));
 	}
@@ -49,7 +49,7 @@ public class InGameUIOverlay extends UIOverlay {
 				spawnButton.remove();
 			}
 		}
-		final Button selectUnits = (Button)getActor("select_units");
+		final Button selectUnits = (Button)getActor("move_camera");
 		group.add(selectUnits);
 		group.uncheckAll();
 		
@@ -66,7 +66,7 @@ public class InGameUIOverlay extends UIOverlay {
 				}
 			});
 		}
-		listeners.put("select_units", new ClickListener() {
+		listeners.put("move_camera", new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				selectedUnit = null;
@@ -77,14 +77,5 @@ public class InGameUIOverlay extends UIOverlay {
 
 	public Units getSelectedUnit() {
 		return selectedUnit;
-	}
-
-	/**
-	 * Indique si le bouton de création d'un rectangle de sélection
-	 * d'unités est actif
-	 * @return
-	 */
-	public boolean isSelectingUnits() {
-		return ((Button)getActor("select_units")).isChecked();
 	}
 }

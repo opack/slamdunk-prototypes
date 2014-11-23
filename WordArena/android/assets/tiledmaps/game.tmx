@@ -549,7 +549,7 @@
  </objectgroup>
  <layer name="path" width="30" height="24">
   <data encoding="base64" compression="zlib">
-   eJztldsNwjAMRS2zCUwCnQT4hh2gU/EahNcumL/Ictxrt6gIYen+NLZPlF4nRPk4MdGZezSQmIsWATWiuzAfHKttFHcpWoHaCmudrC3rytr3se2VJsZaC9bqHjWu/t61hqx7OX/u93CnZM/G7MPc6Iz05e6oe670bEW4G/b3jOwxw0V7/Tr3wnZuzd8Rz3vcZ4XrvRvRdwE5O+1vxOs1z2f+mRVln4PAj4znD8W9CvM2AjeSH/Fo9q62uEMJ5Xoezci7q8eMF2bthRk=
+   eJztlc0NwjAMhZ2wCUwCXQMOwBkmgAOwBgwCtIPwtwtGqEoUGsd2U/WCpSdFiV8+yXUdAH1cLUBpW1yAMUZNBCpQD2Q+rcxbBNw5asHUGllLpdf3+d5P2faEBg1+jrfJ53vD/TDqvCG42o0Y3tj9Ui6nhjm5O4jX8tAhVxt/7u/+1ADMjOuXI65PJj0DtNyV/Z5tkLE17qzEdWVk/Svhpu5KzYCuuJrcNtzKNuf6Myul2EyjuK8Il3o3pO8Cp3bUzKq/feyNCGdarv/Xv+eM8Ivl5+fi3pB574EryZf0qKRvU9xc4nKpHtWIeov7jDdo8YHb
   </data>
  </layer>
  <objectgroup name="markers">
@@ -592,24 +592,32 @@
   <object type="path" x="256" y="64" width="32" height="32"/>
   <object type="path" x="288" y="64" width="32" height="32"/>
   <object type="path" x="320" y="64" width="32" height="32"/>
-  <object type="path" x="320" y="96" width="32" height="32"/>
-  <object type="path" x="320" y="128" width="32" height="32"/>
-  <object type="path" x="320" y="160" width="32" height="32"/>
-  <object type="path" x="320" y="192" width="32" height="32"/>
-  <object type="path" x="320" y="224" width="32" height="32"/>
-  <object type="path" x="320" y="256" width="32" height="32"/>
-  <object type="path" x="320" y="288" width="32" height="32"/>
-  <object type="path" x="352" y="288" width="32" height="32"/>
-  <object type="path" x="384" y="288" width="32" height="32"/>
-  <object type="path" x="416" y="288" width="32" height="32"/>
-  <object type="path" x="448" y="288" width="32" height="32"/>
-  <object type="path" x="480" y="288" width="32" height="32"/>
-  <object type="path" x="512" y="288" width="32" height="32"/>
-  <object type="path" x="544" y="288" width="32" height="32"/>
-  <object type="path" x="576" y="288" width="32" height="32"/>
-  <object type="path" x="576" y="256" width="32" height="32"/>
-  <object type="path" x="576" y="224" width="32" height="32"/>
-  <object type="path" x="576" y="192" width="32" height="32"/>
+  <object type="path" x="128" y="352" width="32" height="32">
+   <properties>
+    <property name="attackPoint" value="castle1"/>
+    <property name="spawnPoint" value="castle1"/>
+   </properties>
+  </object>
+  <object type="path" x="160" y="352" width="32" height="32"/>
+  <object type="path" x="192" y="320" width="32" height="32"/>
+  <object type="path" x="224" y="320" width="32" height="32"/>
+  <object type="path" x="256" y="320" width="32" height="32"/>
+  <object type="path" x="288" y="320" width="32" height="32"/>
+  <object type="path" x="320" y="352" width="32" height="32"/>
+  <object type="path" x="352" y="352" width="32" height="32"/>
+  <object type="path" x="320" y="320" width="32" height="32"/>
+  <object type="path" x="416" y="352" width="32" height="32"/>
+  <object type="path" x="416" y="96" width="32" height="32">
+   <properties>
+    <property name="attackPoint" value="castle3"/>
+    <property name="spawnPoint" value="castle3"/>
+   </properties>
+  </object>
+  <object type="path" x="416" y="160" width="32" height="32"/>
+  <object type="path" x="448" y="160" width="32" height="32"/>
+  <object type="path" x="480" y="160" width="32" height="32"/>
+  <object type="path" x="512" y="160" width="32" height="32"/>
+  <object type="path" x="544" y="160" width="32" height="32"/>
   <object type="path" x="576" y="160" width="32" height="32"/>
   <object type="path" x="576" y="128" width="32" height="32"/>
   <object type="path" x="576" y="96" width="32" height="32"/>
@@ -673,7 +681,7 @@
   <object type="path" x="864" y="224" width="32" height="32"/>
   <object type="path" x="864" y="192" width="32" height="32"/>
   <object type="path" x="864" y="160" width="32" height="32"/>
-  <object type="path" x="448" y="320" width="32" height="32"/>
+  <object type="path" x="416" y="128" width="32" height="32"/>
   <object type="path" x="448" y="352" width="32" height="32"/>
   <object type="path" x="448" y="384" width="32" height="32"/>
   <object type="path" x="448" y="416" width="32" height="32"/>
@@ -698,5 +706,7 @@
    </properties>
   </object>
   <object name="castle3" type="castle" x="416" y="64" width="32" height="32"/>
+  <object type="path" x="160" y="320" width="32" height="32"/>
+  <object type="path" x="384" y="352" width="32" height="32"/>
  </objectgroup>
 </map>

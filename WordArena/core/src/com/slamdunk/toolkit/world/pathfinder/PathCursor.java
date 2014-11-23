@@ -24,10 +24,15 @@ public class PathCursor {
 	private Point current;
 	
 	public PathCursor(Path path) {
-		this.path = path;
-		current = path.getPosition(index);
+		this(path, 0);
 	}
 	
+	public PathCursor(Path path, int startIndexInPath) {
+		this.path = path;
+		this.index = startIndexInPath;
+		current = path.getPosition(startIndexInPath);
+	}
+
 	public Path getPath() {
 		return path;
 	}

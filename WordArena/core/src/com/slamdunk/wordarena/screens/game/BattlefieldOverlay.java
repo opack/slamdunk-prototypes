@@ -7,7 +7,6 @@ import java.util.List;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.screen.overlays.TiledMapOverlay;
@@ -31,20 +30,9 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 	 */
 	private boolean dragging;
 	
-	/**
-	 * Indique si on est en train de sélectionner des unités sur le champ de bataille
-	 */
-	private boolean selectingUnits;
-	
-	/**
-	 * Zone de sélection actuellement dessinée
-	 */
-	private Rectangle selectArea;
-	
 	public BattlefieldOverlay() {
 		playerPaths = new ArrayList<Path>();
 		touchDownPos = new Vector2();
-		selectArea = new Rectangle();
 		// Définit le gestionnaire des entrées utilisateur
 		setTileInputProcessor(this);
 		
@@ -104,76 +92,28 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 	public boolean tileTouchDown(Vector3 worldPosition, Point tilePosition) {
 		touchDownPos.x = worldPosition.x;
 		touchDownPos.y = worldPosition.y;
-		
-		GameScreen screen = ((GameScreen)getScreen());
-		selectingUnits = screen.getUIOverlay().isSelectingUnits();
 		return true;
 	}
 	
 	@Override
 	public boolean tileTouchDragged(Vector3 worldPosition, Point tilePosition) {
-		// Si on est en train de créer un rectangle de sélection d'unités
-		if (selectingUnits) {
-			// Dessin du rectangle de sélection
-			updateSelectArea(worldPosition);
-			((GameScreen)getScreen()).updateSelectArea(selectArea);
-		} else {
-			// Sinon, on déplace la carte, donc la caméra
-			getCamera().position.add(
-				touchDownPos.x - worldPosition.x,
-				touchDownPos.y - worldPosition.y,
-				0);
-		}
+		// On déplace la carte, donc la caméra
+		getCamera().position.add(
+			touchDownPos.x - worldPosition.x,
+			touchDownPos.y - worldPosition.y,
+			0);
 		dragging = true;
 		return true;
 	}
 
 	@Override
 	public boolean tileTouchUp(Vector3 worldPosition, Point tilePosition) {
-		// Si on était en train de créer un rectangle de sélection d'unités, c'est fini
-		if (dragging) {
-			if (selectingUnits) {
-				updateSelectArea(worldPosition);
-				((GameScreen)getScreen()).selectUnitsIn(selectArea);
-			}
-		} else {
-			// Si on n'était pas en train de déplacer la caméra, alors on vient
-			// d'avoir une touche simple : c'est l'action pour spawner une unité
-			((GameScreen)getScreen()).createUnit(tilePosition);
+		// Si on n'était pas en train de déplacer la caméra, 
+		// alors on vient d'avoir une touche simple
+		if (!dragging) {
+			((GameScreen)getScreen()).tileTouched(tilePosition);
 		}
 		dragging = false;
 		return true;
-	}
-	
-	/**
-	 * Met à jour les coordonnées du rectangle de sélection
-	 * en fonction de la position actuelle de la souris/du doigt
-	 * dans le monde
-	 * @param worldPosition
-	 */
-	private void updateSelectArea(Vector3 worldPosition) {
-		// Détermine le rectangle de sélection
-		final float minX;
-		final float maxX;
-		if (touchDownPos.x < worldPosition.x) {
-			minX = touchDownPos.x;
-			maxX = worldPosition.x;
-		} else {
-			minX = worldPosition.x;
-			maxX = touchDownPos.x;
-		}
-		final float minY;
-		final float maxY;
-		if (touchDownPos.y < worldPosition.y) {
-			minY = touchDownPos.y;
-			maxY = worldPosition.y;
-		} else {
-			minY = worldPosition.y;
-			maxY = touchDownPos.y;
-		}
-		selectArea.x = minX;
-		selectArea.y = minY;
-		selectArea.width = maxX - minX;
-		selectArea.height = maxY - minY;
 	}
 }

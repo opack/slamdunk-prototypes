@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.screen.overlays.OverlayFactory;
@@ -22,7 +23,7 @@ public class HomeScreen extends SlamScreen {
 		super(game);
 		
 		// On va utiliser une couche de contrôles
-		UIOverlay ui = OverlayFactory.createUIOverlay();
+		UIOverlay ui = OverlayFactory.createUIOverlay(new FitViewport(800, 480));
 		// Chargement d'une interface déclarée dans un fichier externe
 		ui.loadLayout("layouts/home.json");
 		// Création des listeners qui interprèteront les clics sur les boutons

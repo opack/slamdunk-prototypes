@@ -166,18 +166,29 @@ public class SimpleUnit extends SlamActor {
 	public Path getPath() {
 		return path;
 	}
+	
+	/**
+	 * Fait suivre le chemin. Si path == null , alors
+	 * l'acteur ne suit plus aucun chemin.
+	 * @param path
+	 * @param b 
+	 */
+	public void setPath(Path path) {
+		setPath(path, 0);
+	}
 
 	/**
 	 * Fait suivre le chemin. Si path == null , alors
 	 * l'acteur ne suit plus aucun chemin.
 	 * @param path
+	 * @param startIndexInPath 
 	 */
-	public void setPath(Path path) {
+	public void setPath(Path path, int startIndexInPath) {
 		this.path = path;
 		if (path == null) {
 			pathCursor = null;
 		} else {
-			pathCursor = new PathCursor(path);
+			pathCursor = new PathCursor(path, startIndexInPath);
 			setState(States.MOVING);
 		}
 	}

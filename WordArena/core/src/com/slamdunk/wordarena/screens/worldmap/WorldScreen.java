@@ -2,7 +2,7 @@ package com.slamdunk.wordarena.screens.worldmap;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
@@ -32,7 +32,7 @@ public class WorldScreen extends SlamScreen {
 	private void createUIOverlay() {
 		uiOverlay = new WorldMapOverlay();
 		uiOverlay.setSkin(new Skin(Gdx.files.internal(UIOverlay.DEFAULT_SKIN)));
-		uiOverlay.createStage(new ScreenViewport());
+		uiOverlay.createStage(new FitViewport(800, 480));
 		uiOverlay.loadLayout("layouts/world.json");
 		uiOverlay.initWorldMap();
 		addOverlay(uiOverlay);
