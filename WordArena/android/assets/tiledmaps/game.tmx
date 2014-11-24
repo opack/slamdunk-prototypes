@@ -552,7 +552,7 @@
    eJztlc0NwjAMhZ2wCUwCXQMOwBkmgAOwBgwCtIPwtwtGqEoUGsd2U/WCpSdFiV8+yXUdAH1cLUBpW1yAMUZNBCpQD2Q+rcxbBNw5asHUGllLpdf3+d5P2faEBg1+jrfJ53vD/TDqvCG42o0Y3tj9Ui6nhjm5O4jX8tAhVxt/7u/+1ADMjOuXI65PJj0DtNyV/Z5tkLE17qzEdWVk/Svhpu5KzYCuuJrcNtzKNuf6Myul2EyjuK8Il3o3pO8Cp3bUzKq/feyNCGdarv/Xv+eM8Ivl5+fi3pB574EryZf0qKRvU9xc4nKpHtWIeov7jDdo8YHb
   </data>
  </layer>
- <objectgroup name="markers">
+ <objectgroup name="markers" visible="0">
   <object type="path" x="96" y="320" width="32" height="32">
    <properties>
     <property name="attackPoint" value="castle1"/>
