@@ -1,6 +1,8 @@
-package com.slamdunk.wordarena.screens;
+package com.slamdunk.toolkit.world.path;
 
+import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.Path;
+import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -8,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
  * Cet objet peut être partagé entre plusieurs objets grâce à
  * l'utilisation d'un PathCursor, qui peut "se déplacer" sur le chemin.
  */
-public class PathList<T> extends Array<Path<T>> {
+public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	private static final int APPROX_LENGTH_SAMPLES = 500;
 	
 	/**
@@ -16,13 +18,45 @@ public class PathList<T> extends Array<Path<T>> {
 	 */
 	private float[] lengths;
 	
-	// TODO DBG Créer un constructeur qui prend une liste de T et créer des Bézier entre chaque point, afin d'éviter de créer les Bézier à la main en répétant le dernier point comme étant le début de la ligne suivante
+	/**
+	 * Crée une liste de chemins qui passent par les points indiqués. Le chemin
+	 * global ainsi créé est un chemin continu entre tous ces points, cela signifie
+	 * que chaque chemin du PathList est un chemin entre un point et le suivant
+	 * dans le tableau fourni en paramètre.
+	 * @param closePath Si true, un dernier segment est créé entre le premier et le
+	 * dernier point
+	 * @param points Les points par lesquels passe le chemin. Au moins 2 points.
+	 */
+	@SuppressWarnings("unchecked")
+	public PathList(boolean closePath, T... points) {
+		if (points.length < 2) {
+			throw new IllegalArgumentException("The points list must contain at least 2 values.");
+		}
+		for (int cur = 0; cur < points.length - 1; cur++) {
+			add(new Bezier<T>(points, cur, 2));
+		}
+		if (closePath) {
+			add(new Bezier<T>(points[points.length - 1], points[0]));
+		}
+		initSegmentLengths();
+	}
 	
 	public PathList(Path<T>... paths) {
 		super(paths);
-		lengths = new float[paths.length];
-		for (int cur = 0; cur < paths.length; cur++) {
-			lengths[cur] = paths[cur].approxLength(APPROX_LENGTH_SAMPLES);
+		initSegmentLengths();
+	}
+	
+	/**
+	 * Initialise le tableau avec la taille des segments du chemin (donc
+	 * les sous-chemins). Cette opération est fait une fois à la création
+	 * du PathList pour gagner du temps et éviter d'approximer la taille
+	 * des segments à chaque fois que nécessaire. On peut donc se permettre
+	 * ici d'avoir une approximation assez précise.
+	 */
+	private void initSegmentLengths() {
+		lengths = new float[size];
+		for (int cur = 0; cur < size; cur++) {
+			lengths[cur] = get(cur).approxLength(APPROX_LENGTH_SAMPLES);
 		}
 	}
 	
@@ -59,6 +93,7 @@ public class PathList<T> extends Array<Path<T>> {
 		Path<T> path = getPath(cursor);
 		if (path == null) {
 			result = null;
+			return;
 		}
 		path.valueAt(result, cursor.getPosition());
 	}

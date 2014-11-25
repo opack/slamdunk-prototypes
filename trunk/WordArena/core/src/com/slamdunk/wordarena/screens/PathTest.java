@@ -10,6 +10,9 @@ import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.Path;
 import com.badlogic.gdx.math.Vector2;
 import com.slamdunk.toolkit.screen.SlamScreen;
+import com.slamdunk.toolkit.world.path.CursorMode;
+import com.slamdunk.toolkit.world.path.PathList;
+import com.slamdunk.toolkit.world.path.PathListCursor;
 
 /** @author Xoppa */
 public class PathTest extends SlamScreen {
@@ -22,7 +25,7 @@ public class PathTest extends SlamScreen {
 	PathList<Vector2> path;
 	PathListCursor<Vector2> cursor;
 	float t;
-	float speed = 50f;
+	float speed = 570; // 570 pixels en 1 secondes
 	float wait = 0f;
 
 	public PathTest() {
@@ -31,22 +34,18 @@ public class PathTest extends SlamScreen {
 		obj = new Sprite(new Texture(Gdx.files.internal("textures/dbg_ninja.png")));
 		obj.setSize(40, 40);
 		obj.setOriginCenter();
-//		float w = Gdx.graphics.getWidth() - obj.getWidth();
-//		float h = Gdx.graphics.getHeight() - obj.getHeight();
-//		path = new Bezier<Vector2>(new Vector2(0, 0), new Vector2(w, h));
-//		path = new Bezier<Vector2>(new Vector2(0, 0), new Vector2(0, h), new Vector2(w, h));
-//		path = new Bezier<Vector2>(new Vector2(0, 0), new Vector2(w, 0), new Vector2(0, h), new Vector2(w, h));
-		path = new PathList<Vector2>(
-			new Bezier<Vector2>(new Vector2(120, 400), new Vector2(120, 80)),
-			new Bezier<Vector2>(new Vector2(120, 80), new Vector2(690, 80)), 
-			new Bezier<Vector2>(new Vector2(690, 80), new Vector2(690, 270)),
-			new Bezier<Vector2>(new Vector2(690, 270), new Vector2(470, 270)),
-			new Bezier<Vector2>(new Vector2(470, 270), new Vector2(470, 460)),
-			new Bezier<Vector2>(new Vector2(470, 460), new Vector2(340, 460)),
-			new Bezier<Vector2>(new Vector2(340, 460), new Vector2(340, 680)),
-			new Bezier<Vector2>(new Vector2(340, 680), new Vector2(120, 680))
+		path = new PathList<Vector2>(false,
+			new Vector2(120, 400),
+			new Vector2(120, 80), 
+			new Vector2(690, 80),
+			new Vector2(690, 270),
+			new Vector2(470, 270),
+			new Vector2(470, 460),
+			new Vector2(340, 460),
+			new Vector2(340, 680),
+			new Vector2(120, 680)
 		);
-		cursor = new PathListCursor(path, speed);
+		cursor = new PathListCursor<Vector2>(path, speed, CursorMode.LOOP_PINGPONG);
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -66,7 +65,7 @@ public class PathTest extends SlamScreen {
 			// Calcul de la position du sprite
 			cursor.move(Gdx.graphics.getDeltaTime());
 			path.valueAt(computedPosition, cursor);
-			obj.setPosition(computedPosition.x, computedPosition.y);
+			obj.setCenter(computedPosition.x, computedPosition.y);
 		}
 		
 		// Dessin de la courbe à suivre
