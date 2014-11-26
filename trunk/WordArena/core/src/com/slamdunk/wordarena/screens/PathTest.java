@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ImmediateModeRenderer20;
-import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.Path;
 import com.badlogic.gdx.math.Vector2;
 import com.slamdunk.toolkit.screen.SlamScreen;
@@ -14,7 +13,6 @@ import com.slamdunk.toolkit.world.path.CursorMode;
 import com.slamdunk.toolkit.world.path.PathList;
 import com.slamdunk.toolkit.world.path.PathListCursor;
 
-/** @author Xoppa */
 public class PathTest extends SlamScreen {
 	int SAMPLE_POINTS = 100;
 	float SAMPLE_POINT_DISTANCE = 1f / SAMPLE_POINTS;
@@ -34,17 +32,23 @@ public class PathTest extends SlamScreen {
 		obj = new Sprite(new Texture(Gdx.files.internal("textures/dbg_ninja.png")));
 		obj.setSize(40, 40);
 		obj.setOriginCenter();
-		path = new PathList<Vector2>(false,
-			new Vector2(120, 400),
-			new Vector2(120, 80), 
-			new Vector2(690, 80),
-			new Vector2(690, 270),
-			new Vector2(470, 270),
-			new Vector2(470, 460),
-			new Vector2(340, 460),
-			new Vector2(340, 680),
-			new Vector2(120, 680)
-		);
+//		path = new PathList<Vector2>(false,
+//			new Vector2(120, 400),
+//			new Vector2(120, 80), 
+//			new Vector2(690, 80),
+//			new Vector2(690, 270),
+//			new Vector2(470, 270),
+//			new Vector2(470, 460),
+//			new Vector2(340, 460),
+//			new Vector2(340, 680),
+//			new Vector2(120, 680)
+//		);
+		path = new PathList<Vector2>(
+				new Vector2[]{new Vector2(120, 400), new Vector2(120, 80), new Vector2(690, 80)},
+				new Vector2[]{new Vector2(690, 80), new Vector2(470, 270)},
+				new Vector2[]{new Vector2(470, 270), new Vector2(340, 460), new Vector2(340, 680)},
+				new Vector2[]{new Vector2(340, 680), new Vector2(120, 400)}
+			);
 		cursor = new PathListCursor<Vector2>(path, speed, CursorMode.LOOP_PINGPONG);
 		Gdx.input.setInputProcessor(this);
 	}
@@ -85,25 +89,6 @@ public class PathTest extends SlamScreen {
 		spriteBatch.begin();
 		obj.draw(spriteBatch);
 		spriteBatch.end();
-	}
-
-	private void touch(int x, int y) {
-//		t = path.locate(computedPosition.set(x, Gdx.graphics.getHeight() - y));
-//		path.valueAt(computedPosition, t);
-//		obj.setPosition(computedPosition.x, computedPosition.y);
-//		wait = 0.2f;
-	}
-
-	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		touch(screenX, screenY);
-		return super.touchUp(screenX, screenY, pointer, button);
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		touch(screenX, screenY);
-		return super.touchDragged(screenX, screenY, pointer);
 	}
 
 	@Override
