@@ -16,7 +16,7 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	/**
 	 * Longueur des différents segments du chemin
 	 */
-	private float[] lengths;
+	private Array<Float> lengths;
 	
 	/**
 	 * Crée une liste de chemins qui passent par les points indiqués. Le chemin
@@ -32,32 +32,52 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 		if (points.length < 2) {
 			throw new IllegalArgumentException("The points list must contain at least 2 values.");
 		}
+		// Crée les chemins puis les ajoute en mettant à jour le tableau des longueurs
+		lengths = new Array<Float>(size);
 		for (int cur = 0; cur < points.length - 1; cur++) {
-			add(new Bezier<T>(points, cur, 2));
+			addPath(new Bezier<T>(points, cur, 2));
 		}
 		if (closePath) {
-			add(new Bezier<T>(points[points.length - 1], points[0]));
+			addPath(new Bezier<T>(points[points.length - 1], points[0]));
 		}
-		initSegmentLengths();
-	}
-	
-	public PathList(Path<T>... paths) {
-		super(paths);
-		initSegmentLengths();
 	}
 	
 	/**
-	 * Initialise le tableau avec la taille des segments du chemin (donc
-	 * les sous-chemins). Cette opération est fait une fois à la création
-	 * du PathList pour gagner du temps et éviter d'approximer la taille
-	 * des segments à chaque fois que nécessaire. On peut donc se permettre
-	 * ici d'avoir une approximation assez précise.
+	 * Crée une liste de chemins dont chaque chemin passe par les points
+	 * d'un item du tableau pointsArrays.
+	 * @param pointsArrays
 	 */
-	private void initSegmentLengths() {
-		lengths = new float[size];
-		for (int cur = 0; cur < size; cur++) {
-			lengths[cur] = get(cur).approxLength(APPROX_LENGTH_SAMPLES);
+	public PathList(T[]... pointsArrays) {
+		lengths = new Array<Float>(size);
+		for (T[] pointsArray : pointsArrays) {
+			addPath(new Bezier<T>(pointsArray));
 		}
+	}
+	
+	/**
+	 * Crée une liste de chemins en utilisant les chemins fournis
+	 * @param paths
+	 */
+	public PathList(Path<T>... paths) {
+		super(paths);
+		
+		// Mise à jour du tableau de longueurs
+		lengths = new Array<Float>(size);
+		for (int cur = 0; cur < size; cur++) {
+			lengths.set(cur, get(cur).approxLength(APPROX_LENGTH_SAMPLES));
+		}
+	}
+	
+	/**
+	 * Ajoute une nouveau chemin à la liste et met à jour le
+	 * tableau des longueurs
+	 * @param path
+	 */
+	public void addPath(Path<T> path) {
+		// Ajoute le chemin à la liste
+		add(path);
+		// Calcule sa longueur
+		lengths.add(path.approxLength(APPROX_LENGTH_SAMPLES));
 	}
 	
 	/**
@@ -66,7 +86,7 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * @return
 	 */
 	public Path<T> getPath(PathListCursor<T> cursor) {
-		final int current = cursor.getCurrent();
+		final int current = cursor.getCurrentSegmentIndex();
 		if (current < 0
 		|| current >= size) {
 			return null;
@@ -80,13 +100,12 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * @return
 	 */
 	public boolean isFinished(PathListCursor<T> cursor) {
-		return cursor.getCurrent() >= size;
+		return cursor.getCurrentSegmentIndex() >= size;
 	}
 	
 	/**
-	 * Retourne la position correspondant au curseur.
-	 * Le vecteur retourné est le vecteur de travail et ne devrait donc
-	 * être utilisé qu'en lecture.
+	 * Remplit result avec la valeur du segment correspondant
+	 * à la position curseur.
 	 * @param cursor
 	 */
 	public void valueAt(T result, PathListCursor<T> cursor) {
@@ -99,14 +118,13 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	}
 	
 	/**
-	 * Retourne la position correspondant à la position t,
-	 * sachant que CONTRAIREMENT à un simple Path, t N'EST PAS
-	 * entre 0 et 1 mais entre 0 et getNbPaths() - 1.
+	 * Remplit result avec la position correspondant à 
+	 * la position t sur le segment d'indice segmentIndex
 	 * @param result
 	 * @param t
 	 */
-	public void valueAt(T result, int pathIndex, float t) {
-		Path<T> path = get(pathIndex);
+	public void valueAt(T result, int segmentIndex, float t) {
+		Path<T> path = get(segmentIndex);
 		path.valueAt(result, t);
 	}
 
@@ -116,6 +134,6 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * @return
 	 */
 	public float getLength(int segmentIndex) {
-		return lengths[segmentIndex];
+		return lengths.get(segmentIndex);
 	}
 }

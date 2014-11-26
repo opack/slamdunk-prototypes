@@ -15,7 +15,7 @@ public class PathListCursor<T extends Vector<T>> {
 	/**
 	 * Indice du chemin courant dans la liste
 	 */
-	private int current;
+	private int currentSegmentIndex;
 	
 	/** TODO DBG Ceci est la vitesse que met le curseur à parcourir un segment du chemin.
 	 * C'est déjà pas terrible sur un chemin, mais lorsqu'on a plusieurs segments c'est
@@ -86,12 +86,12 @@ public class PathListCursor<T extends Vector<T>> {
 		this.speed = speed;
 	}
 	
-	public int getCurrent() {
-		return current;
+	public int getCurrentSegmentIndex() {
+		return currentSegmentIndex;
 	}
 
-	public void setCurrent(int current) {
-		this.current = current;
+	public void setCurrentSegmentIndex(int current) {
+		this.currentSegmentIndex = current;
 	}
 
 	public float getPosition() {
@@ -131,19 +131,19 @@ public class PathListCursor<T extends Vector<T>> {
 		case LOOP:
 		case LOOP_PINGPONG:
 			position = 0;
-			current = 0;
+			currentSegmentIndex = 0;
 			direction = 1;
 			break;
 		// En REVERSED et LOOP_REVERSED, on commence de la fin et on va vers le début du chemin.
 		case REVERSED:
 		case LOOP_REVERSED:
 			position = 1;
-			current = path.size - 1;
+			currentSegmentIndex = path.size - 1;
 			direction = -1;
 			break;
 		}
 		laps = 0;
-		segmentTime = path.getLength(current) / speed;
+		segmentTime = path.getLength(currentSegmentIndex) / speed;
 	}
 
 	/**
@@ -165,8 +165,8 @@ public class PathListCursor<T extends Vector<T>> {
 		// Passe au chemin suivant
 		while (position < 0 || position >= 1f) {
 			// Passe au chemin suivant dans la liste
-			current += (int)direction;
-			if (current < 0 || current >= path.size) {
+			currentSegmentIndex += (int)direction;
+			if (currentSegmentIndex < 0 || currentSegmentIndex >= path.size) {
 				// On a fait 1 tour !
 				laps++;
 				// Suivant le mode de parcours, on revient au début ou pas
@@ -174,35 +174,35 @@ public class PathListCursor<T extends Vector<T>> {
 				// On ne fait rien d'autre, on s'arrête à la fin du chemin
 				case NORMAL:
 					position = 1;
-					current = path.size - 1;
+					currentSegmentIndex = path.size - 1;
 					direction = 0;
 					return;
 				// On ne fait rien d'autre, on s'arrête au début du chemin
 				case REVERSED:
 					position = 0;
-					current = 0;
+					currentSegmentIndex = 0;
 					direction = 0;
 					return;
 				// Retour au début et on continue à parcourir le chemin
 				case LOOP:
-					current = 0;
+					currentSegmentIndex = 0;
 					break;
 				// On repart dans l'autre sens
 				case LOOP_PINGPONG:
 					position = direction + 1 - position;
 					direction *= -1;
-					current += (int)direction;
-					segmentTime = path.getLength(current) / speed;
+					currentSegmentIndex += (int)direction;
+					segmentTime = path.getLength(currentSegmentIndex) / speed;
 					return;
 				// Retour à la fin et on continue à parcourir le chemin
 				case LOOP_REVERSED:
-					current = path.size - 1;
+					currentSegmentIndex = path.size - 1;
 				}
 			}
 			
 			// Adapte le temps de parcours du segment pour que la vitesse
 			// reste constante
-			segmentTime = path.getLength(current) / speed;
+			segmentTime = path.getLength(currentSegmentIndex) / speed;
 			
 			// La position est remise entre les bornes d'un chemin normal
 			position -= direction;
