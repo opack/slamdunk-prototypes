@@ -10,6 +10,11 @@ Champ de bataille
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 [ ] Faire des chemins de type : 1 départ, 1 destination. Donc pas d'embranchement ni de carrefours.
 [ ] Gestion simplifié de la carte du champ de bataille : 1 fond de carte avec des chemins (invisibles) que suivent les unités
+	[ ] Les chemins peuvent être créés sous Inkscape :
+		1. Dessiner le chemin avec l'outil Dessin à main levée (éventuellement avec le fond de carte)
+		2. Simplifier le chemin pour le rendre plus régulier et fluide
+		3. Exporter en svg simple
+		-> Ecrire un utilitaire capable de lire ce SVG et créer un PathList à partir des instructions SVG
 [ ] Borner le déplacement de la carte pour qu'elle soit toujours visible   
 [ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
 
