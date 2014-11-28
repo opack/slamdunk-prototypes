@@ -3,6 +3,7 @@ package com.slamdunk.toolkit.world.path;
 import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.Path;
 import com.badlogic.gdx.math.Vector;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 /**
@@ -17,6 +18,10 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * Longueur des différents segments du chemin
 	 */
 	private Array<Float> lengths;
+	
+	public PathList() {
+		lengths = new Array<Float>(size);
+	}
 	
 	/**
 	 * Crée une liste de chemins qui passent par les points indiqués. Le chemin
@@ -52,6 +57,43 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 		for (T[] pointsArray : pointsArrays) {
 			addPath(new Bezier<T>(pointsArray));
 		}
+	}
+	
+	/**
+	 * Crée une liste de chemins de type Bezier cubic, c'est-à-dire
+	 * où chaque courbe de Bézier est définie par 4 points, chaque
+	 * point terminant une courbe étant le point de départ de la
+	 * courbe suivante.
+	 * @param pointsArray
+	 */
+	public static PathList<Vector2> createCubicBezierPathList(int nbPaths, float... pointsArray) {
+		if ((nbPaths > 1 && pointsArray.length < 4*nbPaths-1)
+		|| (nbPaths == 1 && pointsArray.length < 4)) {
+			throw new IllegalArgumentException("Le nombre de points fournis (" + pointsArray.length + ")ne permet pas de construire " + nbPaths + " chemins.");
+		}
+		PathList<Vector2> pathList = new PathList<Vector2>();
+		Vector2 start = new Vector2(pointsArray[0], pointsArray[1]);
+		Vector2 cp1 = new Vector2();
+		Vector2 cp2 = new Vector2();
+		Vector2 end = new Vector2();
+		int cp1Index;
+		// 0,1 2,3 4,5 6,7 8,9 10,11 12,13 14,15 16,17 18,19
+		//     |-|         |-|             |---|
+		// 0 1 2 3 4 5 6 7 8 9
+		//   |     |     |
+		for (int curPath = 0; curPath < nbPaths; curPath++) {
+			cp1Index = 3*curPath+1;
+			
+			cp1.set(pointsArray[cp1Index], 300 - pointsArray[cp1Index + 1]);
+			cp2.set(pointsArray[cp1Index + 2], 300 - pointsArray[cp1Index + 3]);
+			end.set(pointsArray[cp1Index + 4], 300 - pointsArray[cp1Index + 5]);
+			
+			pathList.addPath(new Bezier<Vector2>(start, cp1, cp2, end));
+			
+			start.set(end);
+		}
+		
+		return pathList;
 	}
 	
 	/**
