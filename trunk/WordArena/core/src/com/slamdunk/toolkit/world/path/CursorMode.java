@@ -1,8 +1,8 @@
 package com.slamdunk.toolkit.world.path;
 
 /**
- * Indique le comportement d'un PathListCursor une fois qu'il est
- * arrivé au bout du PathList
+ * Indique le comportement d'un ComplexPathCursor une fois qu'il est
+ * arrivé au bout du ComplexPath
  */
 public enum CursorMode {
 	/**

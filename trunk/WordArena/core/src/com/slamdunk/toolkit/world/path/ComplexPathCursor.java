@@ -4,13 +4,13 @@ import com.badlogic.gdx.math.Vector;
 
 
 /**
- * Un curseur qui se déplace sur les chemins d'un PathList
+ * Un curseur qui se déplace sur les chemins d'un ComplexPath
  */
-public class PathListCursor<T extends Vector<T>> {
+public class ComplexPathCursor<T extends Vector<T>> {
 	/**
 	 * Chemin sur lequel se déplace le curseur
 	 */
-	private PathList<T> path;
+	private ComplexPath<T> path;
 	
 	/**
 	 * Indice du chemin courant dans la liste
@@ -55,14 +55,14 @@ public class PathListCursor<T extends Vector<T>> {
 	 */
 	private float direction;
 	
-	public PathListCursor(PathList<T> path, float speed, CursorMode mode) {
+	public ComplexPathCursor(ComplexPath<T> path, float speed, CursorMode mode) {
 		this.path = path;
 		this.speed = speed;
 		this.mode = mode;
 		reset();
 	}
 	
-	public PathListCursor(PathList<T> path, float speed) {
+	public ComplexPathCursor(ComplexPath<T> path, float speed) {
 		this(path, speed, CursorMode.NORMAL);
 	}
 	
@@ -113,7 +113,7 @@ public class PathListCursor<T extends Vector<T>> {
 		this.position = position;
 	}
 
-	public PathList<T> getPath() {
+	public ComplexPath<T> getPath() {
 		return path;
 	}
 
@@ -207,5 +207,15 @@ public class PathListCursor<T extends Vector<T>> {
 			// La position est remise entre les bornes d'un chemin normal
 			position -= direction;
 		}
+	}
+
+	/**
+	 * Remplit result avec la valeur du segment correspondant
+	 * à la position curseur.
+	 * Identique à {@link ComplexPath.valueAt}
+	 * @param result
+	 */
+	public void valueAt(T result) {
+		path.valueAt(result, currentSegmentIndex, position);
 	}
 }

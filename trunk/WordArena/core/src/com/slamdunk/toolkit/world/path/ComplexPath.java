@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.Array;
  * Cet objet peut être partagé entre plusieurs objets grâce à
  * l'utilisation d'un PathCursor, qui peut "se déplacer" sur le chemin.
  */
-public class PathList<T extends Vector<T>> extends Array<Path<T>> {
+public class ComplexPath<T extends Vector<T>> extends Array<Path<T>> {
 	private static final int APPROX_LENGTH_SAMPLES = 500;
 	
 	/**
@@ -19,31 +19,31 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 */
 	private Array<Float> lengths;
 	
-	public PathList() {
+	public ComplexPath() {
 		lengths = new Array<Float>(size);
 	}
 	
 	/**
 	 * Crée une liste de chemins qui passent par les points indiqués. Le chemin
 	 * global ainsi créé est un chemin continu entre tous ces points, cela signifie
-	 * que chaque chemin du PathList est un chemin entre un point et le suivant
+	 * que chaque chemin du ComplexPath est un chemin entre un point et le suivant
 	 * dans le tableau fourni en paramètre.
 	 * @param closePath Si true, un dernier segment est créé entre le premier et le
 	 * dernier point
 	 * @param points Les points par lesquels passe le chemin. Au moins 2 points.
 	 */
 	@SuppressWarnings("unchecked")
-	public PathList(boolean closePath, T... points) {
+	public ComplexPath(boolean closePath, T... points) {
 		if (points.length < 2) {
 			throw new IllegalArgumentException("The points list must contain at least 2 values.");
 		}
 		// Crée les chemins puis les ajoute en mettant à jour le tableau des longueurs
 		lengths = new Array<Float>(size);
 		for (int cur = 0; cur < points.length - 1; cur++) {
-			addPath(new Bezier<T>(points, cur, 2));
+			add(new Bezier<T>(points, cur, 2));
 		}
 		if (closePath) {
-			addPath(new Bezier<T>(points[points.length - 1], points[0]));
+			add(new Bezier<T>(points[points.length - 1], points[0]));
 		}
 	}
 	
@@ -52,10 +52,10 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * d'un item du tableau pointsArrays.
 	 * @param pointsArrays
 	 */
-	public PathList(T[]... pointsArrays) {
+	public ComplexPath(T[]... pointsArrays) {
 		lengths = new Array<Float>(size);
 		for (T[] pointsArray : pointsArrays) {
-			addPath(new Bezier<T>(pointsArray));
+			add(new Bezier<T>(pointsArray));
 		}
 	}
 	
@@ -66,12 +66,12 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * courbe suivante.
 	 * @param pointsArray
 	 */
-	public static PathList<Vector2> createCubicBezierPathList(int nbPaths, float... pointsArray) {
+	public static ComplexPath<Vector2> createCubicBezierPathList(int nbPaths, float... pointsArray) {
 		if ((nbPaths > 1 && pointsArray.length < 4*nbPaths-1)
 		|| (nbPaths == 1 && pointsArray.length < 4)) {
 			throw new IllegalArgumentException("Le nombre de points fournis (" + pointsArray.length + ")ne permet pas de construire " + nbPaths + " chemins.");
 		}
-		PathList<Vector2> pathList = new PathList<Vector2>();
+		ComplexPath<Vector2> pathList = new ComplexPath<Vector2>();
 		Vector2 start = new Vector2(pointsArray[0], pointsArray[1]);
 		Vector2 cp1 = new Vector2();
 		Vector2 cp2 = new Vector2();
@@ -84,11 +84,11 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 		for (int curPath = 0; curPath < nbPaths; curPath++) {
 			cp1Index = 3*curPath+1;
 			
-			cp1.set(pointsArray[cp1Index], 300 - pointsArray[cp1Index + 1]);
-			cp2.set(pointsArray[cp1Index + 2], 300 - pointsArray[cp1Index + 3]);
-			end.set(pointsArray[cp1Index + 4], 300 - pointsArray[cp1Index + 5]);
+			cp1.set(pointsArray[cp1Index], 480 - pointsArray[cp1Index + 1]);
+			cp2.set(pointsArray[cp1Index + 2], 480 - pointsArray[cp1Index + 3]);
+			end.set(pointsArray[cp1Index + 4], 480 - pointsArray[cp1Index + 5]);
 			
-			pathList.addPath(new Bezier<Vector2>(start, cp1, cp2, end));
+			pathList.add(new Bezier<Vector2>(start, cp1, cp2, end));
 			
 			start.set(end);
 		}
@@ -100,7 +100,21 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * Crée une liste de chemins en utilisant les chemins fournis
 	 * @param paths
 	 */
-	public PathList(Path<T>... paths) {
+	public ComplexPath(Path<T>... paths) {
+		super(paths);
+		
+		// Mise à jour du tableau de longueurs
+		lengths = new Array<Float>(size);
+		for (int cur = 0; cur < size; cur++) {
+			lengths.set(cur, get(cur).approxLength(APPROX_LENGTH_SAMPLES));
+		}
+	}
+	
+	/**
+	 * Crée une liste de chemins en utilisant les chemins fournis
+	 * @param paths
+	 */
+	public ComplexPath(Array<Path<T>> paths) {
 		super(paths);
 		
 		// Mise à jour du tableau de longueurs
@@ -115,9 +129,10 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * tableau des longueurs
 	 * @param path
 	 */
-	public void addPath(Path<T> path) {
+	@Override
+	public void add(Path<T> path) {
 		// Ajoute le chemin à la liste
-		add(path);
+		super.add(path);
 		// Calcule sa longueur
 		lengths.add(path.approxLength(APPROX_LENGTH_SAMPLES));
 	}
@@ -127,7 +142,7 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * @param cursor
 	 * @return
 	 */
-	public Path<T> getPath(PathListCursor<T> cursor) {
+	public Path<T> getPath(ComplexPathCursor<T> cursor) {
 		final int current = cursor.getCurrentSegmentIndex();
 		if (current < 0
 		|| current >= size) {
@@ -141,7 +156,7 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * @param cursor
 	 * @return
 	 */
-	public boolean isFinished(PathListCursor<T> cursor) {
+	public boolean isFinished(ComplexPathCursor<T> cursor) {
 		return cursor.getCurrentSegmentIndex() >= size;
 	}
 	
@@ -150,7 +165,7 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 * à la position curseur.
 	 * @param cursor
 	 */
-	public void valueAt(T result, PathListCursor<T> cursor) {
+	public void valueAt(T result, ComplexPathCursor<T> cursor) {
 		Path<T> path = getPath(cursor);
 		if (path == null) {
 			result = null;
@@ -177,5 +192,24 @@ public class PathList<T extends Vector<T>> extends Array<Path<T>> {
 	 */
 	public float getLength(int segmentIndex) {
 		return lengths.get(segmentIndex);
+	}
+
+	/**
+	 * Place le curseur sur le chemin à la position la plus proche
+	 * des coordonnées indiquées
+	 * @param coordinates
+	 * @param result
+	 */
+	public void locate(T coordinates, ComplexPathCursor<T> result) {
+		float minT = 1;
+		float curT;
+		for (int pathIndex = 0; pathIndex < size; pathIndex++) {
+			curT = get(pathIndex).locate(coordinates);
+			if (curT < minT) {
+				result.setPosition(curT);
+				result.setCurrentSegmentIndex(pathIndex);
+				minT = curT;
+			}
+		}
 	}
 }

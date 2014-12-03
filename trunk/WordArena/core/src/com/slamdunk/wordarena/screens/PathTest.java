@@ -6,12 +6,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ImmediateModeRenderer20;
+import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.Path;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
 import com.slamdunk.toolkit.screen.SlamScreen;
+import com.slamdunk.toolkit.svg.SVGParse;
+import com.slamdunk.toolkit.svg.converters.SVGPathToBezier;
+import com.slamdunk.toolkit.svg.elements.SVGElement;
+import com.slamdunk.toolkit.svg.elements.SVGElementPath;
+import com.slamdunk.toolkit.svg.elements.SVGRootElement;
+import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.CursorMode;
-import com.slamdunk.toolkit.world.path.PathList;
-import com.slamdunk.toolkit.world.path.PathListCursor;
+import com.slamdunk.toolkit.world.path.ComplexPathCursor;
 
 public class PathTest extends SlamScreen {
 	int SAMPLE_POINTS = 100;
@@ -20,11 +27,16 @@ public class PathTest extends SlamScreen {
 	SpriteBatch spriteBatch;
 	ImmediateModeRenderer20 renderer;
 	Sprite obj;
-	PathList<Vector2> path;
-	PathListCursor<Vector2> cursor;
+	Array<ComplexPath<Vector2>> paths;
+	ComplexPathCursor<Vector2> cursor;
 	float t;
 	float speed = 570; // 570 pixels en 1 secondes
 	float wait = 0f;
+	
+	final Vector2 tmpTouchPos = new Vector2();
+	final Vector2 tmpNearestCoords = new Vector2();
+	final Vector2 tmpComputedPos = new Vector2();
+	final Vector2 computedPosition = new Vector2();
 
 	public PathTest() {
 		renderer = new ImmediateModeRenderer20(false, false, 0);
@@ -32,7 +44,8 @@ public class PathTest extends SlamScreen {
 		obj = new Sprite(new Texture(Gdx.files.internal("textures/dbg_ninja.png")));
 		obj.setSize(40, 40);
 		obj.setOriginCenter();
-//		path = new PathList<Vector2>(false,
+		paths = new Array<ComplexPath<Vector2>>();
+//		paths.add(new ComplexPath<Vector2>(false,
 //			new Vector2(120, 400),
 //			new Vector2(120, 80), 
 //			new Vector2(690, 80),
@@ -42,15 +55,15 @@ public class PathTest extends SlamScreen {
 //			new Vector2(340, 460),
 //			new Vector2(340, 680),
 //			new Vector2(120, 680)
-//		);
-//		path = new PathList<Vector2>(
+//		));
+//		paths.add(new ComplexPath<Vector2>(
 //			new Vector2[]{new Vector2(120, 400), new Vector2(120, 80), new Vector2(690, 80)},
 //			new Vector2[]{new Vector2(690, 80), new Vector2(470, 270)},
 //			new Vector2[]{new Vector2(470, 270), new Vector2(340, 460), new Vector2(340, 680)},
 //			new Vector2[]{new Vector2(340, 680), new Vector2(120, 400)}
-//		);
+//		));
 		
-//		path = new PathList<Vector2>(
+//		paths.add(new ComplexPath<Vector2>(
 //			/**
 //			 * m 152.85715,561.85715
 //			 * 		c
@@ -71,26 +84,43 @@ public class PathTest extends SlamScreen {
 //			 * 			455.71429,-98.57144"
 //			 */
 //			new Vector2[]{transform(744.28572f,59f), transform(744.28572f,59f), transform(801.42858f,36.14285f), transform(1257.14287f,-62.42859f)}
-//		);
+//		));
 		
 		//M 158.57143,599.50504 C 191.32127,504.64831 264.52851,426.57881 354.60035,383.27495
-		path = PathList.createCubicBezierPathList(2,
-			158.57143f,599.50504f, 191.32127f,504.64831f, 264.52851f,426.57881f, 354.60035f,383.27495f,
-			545.32269f,297.00714f, 732.99567f,299.73707f, 914.28571f,252.36218f);
+//		paths.add(ComplexPath.createCubicBezierPathList(2,
+//			158.57143f,599.50504f, 191.32127f,504.64831f, 264.52851f,426.57881f, 354.60035f,383.27495f,
+//			545.32269f,297.00714f, 732.99567f,299.73707f, 914.28571f,252.36218f));
 		
-		parse("battlefields/battlefield0_simple.svg");
-		cursor = new PathListCursor<Vector2>(path, speed, CursorMode.LOOP);
+//		ComplexPath<Vector2> path = new ComplexPath<Vector2>();
+//		path.add(new Bezier<Vector2>(new Vector2(152.85715f,768-561.85715f), new Vector2(194.17157f,768-443.63789f), new Vector2(258.57143f,768-393.28572f)));
+//		path.add(new Bezier<Vector2>(new Vector2(258.57143f,768-393.28572f), new Vector2(313.00254f,768-350.72779f), new Vector2(382.66735f,768-331.17889f), new Vector2(448.57143f,768-310.42858f)));
+//		path.add(new Bezier<Vector2>(new Vector2(448.57143f,768-310.42858f), new Vector2(497.48495f,768-295.02786f), new Vector2(505.71429f,768-287.57143f), new Vector2(904.28572f,768-211.85714f)));
+//		paths.add(path);
+		
+		parse("battlefields/battlefield0.svg");
+		cursor = new ComplexPathCursor<Vector2>(paths.get(0), speed, CursorMode.LOOP);
+		
 		Gdx.input.setInputProcessor(this);
 	}
-	
-	private Vector2 transform(float x, float y) {
-		return new Vector2(x / 2, 300 - y / 2);
-	}
 
-	private void parse(String string) {
+	private void parse(String file) {
+		SVGParse parser = new SVGParse(Gdx.files.internal(file));
+		SVGRootElement root = new SVGRootElement();
+		parser.parse(root);
+		
+		SVGElement svgPaths = root.getChildById("paths");
+		SVGPathToBezier converter = new SVGPathToBezier(root.height);
+		for (SVGElement child : svgPaths.getChildren()) {
+			if("path".equals(child.getName())) {
+				Array<Bezier<Vector2>> beziers = converter.convert((SVGElementPath)child);
+				ComplexPath<Vector2> path = new ComplexPath<Vector2>();
+				for (Bezier<Vector2> bezier : beziers) {
+					path.add(bezier);
+				}
+				paths.add(path);
+			}
+		}
 	}
-
-	final Vector2 computedPosition = new Vector2();
 
 	@Override
 	public void render(float delta) {
@@ -105,27 +135,70 @@ public class PathTest extends SlamScreen {
 		} else {
 			// Calcul de la position du sprite
 			cursor.move(Gdx.graphics.getDeltaTime());
-			path.valueAt(computedPosition, cursor);
+			cursor.valueAt(computedPosition);
 			obj.setCenter(computedPosition.x, computedPosition.y);
 		}
 		
-		// Dessin de la courbe à suivre
-		renderer.begin(spriteBatch.getProjectionMatrix(), GL20.GL_LINE_STRIP);
-		for (Path<Vector2> segment : path) {
-			float val = 0f;
-			while (val <= 1f) {
-				renderer.color(0f, 0f, 0f, 1f);
-				segment.valueAt(/* out: */computedPosition, val);
-				renderer.vertex(computedPosition.x, computedPosition.y, 0);
-				val += SAMPLE_POINT_DISTANCE;
+		// Dessin des courbes
+		for (ComplexPath<Vector2> path : paths) {
+			renderer.begin(spriteBatch.getProjectionMatrix(), GL20.GL_LINE_STRIP);
+			renderer.color(0f, 0f, 0f, 1f);
+			for (Path<Vector2> segment : path) {
+				float val = 0f;
+				while (val <= 1f) {
+					segment.valueAt(/* out: */computedPosition, val);
+					renderer.vertex(computedPosition.x, computedPosition.y, 0);
+					val += SAMPLE_POINT_DISTANCE;
+				}
 			}
+			renderer.end();
 		}
-		renderer.end();
 		
 		// Dessin de l'image
 		spriteBatch.begin();
 		obj.draw(spriteBatch);
 		spriteBatch.end();
+	}
+	
+	private void touch (int x, int y) {
+		// Récupère un curseur sur le chemin le plus proche de la touche
+		// parmi tous les chemins
+		tmpTouchPos.set(x, Gdx.graphics.getHeight() - y);
+		float minDistance = -1;
+		ComplexPathCursor<Vector2> nearestCursor = null;
+		for (int pathIndex = 0; pathIndex < paths.size; pathIndex++) {
+			// Récupère le curseur du point le plus proche sur ce chemin
+			ComplexPath<Vector2> path = paths.get(pathIndex);
+			ComplexPathCursor<Vector2> probe = new ComplexPathCursor<Vector2>(path, cursor.getSpeed(), cursor.getMode());
+			path.locate(tmpTouchPos, probe);
+			
+			// Regarde s'il est plus près que les autres curseurs
+			path.valueAt(tmpNearestCoords, probe);
+			float distance = tmpNearestCoords.dst(tmpTouchPos);
+			if (nearestCursor == null
+			|| distance < minDistance) {
+				minDistance = distance;
+				nearestCursor = probe;
+			}
+		}
+		
+		// Récupère la position correspondante
+		cursor = nearestCursor;
+		cursor.valueAt(tmpComputedPos);
+		obj.setCenter(tmpComputedPos.x, tmpComputedPos.y);
+		wait = 0.2f;
+	}
+	
+	@Override
+	public boolean touchUp (int screenX, int screenY, int pointer, int button) {
+		touch(screenX, screenY);
+		return super.touchUp(screenX, screenY, pointer, button);
+	}
+	
+	@Override
+	public boolean touchDragged (int screenX, int screenY, int pointer) {
+		touch(screenX, screenY);
+		return super.touchDragged(screenX, screenY, pointer);
 	}
 
 	@Override
