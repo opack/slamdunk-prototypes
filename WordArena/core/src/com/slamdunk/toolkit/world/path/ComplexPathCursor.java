@@ -1,16 +1,15 @@
 package com.slamdunk.toolkit.world.path;
 
-import com.badlogic.gdx.math.Vector;
-
+import com.badlogic.gdx.math.Vector2;
 
 /**
  * Un curseur qui se déplace sur les chemins d'un ComplexPath
  */
-public class ComplexPathCursor<T extends Vector<T>> {
+public class ComplexPathCursor {
 	/**
 	 * Chemin sur lequel se déplace le curseur
 	 */
-	private ComplexPath<T> path;
+	private ComplexPath path;
 	
 	/**
 	 * Indice du chemin courant dans la liste
@@ -55,14 +54,14 @@ public class ComplexPathCursor<T extends Vector<T>> {
 	 */
 	private float direction;
 	
-	public ComplexPathCursor(ComplexPath<T> path, float speed, CursorMode mode) {
+	public ComplexPathCursor(ComplexPath path, float speed, CursorMode mode) {
 		this.path = path;
 		this.speed = speed;
 		this.mode = mode;
 		reset();
 	}
 	
-	public ComplexPathCursor(ComplexPath<T> path, float speed) {
+	public ComplexPathCursor(ComplexPath path, float speed) {
 		this(path, speed, CursorMode.NORMAL);
 	}
 	
@@ -113,7 +112,7 @@ public class ComplexPathCursor<T extends Vector<T>> {
 		this.position = position;
 	}
 
-	public ComplexPath<T> getPath() {
+	public ComplexPath getPath() {
 		return path;
 	}
 
@@ -145,14 +144,24 @@ public class ComplexPathCursor<T extends Vector<T>> {
 		laps = 0;
 		segmentTime = path.getLength(currentSegmentIndex) / speed;
 	}
+	
+	/**
+	 * Déplace l'objet sur le chemin en le positionnant
+	 * là où se trouve en fonction du temps écoulé
+	 * @param delta
+	 */
+	public void move(float delta) {
+		move(delta, null);
+	}
 
 	/**
 	 * Déplace l'objet sur le chemin en le positionnant
 	 * là où se trouve en fonction du temps écoulé
-	 * @param actor
 	 * @param delta
+	 * @param newPosition Coordonnées de la nouvelle position après le
+	 * déplacement ; équivaut à un appel à valueAt()minDistance
 	 */
-	public void move(float delta) {
+	public void move(float delta, Vector2 newPosition) {
 		// Si on a fini le parcours du chemin ou qu'il ne s'est écoulé aucun
 		// temps, alors on ne se déplace pas
 		if (direction == 0 || delta == 0) {
@@ -207,6 +216,11 @@ public class ComplexPathCursor<T extends Vector<T>> {
 			// La position est remise entre les bornes d'un chemin normal
 			position -= direction;
 		}
+		
+		// Met à jour le vecteur contenant la position, s'il est fourni
+		if (newPosition != null) {
+			valueAt(newPosition);
+		}
 	}
 
 	/**
@@ -215,7 +229,7 @@ public class ComplexPathCursor<T extends Vector<T>> {
 	 * Identique à {@link ComplexPath.valueAt}
 	 * @param result
 	 */
-	public void valueAt(T result) {
-		path.valueAt(result, currentSegmentIndex, position);
+	public void valueAt(Vector2 result) {
+		path.valueAt(currentSegmentIndex, position, result);
 	}
 }

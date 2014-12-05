@@ -25,17 +25,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.7"
-     inkscape:cx="490.9283"
-     inkscape:cy="521.49701"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="515.40884"
+     inkscape:cy="522.88175"
      inkscape:document-units="px"
      inkscape:current-layer="paths"
      showgrid="false"
      showborder="true"
      inkscape:showpageshadow="false"
-     inkscape:window-width="1680"
-     inkscape:window-height="987"
-     inkscape:window-x="1432"
+     inkscape:window-width="1440"
+     inkscape:window-height="837"
+     inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
@@ -125,12 +125,12 @@
      id="paths"
      inkscape:label="Chemins">
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:8, 8;stroke-dashoffset:0"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 152.85715,561.85715 c 0,0 17.14286,-114.28572 105.71428,-168.57143 88.57143,-54.28572 190,-82.85714 190,-82.85714 0,0 57.14286,-22.85715 455.71429,-98.57144"
        id="path3065"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:8, 8;stroke-dashoffset:0"
+       style="fill:none;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
        d="m 182.85714,586.85714 c 0,0 7.14286,-50 100,-35.71428 C 375.71429,565.42857 650,594 742.85714,494 c 92.85715,-100 180,-271.42857 180,-271.42857"
        id="path3854"
        inkscape:connector-curvature="0" />
