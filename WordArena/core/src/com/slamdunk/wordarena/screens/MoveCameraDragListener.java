@@ -17,6 +17,13 @@ public class MoveCameraDragListener extends DragListener {
 		this.camera = camera;
 	}
 
+	@Override
+	public boolean touchDown(InputEvent event, float x, float y, int pointer,
+			int button) {
+		boolean b = super.touchDown(event, x, y, pointer, button);
+		return b;
+	}
+	
 	public void dragStart(InputEvent event, float x, float y, int pointer) {
 		previousDragPos.x = x;
 		previousDragPos.y = y;

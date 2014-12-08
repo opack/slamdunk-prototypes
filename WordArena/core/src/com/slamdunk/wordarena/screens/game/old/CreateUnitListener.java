@@ -1,9 +1,12 @@
-package com.slamdunk.wordarena.screens.game;
+package com.slamdunk.wordarena.screens.game.old;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.point.Point;
+import com.slamdunk.wordarena.screens.game.GameScreen;
+import com.slamdunk.wordarena.screens.game.InGameUIOverlay;
+import com.slamdunk.wordarena.screens.game.WorldObjectsOverlay;
 import com.slamdunk.wordarena.units.Units;
 
 /**
@@ -16,8 +19,8 @@ public class CreateUnitListener extends InputListener {
 	private BattlefieldOverlay battlefield;
 	
 	public void init(GameScreen gameScreen) {
-		ui = gameScreen.getUIOverlay();
-		battlefield = gameScreen.getBattlefieldOverlay();
+//DBG		ui = gameScreen.getUIOverlay();
+//DBG		battlefield = gameScreen.getBattlefieldOverlay();
 		worldObjects = gameScreen.getObjectsOverlay();
 	}
 	
@@ -50,7 +53,7 @@ public class CreateUnitListener extends InputListener {
 				}
 			}
 			if (bestPath != null) {
-				worldObjects.spawnUnit(selectedUnit, bestPath);
+//DBG				worldObjects.spawnUnit(selectedUnit, bestPath);
 			}
 		}
 	}

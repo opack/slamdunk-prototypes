@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.screens.game;
+package com.slamdunk.wordarena.screens.game.old;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,6 +13,7 @@ import com.slamdunk.toolkit.screen.overlays.TiledMapOverlay;
 import com.slamdunk.toolkit.screen.overlays.TiledMapOverlay.TiledMapInputProcessor;
 import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.point.Point;
+import com.slamdunk.wordarena.screens.game.GameScreen;
 
 public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInputProcessor {
 
@@ -111,7 +112,7 @@ public class BattlefieldOverlay extends TiledMapOverlay implements TiledMapInput
 		// Si on n'était pas en train de déplacer la caméra, 
 		// alors on vient d'avoir une touche simple
 		if (!dragging) {
-			((GameScreen)getScreen()).tileTouched(tilePosition);
+//DBG			((GameScreen)getScreen()).tileTouched(tilePosition);
 		}
 		dragging = false;
 		return true;

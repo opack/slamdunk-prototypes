@@ -20,7 +20,7 @@ public class Arrow extends ProjectileUnit {
 	
 	public Arrow(GameScreen game) {
 		super(game);
-		setSpeed(5);
+		setSpeed(300);
 		
 		setRange(0, 0);
 		setDamage(1);

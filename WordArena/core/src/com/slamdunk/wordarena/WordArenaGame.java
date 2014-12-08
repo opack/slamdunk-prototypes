@@ -3,8 +3,7 @@ package com.slamdunk.wordarena;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.wordarena.screens.HomeScreen;
-import com.slamdunk.wordarena.screens.PathTest;
-import com.slamdunk.wordarena.screens.game.GameScreen2;
+import com.slamdunk.wordarena.screens.game.GameScreen;
 import com.slamdunk.wordarena.screens.worldmap.WorldScreen;
 
 public class WordArenaGame extends SlamGame {
@@ -20,10 +19,10 @@ public class WordArenaGame extends SlamGame {
 		HomeScreen home = new HomeScreen(this);
 		addScreen(home);
 		addScreen(new WorldScreen(this));
-		addScreen(new GameScreen2(this));
+		addScreen(new GameScreen(this));
 		
 		// Affiche le premier écran
-		setScreen(new PathTest());
+		setScreen(home);
 	}
 	
 	@Override

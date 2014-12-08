@@ -3,7 +3,7 @@ package com.slamdunk.wordarena.ai;
 import java.util.List;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.slamdunk.toolkit.world.pathfinder.Path;
+import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 import com.slamdunk.wordarena.units.Units;
 
@@ -15,12 +15,12 @@ public class BasicAI implements AI {
 	private static final float MAX_SPAWN_INTERVAL = 5;
 	
 	private GameScreen game;
-	private List<Path> paths;
+	private List<ComplexPath> paths;
 	
 	private float nextSpawn;
 	private float interval;
 	
-	public BasicAI(GameScreen game, List<Path> paths) {
+	public BasicAI(GameScreen game, List<ComplexPath> paths) {
 		this.game = game;
 		this.paths = paths;
 		

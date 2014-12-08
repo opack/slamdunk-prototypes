@@ -12,7 +12,7 @@ import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.toolkit.ui.ButtonClickListener;
 import com.slamdunk.wordarena.screens.MoveCameraDragListener;
-import com.slamdunk.wordarena.screens.game.GameScreen2;
+import com.slamdunk.wordarena.screens.game.GameScreen;
 
 /**
  * Gère une carte du monde qui contient plusieurs boutons à cliquer
@@ -39,9 +39,9 @@ public class WorldMapOverlay extends UIOverlay {
 			public void clicked(Button button) {
 				final SlamGame game = getScreen().getGame();
 				String battleFieldPropertiesFile = (String)button.getUserObject();
-				GameScreen2 gameScreen = (GameScreen2)game.getScreen(GameScreen2.NAME);
+				GameScreen gameScreen = (GameScreen)game.getScreen(GameScreen.NAME);
 				gameScreen.init(battleFieldPropertiesFile);
-				game.setScreen(GameScreen2.NAME);
+				game.setScreen(GameScreen.NAME);
 			}
 		};
 		

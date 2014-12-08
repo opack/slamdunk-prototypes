@@ -4,6 +4,19 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * Un curseur qui se déplace sur les chemins d'un ComplexPath
+ * ATTENTION ! Il y a une limitation avec les courbes de Bézier cubiques :
+ * le déplacement fait avec move() ne se fait pas à vitesse constante. Comme
+ * un incrément constant de t ne donne pas des points séparés par la même
+ * distance, la vitesse n'est pas contrôlée. Ex : si valueAt(t=0.1) et
+ * valueAt(t=0.2) retournent des positions séparés de 50 pixels, rien ne
+ * garantit que valueAt(t=0.2) et valueAt(t=0.3) retourneront aussi des points
+ * espacés de 50 pixels. Suivant le profil de la courbe, cet écart peut être
+ * plus ou moins élevé. Il n'y a pas de moyen simple et rapide (coût CPU) pour
+ * trouver la valeur t qui permet d'obtenir le point de la courbe situé à
+ * x pixels de la position actuelle. Le workaround le plus simple consiste
+ * à n'utiliser que des chemins linéaires, donc des Béziers avec 2 points.
+ * La méthode PathUtils.simplify() permet de créer des chemins linéaires
+ * à partir d'une courbe de bézier.
  */
 public class ComplexPathCursor {
 	/**
@@ -159,7 +172,7 @@ public class ComplexPathCursor {
 	 * là où se trouve en fonction du temps écoulé
 	 * @param delta
 	 * @param newPosition Coordonnées de la nouvelle position après le
-	 * déplacement ; équivaut à un appel à valueAt()minDistance
+	 * déplacement ; équivaut à un appel à valueAt()
 	 */
 	public void move(float delta, Vector2 newPosition) {
 		// Si on a fini le parcours du chemin ou qu'il ne s'est écoulé aucun
@@ -231,5 +244,16 @@ public class ComplexPathCursor {
 	 */
 	public void valueAt(Vector2 result) {
 		path.valueAt(currentSegmentIndex, position, result);
+	}
+	
+	/**
+	 * Indique si le curseur est arrivé au bout du chemin.
+	 * Attention ! Cette méthode n'a pas de sens et retournera toujours
+	 * false si le curseur est en mode LOOP, LOOP_REVERSED ou LOOP_PINGPONG.
+	 * @return
+	 */
+	public boolean isArrivalReached() {
+		return (mode == CursorMode.NORMAL && position == 1)
+			|| (mode == CursorMode.REVERSED && position == 0);
 	}
 }

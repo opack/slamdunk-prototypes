@@ -39,21 +39,22 @@ public class ProjectileUnit extends OffensiveUnit {
 		// jusqu'en dehors de l'écran
 		if (!launched) {
 			launched = true;
-			Vector2 destination = new Vector2(getX(), getY());
-			switch (getDirection()) {
-			case UP:
-				destination.y = getGame().getBattlefieldOverlay().getMapHeight();
-				break;
-			case DOWN:
-				destination.y = -1;
-				break;
-			case LEFT:
-				destination.x = -1;
-				break;
-			case RIGHT:
-				destination.x = getGame().getBattlefieldOverlay().getMapWidth();
-				break;
-			}
+//DBG			Vector2 destination = new Vector2(getX(), getY());
+//			switch (getDirection()) {
+//			case UP:
+//				destination.y = getGame().getBattlefieldOverlay().getMapHeight();
+//				break;
+//			case DOWN:
+//				destination.y = -1;
+//				break;
+//			case LEFT:
+//				destination.x = -1;
+//				break;
+//			case RIGHT:
+//				destination.x = getGame().getBattlefieldOverlay().getMapWidth();
+//				break;
+//			}
+			Vector2 destination = new Vector2(getTarget().getCenterX(), getTarget().getCenterY());
 			float timeToArrival = destination.dst(getX(), getY()) / getSpeed();
 			addAction(Actions.moveTo(destination.x, destination.y, timeToArrival));
 		}
