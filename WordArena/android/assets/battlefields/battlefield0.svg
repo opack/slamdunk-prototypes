@@ -33,11 +33,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.70737048"
-     inkscape:cx="576.33759"
-     inkscape:cy="482.4464"
+     inkscape:zoom="0.50018646"
+     inkscape:cx="937.42328"
+     inkscape:cy="513.23085"
      inkscape:document-units="px"
-     inkscape:current-layer="paths"
+     inkscape:current-layer="map"
      showgrid="false"
      showborder="true"
      inkscape:showpageshadow="false"
@@ -54,7 +54,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -145,7 +145,7 @@
      inkscape:groupmode="layer"
      id="paths"
      inkscape:label="Chemins"
-     style="display:none">
+     style="display:inline">
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 237.4993,817.60179 261.53197,790.74175 318.07943,756.81328 337.87103,729.95324 343.52578,646.54574 329.38892,527.79609 313.83837,442.97491 318.07943,399.15063 347.76684,353.91267 378.86794,331.29369 415.62378,317.15682 443.89751,315.74314 535.78712,319.98419 627.67674,310.08839 679.98313,297.36521 742.18533,267.6778 798.73278,233.74933 831.24757,215.37141"
@@ -154,9 +154,9 @@
        sodipodi:nodetypes="cccccccccccccccccc" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 281.32358,855.77131 360.49002,840.22077 503.27234,799.22387 566.88822,756.81328 614.95356,636.64994 660.19152,585.75723 719.56635,523.55503 760.56325,489.62656 818.52439,442.97491 866.58973,375.11796 889.20871,314.32945 901.93189,233.74933"
-       id="path2"
+       d="M 278.89599,855.063 310.88407,844.06711 343.87176,837.06971 387.85535,827.07344 438.83635,814.07828 485.81883,799.08388 528.8028,783.08984 561.79049,759.09879 577.78453,735.10774 592.77894,694.12302 603.77484,664.1342 616.76999,635.14502 642.7603,600.15806 675.748,566.17074 711.73458,529.18453 741.72339,501.19496 782.70811,472.20578 811.6973,445.21584 847.68388,405.23076 869.67568,364.24604 884.67008,323.26132 892.6671,289.27399 899.66449,219.30009"
+       id="path2999"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccccccc" />
+       sodipodi:nodetypes="ccccccccccccccccccccccc" />
   </g>
 </svg>

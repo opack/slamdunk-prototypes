@@ -37,11 +37,11 @@ public enum Directions {
 	 * @return null si les positions sont identiques
 	 */
 	public static Directions getDirection(Vector2 currentPosition, Vector2 nextPosition) {
-		if (currentPosition.y < nextPosition.y) {
-			return UP;
-		} else if (currentPosition.y > nextPosition.y) {
-			return DOWN;
-		}
+//DBG		if (currentPosition.y < nextPosition.y) {
+//			return UP;
+//		} else if (currentPosition.y > nextPosition.y) {
+//			return DOWN;
+//		}
 		if (currentPosition.x < nextPosition.x) {
 			return RIGHT;
 		} else if (currentPosition.x > nextPosition.x) {

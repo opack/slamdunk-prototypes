@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.world.SlamActor;
 import com.slamdunk.toolkit.world.path.ComplexPath;
@@ -80,7 +79,7 @@ public class SimpleUnit extends SlamActor {
 	
 	public SimpleUnit(GameScreen game) {
 		this.game = game;
-		direction = Directions.UP;
+		direction = Directions.RIGHT;//DBGDirections.UP;
 		speed = 1;
 		state = States.IDLE;
 		previousState = States.IDLE;
@@ -285,7 +284,7 @@ public class SimpleUnit extends SlamActor {
 	 */
 	protected void performMove(float delta) {
 		// S'il reste un chemin à suivre, on le suit
-		if (pathCursor != null && getActions().size == 0) {
+		if (pathCursor != null/*DBG && getActions().size == 0*/) {
 			if (pathCursor.isArrivalReached()) {
 				handleEventArrivedAtDestination();
 			} else {
@@ -304,10 +303,11 @@ public class SimpleUnit extends SlamActor {
 					chooseAnimation();
 				}
 				
-				// Applique une rotation à l'unité en fonction de la direction
-				setRotation(tmpMoveDestination.angle());
+				setCenterPosition(tmpMoveDestination.x, tmpMoveDestination.y);
+				//addAction(Actions.moveTo(tmpMoveDestination.x - getWidth() / 2, tmpMoveDestination.y - getHeight() / 2, 1 / speed));
 				
-				addAction(Actions.moveTo(tmpMoveDestination.x - getWidth() / 2, tmpMoveDestination.y - getHeight() / 2, 1 / speed));
+				// Applique une rotation à l'unité en fonction de la direction
+				setRotation(tmpMoveDestination.sub(tmpMoveCurrent).angle());
 			}
 		}
 	}
@@ -321,6 +321,10 @@ public class SimpleUnit extends SlamActor {
 		Animation animation = animations.get(state, direction);
 		if (animation != null) {
 			getAnimationDrawer().setAnimation(animation, true, true);
+			
+			// Place l'origine pour que les rotations se fassent
+			// autour du centre de l'unité
+			setOrigin(getWidth() / 2, getHeight() / 2);
 		}
 	}
 
