@@ -9,17 +9,56 @@ import com.badlogic.gdx.utils.Array;
  * Liste de chemins qu'on peut suivre pour passer de l'un à l'autre.
  * Cet objet peut être partagé entre plusieurs objets grâce à
  * l'utilisation d'un PathCursor, qui peut "se déplacer" sur le chemin.
+ * 
+ * Ce chemin complexe est séparé en plusieurs chemins, que l'on appelle
+ * des segments.
+ * Chaque segment peut être traité indépendemment et les valeurs qui
+ * le composent peuvent être lues grâce au paramètre t, variant entre
+ * 0 et 1, comme expliqué dans Path.
+ * Ce paramètre t a aussi un sens pour l'ensemble du ComplexPath,
+ * et la valeur entre 0 et 1 peut donc adresser un segment différent.
+ * Lorsque t est utilisée pour un segment, on parlera de "t local" (localT),
+ * en opposition au "t global" (globalT) qui est un indice pour la globalité
+ * du ComplexePath.
  */
 public class ComplexPath extends Array<Path<Vector2>> {
 	private static final int APPROX_LENGTH_SAMPLES = 500;
 	
+	private class SegmentData {
+		/**
+		 * Longueur du segment
+		 */
+		float length;
+		
+		/**
+		 * Valeur min de globalT pour ce segment. C'est
+		 * donc la valeur de globalT pour localT = 0.
+		 */
+		float globalTmin;
+		
+		/**
+		 * Valeur max de globalT pour ce segment. C'est
+		 * donc la valeur de globalT pour localT = 1.
+		 */
+		float globalTmax;
+	}
+	
+	private Array<SegmentData> segmentsData;
+	
 	/**
-	 * Longueur des différents segments du chemin
+	 * Longueur totale du ComplexPath
 	 */
-	private Array<Float> lengths;
+	private float totalLength;
+	
+	/**
+	 * Flag qui indique s'il faut recalculer les intervals
+	 * de valeurs de globalT pour chaque segment
+	 */
+	private boolean updateGlobalTIntervals;
+	
 	
 	public ComplexPath() {
-		lengths = new Array<Float>(size);
+		segmentsData = new Array<SegmentData>();
 	}
 	
 	/**
@@ -32,11 +71,12 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	 * @param points Les points par lesquels passe le chemin. Au moins 2 points.
 	 */
 	public ComplexPath(boolean closePath, Vector2... points) {
+		this();
+		
 		if (points.length < 2) {
 			throw new IllegalArgumentException("The points list must contain at least 2 values.");
 		}
 		// Crée les chemins puis les ajoute en mettant à jour le tableau des longueurs
-		lengths = new Array<Float>(size);
 		for (int cur = 0; cur < points.length - 1; cur++) {
 			add(new Bezier<Vector2>(points, cur, 2));
 		}
@@ -51,47 +91,11 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	 * @param pointsArrays
 	 */
 	public ComplexPath(Vector2[]... pointsArrays) {
-		lengths = new Array<Float>(size);
+		this();
+		
 		for (Vector2[] pointsArray : pointsArrays) {
 			add(new Bezier<Vector2>(pointsArray));
 		}
-	}
-	
-	/**
-	 * Crée une liste de chemins de type Bezier cubic, c'est-à-dire
-	 * où chaque courbe de Bézier est définie par 4 points, chaque
-	 * point terminant une courbe étant le point de départ de la
-	 * courbe suivante.
-	 * @param pointsArray
-	 */
-	public static ComplexPath createCubicBezierPathList(int nbPaths, float... pointsArray) {
-		if ((nbPaths > 1 && pointsArray.length < 4*nbPaths-1)
-		|| (nbPaths == 1 && pointsArray.length < 4)) {
-			throw new IllegalArgumentException("Le nombre de points fournis (" + pointsArray.length + ")ne permet pas de construire " + nbPaths + " chemins.");
-		}
-		ComplexPath pathList = new ComplexPath();
-		Vector2 start = new Vector2(pointsArray[0], pointsArray[1]);
-		Vector2 cp1 = new Vector2();
-		Vector2 cp2 = new Vector2();
-		Vector2 end = new Vector2();
-		int cp1Index;
-		// 0,1 2,3 4,5 6,7 8,9 10,11 12,13 14,15 16,17 18,19
-		//     |-|         |-|             |---|
-		// 0 1 2 3 4 5 6 7 8 9
-		//   |     |     |
-		for (int curPath = 0; curPath < nbPaths; curPath++) {
-			cp1Index = 3*curPath+1;
-			
-			cp1.set(pointsArray[cp1Index], 480 - pointsArray[cp1Index + 1]);
-			cp2.set(pointsArray[cp1Index + 2], 480 - pointsArray[cp1Index + 3]);
-			end.set(pointsArray[cp1Index + 4], 480 - pointsArray[cp1Index + 5]);
-			
-			pathList.add(new Bezier<Vector2>(start, cp1, cp2, end));
-			
-			start.set(end);
-		}
-		
-		return pathList;
 	}
 	
 	/**
@@ -102,10 +106,17 @@ public class ComplexPath extends Array<Path<Vector2>> {
 		super(paths);
 		
 		// Mise à jour du tableau de longueurs
-		lengths = new Array<Float>(size);
+		segmentsData = new Array<SegmentData>(size);
+		SegmentData data;
 		for (int cur = 0; cur < size; cur++) {
-			lengths.set(cur, get(cur).approxLength(APPROX_LENGTH_SAMPLES));
+			data = new SegmentData();
+			data.length = get(cur).approxLength(APPROX_LENGTH_SAMPLES);
+			segmentsData.set(cur, data);
+			totalLength += data.length;
 		}
+		
+		// Il faudra mettre à jour le tableau des intervals de globalT
+		updateGlobalTIntervals = true;
 	}
 	
 	/**
@@ -116,10 +127,17 @@ public class ComplexPath extends Array<Path<Vector2>> {
 		super(paths);
 		
 		// Mise à jour du tableau de longueurs
-		lengths = new Array<Float>(size);
+		segmentsData = new Array<SegmentData>(size);
+		SegmentData data;
 		for (int cur = 0; cur < size; cur++) {
-			lengths.set(cur, get(cur).approxLength(APPROX_LENGTH_SAMPLES));
+			data = new SegmentData();
+			data.length = get(cur).approxLength(APPROX_LENGTH_SAMPLES);
+			segmentsData.set(cur, data);
+			totalLength += data.length;
 		}
+		
+		// Il faudra mettre à jour le tableau des intervals de globalT
+		updateGlobalTIntervals = true;
 	}
 	
 	/**
@@ -132,7 +150,95 @@ public class ComplexPath extends Array<Path<Vector2>> {
 		// Ajoute le chemin à la liste
 		super.add(path);
 		// Calcule sa longueur
-		lengths.add(path.approxLength(APPROX_LENGTH_SAMPLES));
+		SegmentData data = new SegmentData();
+		data.length = path.approxLength(APPROX_LENGTH_SAMPLES);
+		segmentsData.add(data);
+		totalLength += data.length;
+		// Il faudra mettre à jour le tableau des intervals de globalT
+		updateGlobalTIntervals = true;
+	}
+	
+	@Override
+	public void addAll(Array<? extends Path<Vector2>> array) {
+		super.addAll(array);
+		
+		// Calcule la longueur des chemins
+		for (Path<Vector2> path : array) {
+			SegmentData data = new SegmentData();
+			data.length = path.approxLength(APPROX_LENGTH_SAMPLES);
+			segmentsData.add(data);
+			totalLength += data.length;
+		}
+		// Il faudra mettre à jour le tableau des intervals de globalT
+		updateGlobalTIntervals = true;
+	}
+	
+	/**
+	 * Ajoute de nouveaux chemins à la liste et met à jour le
+	 * tableau des longueurs
+	 * @param path
+	 */
+	@Override
+	public void addAll(Array<? extends Path<Vector2>> array, int offset, int length) {
+		super.addAll(array, offset, length);
+		
+		// Calcule la longueur des chemins
+		final int lastPath = offset + length;
+		Path<Vector2> path;
+		for (int curPath = offset; curPath < lastPath; curPath++) {
+			path = array.get(curPath);
+			
+			SegmentData data = new SegmentData();
+			data.length = path.approxLength(APPROX_LENGTH_SAMPLES);
+			segmentsData.add(data);
+			totalLength += data.length;
+		}
+		// Il faudra mettre à jour le tableau des intervals de globalT
+		updateGlobalTIntervals = true;
+	}
+	
+	/**
+	 * Ajoute de nouveaux chemins à la liste et met à jour le
+	 * tableau des longueurs
+	 * @param path
+	 */
+	@Override
+	public void addAll(Path<Vector2>... array) {
+		super.addAll(array);
+		
+		// Calcule la longueur des chemins
+		for (Path<Vector2> path : array) {
+			SegmentData data = new SegmentData();
+			data.length = path.approxLength(APPROX_LENGTH_SAMPLES);
+			segmentsData.add(data);
+			totalLength += data.length;
+		}
+		// Il faudra mettre à jour le tableau des intervals de globalT
+		updateGlobalTIntervals = true;
+	}
+	
+	/**
+	 * Ajoute de nouveaux chemins à la liste et met à jour le
+	 * tableau des longueurs
+	 * @param path
+	 */
+	@Override
+	public void addAll(Path<Vector2>[] array, int offset, int length) {
+		super.addAll(array, offset, length);
+		
+		// Calcule la longueur des chemins
+		final int lastPath = offset + length;
+		Path<Vector2> path;
+		for (int curPath = offset; curPath < lastPath; curPath++) {
+			path = array[curPath];
+			
+			SegmentData data = new SegmentData();
+			data.length = path.approxLength(APPROX_LENGTH_SAMPLES);
+			segmentsData.add(data);
+			totalLength += data.length;
+		}
+		// Il faudra mettre à jour le tableau des intervals de globalT
+		updateGlobalTIntervals = true;
 	}
 	
 	/**
@@ -182,6 +288,92 @@ public class ComplexPath extends Array<Path<Vector2>> {
 		Path<Vector2> path = get(segmentIndex);
 		path.valueAt(result, t);
 	}
+	
+	/**
+	 * Remplit result avec la position correspondant à 
+	 * la position t. Ici, t est global, c'est-à-dire 
+	 * que t fait référence non pas à un segment mais
+	 * à l'ensemble du chemin complexe
+	 * @param result
+	 * @param t
+	 */
+	public void valueAt(float globalT, Vector2 result) {
+		// Récupère l'indice du segment correspondant à ce t
+		int segmentIndex = getSegmentIndexFromGlobalT(globalT);
+		
+		// Récupère la valeur de t localisée à ce segment
+		float localT = convertToLocalT(globalT, segmentIndex);
+		
+		// Récupère le segment correspondant et la valeur demandée
+		Path<Vector2> path = get(segmentIndex);
+		path.valueAt(result, localT);
+	}
+
+	/**
+	 * Retourne une valeur localT (propre au chemin d'indice segmentIndex)
+	 * à partir d'une valeur globalT
+	 * @param globalT
+	 * @param segmentIndex
+	 * @return
+	 */
+	public float convertToLocalT(float globalT, int segmentIndex) {
+		// Recalcule les intervals de globalT si nécessaire
+		if (updateGlobalTIntervals) {
+			updateGlobalTIntervals();
+		}
+		
+		// On replace l'interval à partir de 0 au lieu de min,
+		// puis on fait un bête calcul de pourcentage pour savoir
+		// ou se situe globalT (décalée de -min aussi) par rapport
+		// au max (décalé de -min).
+		// c'est donc notre valeur de localT, entre 0 et 1.
+		final SegmentData data = segmentsData.get(segmentIndex);
+		return (globalT - data.globalTmin) / (data.globalTmax - data.globalTmin);
+	}
+
+	/**
+	 * Retourne l'indice du segment qui se trouve à la position
+	 * globalT indiquée
+	 * @param globalT
+	 * @return
+	 */
+	public int getSegmentIndexFromGlobalT(float globalT) {
+		// Recalcule les intervals de globalT si nécessaire
+		if (updateGlobalTIntervals) {
+			updateGlobalTIntervals();
+		}
+		
+		int segmentIndex = 0;
+		for (; segmentIndex < size; segmentIndex++) {
+			if (globalT < segmentsData.get(segmentIndex).globalTmax) {
+				break;
+			}
+		}
+		// Si globalT==1, alors c'est forcément le dernier segment
+		// qui sera choisi, ce qui nous va très bien
+		return segmentIndex;
+	}
+	
+	/**
+	 * Recalcule le tableau des intervals de valeurs de globalT
+	 * pour chaque segment
+	 */
+	private void updateGlobalTIntervals() {
+		float globalTmax = 0;
+		SegmentData data;
+		for (int segmentIndex = 0; segmentIndex < size; segmentIndex++) {
+			data = segmentsData.get(segmentIndex);
+			
+			// Pour ce segment, le min est le précédent max
+			data.globalTmin = globalTmax;
+			// On déplace le max vers la fin du segment
+			globalTmax += 1 / totalLength * data.length;
+			data.globalTmax = globalTmax;
+		}
+		
+		// La mise à jour est termnée !
+		updateGlobalTIntervals = false;
+	}
 
 	/**
 	 * Retourne la taille (approximée) du segment indiqué
@@ -189,7 +381,16 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	 * @return
 	 */
 	public float getLength(int segmentIndex) {
-		return lengths.get(segmentIndex);
+		return segmentsData.get(segmentIndex).length;
+	}
+	
+	/**
+	 * Retourne la taille total (approximée) du ComplexPath entier
+	 * @param current
+	 * @return
+	 */
+	public float getLength() {
+		return totalLength;
 	}
 
 	/**

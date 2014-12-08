@@ -17,6 +17,7 @@ Champ de bataille
 		-> Ecrire un utilitaire capable de lire ce SVG et créer un PathList à partir des instructions SVG
 [ ] Borner le déplacement de la carte pour qu'elle soit toujours visible   
 [ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
+[ ] Images des unités : vue de dessus. Cela permet de rester cohérent avec la carte (vue de dessus) et de faire une rotation sur les unités au fur et à mesure du chemin, et cela simplifie le nombre d'images nécessaires
 
 Combat
 ¯¯¯¯¯¯

@@ -4,13 +4,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.world.SlamActor;
+import com.slamdunk.toolkit.world.path.ComplexPath;
+import com.slamdunk.toolkit.world.path.ComplexPathCursor;
 import com.slamdunk.toolkit.world.pathfinder.Directions;
-import com.slamdunk.toolkit.world.pathfinder.Path;
-import com.slamdunk.toolkit.world.pathfinder.PathCursor;
-import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 
@@ -43,12 +43,12 @@ public class SimpleUnit extends SlamActor {
 	/**
 	 * Curseur de déplacement qui permet de suivre un chemin
 	 */
-	private PathCursor pathCursor;
+	private ComplexPathCursor pathCursor;
 	
 	/**
 	 * Le chemin sur lequel se déplace l'unité
 	 */
-	private Path path;
+	private ComplexPath path;
 	
 	/**
 	 * La direction dans laquelle regarde l'unité
@@ -72,6 +72,12 @@ public class SimpleUnit extends SlamActor {
 	
 	private DoubleEntryArray<States, Directions, Animation> animations;
 	
+	/**
+	 * Vecteurs de travail pour la méthode performMove()
+	 */
+	private Vector2 tmpMoveCurrent;
+	private Vector2 tmpMoveDestination;
+	
 	public SimpleUnit(GameScreen game) {
 		this.game = game;
 		direction = Directions.UP;
@@ -79,6 +85,9 @@ public class SimpleUnit extends SlamActor {
 		state = States.IDLE;
 		previousState = States.IDLE;
 		animations = new DoubleEntryArray<States, Directions, Animation>();
+		
+		tmpMoveCurrent = new Vector2();
+		tmpMoveDestination = new Vector2();
 	}
 	
 	/**
@@ -98,14 +107,14 @@ public class SimpleUnit extends SlamActor {
 		getTextureDrawer().setTextureRegion(textureRegion);
 		getTextureDrawer().setActive(true);
 		
-		final float pixelsByUnit = game.getPixelsByUnit();
+		final float pixelsByUnit = 1;//DBGgame.getPixelsByUnit();
 		setSize(textureRegion.getRegionWidth() / pixelsByUnit, textureRegion.getRegionHeight() / pixelsByUnit);
 	}
 	
 	public void initAnimationRendering(float preferedPixelsWidth, float preferedPixelsHeight) {
 		createDrawers(false, true, false);
 		getAnimationDrawer().setActive(true);
-		final float pixelsByUnit = game.getPixelsByUnit();
+		final float pixelsByUnit = 1;//DBGgame.getPixelsByUnit();
 		setSize(preferedPixelsWidth / pixelsByUnit, preferedPixelsHeight / pixelsByUnit);
 	}
 	
@@ -159,11 +168,11 @@ public class SimpleUnit extends SlamActor {
 		this.speed = speed;
 	}
 	
-	public PathCursor getPathCursor() {
+	public ComplexPathCursor getPathCursor() {
 		return pathCursor;
 	}
 	
-	public Path getPath() {
+	public ComplexPath getPath() {
 		return path;
 	}
 	
@@ -173,7 +182,7 @@ public class SimpleUnit extends SlamActor {
 	 * @param path
 	 * @param b 
 	 */
-	public void setPath(Path path) {
+	public void setPath(ComplexPath path) {
 		setPath(path, 0);
 	}
 
@@ -183,12 +192,27 @@ public class SimpleUnit extends SlamActor {
 	 * @param path
 	 * @param startIndexInPath 
 	 */
-	public void setPath(Path path, int startIndexInPath) {
+	public void setPath(ComplexPath path, float startT) {
 		this.path = path;
 		if (path == null) {
 			pathCursor = null;
 		} else {
-			pathCursor = new PathCursor(path, startIndexInPath);
+			// Récupère l'indice du segment correspondant à ce t
+			int segmentIndex = path.getSegmentIndexFromGlobalT(startT);
+			
+			// Récupère la valeur de t localisée à ce segment
+			float localT = path.convertToLocalT(startT, segmentIndex);
+			
+			// Place le curseur à l'endroit indiqué sur le chemin
+			pathCursor = new ComplexPathCursor(path, getSpeed());
+			pathCursor.setCurrentSegmentIndex(segmentIndex);
+			pathCursor.setPosition(localT);
+			
+			// Place l'unité à l'endroit du curseur
+			pathCursor.valueAt(tmpMoveCurrent);
+			setPosition(tmpMoveCurrent.x, tmpMoveCurrent.y);
+			
+			// Place l'unité en mouvement
 			setState(States.MOVING);
 		}
 	}
@@ -267,18 +291,23 @@ public class SimpleUnit extends SlamActor {
 			} else {
 				handleEventMovedOnePosition();
 				
-				Point current = pathCursor.current();
-				Point destination = current;
-				if (getX() == destination.getX()
-				&& getY() == destination.getY()){
-					destination = pathCursor.next();
+				tmpMoveCurrent.set(getCenterX(), getCenterY());
+				pathCursor.move(delta, tmpMoveDestination);
+//DBG				Point current = pathCursor.current();
+//				Point destination = current;
+				if (getCenterX() == tmpMoveDestination.x
+				&& getCenterY() == tmpMoveDestination.y){
+//					destination = pathCursor.next();
 					
 					// Modification de l'animation en fonction de la direction du déplacement
-					direction = Directions.getDirection(current, destination);
+					direction = Directions.getDirection(tmpMoveCurrent, tmpMoveDestination);
 					chooseAnimation();
+					
+					// Applique une rotation à l'unité en fonction de la direction
+					setRotation(tmpMoveDestination.angle());
 				}
 				
-				addAction(Actions.moveTo(destination.getX(), destination.getY(), 1 / speed));
+				addAction(Actions.moveTo(tmpMoveDestination.x - getWidth() / 2, tmpMoveDestination.y - getHeight() / 2, 1 / speed));
 			}
 		}
 	}
@@ -320,15 +349,23 @@ public class SimpleUnit extends SlamActor {
 		}
 	}
 
+//	/**
+//	 * Retourne la position de l'unité
+//	 * @return
+//	 */
+//	public Point getPosition() {
+//		if (pathCursor == null) {
+//			return null;
+//		}
+//		return pathCursor.current();
+//	}
+	
 	/**
 	 * Retourne la position de l'unité
 	 * @return
 	 */
-	public Point getPosition() {
-		if (pathCursor == null) {
-			return null;
-		}
-		return pathCursor.current();
+	public Vector2 getPosition() {
+		return new Vector2(getX(), getY());
 	}
 
 	@Override

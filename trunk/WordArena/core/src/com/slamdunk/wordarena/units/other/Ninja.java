@@ -24,7 +24,7 @@ public class Ninja extends OffensiveUnit {
 		setFaction(Factions.OTHER);
 		
 		setHp(10);
-		setSpeed(2);
+		setSpeed(115);
 
 		setRange(0, 0);
 		setDamage(1);
