@@ -302,10 +302,10 @@ public class SimpleUnit extends SlamActor {
 					// Modification de l'animation en fonction de la direction du déplacement
 					direction = Directions.getDirection(tmpMoveCurrent, tmpMoveDestination);
 					chooseAnimation();
-					
-					// Applique une rotation à l'unité en fonction de la direction
-					setRotation(tmpMoveDestination.angle());
 				}
+				
+				// Applique une rotation à l'unité en fonction de la direction
+				setRotation(tmpMoveDestination.angle());
 				
 				addAction(Actions.moveTo(tmpMoveDestination.x - getWidth() / 2, tmpMoveDestination.y - getHeight() / 2, 1 / speed));
 			}
