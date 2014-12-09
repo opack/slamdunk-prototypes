@@ -33,11 +33,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.50018646"
-     inkscape:cx="937.42328"
-     inkscape:cy="513.23085"
+     inkscape:zoom="1.0003729"
+     inkscape:cx="459.10786"
+     inkscape:cy="468.44894"
      inkscape:document-units="px"
-     inkscape:current-layer="map"
+     inkscape:current-layer="paths"
      showgrid="false"
      showborder="true"
      inkscape:showpageshadow="false"
@@ -148,15 +148,19 @@
      style="display:inline">
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       d="M 237.4993,817.60179 261.53197,790.74175 318.07943,756.81328 337.87103,729.95324 343.52578,646.54574 329.38892,527.79609 313.83837,442.97491 318.07943,399.15063 347.76684,353.91267 378.86794,331.29369 415.62378,317.15682 443.89751,315.74314 535.78712,319.98419 627.67674,310.08839 679.98313,297.36521 742.18533,267.6778 798.73278,233.74933 831.24757,215.37141"
+       d="M 251.5357,797.73914 318.07943,756.81328 337.87103,729.95324 343.52578,646.54574 329.38892,527.79609 313.83837,442.97491 318.07943,399.15063 347.76684,353.91267 378.86794,331.29369 415.62378,317.15682 443.89751,315.74314 535.78712,319.98419 627.67674,310.08839 679.98313,297.36521 742.18533,267.6778 798.73278,233.74933 831.24757,215.37141"
        id="path1"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="cccccccccccccccccc" />
+       sodipodi:nodetypes="ccccccccccccccccc"
+       end1name="castle1"
+       end2name="castle2" />
     <path
        style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 278.89599,855.063 310.88407,844.06711 343.87176,837.06971 387.85535,827.07344 438.83635,814.07828 485.81883,799.08388 528.8028,783.08984 561.79049,759.09879 577.78453,735.10774 592.77894,694.12302 603.77484,664.1342 616.76999,635.14502 642.7603,600.15806 675.748,566.17074 711.73458,529.18453 741.72339,501.19496 782.70811,472.20578 811.6973,445.21584 847.68388,405.23076 869.67568,364.24604 884.67008,323.26132 892.6671,289.27399 899.66449,219.30009"
        id="path2999"
        inkscape:connector-curvature="0"
-       sodipodi:nodetypes="ccccccccccccccccccccccc" />
+       sodipodi:nodetypes="ccccccccccccccccccccccc"
+       end1name="castle1"
+       end2name="castle2" />
   </g>
 </svg>

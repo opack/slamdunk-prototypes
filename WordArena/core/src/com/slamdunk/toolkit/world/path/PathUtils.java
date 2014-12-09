@@ -112,7 +112,7 @@ public class PathUtils {
 	 * position testée. Si -1, la tolérance n'est pas prise en compte
 	 * @param model Curseur actuellement utilisé. Il sert de modèle pour la création
 	 * du curseur retourné afin d'obtenir la vitesse et le mode de parcours. Si null,
-	 * la vitesse du curseur retourné sera 1 et le mode de parcours sera CursorMode.NORMAL.
+	 * la vitesse du curseur retourné sera 1 et le mode de parcours sera CursorMode.FORWARD.
 	 * @return null si aucun chemin n'est suffisamment près pour être sélectionné
 	 */
 	public static ComplexPathCursor selectNearestPath(Array<ComplexPath> paths, Vector2 testPos, int tolerance, ComplexPathCursor model) {
@@ -122,7 +122,7 @@ public class PathUtils {
 		}
 		
 		float speed = 1f;
-		CursorMode mode = CursorMode.NORMAL;
+		CursorMode mode = CursorMode.FORWARD;
 		if (model != null) {
 			speed = model.getSpeed();
 			mode = model.getMode();
@@ -188,11 +188,49 @@ public class PathUtils {
 					}
 				}
 				
+				// Nomme les extrémités pour déterminer les sens de parcours des différentes unités
+				path.setExtremity0(child.getExtraAttribute("end1name"));
+				path.setExtremity1(child.getExtraAttribute("end2name"));
+				
 				// Ajoute le ComplexPath à la liste
 				parsedPaths.add(path);
 			}
 		}
 		
 		return parsedPaths;
+	}
+	
+	/**
+	 * Retourne la valeur t de l'extrémité du chemin qui a le nom
+	 * indiqué.
+	 * @return -1 si aucune extrémité ne correspond, sinon 0 ou 1
+	 * suivant l'extrémité 
+	 */
+	public static float getExtremityByName(ComplexPath path, String name) {
+		float result = -1;
+		
+		String extremity0 = path.getExtremity0();
+		String extremity1 = path.getExtremity1();
+		// Si le paramètre fourni est valide...
+		if (name != null && !name.isEmpty()) {
+			// Si l'extremité 0 est renseignée
+			if (extremity0 != null
+			&& !extremity0.isEmpty()
+			// et qu'elle correspond au paramètre
+			&& name.equals(extremity0)) {
+				// Alors l'extrémité correspondante est celle pour t=0
+				result = 0;
+			}
+			// Si l'extrémité 1 est renseignée
+			else if (extremity1 != null
+			&& !extremity1.isEmpty()
+			// et qu'elle correspond au paramètre
+			&& name.equals(extremity1)) {
+				// Alors l'extrémité correspondante est celle pour t=1
+				result = 1;
+			}
+		}
+		
+		return result;
 	}
 }

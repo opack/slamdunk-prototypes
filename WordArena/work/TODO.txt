@@ -1,23 +1,9 @@
-Refactoring :
-1 seul overlay : WorldOverlay
-3 SlamWorldLayer : tiledmap, objets, ui.
-	-> Faire un SlamWorldLayer contenant une tiledmap et en faisant le rendu
-	-> Ou avoir une simple image de fond ??? Gérer alors des chemins réels que pourront suivre
-	les unités
-Ainsi, on n'a qu'une seule caméra, qu'un seul viewport, qu'un seul système d'unités. 
-
 Champ de bataille
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-[ ] Faire des chemins de type : 1 départ, 1 destination. Donc pas d'embranchement ni de carrefours.
 [ ] Gestion simplifié de la carte du champ de bataille : 1 fond de carte avec des chemins (invisibles) que suivent les unités
-	[ ] Les chemins peuvent être créés sous Inkscape :
-		1. Dessiner le chemin avec l'outil Dessin à main levée (éventuellement avec le fond de carte)
-		2. Simplifier le chemin pour le rendre plus régulier et fluide
-		3. Exporter en svg simple
-		-> Ecrire un utilitaire capable de lire ce SVG et créer un PathList à partir des instructions SVG
 [ ] Borner le déplacement de la carte pour qu'elle soit toujours visible   
-[ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
 [ ] Images des unités : vue de dessus. Cela permet de rester cohérent avec la carte (vue de dessus) et de faire une rotation sur les unités au fur et à mesure du chemin, et cela simplifie le nombre d'images nécessaires
+[ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
 
 Combat
 ¯¯¯¯¯¯

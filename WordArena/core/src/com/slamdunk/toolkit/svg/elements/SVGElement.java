@@ -1,6 +1,8 @@
 package com.slamdunk.toolkit.svg.elements;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.slamdunk.toolkit.svg.SVGStyle;
 import com.slamdunk.toolkit.svg.SVGTransform;
@@ -14,12 +16,13 @@ public class SVGElement{
 	private SVGTransform[]  transforms; 
 	private StringBuilder   styleInline;
 	private SVGElement		parent;
+	private Map<String, String>	extraAttributes;
 	
 	protected ArrayList<SVGElement> children;
 	
 	public SVGElement(SVGElement parent, String name){
 		this.parent = parent;
-		this.name=name;
+		this.name = name;
 	}
 	
 	public SVGElement getParent() {
@@ -106,6 +109,17 @@ public class SVGElement{
 		return styleInline != null ? styleInline.toString() : null;
 	}
 	
+	public boolean hasExtraAttributes() {
+		return extraAttributes != null && !extraAttributes.isEmpty();
+	}
+	
+	public String getExtraAttribute(String key) {
+		if (extraAttributes == null) {
+			return null;
+		}
+		return extraAttributes.get(key);
+	}
+
 	public void addChild(SVGElement element) {
 		if ( children == null ){
 			children = new ArrayList<SVGElement>();
@@ -115,6 +129,20 @@ public class SVGElement{
 	
 	public void addAttribute(String attribute, float value){
 		
+	}
+	
+	/**
+	 * Appelée lorsque des attributs hors SVG sont trouvés.
+	 * Le comportement par défaut consiste à les placer dans
+	 * la table extraAttributes.
+	 * @param attribute
+	 * @param value
+	 */
+	public void addExtraAttribute(String attribute, String value){
+		if (extraAttributes == null) {
+			extraAttributes = new HashMap<String, String>();
+		}
+		extraAttributes.put(attribute, value);
 	}
 	
 	@Override

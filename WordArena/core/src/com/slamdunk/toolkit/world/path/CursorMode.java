@@ -8,24 +8,24 @@ public enum CursorMode {
 	/**
 	 * Le curseur va du début à la fin du chemin, puis s'arrête.
 	 */
-	NORMAL,
+	FORWARD,
 	
 	/**
 	 * Le curseur va de la fin au début du chemin, puis s'arrête.
 	 */
-	REVERSED,
+	BACKWARD,
 	
 	/**
 	 * Le curseur va du début à la fin du chemin, puis reprend
 	 * au début et boucle ainsi sans arrêt.
 	 */
-	LOOP,
+	LOOP_FORWARD,
 	
 	/**
 	 * Le curseur va de la fin au début du chemin, puis reprend
 	 * à la fin et boucle ainsi sans arrêt.
 	 */
-	LOOP_REVERSED,
+	LOOP_BACKWARD,
 	
 	/**
 	 * Le curseur va du début à la fin du chemin, puis repart en
