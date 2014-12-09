@@ -153,6 +153,8 @@ public class SVGParse implements SVGConstants {
 							|| ATTRIBUTE_STROKE_OPACITY.equals(name)) {
 						element.addStyleInLine(name, value);
 
+					} else {
+						element.addExtraAttribute(name, value);
 					}
 
 				}

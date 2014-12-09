@@ -56,6 +56,16 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	 */
 	private boolean updateGlobalTIntervals;
 	
+	/**
+	 * Nom associé à l'extremité en t=0
+	 */
+	private String extremity0;
+	
+	/**
+	 * Nom associé à l'extremité en t=1
+	 */
+	private String extremity1;
+	
 	
 	public ComplexPath() {
 		segmentsData = new Array<SegmentData>();
@@ -140,6 +150,22 @@ public class ComplexPath extends Array<Path<Vector2>> {
 		updateGlobalTIntervals = true;
 	}
 	
+	public String getExtremity0() {
+		return extremity0;
+	}
+
+	public void setExtremity0(String end1name) {
+		this.extremity0 = end1name;
+	}
+
+	public String getExtremity1() {
+		return extremity1;
+	}
+
+	public void setExtremity1(String end2name) {
+		this.extremity1 = end2name;
+	}
+
 	/**
 	 * Ajoute une nouveau chemin à la liste et met à jour le
 	 * tableau des longueurs
@@ -328,7 +354,13 @@ public class ComplexPath extends Array<Path<Vector2>> {
 		// au max (décalé de -min).
 		// c'est donc notre valeur de localT, entre 0 et 1.
 		final SegmentData data = segmentsData.get(segmentIndex);
-		return (globalT - data.globalTmin) / (data.globalTmax - data.globalTmin);
+		float localT = (globalT - data.globalTmin) / (data.globalTmax - data.globalTmin);
+		if (localT < 0) {
+			localT = 0;
+		} else if (localT > 1) {
+			localT = 1;
+		}
+		return localT;
 	}
 
 	/**
@@ -343,14 +375,19 @@ public class ComplexPath extends Array<Path<Vector2>> {
 			updateGlobalTIntervals();
 		}
 		
+		// Borne globalT
+		if (globalT < 0) {
+			globalT = 0;
+		} else if (globalT > segmentsData.get(size -1).globalTmax) {
+			globalT = segmentsData.get(size -1).globalTmax;
+		}
+		
 		int segmentIndex = 0;
 		for (; segmentIndex < size; segmentIndex++) {
-			if (globalT < segmentsData.get(segmentIndex).globalTmax) {
+			if (globalT <= segmentsData.get(segmentIndex).globalTmax) {
 				break;
 			}
 		}
-		// Si globalT==1, alors c'est forcément le dernier segment
-		// qui sera choisi, ce qui nous va très bien
 		return segmentIndex;
 	}
 	

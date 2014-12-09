@@ -75,7 +75,7 @@ public class ComplexPathCursor {
 	}
 	
 	public ComplexPathCursor(ComplexPath path, float speed) {
-		this(path, speed, CursorMode.NORMAL);
+		this(path, speed, CursorMode.FORWARD);
 	}
 	
 	public CursorMode getMode() {
@@ -111,6 +111,63 @@ public class ComplexPathCursor {
 	}
 	
 	/**
+	 * Change le mode et éventuellement la direction du curseur
+	 * pour qu'il se dirige vers l'extrémité du chemin nommée
+	 * comme le paramètre endName
+	 */
+	public boolean setDestination(String extremityName) {
+		float destinationT = PathUtils.getExtremityByName(path, extremityName);
+		if (destinationT == -1) {
+			return false;
+		}
+		
+		// Le curseur se dirige vers l'extrémité en t=0
+		if (destinationT == 0) {
+			// Place le curseur dans le bon sens
+			direction = -1;
+			
+			// Change le mode pour s'accorder avec la nouvelle direction
+			switch (mode) {
+			case FORWARD:
+				mode = CursorMode.BACKWARD;
+				break;
+			case LOOP_FORWARD:
+				mode = CursorMode.LOOP_BACKWARD;
+				break;
+			case BACKWARD:
+			case LOOP_BACKWARD:
+			case LOOP_PINGPONG:
+				// Rien à faire pour les autres modes car on se dirige déjà
+				// dans la bonne direction
+				break;
+			}
+		}
+		// Le curseur se dirige vers l'extrémité en t=1
+		else {
+			// Place le curseur dans le bon sens
+			direction = 1;
+			
+			// Change le mode pour s'accorder avec la nouvelle direction
+			switch (mode) {
+			case BACKWARD:
+				mode = CursorMode.FORWARD;
+				break;
+			case LOOP_BACKWARD:
+				mode = CursorMode.LOOP_FORWARD;
+				break;
+			case FORWARD:
+			case LOOP_FORWARD:
+			case LOOP_PINGPONG:
+				// Rien à faire pour les autres modes car on se dirige déjà
+				// dans la bonne direction
+				break;
+			}
+		}
+		
+		return true;
+	}
+	
+	/**
 	 * Définit la position actuelle du curseur sur le chemin courant.
 	 * Borné entre 0 et 1.
 	 * @param position
@@ -138,17 +195,17 @@ public class ComplexPathCursor {
 	 */
 	public void reset() {
 		switch (mode) {
-		// En NORMAL, LOOP et LOOP_PINGPONG, on commence au début et on va vers la fin du chemin.
-		case NORMAL:
-		case LOOP:
+		// En FORWARD, LOOP_FORWARD et LOOP_PINGPONG, on commence au début et on va vers la fin du chemin.
+		case FORWARD:
+		case LOOP_FORWARD:
 		case LOOP_PINGPONG:
 			position = 0;
 			currentSegmentIndex = 0;
 			direction = 1;
 			break;
-		// En REVERSED et LOOP_REVERSED, on commence de la fin et on va vers le début du chemin.
-		case REVERSED:
-		case LOOP_REVERSED:
+		// En BACKWARD et LOOP_BACKWARD, on commence de la fin et on va vers le début du chemin.
+		case BACKWARD:
+		case LOOP_BACKWARD:
 			position = 1;
 			currentSegmentIndex = path.size - 1;
 			direction = -1;
@@ -194,19 +251,19 @@ public class ComplexPathCursor {
 				// Suivant le mode de parcours, on revient au début ou pas
 				switch (mode) {
 				// On ne fait rien d'autre, on s'arrête à la fin du chemin
-				case NORMAL:
+				case FORWARD:
 					position = 1;
 					currentSegmentIndex = path.size - 1;
 					direction = 0;
 					return;
 				// On ne fait rien d'autre, on s'arrête au début du chemin
-				case REVERSED:
+				case BACKWARD:
 					position = 0;
 					currentSegmentIndex = 0;
 					direction = 0;
 					return;
 				// Retour au début et on continue à parcourir le chemin
-				case LOOP:
+				case LOOP_FORWARD:
 					currentSegmentIndex = 0;
 					break;
 				// On repart dans l'autre sens
@@ -217,7 +274,7 @@ public class ComplexPathCursor {
 					segmentTime = path.getLength(currentSegmentIndex) / speed;
 					return;
 				// Retour à la fin et on continue à parcourir le chemin
-				case LOOP_REVERSED:
+				case LOOP_BACKWARD:
 					currentSegmentIndex = path.size - 1;
 				}
 			}
@@ -249,11 +306,24 @@ public class ComplexPathCursor {
 	/**
 	 * Indique si le curseur est arrivé au bout du chemin.
 	 * Attention ! Cette méthode n'a pas de sens et retournera toujours
-	 * false si le curseur est en mode LOOP, LOOP_REVERSED ou LOOP_PINGPONG.
+	 * false si le curseur est en mode LOOP_FORWARD, LOOP_BACKWARD ou LOOP_PINGPONG.
 	 * @return
 	 */
 	public boolean isArrivalReached() {
-		return (mode == CursorMode.NORMAL && position == 1)
-			|| (mode == CursorMode.REVERSED && position == 0);
+		return (mode == CursorMode.FORWARD && position == 1)
+			|| (mode == CursorMode.BACKWARD && position == 0);
+	}
+
+	/**
+	 * Place le curseur à l'extrémité du chemin dont le nom est spécifié
+	 * @param string
+	 */
+	public void setPosition(String extremityName) {
+		float newPosition = PathUtils.getExtremityByName(path, extremityName);
+		if (newPosition == -1) {
+			return;
+		}
+		
+		this.position = newPosition;
 	}
 }

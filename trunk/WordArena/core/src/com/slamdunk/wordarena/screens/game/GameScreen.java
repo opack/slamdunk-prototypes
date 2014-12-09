@@ -7,22 +7,26 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.PathUtils;
 import com.slamdunk.wordarena.screens.MoveCameraDragListener;
+import com.slamdunk.wordarena.units.Units;
 
 public class GameScreen extends SlamScreen {
 	public static final String NAME = "GAME";
 
 	private WorldObjectsOverlay objectsOverlay;
-	//private TiledMapActor mapActor;
+	private InGameUIOverlay uiOverlay;
 	private Array<ComplexPath> paths;
 	
 	public GameScreen(SlamGame game) {
 		super(game);
+		
+		// Crée la couche qui contient les objets du monde
 		objectsOverlay = new WorldObjectsOverlay();
 		objectsOverlay.getStage().addListener(new MoveCameraDragListener(objectsOverlay.getStage().getCamera()));
 		addOverlay(objectsOverlay);
 		
-		//mapActor = new TiledMapActor();
-		//objectsOverlay.getWorld().addActor(mapActor);
+		// Crée la couche qui contient l'UI
+		uiOverlay = new InGameUIOverlay();
+		addOverlay(uiOverlay);
 		
 		paths = new Array<ComplexPath>();
 	}
@@ -35,12 +39,14 @@ public class GameScreen extends SlamScreen {
 		TypedProperties battlefieldProperties = new TypedProperties(propertiesFile);
 		
 		// Chargement de l'image de fond
-		//mapActor.load(battlefieldProperties.getStringProperty("map", ""));
 		objectsOverlay.setBackgroundMap(battlefieldProperties.getStringProperty("map", ""));
 		
 		// Chargement des chemins
 		paths = PathUtils.parseSVG("battlefields/battlefield0.svg", "paths");
 		objectsOverlay.setPaths(paths);
+		
+		// Création de l'interface utilisateur
+		uiOverlay.init(Units.PALADIN, Units.ARCHER);
 	}
 	
 	public WorldObjectsOverlay getObjectsOverlay() {

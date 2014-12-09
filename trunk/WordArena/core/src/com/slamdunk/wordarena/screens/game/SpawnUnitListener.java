@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.ComplexPathCursor;
 import com.slamdunk.toolkit.world.path.PathUtils;
+import com.slamdunk.wordarena.units.SimpleUnit;
 import com.slamdunk.wordarena.units.Units;
 
 /**
@@ -45,7 +46,8 @@ public class SpawnUnitListener extends InputListener {
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		if (selectedPath != null) {
 			// Création d'une unité
-			worldObjectsOverlay.spawnUnit(Units.PALADIN, selectedPath);
+			SimpleUnit unit = worldObjectsOverlay.spawnUnit(Units.PALADIN, selectedPath, "castle2");
+			unit.getPathCursor().setDestination("castle1");
 		}
 	}
 }

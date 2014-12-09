@@ -29,40 +29,9 @@ public class WorldObjectsOverlay extends WorldOverlay {
 	}
 
 	public void init(Camera camera, float worldUnitsPerPixel) {
-		// On va utiliser une couche Stage contenant les objets du monde
-		// avec un viewport qui s'appuie sur la caméra de la tiledmap
-//		ScreenViewport viewport = new ScreenViewport(camera);
-//		viewport.setWorldSize(camera.viewportWidth, camera.viewportHeight);
-//		viewport.setUnitsPerPixel(worldUnitsPerPixel);
-//		viewport.update((int)(camera.viewportWidth / worldUnitsPerPixel), (int)(camera.viewportHeight / worldUnitsPerPixel));
-		FitViewport viewport = new FitViewport(800, 480);
-		viewport.setWorldSize(camera.viewportWidth, camera.viewportHeight);
-//		viewport.setUnitsPerPixel(worldUnitsPerPixel);
-		viewport.update((int)(camera.viewportWidth / worldUnitsPerPixel), (int)(camera.viewportHeight / worldUnitsPerPixel));
-		getStage().setViewport(viewport);
-		
-		UnitManager.getInstance().setStageContainer(getWorld());
 	}
 	
-//DBG	/**
-//	 * Crée une unité et l'envoie sur le chemin indiqué
-//	 * @param path
-//	 */
-//	public void spawnUnit(Units unitType, Path path) {
-//		// Crée l'unité
-//		SimpleUnit unit = unitType.create((GameScreen)getScreen());
-//		
-//		// Ajoute l'unité au monde
-//		UnitManager.getInstance().addUnit(unit);
-//		
-//		// Envoie l'unité sur le chemin spécifié
-//		Point departure = path.getPosition(0);
-//		unit.setPosition(departure.getX(), departure.getY());
-//		unit.setPath(path);
-//	}
-	
-
-	public void spawnUnit(Units unitType, ComplexPath path) {
+	public SimpleUnit spawnUnit(Units unitType, ComplexPath path) {
 		// Crée l'unité
 		SimpleUnit unit = unitType.create((GameScreen)getScreen());
 		
@@ -71,6 +40,21 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		
 		// Envoie l'unité sur le chemin spécifié
 		unit.setPath(path);
+		
+		return unit;
+	}
+	
+	public SimpleUnit spawnUnit(Units unitType, ComplexPath path, String destination) {
+		// Crée l'unité
+		SimpleUnit unit = unitType.create((GameScreen)getScreen());
+		
+		// Ajoute l'unité au monde
+		UnitManager.getInstance().addUnit(unit);
+		
+		// Envoie l'unité sur le chemin spécifié
+		unit.setPath(path, destination);
+		
+		return unit;
 	}
 
 	/**

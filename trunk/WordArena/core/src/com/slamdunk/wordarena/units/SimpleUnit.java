@@ -9,6 +9,7 @@ import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.world.SlamActor;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.ComplexPathCursor;
+import com.slamdunk.toolkit.world.path.PathUtils;
 import com.slamdunk.toolkit.world.pathfinder.Directions;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
@@ -183,6 +184,25 @@ public class SimpleUnit extends SlamActor {
 	 */
 	public void setPath(ComplexPath path) {
 		setPath(path, 0);
+	}
+	
+	/**
+	 * Fait suivre le chemin en partant de l'extremité
+	 * ayant le nom indiqué.
+	 * Si aucune extrémité n'a ce nom, l'unité part
+	 * de l'extrémité t=0.
+	 * @param path
+	 * @param endName
+	 */
+	public void setPath(ComplexPath path, String extremityName) {
+		// Récupère la valeur t (donc l'extrémité) depuis laquelle on part
+		float startT = PathUtils.getExtremityByName(path, extremityName);
+		if (startT == -1) {
+			return;
+		}
+		
+		// Envoie l'unité vers cette destination
+		setPath(path, startT);
 	}
 
 	/**
