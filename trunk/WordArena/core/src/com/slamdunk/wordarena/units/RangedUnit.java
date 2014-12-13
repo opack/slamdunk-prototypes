@@ -25,13 +25,13 @@ public class RangedUnit extends OffensiveUnit {
 	@Override
 	protected void performHit() {
 		// Création d'un projectile
-		SimpleUnit projectile = projectileUnit.create(getGame());
+		ProjectileUnit projectile = (ProjectileUnit)projectileUnit.create(getGame());
 		projectile.setFaction(getFaction());
 		projectile.setCenterPosition(getCenterX(), getCenterY());
 		UnitManager.getInstance().addUnit(projectile);
 		
-		// Envoi du projectile en face
-		projectile.setDirection(getDirection());
+		// Envoi du projectile sur l'adversaire visé
+		projectile.setTarget(getTarget());
 		projectile.setState(States.MOVING);
 		
 		// Le personnage reprend son chemin s'il n'y a plus d'ennemi

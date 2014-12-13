@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.ComplexPathCursor;
 import com.slamdunk.toolkit.world.path.PathUtils;
-import com.slamdunk.wordarena.units.SimpleUnit;
 import com.slamdunk.wordarena.units.Units;
 
 /**
@@ -16,17 +15,18 @@ import com.slamdunk.wordarena.units.Units;
 public class SpawnUnitListener extends InputListener {
 	private final static int PATH_SELECT_TOLERANCE = 25;
 	private ComplexPath selectedPath;
-	private WorldObjectsOverlay worldObjectsOverlay;
 	
-	public SpawnUnitListener(WorldObjectsOverlay worldObjectsOverlay) {
-		this.worldObjectsOverlay = worldObjectsOverlay;
+	private GameScreen gameScreen;
+	
+	public SpawnUnitListener(GameScreen gameScreen) {
+		this.gameScreen = gameScreen;
 	}
 
 	@Override
 	public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 		// Recherche le chemin qui est proche du clic. S'il y en a un, on déclenchera
 		// une action sur le clic. S'il n'y en a pas, on n'écoute pas le touchUp()
-		ComplexPathCursor cursor = PathUtils.selectNearestPath(worldObjectsOverlay.getPaths(), new Vector2(x, y), PATH_SELECT_TOLERANCE);
+		ComplexPathCursor cursor = PathUtils.selectNearestPath(gameScreen.getObjectsOverlay().getPaths(), new Vector2(x, y), PATH_SELECT_TOLERANCE);
 		if (cursor != null) {
 			selectedPath = cursor.getPath();
 			return true;
@@ -45,9 +45,12 @@ public class SpawnUnitListener extends InputListener {
 	@Override
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
 		if (selectedPath != null) {
-			// Création d'une unité
-			SimpleUnit unit = worldObjectsOverlay.spawnUnit(Units.PALADIN, selectedPath, "castle2");
-			unit.getPathCursor().setDestination("castle1");
+			// Récupération de l'unité sélectionnée
+			Units selectedUnit = gameScreen.getUiOverlay().getSelectedUnit();
+			if (selectedUnit != null) {
+				// Création d'une unité
+				gameScreen.getObjectsOverlay().spawnUnit(selectedUnit, selectedPath);
+			}
 		}
 	}
 }

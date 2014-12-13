@@ -8,7 +8,6 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.world.pathfinder.Path;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.ai.AI;
-import com.slamdunk.wordarena.ai.BasicAI;
 import com.slamdunk.wordarena.screens.game.InGameUIOverlay;
 import com.slamdunk.wordarena.screens.game.WorldObjectsOverlay;
 import com.slamdunk.wordarena.units.Units;
@@ -29,7 +28,7 @@ public class GameScreenOld extends SlamScreen {
 		addOverlay(battlefieldOverlay);
 		
 		// Crée la couche qui contient les objets "dynamiques" du monde
-		objectsOverlay = new WorldObjectsOverlay();
+		objectsOverlay = new WorldObjectsOverlay(null);
 		addOverlay(objectsOverlay);
 		
 		// Crée la couche qui contient l'UI

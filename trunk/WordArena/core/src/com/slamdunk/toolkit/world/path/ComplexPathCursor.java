@@ -326,4 +326,8 @@ public class ComplexPathCursor {
 		
 		this.position = newPosition;
 	}
+
+	public float getDirection() {
+		return direction;
+	}
 }

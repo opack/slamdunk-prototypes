@@ -22,7 +22,9 @@ public class Arrow extends ProjectileUnit {
 		super(game);
 		setSpeed(300);
 		
-		setRange(0, 0);
+		// La portée de la flèche est la moitié de la taille de la flèche. En effet, lorsqu'une unité
+		// est à cette distance du centre de la flèche alors c'est que la flèche touche cette unité.
+		setRange(0, 32 / 2);
 		setDamage(1);
 		setAttackInterval(0);
 		

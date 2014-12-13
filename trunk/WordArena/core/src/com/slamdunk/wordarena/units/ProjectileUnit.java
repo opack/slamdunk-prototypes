@@ -2,6 +2,7 @@ package com.slamdunk.wordarena.units;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 
@@ -39,24 +40,34 @@ public class ProjectileUnit extends OffensiveUnit {
 		// jusqu'en dehors de l'écran
 		if (!launched) {
 			launched = true;
-//DBG			Vector2 destination = new Vector2(getX(), getY());
-//			switch (getDirection()) {
-//			case UP:
-//				destination.y = getGame().getBattlefieldOverlay().getMapHeight();
-//				break;
-//			case DOWN:
-//				destination.y = -1;
-//				break;
-//			case LEFT:
-//				destination.x = -1;
-//				break;
-//			case RIGHT:
-//				destination.x = getGame().getBattlefieldOverlay().getMapWidth();
-//				break;
-//			}
-			Vector2 destination = new Vector2(getTarget().getCenterX(), getTarget().getCenterY());
-			float timeToArrival = destination.dst(getX(), getY()) / getSpeed();
-			addAction(Actions.moveTo(destination.x, destination.y, timeToArrival));
+			// On va déterminer un point hors de la carte qui est sur la trajectoire vers la cible.
+			// C'est là qu'on enverra la flèche avant de la faire disparaître si elle n'a rien touché.
+			// Pour cela, on va utiliser la droite qui passe par le centre du projectile et de la cible.
+			Vector2 projectileCenter = getCenterPosition();
+			Vector2 targetCenter = getTarget().getCenterPosition();
+			
+			// Détermine les valeurs de a et b dans l'équation de droite y=ax+b
+			float a = (targetCenter.y - projectileCenter.y) / (targetCenter.x - projectileCenter.x);
+			float b = targetCenter.y - targetCenter.x * a;
+			
+			// Calcule l'endroit où la flèche sortira de la carte
+			Image map = (Image)getGame().getObjectsOverlay().getWorld().findActor("background");
+			Vector2 out = new Vector2();
+			if (targetCenter.x < projectileCenter.x) {
+				// Le projectile ira vers la gauche. Il va donc croiser le bord
+				// gauche de la carte. On calcule donc son y pour x=map.getX()
+				out.x = map.getX();
+			} else {
+				// Le projectile ira vers la droite. Il va donc croiser le bord
+				// droit de la carte. On calcule donc son y pour x=map.getX() + map.getWidth()
+				out.x = map.getX() + map.getWidth();
+			}
+			out.y = a * out.x + b;
+			float timeToArrival = out.dst(projectileCenter.x, projectileCenter.y) / getSpeed();
+			addAction(Actions.moveTo(out.x - getWidth() / 2, out.y - getHeight() / 2, timeToArrival));
+			
+			// Tourne la flèche dans la direction de la cible
+			setRotation(targetCenter.sub(projectileCenter).angle());
 		}
 		// Si le projectile a été lancé et que son déplacement est achevé,
 		// alors il est hors de l'écran : on le détruit
