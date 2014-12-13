@@ -25,9 +25,9 @@ public class Archer extends RangedUnit {
 		setFaction(Factions.PLAYER);
 		
 		setHp(10);
-		setSpeed(100);
+		setSpeed(25);
 		
-		setRange(0, 4);
+		setRange(0, 100);
 		setDamage(0.75f);
 		setAttackInterval(1f);
 		

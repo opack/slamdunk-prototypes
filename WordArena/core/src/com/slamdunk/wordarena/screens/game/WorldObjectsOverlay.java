@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
 import com.slamdunk.toolkit.world.path.ComplexPath;
+import com.slamdunk.toolkit.world.path.CursorMode;
 import com.slamdunk.wordarena.units.SimpleUnit;
 import com.slamdunk.wordarena.units.UnitManager;
 import com.slamdunk.wordarena.units.Units;
@@ -16,13 +17,13 @@ import com.slamdunk.wordarena.units.Units;
 public class WorldObjectsOverlay extends WorldOverlay {
 	private Array<ComplexPath> paths;
 	
-	public WorldObjectsOverlay() {
+	public WorldObjectsOverlay(GameScreen gameScreen) {
 		// On crée un Stage en attendant que la méthode init() utilise le bon viewport
 		createStage(new FitViewport(800, 480));
 		// Crée l'image contenant le fond de carte
 		Image background = new Image();
 		background.setName("background");
-		background.addListener(new SpawnUnitListener(this));
+		background.addListener(new SpawnUnitListener(gameScreen));
 		getWorld().addActor(background);
 		//
 		UnitManager.getInstance().setStageContainer(getWorld());
@@ -44,7 +45,7 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		return unit;
 	}
 	
-	public SimpleUnit spawnUnit(Units unitType, ComplexPath path, String destination) {
+	public SimpleUnit spawnUnit(Units unitType, ComplexPath path, String departureExtremity) {
 		// Crée l'unité
 		SimpleUnit unit = unitType.create((GameScreen)getScreen());
 		
@@ -52,7 +53,20 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		UnitManager.getInstance().addUnit(unit);
 		
 		// Envoie l'unité sur le chemin spécifié
-		unit.setPath(path, destination);
+		unit.setPath(path, departureExtremity);
+		
+		return unit;
+	}
+	
+	public SimpleUnit spawnUnit(Units unitType, ComplexPath path, float startT, CursorMode cursorMode) {
+		// Crée l'unité
+		SimpleUnit unit = unitType.create((GameScreen)getScreen());
+		
+		// Ajoute l'unité au monde
+		UnitManager.getInstance().addUnit(unit);
+		
+		// Envoie l'unité sur le chemin spécifié
+		unit.setPath(path, startT, cursorMode);
 		
 		return unit;
 	}

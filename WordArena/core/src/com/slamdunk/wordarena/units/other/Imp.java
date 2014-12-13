@@ -26,7 +26,7 @@ public class Imp extends OffensiveUnit {
 		setFaction(Factions.OTHER);
 		
 		setHp(30);
-		setSpeed(40);
+		setSpeed(15);
 
 		setRange(0, 0);
 		setDamage(2);

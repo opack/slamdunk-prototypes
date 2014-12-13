@@ -6,6 +6,8 @@ import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.PathUtils;
+import com.slamdunk.wordarena.ai.AI;
+import com.slamdunk.wordarena.ai.BasicAI;
 import com.slamdunk.wordarena.screens.MoveCameraDragListener;
 import com.slamdunk.wordarena.units.Units;
 
@@ -16,11 +18,13 @@ public class GameScreen extends SlamScreen {
 	private InGameUIOverlay uiOverlay;
 	private Array<ComplexPath> paths;
 	
+	private AI enemyAI;
+	
 	public GameScreen(SlamGame game) {
 		super(game);
 		
 		// Crée la couche qui contient les objets du monde
-		objectsOverlay = new WorldObjectsOverlay();
+		objectsOverlay = new WorldObjectsOverlay(this);
 		objectsOverlay.getStage().addListener(new MoveCameraDragListener(objectsOverlay.getStage().getCamera()));
 		addOverlay(objectsOverlay);
 		
@@ -29,6 +33,19 @@ public class GameScreen extends SlamScreen {
 		addOverlay(uiOverlay);
 		
 		paths = new Array<ComplexPath>();
+	}
+	
+	public InGameUIOverlay getUiOverlay() {
+		return uiOverlay;
+	}
+
+	public WorldObjectsOverlay getObjectsOverlay() {
+		return objectsOverlay;
+	}
+
+	@Override
+	public String getName() {
+		return NAME;
 	}
 	
 	/**
@@ -45,16 +62,18 @@ public class GameScreen extends SlamScreen {
 		paths = PathUtils.parseSVG("battlefields/battlefield0.svg", "paths");
 		objectsOverlay.setPaths(paths);
 		
+		// Création de l'IA adverse
+		enemyAI = new BasicAI(this, paths);
+		
 		// Création de l'interface utilisateur
 		uiOverlay.init(Units.PALADIN, Units.ARCHER);
 	}
 	
-	public WorldObjectsOverlay getObjectsOverlay() {
-		return objectsOverlay;
-	}
-
 	@Override
-	public String getName() {
-		return NAME;
+	public void render(float delta) {
+		// Fait agir l'adversaire
+		enemyAI.act(delta);
+		
+		super.render(delta);
 	}
 }

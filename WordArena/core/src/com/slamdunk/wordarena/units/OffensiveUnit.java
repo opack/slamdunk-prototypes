@@ -243,10 +243,10 @@ public class OffensiveUnit extends SimpleUnit {
 	 * Indique si l'unité spécifiée est à portée de cette unité.
 	 * On s'assure aussi que cette position est sur le chemin de l'unité
 	 * pour éviter qu'elle n'attaque des ennemis sur des chemins voisins.
-	 * @param unit
+	 * @param target
 	 * @return
 	 */
-	public boolean isInRange(SimpleUnit unit) {
+	public boolean isInRange(SimpleUnit target) {
 //		enemyBounds.set(unit.getX(), unit.getY(), unit.getWidth(), unit.getHeight());
 //		return enemyBounds.overlaps(rangeBounds)
 //DBG		// Soit l'unité n'est pas sur un chemin (typiquement pour les
@@ -254,13 +254,20 @@ public class OffensiveUnit extends SimpleUnit {
 //		// l'ennemi est sur le trajet de l'unité, sans quoi il est
 //		// interdit qu'elle l'attaque
 //		&& (getPath() == null || getPath().contains(unit.getPosition()));
+		
+		// Si l'unité est sur un chemin et qu'il est différent de celui
+		// de la cible, alors la cible est considérée comme étant hors
+		// de portée.
+		// Si l'unité n'est pas sur un chemin (typiquement pour les
+		// projectiles), alors on continue.
+		if (getPath() != null
+		&& getPath() != target.getPath()) {
+			return false;
+		}
+				
 		// L'ennemi doit être à portée
-		final float distanceToEnemy = unit.getPosition().dst(getX(), getY());
+		final float distanceToEnemy = target.getCenterPosition().dst(getCenterX(), getCenterY());
 		return rangeMin <= distanceToEnemy
-		&& distanceToEnemy <= rangeMax
-		// Soit l'unité n'est pas sur un chemin (typiquement pour les
-		// projectiles), soit elle est sur un chemin et on s'assure que
-		// l'ennemi est sur le même chemin
-		&& (getPath() == null || getPath() == unit.getPath());
+				&& distanceToEnemy <= rangeMax;
 	}
 }

@@ -32,9 +32,9 @@ public class Paladin extends OffensiveUnit {
 		setFaction(Factions.PLAYER);
 		
 		setHp(10);
-		setSpeed(75);
+		setSpeed(20);
 		
-		setRange(0, 0);
+		setRange(0, 20);
 		setDamage(1);
 		setAttackInterval(0.5f);
 		
