@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
+import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.toolkit.world.SlamActor;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.ComplexPathCursor;
 import com.slamdunk.toolkit.world.path.CursorMode;
 import com.slamdunk.toolkit.world.path.PathUtils;
-import com.slamdunk.toolkit.world.pathfinder.Directions;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 
@@ -54,7 +54,7 @@ public class SimpleUnit extends SlamActor {
 	/**
 	 * La direction dans laquelle regarde l'unité
 	 */
-	private Directions direction;
+	private Directions4 direction;
 	
 	/**
 	 * L'état qui identifie l'action en cours
@@ -71,7 +71,7 @@ public class SimpleUnit extends SlamActor {
 	 */
 	private float hp;
 	
-	private DoubleEntryArray<States, Directions, Animation> animations;
+	private DoubleEntryArray<States, Directions4, Animation> animations;
 	
 	/**
 	 * Vecteurs de travail pour la méthode performMove()
@@ -81,11 +81,11 @@ public class SimpleUnit extends SlamActor {
 	
 	public SimpleUnit(GameScreen game) {
 		this.game = game;
-		direction = Directions.RIGHT;
+		direction = Directions4.RIGHT;
 		speed = 1;
 		state = States.IDLE;
 		previousState = States.IDLE;
-		animations = new DoubleEntryArray<States, Directions, Animation>();
+		animations = new DoubleEntryArray<States, Directions4, Animation>();
 		
 		tmpMoveCurrent = new Vector2();
 		tmpMoveDestination = new Vector2();
@@ -96,7 +96,7 @@ public class SimpleUnit extends SlamActor {
 	 * @param direction
 	 * @param animation
 	 */
-	public void setAnimation(States state, Directions direction, Animation animation) {
+	public void setAnimation(States state, Directions4 direction, Animation animation) {
 		animations.put(state, direction, animation);
 	}
 	
@@ -119,7 +119,7 @@ public class SimpleUnit extends SlamActor {
 		setSize(preferedPixelsWidth / pixelsByUnit, preferedPixelsHeight / pixelsByUnit);
 	}
 	
-	public Directions getDirection() {
+	public Directions4 getDirection() {
 		return direction;
 	}
 
@@ -132,7 +132,7 @@ public class SimpleUnit extends SlamActor {
 	 * en cours
 	 * @param direction
 	 */
-	public void setDirection(Directions direction) {
+	public void setDirection(Directions4 direction) {
 		this.direction = direction;
 		chooseAnimation();
 	}
@@ -327,9 +327,7 @@ public class SimpleUnit extends SlamActor {
 			handleEventMovedOnePosition();
 			
 			// Applique une rotation à l'unité en fonction de la direction
-//			float angle = tmpMoveDestination.sub(tmpMoveCurrent).angle();
-//			setRotation(angle);
-			Directions newDirection = Directions.getDirection(tmpMoveCurrent, tmpMoveDestination);
+			Directions4 newDirection = Directions4.getDirection(tmpMoveCurrent, tmpMoveDestination);
 			if (newDirection != direction) {
 				direction = newDirection;
 				chooseAnimation();
