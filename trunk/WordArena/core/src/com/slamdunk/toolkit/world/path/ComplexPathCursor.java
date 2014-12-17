@@ -29,12 +29,6 @@ public class ComplexPathCursor {
 	 */
 	private int currentSegmentIndex;
 	
-	/** TODO DBG Ceci est la vitesse que met le curseur à parcourir un segment du chemin.
-	 * C'est déjà pas terrible sur un chemin, mais lorsqu'on a plusieurs segments c'est
-	 * carrément nul car l'objet va plus vite sur les longs segments car le temps de
-	 * parcours est constant, pas la vitesse. Il faut donc changer la gestion de la vitesse
-	 * pour que ce soit bien la vitesse qui soit constante.
-	 */
 	/**
 	 * Vitesse de déplacement du curseur
 	 */
@@ -242,7 +236,7 @@ public class ComplexPathCursor {
 		position += direction * (delta / segmentTime);
 		
 		// Passe au chemin suivant
-		while (position < 0 || position >= 1f) {
+		while (position < 0 || position > 1f) {
 			// Passe au chemin suivant dans la liste
 			currentSegmentIndex += (int)direction;
 			if (currentSegmentIndex < 0 || currentSegmentIndex >= path.size) {
@@ -255,13 +249,13 @@ public class ComplexPathCursor {
 					position = 1;
 					currentSegmentIndex = path.size - 1;
 					direction = 0;
-					return;
+					break;
 				// On ne fait rien d'autre, on s'arrête au début du chemin
 				case BACKWARD:
 					position = 0;
 					currentSegmentIndex = 0;
 					direction = 0;
-					return;
+					break;
 				// Retour au début et on continue à parcourir le chemin
 				case LOOP_FORWARD:
 					currentSegmentIndex = 0;
@@ -271,20 +265,20 @@ public class ComplexPathCursor {
 					position = direction + 1 - position;
 					direction *= -1;
 					currentSegmentIndex += (int)direction;
-					segmentTime = path.getLength(currentSegmentIndex) / speed;
-					return;
+					break;
 				// Retour à la fin et on continue à parcourir le chemin
 				case LOOP_BACKWARD:
 					currentSegmentIndex = path.size - 1;
 				}
+			} else {
+				// On n'a pas fait un tour. On remet alors simplement
+				// la position entre les bornes d'un chemin normal
+				position -= direction;
 			}
 			
 			// Adapte le temps de parcours du segment pour que la vitesse
 			// reste constante
 			segmentTime = path.getLength(currentSegmentIndex) / speed;
-			
-			// La position est remise entre les bornes d'un chemin normal
-			position -= direction;
 		}
 		
 		// Met à jour le vecteur contenant la position, s'il est fourni
