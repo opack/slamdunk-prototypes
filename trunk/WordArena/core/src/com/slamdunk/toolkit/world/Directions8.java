@@ -1,9 +1,9 @@
-package com.slamdunk.toolkit.world.pathfinder;
+package com.slamdunk.toolkit.world;
 
 import com.badlogic.gdx.math.Vector2;
 import com.slamdunk.toolkit.world.point.Point;
 
-public enum Directions {
+public enum Directions8 {
 	RIGHT,
 	UP_RIGHT,
 	UP,
@@ -22,10 +22,10 @@ public enum Directions {
 	 * @param nextPosition
 	 * @return null si les positions sont identiques
 	 */
-	public static Directions getDirection(Point currentPosition, Point nextPosition) {
+	public static Directions8 getDirection(Point currentPosition, Point nextPosition) {
 		int deltaX = nextPosition.getX() - currentPosition.getX();
 		int deltaY = nextPosition.getY() - currentPosition.getY();
-		Directions direction = null;
+		Directions8 direction = null;
 
 		// Même X
 		if (deltaX == 0) {
@@ -75,16 +75,39 @@ public enum Directions {
 	/**
 	 * Retourne la direction prise en fonction de la position actuelle et de la future
 	 * position, en utilisant l'angle que forment les 2 vecteurs. On retourne alors
-	 * la direction la plus proche de l'angle formé.
+	 * la direction la plus proche de l'angle formé parmi les 8 directions possibles.
 	 * @param currentPosition
 	 * @param nextPosition
 	 * @return null si les positions sont identiques
 	 */
-	public static Directions getDirection(Vector2 currentPosition, Vector2 nextPosition) {
+	public static Directions8 getDirection8(Vector2 currentPosition, Vector2 nextPosition) {
 		tmp.set(nextPosition);
 		float angle = tmp.sub(currentPosition).angle();
 		int dirIndex = Math.round(angle / 45);
-		return Directions.values()[dirIndex % Directions.values().length];
+		return Directions8.values()[dirIndex % Directions8.values().length];
+	}
+	
+	/**
+	 * Retourne la direction prise en fonction de la position actuelle et de la future
+	 * position, en utilisant l'angle que forment les 2 vecteurs. On retourne alors
+	 * la direction correspondant au quartier dans lequel se trouve l'angle
+	 * @param currentPosition
+	 * @param nextPosition
+	 * @return null si les positions sont identiques
+	 */
+	public static Directions8 getDirection4(Vector2 currentPosition, Vector2 nextPosition) {
+		tmp.set(nextPosition);
+		float angle = tmp.sub(currentPosition).angle();
+		if (angle > 315 || angle <= 45) {
+			return Directions8.RIGHT;
+		} else if (45 < angle && angle <= 135) {
+			return Directions8.UP;
+		} else if (135 < angle && angle <= 225) {
+			return Directions8.LEFT;
+		} else if (225 < angle && angle <= 315) {
+			return Directions8.DOWN;
+		}
+		return null;
 	}
 
 	/**
@@ -92,8 +115,8 @@ public enum Directions {
 	 * @param direction
 	 * @return
 	 */
-	public static Directions flip(Directions direction) {
-		Directions flipped = direction;
+	public static Directions8 flip(Directions8 direction) {
+		Directions8 flipped = direction;
 		switch (direction) {
 		case DOWN:
 			flipped = UP;

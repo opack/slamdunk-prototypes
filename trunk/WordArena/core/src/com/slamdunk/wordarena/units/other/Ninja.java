@@ -2,7 +2,7 @@ package com.slamdunk.wordarena.units.other;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
-import com.slamdunk.toolkit.world.pathfinder.Directions;
+import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 import com.slamdunk.wordarena.units.Factions;
@@ -31,23 +31,15 @@ public class Ninja extends OffensiveUnit {
 		setAttackInterval(1);
 		
 		initAnimationRendering(32, 32);
-		setAnimation(States.MOVING, Directions.RIGHT, ANIM_MOVING_RIGHT);
-		setAnimation(States.MOVING, Directions.UP_RIGHT, ANIM_MOVING_UP);
-		setAnimation(States.MOVING, Directions.UP_LEFT, ANIM_MOVING_UP);
-		setAnimation(States.MOVING, Directions.UP, ANIM_MOVING_UP);
-		setAnimation(States.MOVING, Directions.LEFT, ANIM_MOVING_LEFT);
-		setAnimation(States.MOVING, Directions.DOWN_LEFT, ANIM_MOVING_DOWN);
-		setAnimation(States.MOVING, Directions.DOWN, ANIM_MOVING_DOWN);
-		setAnimation(States.MOVING, Directions.DOWN_RIGHT, ANIM_MOVING_DOWN);
+		setAnimation(States.MOVING, Directions4.RIGHT, ANIM_MOVING_RIGHT);
+		setAnimation(States.MOVING, Directions4.UP, ANIM_MOVING_UP);
+		setAnimation(States.MOVING, Directions4.LEFT, ANIM_MOVING_LEFT);
+		setAnimation(States.MOVING, Directions4.DOWN, ANIM_MOVING_DOWN);
 
-		setAnimation(States.ATTACKING, Directions.RIGHT, ANIM_ATTACKING_RIGHT);
-		setAnimation(States.ATTACKING, Directions.UP_RIGHT, ANIM_ATTACKING_UP);
-		setAnimation(States.ATTACKING, Directions.UP_LEFT, ANIM_ATTACKING_UP);
-		setAnimation(States.ATTACKING, Directions.UP, ANIM_ATTACKING_UP);
-		setAnimation(States.ATTACKING, Directions.LEFT, ANIM_ATTACKING_LEFT);
-		setAnimation(States.ATTACKING, Directions.DOWN_LEFT, ANIM_ATTACKING_DOWN);
-		setAnimation(States.ATTACKING, Directions.DOWN, ANIM_ATTACKING_DOWN);
-		setAnimation(States.ATTACKING, Directions.DOWN_RIGHT, ANIM_ATTACKING_DOWN);
+		setAnimation(States.ATTACKING, Directions4.RIGHT, ANIM_ATTACKING_RIGHT);
+		setAnimation(States.ATTACKING, Directions4.UP, ANIM_ATTACKING_UP);
+		setAnimation(States.ATTACKING, Directions4.LEFT, ANIM_ATTACKING_LEFT);
+		setAnimation(States.ATTACKING, Directions4.DOWN, ANIM_ATTACKING_DOWN);
 	}
 	
 	@Override

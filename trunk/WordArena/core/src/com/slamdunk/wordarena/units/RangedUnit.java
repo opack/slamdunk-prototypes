@@ -26,6 +26,7 @@ public class RangedUnit extends OffensiveUnit {
 	protected void performHit() {
 		// Création d'un projectile
 		ProjectileUnit projectile = (ProjectileUnit)projectileUnit.create(getGame());
+		projectile.setDamage(getDamage()); // Les dégâts du projectile dépendent de ceux de l'unité
 		projectile.setFaction(getFaction());
 		projectile.setCenterPosition(getCenterX(), getCenterY());
 		UnitManager.getInstance().addUnit(projectile);
