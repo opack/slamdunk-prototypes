@@ -81,7 +81,7 @@ public class SimpleUnit extends SlamActor {
 	
 	public SimpleUnit(GameScreen game) {
 		this.game = game;
-		direction = Directions.RIGHT;//DBGDirections.UP;
+		direction = Directions.RIGHT;
 		speed = 1;
 		state = States.IDLE;
 		previousState = States.IDLE;
@@ -319,20 +319,26 @@ public class SimpleUnit extends SlamActor {
 	protected void performMove(float delta) {
 		// S'il reste un chemin à suivre, on le suit
 		if (pathCursor != null) {
+			tmpMoveCurrent.set(getCenterX(), getCenterY());
+
+			// Avance l'unité
+			pathCursor.move(delta, tmpMoveDestination);
+			setCenterPosition(tmpMoveDestination.x, tmpMoveDestination.y);
+			handleEventMovedOnePosition();
+			
+			// Applique une rotation à l'unité en fonction de la direction
+//			float angle = tmpMoveDestination.sub(tmpMoveCurrent).angle();
+//			setRotation(angle);
+			Directions newDirection = Directions.getDirection(tmpMoveCurrent, tmpMoveDestination);
+			if (newDirection != direction) {
+				direction = newDirection;
+				chooseAnimation();
+			}
+				
+				
+			// Teste si l'unité est arrivée
 			if (pathCursor.isArrivalReached()) {
 				handleEventArrivedAtDestination();
-			} else {
-				handleEventMovedOnePosition();
-				
-				tmpMoveCurrent.set(getCenterX(), getCenterY());
-
-				// Avance l'unité
-				pathCursor.move(delta, tmpMoveDestination);
-				setCenterPosition(tmpMoveDestination.x, tmpMoveDestination.y);
-				
-				// Applique une rotation à l'unité en fonction de la direction
-				float angle = tmpMoveDestination.sub(tmpMoveCurrent).angle();
-				setRotation(angle);
 			}
 		}
 	}
@@ -357,6 +363,8 @@ public class SimpleUnit extends SlamActor {
 	 * Appelée lorsque l'unité arrive à destination
 	 */
 	protected void handleEventArrivedAtDestination() {
+		// Par défaut, on passe en idle
+		setState(States.IDLE);
 	}
 
 	/**
@@ -377,17 +385,6 @@ public class SimpleUnit extends SlamActor {
 			setState(States.DYING);
 		}
 	}
-
-//	/**
-//	 * Retourne la position de l'unité
-//	 * @return
-//	 */
-//	public Point getPosition() {
-//		if (pathCursor == null) {
-//			return null;
-//		}
-//		return pathCursor.current();
-//	}
 	
 	/**
 	 * Retourne la position de l'unité

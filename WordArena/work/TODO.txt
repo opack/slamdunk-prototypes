@@ -1,8 +1,7 @@
 Champ de bataille
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-[ ] Gestion simplifié de la carte du champ de bataille : 1 fond de carte avec des chemins (invisibles) que suivent les unités
 [ ] Borner le déplacement de la carte pour qu'elle soit toujours visible   
-[ ] Images des unités : vue de dessus. Cela permet de rester cohérent avec la carte (vue de dessus) et de faire une rotation sur les unités au fur et à mesure du chemin, et cela simplifie le nombre d'images nécessaires
+[ ] Images des unités : 8 directions, pour plus de précision et de réalisme
 [ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
 
 Combat
