@@ -5,7 +5,6 @@ import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
-import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.OffensiveUnit;
 import com.slamdunk.wordarena.units.Units;
 
@@ -24,7 +23,6 @@ public class Imp extends OffensiveUnit {
 	
 	public Imp(GameScreen game) {
 		super(game, Units.IMP);
-		setFaction(Factions.ENEMY);
 		
 		setHp(30);
 		setSpeed(15);

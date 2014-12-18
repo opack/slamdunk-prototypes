@@ -8,8 +8,9 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.ai.AI;
 import com.slamdunk.wordarena.ai.BasicAI;
 import com.slamdunk.wordarena.screens.MoveCameraDragListener;
-import com.slamdunk.wordarena.screens.game.objectives.EliminationObjective;
 import com.slamdunk.wordarena.screens.game.objectives.ObjectiveManager;
+import com.slamdunk.wordarena.screens.game.objectives.ObjectiveManagerFactory;
+import com.slamdunk.wordarena.screens.game.objectives.Objectives;
 import com.slamdunk.wordarena.units.Units;
 
 public class GameScreen extends SlamScreen {
@@ -71,7 +72,8 @@ public class GameScreen extends SlamScreen {
 		enemyAI = new BasicAI(this, objectsOverlay.getPaths());
 		
 		// Création du gestionnaire d'objectif
-		objectiveManager = new EliminationObjective();
+		Objectives objective = Objectives.valueOf(battlefieldProperties.getStringProperty("objective", ""));
+		objectiveManager = ObjectiveManagerFactory.create(objective);
 		
 		// Création de l'interface utilisateur
 		uiOverlay.init(Units.PALADIN, Units.ARCHER);
