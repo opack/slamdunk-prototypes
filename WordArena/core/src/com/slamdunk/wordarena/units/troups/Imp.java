@@ -7,6 +7,7 @@ import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.OffensiveUnit;
+import com.slamdunk.wordarena.units.Units;
 
 public class Imp extends OffensiveUnit {
 	private static final Animation ANIM_MOVING_UP = AnimationCreator.create("textures/imp_moving.png", 4, 4, 0.25f, 0, 1, 2, 3);
@@ -22,7 +23,7 @@ public class Imp extends OffensiveUnit {
 	private static final Animation ANIM_DYING = AnimationCreator.create("textures/imp_dying.png", 7, 1, 0.25f);
 	
 	public Imp(GameScreen game) {
-		super(game);
+		super(game, Units.IMP);
 		setFaction(Factions.ENEMY);
 		
 		setHp(30);

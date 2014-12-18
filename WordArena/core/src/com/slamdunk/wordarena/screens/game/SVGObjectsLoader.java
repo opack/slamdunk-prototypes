@@ -9,6 +9,7 @@ import com.slamdunk.toolkit.svg.elements.SVGElementRect;
 import com.slamdunk.toolkit.svg.elements.SVGRootElement;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.PathUtils;
+import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.Units;
 
 public class SVGObjectsLoader {
@@ -53,7 +54,11 @@ public class SVGObjectsLoader {
 	}
 
 	private void createCastleFromSVG(SVGElementRect element) {
-		worldObjectsOverlay.spawnUnit(Units.CASTLE, element.x + element.width / 2, height - (element.y + element.height / 2));
+		worldObjectsOverlay.spawnUnit(
+			Units.CASTLE,
+			Factions.valueOf(element.getExtraAttribute("faction")),
+			element.x + element.width / 2,
+			height - (element.y + element.height / 2));
 	}
 
 	private void createPathFromSVG(SVGElementPath element, SVGPathToBezier pathConverter) {

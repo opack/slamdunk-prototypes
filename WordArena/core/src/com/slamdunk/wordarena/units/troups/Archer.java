@@ -23,7 +23,7 @@ public class Archer extends RangedUnit {
 	private static final Animation ANIM_ATTACKING_LEFT = AnimationCreator.create("textures/ranger_attacking.png", 4, 4, 0.25f, 12, 13, 14, 15);
 	
 	public Archer(GameScreen game) {
-		super(game);
+		super(game, Units.ARCHER);
 		setFaction(Factions.PLAYER);
 		
 		setHp(10);

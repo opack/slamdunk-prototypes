@@ -13,6 +13,7 @@ import com.slamdunk.toolkit.svg.SVGParse;
 import com.slamdunk.toolkit.svg.elements.SVGRootElement;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.CursorMode;
+import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.SimpleUnit;
 import com.slamdunk.wordarena.units.UnitManager;
 import com.slamdunk.wordarena.units.Units;
@@ -37,9 +38,10 @@ public class WorldObjectsOverlay extends WorldOverlay {
 	public void init(Camera camera, float worldUnitsPerPixel) {
 	}
 	
-	public SimpleUnit spawnUnit(Units unitType, float centerX, float centerY) {
+	public SimpleUnit spawnUnit(Units unitType, Factions faction, float centerX, float centerY) {
 		// Crée l'unité
 		SimpleUnit unit = unitType.create((GameScreen)getScreen());
+		unit.setFaction(faction);
 		
 		// Ajoute l'unité au monde
 		UnitManager.getInstance().addUnit(unit);

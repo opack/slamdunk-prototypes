@@ -7,6 +7,7 @@ import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.OffensiveUnit;
+import com.slamdunk.wordarena.units.Units;
 
 public class Ninja extends OffensiveUnit {
 	private static final Animation ANIM_MOVING_UP = AnimationCreator.create("textures/ninja_moving.png", 3, 4, 0.25f, 0, 1, 2);
@@ -20,7 +21,7 @@ public class Ninja extends OffensiveUnit {
 	private static final Animation ANIM_ATTACKING_LEFT = AnimationCreator.create("textures/ninja_attacking.png", 4, 4, 0.25f, 12, 13, 14, 15);
 	
 	public Ninja(GameScreen game) {
-		super(game);
+		super(game, Units.NINJA);
 		setFaction(Factions.ENEMY);
 		
 		setHp(10);

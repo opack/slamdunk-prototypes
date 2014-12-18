@@ -32,6 +32,11 @@ public class SimpleUnit extends SlamActor {
 	private GameScreen game;
 	
 	/**
+	 * Le type d'unité
+	 */
+	private Units type;
+	
+	/**
 	 * Le camp dans lequel se trouve l'unité
 	 */
 	private Factions faction;
@@ -79,8 +84,9 @@ public class SimpleUnit extends SlamActor {
 	private Vector2 tmpMoveCurrent;
 	private Vector2 tmpMoveDestination;
 	
-	public SimpleUnit(GameScreen game) {
+	public SimpleUnit(GameScreen game, Units type) {
 		this.game = game;
+		this.type = type;
 		direction = Directions4.RIGHT;
 		speed = 1;
 		state = States.IDLE;
@@ -91,6 +97,10 @@ public class SimpleUnit extends SlamActor {
 		tmpMoveDestination = new Vector2();
 	}
 	
+	public Units getType() {
+		return type;
+	}
+
 	/**
 	 * Définit l'animation à utiliser pour une direction donnée et l'état donné
 	 * @param direction
@@ -381,6 +391,15 @@ public class SimpleUnit extends SlamActor {
 		if (hp <= 0) {
 			setState(States.DYING);
 		}
+	}
+	
+	/**
+	 * Appelée lorsque l'unité pénètre dans un bâtiment
+	 * @param building
+	 */
+	public void onBuildingEntered(SimpleUnit building) {
+		// Par défaut, l'unité disparaît
+		UnitManager.getInstance().removeUnit(this);
 	}
 	
 	/**

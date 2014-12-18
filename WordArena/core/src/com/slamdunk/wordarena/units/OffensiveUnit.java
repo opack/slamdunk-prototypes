@@ -42,8 +42,8 @@ public class OffensiveUnit extends SimpleUnit {
 	 */
 	private SimpleUnit target;
 	
-	public OffensiveUnit(GameScreen game) {
-		super(game);
+	public OffensiveUnit(GameScreen game, Units type) {
+		super(game, type);
 		// Par défaut on cause 1 point de dégât
 		damage = 1;
 		// Par défaut on attaque 1 fois par seconde
