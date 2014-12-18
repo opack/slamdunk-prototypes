@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.screens.game.objectives;
+package com.slamdunk.wordarena.screens.game.goals;
 
 public class ObjectiveManagerFactory {
 	public static ObjectiveManager create(Objectives objective) {
