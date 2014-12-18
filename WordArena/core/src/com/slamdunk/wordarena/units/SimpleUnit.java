@@ -370,7 +370,6 @@ public class SimpleUnit extends SlamActor {
 	 */
 	protected void handleEventMovedOnePosition() {
 	}
-	
 
 	/**
 	 * Appelée lorsqu'une unité attaque cette unité

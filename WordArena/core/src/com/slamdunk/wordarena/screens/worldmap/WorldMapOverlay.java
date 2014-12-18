@@ -1,6 +1,7 @@
 package com.slamdunk.wordarena.screens.worldmap;
 
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -19,9 +20,12 @@ import com.slamdunk.wordarena.screens.game.GameScreen;
  * pour se rendre sur une mission particulière du jeu.
  */
 public class WorldMapOverlay extends UIOverlay {
+	MoveCameraDragListener moveCameraListener;
+	
 	public void createStage(Viewport viewport) {
 		super.createStage(viewport);
-		getStage().addListener(new MoveCameraDragListener(getStage().getCamera()));
+		moveCameraListener = new MoveCameraDragListener(getStage().getCamera());
+		getStage().addListener(moveCameraListener);
 	}
 
 	/**
@@ -32,6 +36,18 @@ public class WorldMapOverlay extends UIOverlay {
 		Image image = (Image)stage.getRoot().findActor("background");
 		image.setWidth(image.getPrefWidth());
 		image.setHeight(image.getPrefHeight());
+		
+		// La caméra ne doit pas perdre de vue la carte. On place les limites
+		// de déplacements de la caméra (donc du centre de la zone vue) dans
+		// un rectangle situé à 1/4 des bords de la carte.
+		Rectangle cameraBounds = new Rectangle();
+		cameraBounds.x = (int)(image.getWidth() / 4);
+		cameraBounds.y = (int)(image.getHeight() / 4);
+		// On laisse 1/4 de marge de chaque côté, donc la largeur totale de la zone
+		// de déplacement est 1 - 1/4 - 1/4 = 1/2 taille de l'image
+		cameraBounds.width = (int)(image.getWidth() / 2);
+		cameraBounds.height = (int)(image.getHeight() / 2);
+		moveCameraListener.setBounds(cameraBounds);
 		
 		// Ce listener sera chargé de démarrer une nouvelle mission
 		final ButtonClickListener launchMissionListener = new ButtonClickListener() {

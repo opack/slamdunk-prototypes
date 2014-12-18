@@ -6,8 +6,10 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -43,15 +45,27 @@ public class InGameUIOverlay extends UIOverlay {
 		for (int curButton = 0; curButton < NB_SPAWN_BUTTONS; curButton++) {
 			spawnButton = (Button)getActor("spawn_unit" + curButton);
 			if (curButton < spawnables.length) {
-				spawnButton.setUserObject(spawnables[curButton]);
+				Units unit = spawnables[curButton];
+				spawnButton.setUserObject(unit);
+				
+				Image buttonImage = unit.getButtonImage();
+				if (buttonImage != null) {
+					// On ne veut pas que l'image récupère les touches, mais plutôt le bouton
+					buttonImage.setTouchable(Touchable.disabled);
+					spawnButton.add(buttonImage);
+				}
 				group.add(spawnButton);
 			} else {
 				spawnButton.remove();
 			}
 		}
-		final Button selectUnits = (Button)getActor("move_camera");
-		group.add(selectUnits);
+		final Button moveCamera = (Button)getActor("move_camera");
+		group.add(moveCamera);
 		group.uncheckAll();
+		
+		// Par défaut, on active le bouton de déplacement de la caméra
+		moveCamera.setChecked(true);
+		selectedUnit = null;
 		
 		// Création des listeners qui interprèteront les clics sur les boutons
 		Map<String, EventListener> listeners = new HashMap<String, EventListener>();
