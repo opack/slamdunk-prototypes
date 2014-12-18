@@ -1,11 +1,9 @@
 package com.slamdunk.toolkit.world.path;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Bezier;
 import com.badlogic.gdx.math.Path;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.slamdunk.toolkit.svg.SVGParse;
 import com.slamdunk.toolkit.svg.converters.SVGPathToBezier;
 import com.slamdunk.toolkit.svg.elements.SVGElement;
 import com.slamdunk.toolkit.svg.elements.SVGElementPath;
@@ -157,40 +155,19 @@ public class PathUtils {
 	}
 	
 	/**
-	 * Parse le fichier SVG indiqué et crée une liste de ComplexPath à partir
+	 * Parse la racine SVG indiquée et crée une liste de ComplexPath à partir
 	 * des chemins trouvés dans la couche indiquée
 	 * @param file
 	 * @param layer
 	 */
-	public static Array<ComplexPath> parseSVG(String file, String layer) {
-		SVGParse parser = new SVGParse(Gdx.files.internal(file));
-		SVGRootElement root = new SVGRootElement();
-		parser.parse(root);
-		
+	public static Array<ComplexPath> parseSVG(SVGRootElement root, String layer) {
 		Array<ComplexPath> parsedPaths = new Array<ComplexPath>();
 		SVGElement svgPaths = root.getChildById(layer);
 		SVGPathToBezier converter = new SVGPathToBezier(root.height);
 		for (SVGElement child : svgPaths.getChildren()) {
 			if("path".equals(child.getName())) {
-				// Convertit les chemins SVG en liste de chemins de Bézier
-				Array<Bezier<Vector2>> beziers = converter.convert((SVGElementPath)child);
-				
-				// A partir de ces chemins de Bézier, on crée un ComplexPath
-				ComplexPath path = new ComplexPath();
-				for (Bezier<Vector2> bezier : beziers) {
-					// Si le chemin contient plus de 2 points, alors c'est une courbe de Bézier
-					// cubique ou quadratique. On la simplifie en liste de simples chemins
-					// linéaires
-					if (bezier.points.size > 2) {
-						path.addAll(PathUtils.simplify(bezier, (int)(bezier.approxLength(500) / 10)));
-					} else {
-						path.add(bezier);
-					}
-				}
-				
-				// Nomme les extrémités pour déterminer les sens de parcours des différentes unités
-				path.setExtremity0(child.getExtraAttribute("end1name"));
-				path.setExtremity1(child.getExtraAttribute("end2name"));
+				// Crée un ComplexPath à partir des infos du SVG
+				ComplexPath path = parseSVG((SVGElementPath)child, converter);
 				
 				// Ajoute le ComplexPath à la liste
 				parsedPaths.add(path);
@@ -198,6 +175,46 @@ public class PathUtils {
 		}
 		
 		return parsedPaths;
+	}
+	
+	/**
+	 * Parse la racine SVG indiquée et crée une liste de ComplexPath à partir
+	 * des chemins trouvés dans la couche indiquée
+	 * @param file
+	 * @param layer
+	 */
+	public static ComplexPath parseSVG(SVGElementPath svgPath, int svgHeight) {
+		return parseSVG(svgPath, new SVGPathToBezier(svgHeight));
+	}
+	
+	/**
+	 * Parse la racine SVG indiquée et crée une liste de ComplexPath à partir
+	 * des chemins trouvés dans la couche indiquée
+	 * @param file
+	 * @param layer
+	 */
+	public static ComplexPath parseSVG(SVGElementPath svgPath, SVGPathToBezier converter) {
+		// Convertit les chemins SVG en liste de chemins de Bézier
+		Array<Bezier<Vector2>> beziers = converter.convert(svgPath);
+		
+		// A partir de ces chemins de Bézier, on crée un ComplexPath
+		ComplexPath path = new ComplexPath();
+		for (Bezier<Vector2> bezier : beziers) {
+			// Si le chemin contient plus de 2 points, alors c'est une courbe de Bézier
+			// cubique ou quadratique. On la simplifie en liste de simples chemins
+			// linéaires
+			if (bezier.points.size > 2) {
+				path.addAll(PathUtils.simplify(bezier, (int)(bezier.approxLength(500) / 10)));
+			} else {
+				path.add(bezier);
+			}
+		}
+		
+		// Nomme les extrémités pour déterminer les sens de parcours des différentes unités
+		path.setExtremity0(svgPath.getExtraAttribute("end1name"));
+		path.setExtremity1(svgPath.getExtraAttribute("end2name"));
+		
+		return path;
 	}
 	
 	/**

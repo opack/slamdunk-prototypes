@@ -5,7 +5,6 @@ import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
-import com.slamdunk.wordarena.units.ProjectileUnit;
 
 public class Arrow extends ProjectileUnit {
 	private static final Animation ANIM_MOVING_UP = AnimationCreator.create("textures/arrow_moving.png", 4, 1, 0.25f, 0);

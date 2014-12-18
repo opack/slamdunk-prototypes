@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.units.player;
+package com.slamdunk.wordarena.units.troups;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,6 +15,8 @@ import com.slamdunk.wordarena.units.OffensiveUnit;
  * le touche. Cela permet de placer une ligne de défense à un endroit précis.
  */
 public class Paladin extends OffensiveUnit {
+	public static final String IMAGE_SPAWN_BUTTON = "textures/warrior_spawn.png";
+	
 	private static final Animation ANIM_MOVING_UP = AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, 0, 1, 2);
 	private static final Animation ANIM_MOVING_RIGHT = AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, 3, 4, 5);
 	private static final Animation ANIM_MOVING_DOWN = AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, 6, 7, 8);

@@ -1,10 +1,11 @@
-package com.slamdunk.wordarena.units;
+package com.slamdunk.wordarena.units.projectiles;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
+import com.slamdunk.wordarena.units.OffensiveUnit;
 
 /**
  * Un projectile qui est lancé et suit sa course jusqu'à sortir de l'écran

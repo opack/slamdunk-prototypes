@@ -84,7 +84,7 @@ public class SVGElement{
 	}
 	
 	public SVGElement getChildById(String id) {
-		if (id != null) {
+		if (id != null && children != null) {
 			for (SVGElement child : children) {
 				if (child.getId().equals(id)) {
 					return child;

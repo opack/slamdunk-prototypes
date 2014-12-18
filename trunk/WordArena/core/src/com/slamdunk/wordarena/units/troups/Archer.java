@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.units.player;
+package com.slamdunk.wordarena.units.troups;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
@@ -10,6 +10,8 @@ import com.slamdunk.wordarena.units.RangedUnit;
 import com.slamdunk.wordarena.units.Units;
 
 public class Archer extends RangedUnit {
+	public static final String IMAGE_SPAWN_BUTTON = "textures/ranger_spawn.png";
+	
 	private static final Animation ANIM_MOVING_UP = AnimationCreator.create("textures/ranger_moving.png", 3, 4, 0.25f, 0, 1, 2);
 	private static final Animation ANIM_MOVING_RIGHT = AnimationCreator.create("textures/ranger_moving.png", 3, 4, 0.25f, 3, 4, 5);
 	private static final Animation ANIM_MOVING_DOWN = AnimationCreator.create("textures/ranger_moving.png", 3, 4, 0.25f, 6, 7, 8);

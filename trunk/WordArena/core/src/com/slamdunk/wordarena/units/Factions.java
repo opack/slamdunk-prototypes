@@ -13,7 +13,7 @@ public enum Factions {
 	/**
 	 * Un autre camp : CPU, autre joueur
 	 */
-	OTHER;
+	ENEMY;
 
 	/**
 	 * Retourne la faction ennemie de celle passée en paramètre
@@ -21,6 +21,6 @@ public enum Factions {
 	 * @return
 	 */
 	public static Factions enemyOf(Factions faction) {
-		return faction == PLAYER ? OTHER : PLAYER;
+		return faction == PLAYER ? ENEMY : PLAYER;
 	}
 }

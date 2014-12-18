@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.units.other;
+package com.slamdunk.wordarena.units.troups;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
@@ -21,7 +21,7 @@ public class Ninja extends OffensiveUnit {
 	
 	public Ninja(GameScreen game) {
 		super(game);
-		setFaction(Factions.OTHER);
+		setFaction(Factions.ENEMY);
 		
 		setHp(10);
 		setSpeed(50);

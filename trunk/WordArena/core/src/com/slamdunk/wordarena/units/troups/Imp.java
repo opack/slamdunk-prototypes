@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.units.other;
+package com.slamdunk.wordarena.units.troups;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
@@ -23,7 +23,7 @@ public class Imp extends OffensiveUnit {
 	
 	public Imp(GameScreen game) {
 		super(game);
-		setFaction(Factions.OTHER);
+		setFaction(Factions.ENEMY);
 		
 		setHp(30);
 		setSpeed(15);
