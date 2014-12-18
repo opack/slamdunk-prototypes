@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.screens.game.objectives;
+package com.slamdunk.wordarena.screens.game.goals;
 
 import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.SimpleUnit;

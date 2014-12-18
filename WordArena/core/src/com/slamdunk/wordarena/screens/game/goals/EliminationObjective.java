@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.screens.game.objectives;
+package com.slamdunk.wordarena.screens.game.goals;
 
 /**
  * Détermine la fin d'une partie de type Elimination, où le joueur
