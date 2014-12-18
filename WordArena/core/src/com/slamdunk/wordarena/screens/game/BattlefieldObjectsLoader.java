@@ -12,7 +12,7 @@ import com.slamdunk.toolkit.world.path.PathUtils;
 import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.Units;
 
-public class SVGObjectsLoader {
+public class BattlefieldObjectsLoader {
 	private static final String SVG_PREFIX_PATH = "PATH";
 	private static final String SVG_PREFIX_CASTLE = "CASTLE";
 	
@@ -20,7 +20,7 @@ public class SVGObjectsLoader {
 	private SVGPathToBezier pathConverter;
 	private int height;
 	
-	public SVGObjectsLoader(WorldObjectsOverlay worldObjectsOverlay) {
+	public BattlefieldObjectsLoader(WorldObjectsOverlay worldObjectsOverlay) {
 		this.worldObjectsOverlay = worldObjectsOverlay;
 	}
 
