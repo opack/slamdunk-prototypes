@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.CursorMode;
 import com.slamdunk.wordarena.screens.game.GameScreen;
+import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.Units;
 
 /**
@@ -45,7 +46,7 @@ public class BasicAI implements AI {
 			
 			// Ajout de l'unité dans le monde et la fait partir depuis la fin d'un chemin
 			// vers le début, c'est-à-dire vers le château du joueur
-			game.getObjectsOverlay().spawnUnit(unit, paths.get(choosenPathIndex), 1, CursorMode.BACKWARD);
+			game.getObjectsOverlay().spawnUnit(unit, Factions.ENEMY, paths.get(choosenPathIndex), 1, CursorMode.BACKWARD);
 			
 			// Choix du prochain moment de spawn
 			nextSpawn = MathUtils.random(MIN_SPAWN_INTERVAL, MAX_SPAWN_INTERVAL);

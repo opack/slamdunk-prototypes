@@ -5,7 +5,6 @@ import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
-import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.OffensiveUnit;
 import com.slamdunk.wordarena.units.Units;
 
@@ -22,7 +21,6 @@ public class Ninja extends OffensiveUnit {
 	
 	public Ninja(GameScreen game) {
 		super(game, Units.NINJA);
-		setFaction(Factions.ENEMY);
 		
 		setHp(10);
 		setSpeed(50);

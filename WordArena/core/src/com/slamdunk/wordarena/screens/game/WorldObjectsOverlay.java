@@ -15,6 +15,7 @@ import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.CursorMode;
 import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.SimpleUnit;
+import com.slamdunk.wordarena.units.UnitFactory;
 import com.slamdunk.wordarena.units.UnitManager;
 import com.slamdunk.wordarena.units.Units;
 
@@ -40,7 +41,7 @@ public class WorldObjectsOverlay extends WorldOverlay {
 	
 	public SimpleUnit spawnUnit(Units unitType, Factions faction, float centerX, float centerY) {
 		// Crée l'unité
-		SimpleUnit unit = unitType.create((GameScreen)getScreen());
+		SimpleUnit unit = UnitFactory.create((GameScreen)getScreen(), unitType);
 		unit.setFaction(faction);
 		
 		// Ajoute l'unité au monde
@@ -52,9 +53,10 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		return unit;
 	}
 	
-	public SimpleUnit spawnUnit(Units unitType, ComplexPath path) {
+	public SimpleUnit spawnUnit(Units unitType, Factions faction, ComplexPath path) {
 		// Crée l'unité
-		SimpleUnit unit = unitType.create((GameScreen)getScreen());
+		SimpleUnit unit = UnitFactory.create((GameScreen)getScreen(), unitType);
+		unit.setFaction(faction);
 		
 		// Ajoute l'unité au monde
 		UnitManager.getInstance().addUnit(unit);
@@ -65,9 +67,10 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		return unit;
 	}
 	
-	public SimpleUnit spawnUnit(Units unitType, ComplexPath path, String departureExtremity) {
+	public SimpleUnit spawnUnit(Units unitType, Factions faction, ComplexPath path, String departureExtremity) {
 		// Crée l'unité
-		SimpleUnit unit = unitType.create((GameScreen)getScreen());
+		SimpleUnit unit = UnitFactory.create((GameScreen)getScreen(), unitType);
+		unit.setFaction(faction);
 		
 		// Ajoute l'unité au monde
 		UnitManager.getInstance().addUnit(unit);
@@ -78,9 +81,10 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		return unit;
 	}
 	
-	public SimpleUnit spawnUnit(Units unitType, ComplexPath path, float startT, CursorMode cursorMode) {
+	public SimpleUnit spawnUnit(Units unitType, Factions faction, ComplexPath path, float startT, CursorMode cursorMode) {
 		// Crée l'unité
-		SimpleUnit unit = unitType.create((GameScreen)getScreen());
+		SimpleUnit unit = UnitFactory.create((GameScreen)getScreen(), unitType);
+		unit.setFaction(faction);
 		
 		// Ajoute l'unité au monde
 		UnitManager.getInstance().addUnit(unit);

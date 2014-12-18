@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.ComplexPathCursor;
 import com.slamdunk.toolkit.world.path.PathUtils;
+import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.Units;
 
 /**
@@ -49,7 +50,7 @@ public class SpawnUnitListener extends InputListener {
 			Units selectedUnit = gameScreen.getUiOverlay().getSelectedUnit();
 			if (selectedUnit != null) {
 				// Création d'une unité
-				gameScreen.getObjectsOverlay().spawnUnit(selectedUnit, selectedPath);
+				gameScreen.getObjectsOverlay().spawnUnit(selectedUnit, Factions.PLAYER, selectedPath);
 			}
 		}
 	}
