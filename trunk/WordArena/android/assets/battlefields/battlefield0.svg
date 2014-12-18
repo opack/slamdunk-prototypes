@@ -157,13 +157,15 @@
        width="125.68893"
        height="125.68893"
        x="196.29681"
-       y="784.7149" />
+       y="784.7149"
+       faction="PLAYER" />
     <rect
        style="fill:none;stroke:#000000;stroke-width:2.31106997"
        id="CASTLE castle2"
        width="125.68893"
        height="125.68893"
        x="817.36737"
-       y="120.52689" />
+       y="120.52689"
+       faction="ENEMY" />
   </g>
 </svg>

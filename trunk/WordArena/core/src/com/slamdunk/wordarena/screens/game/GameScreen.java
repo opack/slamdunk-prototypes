@@ -8,6 +8,8 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.ai.AI;
 import com.slamdunk.wordarena.ai.BasicAI;
 import com.slamdunk.wordarena.screens.MoveCameraDragListener;
+import com.slamdunk.wordarena.screens.game.objectives.EliminationObjective;
+import com.slamdunk.wordarena.screens.game.objectives.ObjectiveManager;
 import com.slamdunk.wordarena.units.Units;
 
 public class GameScreen extends SlamScreen {
@@ -17,6 +19,7 @@ public class GameScreen extends SlamScreen {
 	private MoveCameraDragListener moveCameraListener;
 	private InGameUIOverlay uiOverlay;
 	
+	private ObjectiveManager objectiveManager;
 	private AI enemyAI;
 	
 	public GameScreen(SlamGame game) {
@@ -40,6 +43,10 @@ public class GameScreen extends SlamScreen {
 	public WorldObjectsOverlay getObjectsOverlay() {
 		return objectsOverlay;
 	}
+	
+	public ObjectiveManager getObjectiveManager() {
+		return objectiveManager;
+	}
 
 	@Override
 	public String getName() {
@@ -62,6 +69,9 @@ public class GameScreen extends SlamScreen {
 		
 		// Création de l'IA adverse
 		enemyAI = new BasicAI(this, objectsOverlay.getPaths());
+		
+		// Création du gestionnaire d'objectif
+		objectiveManager = new EliminationObjective();
 		
 		// Création de l'interface utilisateur
 		uiOverlay.init(Units.PALADIN, Units.ARCHER);

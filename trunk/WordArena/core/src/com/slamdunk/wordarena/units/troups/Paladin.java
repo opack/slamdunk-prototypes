@@ -9,6 +9,7 @@ import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.OffensiveUnit;
+import com.slamdunk.wordarena.units.Units;
 
 /**
  * Unité de tank. Le paladin a la particularité de s'arrêter sur place quand le joueur
@@ -28,7 +29,7 @@ public class Paladin extends OffensiveUnit {
 	private static final Animation ANIM_ATTACKING_LEFT = AnimationCreator.create("textures/warrior_attacking.png", 4, 4, 0.125f, 12, 13, 14, 15);
 	
 	public Paladin(GameScreen game) {
-		super(game);
+		super(game, Units.PALADIN);
 		setFaction(Factions.PLAYER);
 		
 		setHp(15);

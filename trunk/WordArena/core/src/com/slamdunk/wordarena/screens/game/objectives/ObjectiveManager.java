@@ -1,5 +1,7 @@
 package com.slamdunk.wordarena.screens.game.objectives;
 
+import com.slamdunk.wordarena.units.Factions;
+import com.slamdunk.wordarena.units.SimpleUnit;
 import com.slamdunk.wordarena.units.Units;
 
 /**
@@ -7,7 +9,7 @@ import com.slamdunk.wordarena.units.Units;
  * Suivant le scénario, elle décide alors si le jeu est terminé, et dans ce cas si le joueur
  * a gagné ou perdu.
  */
-public class EndGameManager {
+public class ObjectiveManager {
 	private GameState gameState;
 	
 	/**
@@ -15,14 +17,22 @@ public class EndGameManager {
 	 * @param building Le bâtiment qui vient d'être attaqué
 	 * @param attacker L'unité qui a attaqué le bâtiment
 	 */
-	public void onBuildingAttacked(Units building, Units attacker) {
+	public void onBuildingAttacked(SimpleUnit building, SimpleUnit attacker) {
+		if (building.getType() == Units.CASTLE
+		&& building.isDead()) {
+			if (building.getFaction() == Factions.PLAYER) {
+				System.err.println("PLAYER LOST !");
+			} else {
+				System.err.println("PLAYER WON !");
+			}
+		}
 	}
 
 	/**
 	 * Appelée lorsqu'une unité vient de mourir.
 	 * @param dead
 	 */
-	public void onUnitDead(Units dead) {
+	public void onUnitDead(SimpleUnit dead) {
 	}
 	
 	/**

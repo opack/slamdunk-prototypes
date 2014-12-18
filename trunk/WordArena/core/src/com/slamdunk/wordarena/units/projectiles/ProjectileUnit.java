@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 import com.slamdunk.wordarena.units.OffensiveUnit;
+import com.slamdunk.wordarena.units.Units;
 
 /**
  * Un projectile qui est lancé et suit sa course jusqu'à sortir de l'écran
@@ -13,8 +14,8 @@ import com.slamdunk.wordarena.units.OffensiveUnit;
 public class ProjectileUnit extends OffensiveUnit {
 	private boolean launched;
 	
-	public ProjectileUnit(GameScreen game) {
-		super(game);
+	public ProjectileUnit(GameScreen game, Units type) {
+		super(game, type);
 		// Par défaut, on touche à l'impact
 		setRange(0, 0);
 		// Par défaut, on fait 1 point de dégât

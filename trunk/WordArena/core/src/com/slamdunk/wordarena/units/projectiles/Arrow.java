@@ -5,6 +5,7 @@ import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
+import com.slamdunk.wordarena.units.Units;
 
 public class Arrow extends ProjectileUnit {
 	private static final Animation ANIM_MOVING_UP = AnimationCreator.create("textures/arrow_moving.png", 4, 1, 0.25f, 0);
@@ -18,7 +19,7 @@ public class Arrow extends ProjectileUnit {
 	private static final Animation ANIM_ATTACKING_LEFT = AnimationCreator.create("textures/arrow_attacking.png", 4, 1, 0.125f, 3);
 	
 	public Arrow(GameScreen game) {
-		super(game);
+		super(game, Units.ARROW);
 		setSpeed(300);
 		
 		// La portée de la flèche est la moitié de la taille de la flèche. En effet, lorsqu'une unité

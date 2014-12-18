@@ -11,8 +11,8 @@ public class RangedUnit extends OffensiveUnit {
 
 	private Units projectileUnit;
 	
-	public RangedUnit(GameScreen game) {
-		super(game);
+	public RangedUnit(GameScreen game, Units type) {
+		super(game, type);
 	}
 	
 	public Units getProjectileUnit() {
