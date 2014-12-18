@@ -129,7 +129,7 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		parser.parse(root);
 		
 		// Exploitation des données
-		SVGObjectsLoader loader = new SVGObjectsLoader(this);
+		BattlefieldObjectsLoader loader = new BattlefieldObjectsLoader(this);
 		loader.load(root);
 	}
 }
