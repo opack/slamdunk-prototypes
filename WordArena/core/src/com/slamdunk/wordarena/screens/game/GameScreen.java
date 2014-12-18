@@ -8,9 +8,9 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.ai.AI;
 import com.slamdunk.wordarena.ai.BasicAI;
 import com.slamdunk.wordarena.screens.MoveCameraDragListener;
-import com.slamdunk.wordarena.screens.game.goals.ObjectiveManager;
-import com.slamdunk.wordarena.screens.game.goals.ObjectiveManagerFactory;
-import com.slamdunk.wordarena.screens.game.goals.Objectives;
+import com.slamdunk.wordarena.screens.game.goals.GoalManager;
+import com.slamdunk.wordarena.screens.game.goals.GoalManagerFactory;
+import com.slamdunk.wordarena.screens.game.goals.Goals;
 import com.slamdunk.wordarena.units.Units;
 
 public class GameScreen extends SlamScreen {
@@ -20,7 +20,7 @@ public class GameScreen extends SlamScreen {
 	private MoveCameraDragListener moveCameraListener;
 	private InGameUIOverlay uiOverlay;
 	
-	private ObjectiveManager objectiveManager;
+	private GoalManager objectiveManager;
 	private AI enemyAI;
 	
 	public GameScreen(SlamGame game) {
@@ -45,7 +45,7 @@ public class GameScreen extends SlamScreen {
 		return objectsOverlay;
 	}
 	
-	public ObjectiveManager getObjectiveManager() {
+	public GoalManager getObjectiveManager() {
 		return objectiveManager;
 	}
 
@@ -72,8 +72,8 @@ public class GameScreen extends SlamScreen {
 		enemyAI = new BasicAI(this, objectsOverlay.getPaths());
 		
 		// Création du gestionnaire d'objectif
-		Objectives objective = Objectives.valueOf(battlefieldProperties.getStringProperty("objective", ""));
-		objectiveManager = ObjectiveManagerFactory.create(objective);
+		Goals objective = Goals.valueOf(battlefieldProperties.getStringProperty("objective", ""));
+		objectiveManager = GoalManagerFactory.create(objective);
 		
 		// Création de l'interface utilisateur
 		uiOverlay.init(Units.PALADIN, Units.ARCHER);

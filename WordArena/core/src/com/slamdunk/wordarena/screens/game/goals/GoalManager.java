@@ -9,7 +9,7 @@ import com.slamdunk.wordarena.units.Units;
  * Suivant le scénario, elle décide alors si le jeu est terminé, et dans ce cas si le joueur
  * a gagné ou perdu.
  */
-public class ObjectiveManager {
+public class GoalManager {
 	private GameState gameState;
 	
 	/**

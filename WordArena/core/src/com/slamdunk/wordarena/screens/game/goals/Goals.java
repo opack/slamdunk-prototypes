@@ -1,5 +1,5 @@
 package com.slamdunk.wordarena.screens.game.goals;
 
-public enum Objectives {
+public enum Goals {
 	ELIMINATION;
 }
