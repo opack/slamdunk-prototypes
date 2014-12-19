@@ -24,9 +24,4 @@ public class WordArenaGame extends SlamGame {
 		// Affiche le premier écran
 		setScreen(home);
 	}
-	
-	@Override
-	public void resize(int width, int height) {
-		super.resize(width, height);
-	}
 }

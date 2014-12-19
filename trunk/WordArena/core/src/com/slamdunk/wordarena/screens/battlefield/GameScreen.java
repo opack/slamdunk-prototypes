@@ -1,5 +1,7 @@
 package com.slamdunk.wordarena.screens.battlefield;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
@@ -8,6 +10,8 @@ import com.slamdunk.wordarena.ai.BasicAI;
 import com.slamdunk.wordarena.screens.battlefield.goals.GoalManager;
 import com.slamdunk.wordarena.screens.battlefield.goals.GoalManagerFactory;
 import com.slamdunk.wordarena.screens.battlefield.goals.Goals;
+import com.slamdunk.wordarena.screens.worldmap.WorldScreen;
+import com.slamdunk.wordarena.units.UnitManager;
 import com.slamdunk.wordarena.units.Units;
 
 public class GameScreen extends SlamScreen {
@@ -18,6 +22,8 @@ public class GameScreen extends SlamScreen {
 	
 	private GoalManager objectiveManager;
 	private AI enemyAI;
+	
+	private boolean gameOver;
 	
 	public GameScreen(SlamGame game) {
 		super(game);
@@ -55,11 +61,11 @@ public class GameScreen extends SlamScreen {
 		// Chargement du fichier de propriétés
 		TypedProperties battlefieldProperties = new TypedProperties(propertiesFile);
 		
-		// Chargement de l'image de fond
-		objectsOverlay.setBackgroundMap(battlefieldProperties.getStringProperty("background", ""));
+		// Nettoie les objets actuellements présents dans le jeu
+		objectsOverlay.init(battlefieldProperties.getStringProperty("background", ""), battlefieldProperties.getStringProperty("data", ""));
 		
-		// Chargement du SVG contenant les données additionnelles
-		objectsOverlay.loadObjects(battlefieldProperties.getStringProperty("data", ""));
+		// Supression des unités existantes
+		UnitManager.getInstance().removeAllUnits();
 		
 		// Création de l'IA adverse
 		enemyAI = new BasicAI(this, objectsOverlay.getPaths());
@@ -69,14 +75,36 @@ public class GameScreen extends SlamScreen {
 		objectiveManager = GoalManagerFactory.create(objective);
 		
 		// Création de l'interface utilisateur
+		// TODO Utiliser les unités autorisées du fichier properties et / ou celles choisies par l'utilisateur
 		uiOverlay.init(Units.PALADIN, Units.ARCHER);
+		
+		// Le jeu démarre, il n'est pas fini !
+		gameOver = false;
 	}
 
 	@Override
 	public void render(float delta) {
-		// Fait agir l'adversaire
-		enemyAI.act(delta);
+		// Teste la fin de partie
+		if (objectiveManager.isGameFinished()) {
+			if (!gameOver) {
+				// Affiche la fin du jeu
+				uiOverlay.showPopup(objectiveManager.getGameState().toString(), new ClickListener() {
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						getGame().setScreen(WorldScreen.NAME);
+					}
+				});
+				// Arrête toutes les unités
+				UnitManager.getInstance().stopAllUnits();
+				// Le jeu est fini !
+				gameOver = true;
+			}
+		} else {
+			// Fait agir l'adversaire
+			enemyAI.act(delta);
+		}
 		
+		// Met à jour les autres éléments du jeu
 		super.render(delta);
 	}
 }

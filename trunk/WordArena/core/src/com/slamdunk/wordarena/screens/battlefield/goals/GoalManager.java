@@ -1,8 +1,6 @@
 package com.slamdunk.wordarena.screens.battlefield.goals;
 
-import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.SimpleUnit;
-import com.slamdunk.wordarena.units.Units;
 
 /**
  * Cette classe est notifiée de tous les évènements qui pourraient conduire à une fin de jeu.
@@ -12,20 +10,16 @@ import com.slamdunk.wordarena.units.Units;
 public class GoalManager {
 	private GameState gameState;
 	
+	public GoalManager() {
+		gameState = GameState.RUNNING;
+	}
+	
 	/**
 	 * Appelée lorsqu'un bâtiment vient de subir des dégâts
 	 * @param building Le bâtiment qui vient d'être attaqué
 	 * @param attacker L'unité qui a attaqué le bâtiment
 	 */
 	public void onBuildingAttacked(SimpleUnit building, SimpleUnit attacker) {
-		if (building.getType() == Units.CASTLE
-		&& building.isDead()) {
-			if (building.getFaction() == Factions.PLAYER) {
-				System.err.println("PLAYER LOST !");
-			} else {
-				System.err.println("PLAYER WON !");
-			}
-		}
 	}
 
 	/**

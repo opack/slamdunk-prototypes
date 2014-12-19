@@ -32,7 +32,7 @@ public class Castle extends SimpleUnit {
 	public Castle(GameScreen game) {
 		super(game, Units.CASTLE);
 		
-		setHp(15);
+		setHp(1);
 		
 		initAnimationRendering(128, 128);
 		setAnimation(States.IDLE, Directions4.RIGHT, ANIM_IDLE);

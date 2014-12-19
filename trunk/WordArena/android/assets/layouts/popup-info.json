@@ -1,0 +1,28 @@
+{
+	debug: false,
+	rows: [
+		{
+			pad-tlbr: [0, 0, 10, 0],
+			cells: [
+				{
+					align: left,
+					widget: {
+						class: Label,
+						name: message
+					}
+				}
+			]
+		},
+		{
+			cells: [
+				{
+					widget: {
+						class: TextButton,
+						name: ok,
+						text: "OK"
+					},
+				}
+			]
+		}
+	]
+}

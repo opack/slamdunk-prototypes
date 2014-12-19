@@ -1,6 +1,16 @@
 {
 	widgets: [
 		{
+			class: Popup,
+			name: popup-info,
+			visible: false,
+			modal: true,
+			center-on-show: true,
+			layout: layouts/popup-info.json,
+			message-widget: message,
+			ok-widget: ok
+		},
+		{
 			class: Button,
 			name: move_camera,
 			x: 200,
