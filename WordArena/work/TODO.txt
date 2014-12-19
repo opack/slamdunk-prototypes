@@ -1,16 +1,17 @@
 Champ de bataille
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-[ ] Borner le déplacement de la carte pour qu'elle soit toujours visible   
+[ ] Gérer la fin de partie (affichage popup, retour à la carte du monde)
 [ ] Images des unités : 8 directions, pour plus de précision et de réalisme
 [ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
 
 Combat
 ¯¯¯¯¯¯
-
+[ ] Afficher des barres de vie pour les unités
 Monde
 ¯¯¯¯¯
-[ ] Borner le déplacement de la carte pour qu'elle soit toujours visible
 
 Gestion des unités
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
-[ ] Ajouter une image sur les boutons des unités
+[ ] Prévoir un countdown avant qu'une unité puisse être de nouveau invoquée
+[ ] Gérer la somme d'argent utilisée par le joueur pour invoquer des unités 
+[ ] Prévoir un nombre maximum d'unités de chaque type invocable (défini dans le properties de la mission)
