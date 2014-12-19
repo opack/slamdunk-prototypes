@@ -52,7 +52,7 @@ public class ProjectileUnit extends OffensiveUnit {
 			float a = (targetCenter.y - projectileCenter.y) / (targetCenter.x - projectileCenter.x);
 			float b = targetCenter.y - targetCenter.x * a;
 			
-			// Calcule l'endroit où la flèche sortira de la carte
+			// Calcule l'endroit où le projectile sortira de la carte
 			Image map = (Image)getGame().getObjectsOverlay().getWorld().findActor("background");
 			Vector2 out = new Vector2();
 			if (targetCenter.x < projectileCenter.x) {
@@ -68,7 +68,7 @@ public class ProjectileUnit extends OffensiveUnit {
 			float timeToArrival = out.dst(projectileCenter.x, projectileCenter.y) / getSpeed();
 			addAction(Actions.moveTo(out.x - getWidth() / 2, out.y - getHeight() / 2, timeToArrival));
 			
-			// Tourne la flèche dans la direction de la cible
+			// Tourne le projectile dans la direction de la cible
 			setRotation(targetCenter.sub(projectileCenter).angle());
 		}
 		// Si le projectile a été lancé et que son déplacement est achevé,
@@ -77,9 +77,11 @@ public class ProjectileUnit extends OffensiveUnit {
 			setState(States.DYING);
 		}
 		
-		// Si le projectile est en déplacement, on vérifie s'il
-		// touche un ennemi
+		// Si le projectile est en déplacement, on vérifie s'il touche un ennemi
 		if (getState() == States.MOVING) {
+			// Met à jour la portée de détection
+			getRange().setPosition(getCenterX(), getCenterY());
+			// Recherche un ennemi à portée
 			searchAndAttackEnnemy();
 		}
 	}

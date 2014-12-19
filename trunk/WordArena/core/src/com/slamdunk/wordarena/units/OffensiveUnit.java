@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Rectangle;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.game.GameScreen;
 
@@ -13,14 +16,9 @@ import com.slamdunk.wordarena.screens.game.GameScreen;
 public class OffensiveUnit extends SimpleUnit {
 	
 	/**
-	 * Portée minimale
+	 * Portée
 	 */
-	private float rangeMin;
-	
-	/**
-	 * Portée maximale
-	 */
-	private float rangeMax;
+	private Circle range;
 	
 	/**
 	 * Interval de temps entre 2 attaques (en secondes)
@@ -42,17 +40,29 @@ public class OffensiveUnit extends SimpleUnit {
 	 */
 	private SimpleUnit target;
 	
+	/**
+	 * Variable de travail utilisée pour calculer les bounds de l'ennemi
+	 */
+	private Rectangle tmpEnemyBounds;
+	
 	public OffensiveUnit(GameScreen game, Units type) {
 		super(game, type);
 		// Par défaut on cause 1 point de dégât
 		damage = 1;
 		// Par défaut on attaque 1 fois par seconde
 		attackInterval = 1;
+		// Par défaut, on a une portée de 0
+		range = new Circle();
+		// Initialisation du rectangle de travail
+		tmpEnemyBounds = new Rectangle();
+	}
+	
+	protected Circle getRange() {
+		return range;
 	}
 	
 	public void setRange(float min, float max) {
-		rangeMin = min;
-		rangeMax = max;
+		range.radius = max;
 	}
 	
 	public float getAttackInterval() {
@@ -117,6 +127,9 @@ public class OffensiveUnit extends SimpleUnit {
 	@Override
 	protected void performMove(float delta) {
 		super.performMove(delta);
+		
+		// Met à jour la portée de détection
+		range.setPosition(getCenterX(), getCenterY());
 		
 		// Cherche un ennemi à portée et l'attaque le cas échéant
 		searchAndAttackEnnemy();
@@ -202,10 +215,9 @@ public class OffensiveUnit extends SimpleUnit {
 		&& getPath() != target.getPath()) {
 			return false;
 		}
-				
+		
 		// L'ennemi doit être à portée
-		final float distanceToEnemy = target.getCenterPosition().dst(getCenterX(), getCenterY());
-		return rangeMin <= distanceToEnemy
-				&& distanceToEnemy <= rangeMax;
+		target.updateBounds(tmpEnemyBounds);
+		return Intersector.overlaps(range, tmpEnemyBounds);
 	}
 }
