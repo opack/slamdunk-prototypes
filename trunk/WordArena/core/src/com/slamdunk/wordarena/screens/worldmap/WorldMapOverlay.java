@@ -1,7 +1,6 @@
 package com.slamdunk.wordarena.screens.worldmap;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -13,7 +12,6 @@ import com.slamdunk.toolkit.svg.elements.SVGRootElement;
 import com.slamdunk.toolkit.ui.ButtonClickListener;
 import com.slamdunk.wordarena.screens.MoveCameraDragListener;
 import com.slamdunk.wordarena.screens.game.GameScreen;
-import com.slamdunk.wordarena.screens.worldmap.WorldMapObjectsLoader;
 
 /**
  * Gère une carte du monde qui contient plusieurs boutons à cliquer
@@ -51,16 +49,8 @@ public class WorldMapOverlay extends UIOverlay {
 		image.setHeight(image.getPrefHeight());
 		
 		// La caméra ne doit pas perdre de vue la carte. On place les limites
-		// de déplacements de la caméra (donc du centre de la zone vue) dans
-		// un rectangle situé à 1/4 des bords de la carte.
-		Rectangle cameraBounds = new Rectangle();
-		cameraBounds.x = (int)(image.getWidth() / 4);
-		cameraBounds.y = (int)(image.getHeight() / 4);
-		// On laisse 1/4 de marge de chaque côté, donc la largeur totale de la zone
-		// de déplacement est 1 - 1/4 - 1/4 = 1/2 taille de l'image
-		cameraBounds.width = (int)(image.getWidth() / 2);
-		cameraBounds.height = (int)(image.getHeight() / 2);
-		moveCameraListener.setBounds(cameraBounds);
+		// de déplacements de la caméra (donc du centre de la zone vue)
+		moveCameraListener.computeMoveBounds(getStage().getCamera(), image, 20);
 		
 //		// Parcours les fichiers descriptifs des battlefields
 //		// et ajoute les marqueurs sur la carte

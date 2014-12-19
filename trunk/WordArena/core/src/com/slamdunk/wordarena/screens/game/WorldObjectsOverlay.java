@@ -13,6 +13,7 @@ import com.slamdunk.toolkit.svg.SVGParse;
 import com.slamdunk.toolkit.svg.elements.SVGRootElement;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.CursorMode;
+import com.slamdunk.wordarena.screens.MoveCameraDragListener;
 import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.SimpleUnit;
 import com.slamdunk.wordarena.units.UnitFactory;
@@ -21,6 +22,7 @@ import com.slamdunk.wordarena.units.Units;
 
 public class WorldObjectsOverlay extends WorldOverlay {
 	private Array<ComplexPath> paths;
+	private MoveCameraDragListener moveCameraListener;
 	
 	public WorldObjectsOverlay(GameScreen gameScreen) {
 		// On crée un Stage en attendant que la méthode init() utilise le bon viewport
@@ -30,6 +32,9 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		background.setName("background");
 		background.addListener(new SpawnUnitListener(gameScreen));
 		getWorld().addActor(background);
+		// Initialisation du listener de déplacement de la caméra
+		moveCameraListener = new MoveCameraDragListener(getStage().getCamera());
+		getStage().addListener(moveCameraListener);
 		//
 		UnitManager.getInstance().setStageContainer(getWorld());
 		// Initalisation de la liste des chemins
@@ -105,6 +110,10 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		background.setDrawable(new TextureRegionDrawable(region));
 		background.setPosition(0, 0);
 		background.setSize(region.getRegionWidth(), region.getRegionHeight());
+		
+		// La caméra ne doit pas perdre de vue la carte. On place les limites
+		// de déplacements de la caméra (donc du centre de la zone vue)
+		moveCameraListener.computeMoveBounds(getStage().getCamera(), background, 20);
 	}
 
 	public Array<ComplexPath> getPaths() {

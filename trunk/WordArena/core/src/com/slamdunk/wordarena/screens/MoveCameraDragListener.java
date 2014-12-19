@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 
@@ -19,18 +20,35 @@ public class MoveCameraDragListener extends DragListener {
 	 * Rectangle dans lequel doit rester la caméra.
 	 * Utile pour s'assurer que le monde reste toujours visible.
 	 */
-	private Rectangle bounds;
+	private Rectangle moveBounds;
 	
 	public MoveCameraDragListener(Camera camera) {
 		this.camera = camera;
 	}
 	
-	public Rectangle getBounds() {
-		return bounds;
+	public Rectangle getMoveBounds() {
+		return moveBounds;
 	}
 
-	public void setBounds(Rectangle bounds) {
-		this.bounds = bounds;
+	public void setMoveBounds(Rectangle bounds) {
+		this.moveBounds = bounds;
+	}
+	
+	/**
+	 * Modifie les limites de déplacement de la caméra indiquée de façon à
+	 * ce que l'acteur spécifié soit toujours visible.
+	 * @param camera
+	 * @param alwaysSeenActor
+	 * @param margin
+	 */
+	public void computeMoveBounds(Camera camera, Actor alwaysSeenActor, float margin) {
+		if (moveBounds == null) {
+			moveBounds = new Rectangle();
+		}
+		moveBounds.x = (int)(alwaysSeenActor.getX() + camera.viewportWidth / 2 - margin);
+		moveBounds.y = (int)(alwaysSeenActor.getY() + camera.viewportHeight / 2 - margin);
+		moveBounds.width = (int)(alwaysSeenActor.getWidth() - camera.viewportWidth + 2 * margin);
+		moveBounds.height = (int)(alwaysSeenActor.getHeight() - camera.viewportHeight + 2 * margin);
 	}
 
 	public void dragStart(InputEvent event, float x, float y, int pointer) {
@@ -42,9 +60,9 @@ public class MoveCameraDragListener extends DragListener {
 		camera.position.x += previousDragPos.x - x;
 		camera.position.y += previousDragPos.y - y;
 		
-		if (bounds != null) {
-			camera.position.x = MathUtils.clamp(camera.position.x, bounds.x, bounds.x + bounds.width);
-			camera.position.y = MathUtils.clamp(camera.position.y, bounds.y, bounds.y + bounds.height);
+		if (moveBounds != null) {
+			camera.position.x = MathUtils.clamp(camera.position.x, moveBounds.x, moveBounds.x + moveBounds.width);
+			camera.position.y = MathUtils.clamp(camera.position.y, moveBounds.y, moveBounds.y + moveBounds.height);
 		}
 	}
 

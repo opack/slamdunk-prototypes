@@ -1,13 +1,10 @@
 package com.slamdunk.wordarena.screens.game;
 
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.ai.AI;
 import com.slamdunk.wordarena.ai.BasicAI;
-import com.slamdunk.wordarena.screens.MoveCameraDragListener;
 import com.slamdunk.wordarena.screens.game.goals.GoalManager;
 import com.slamdunk.wordarena.screens.game.goals.GoalManagerFactory;
 import com.slamdunk.wordarena.screens.game.goals.Goals;
@@ -17,7 +14,6 @@ public class GameScreen extends SlamScreen {
 	public static final String NAME = "GAME";
 
 	private WorldObjectsOverlay objectsOverlay;
-	private MoveCameraDragListener moveCameraListener;
 	private InGameUIOverlay uiOverlay;
 	
 	private GoalManager objectiveManager;
@@ -28,8 +24,6 @@ public class GameScreen extends SlamScreen {
 		
 		// Crée la couche qui contient les objets du monde
 		objectsOverlay = new WorldObjectsOverlay(this);
-		moveCameraListener = new MoveCameraDragListener(objectsOverlay.getStage().getCamera());
-		objectsOverlay.getStage().addListener(moveCameraListener);
 		addOverlay(objectsOverlay);
 		
 		// Crée la couche qui contient l'UI
@@ -63,7 +57,6 @@ public class GameScreen extends SlamScreen {
 		
 		// Chargement de l'image de fond
 		objectsOverlay.setBackgroundMap(battlefieldProperties.getStringProperty("background", ""));
-		initCameraBounds();
 		
 		// Chargement du SVG contenant les données additionnelles
 		objectsOverlay.loadObjects(battlefieldProperties.getStringProperty("data", ""));
@@ -77,23 +70,6 @@ public class GameScreen extends SlamScreen {
 		
 		// Création de l'interface utilisateur
 		uiOverlay.init(Units.PALADIN, Units.ARCHER);
-	}
-	
-	/**
-	 * La caméra ne doit pas perdre de vue la carte. On place les limites
-	 * de déplacements de la caméra (donc du centre de la zone vue) dans
-	 * un rectangle situé à 1/4 des bords de la carte.
-	 */
-	private void initCameraBounds() {
-		Image background = (Image)objectsOverlay.getWorld().findActor("background");
-		Rectangle cameraBounds = new Rectangle();
-		cameraBounds.x = (int)(background.getWidth() / 4);
-		cameraBounds.y = (int)(background.getHeight() / 4);
-		// On laisse 1/4 de marge de chaque côté, donc la largeur totale de la zone
-		// de déplacement est 1 - 1/4 - 1/4 = 1/2 taille de l'image
-		cameraBounds.width = (int)(background.getWidth() / 2);
-		cameraBounds.height = (int)(background.getHeight() / 2);
-		moveCameraListener.setBounds(cameraBounds);
 	}
 
 	@Override
