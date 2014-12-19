@@ -14,7 +14,7 @@ import com.slamdunk.toolkit.world.path.ComplexPathCursor;
 import com.slamdunk.toolkit.world.path.CursorMode;
 import com.slamdunk.toolkit.world.path.PathUtils;
 import com.slamdunk.wordarena.ai.States;
-import com.slamdunk.wordarena.screens.game.GameScreen;
+import com.slamdunk.wordarena.screens.battlefield.GameScreen;
 
 /**
  * Une unité lambda. Son IA est gérée de la façon suivante :

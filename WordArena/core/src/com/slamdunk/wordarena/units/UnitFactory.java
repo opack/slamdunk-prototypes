@@ -1,6 +1,6 @@
 package com.slamdunk.wordarena.units;
 
-import com.slamdunk.wordarena.screens.game.GameScreen;
+import com.slamdunk.wordarena.screens.battlefield.GameScreen;
 import com.slamdunk.wordarena.units.buildings.Castle;
 import com.slamdunk.wordarena.units.projectiles.Arrow;
 import com.slamdunk.wordarena.units.projectiles.ProjectileUnit;
