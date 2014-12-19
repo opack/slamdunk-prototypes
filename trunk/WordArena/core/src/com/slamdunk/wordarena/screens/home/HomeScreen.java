@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.screens;
+package com.slamdunk.wordarena.screens.home;
 
 import java.util.HashMap;
 import java.util.Map;
