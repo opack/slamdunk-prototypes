@@ -2,8 +2,8 @@ package com.slamdunk.wordarena;
 
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.settings.SlamSettings;
-import com.slamdunk.wordarena.screens.HomeScreen;
 import com.slamdunk.wordarena.screens.battlefield.GameScreen;
+import com.slamdunk.wordarena.screens.home.HomeScreen;
 import com.slamdunk.wordarena.screens.worldmap.WorldScreen;
 
 public class WordArenaGame extends SlamGame {
