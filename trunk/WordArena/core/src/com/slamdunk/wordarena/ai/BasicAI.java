@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.CursorMode;
-import com.slamdunk.wordarena.screens.game.GameScreen;
+import com.slamdunk.wordarena.screens.battlefield.GameScreen;
 import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.Units;
 

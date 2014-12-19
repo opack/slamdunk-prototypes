@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.slamdunk.wordarena.ai.States;
-import com.slamdunk.wordarena.screens.game.GameScreen;
+import com.slamdunk.wordarena.screens.battlefield.GameScreen;
 
 /**
  * Une unité qui va attaquer dès qu'une unité ennemie est à portée

@@ -9,7 +9,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
-import com.slamdunk.wordarena.screens.game.GameScreen;
+import com.slamdunk.wordarena.screens.battlefield.GameScreen;
 import com.slamdunk.wordarena.units.Factions;
 import com.slamdunk.wordarena.units.SimpleUnit;
 import com.slamdunk.wordarena.units.UnitManager;

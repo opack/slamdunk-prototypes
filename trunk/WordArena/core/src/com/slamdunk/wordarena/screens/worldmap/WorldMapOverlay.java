@@ -11,7 +11,7 @@ import com.slamdunk.toolkit.svg.SVGParse;
 import com.slamdunk.toolkit.svg.elements.SVGRootElement;
 import com.slamdunk.toolkit.ui.ButtonClickListener;
 import com.slamdunk.wordarena.screens.MoveCameraDragListener;
-import com.slamdunk.wordarena.screens.game.GameScreen;
+import com.slamdunk.wordarena.screens.battlefield.GameScreen;
 
 /**
  * Gère une carte du monde qui contient plusieurs boutons à cliquer
