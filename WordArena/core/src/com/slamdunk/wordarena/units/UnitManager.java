@@ -1,9 +1,11 @@
 package com.slamdunk.wordarena.units;
 
 import java.util.Collection;
+import java.util.List;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.slamdunk.toolkit.lang.KeyListMap;
+import com.slamdunk.wordarena.ai.States;
 
 /**
  * Gestionnaire des unités créées sur le terrain
@@ -47,7 +49,10 @@ public class UnitManager {
 	 */
 	public void removeUnit(SimpleUnit unit) {
 		stageContainer.removeActor(unit);
-		units.get(unit.getFaction()).remove(unit);
+		List<SimpleUnit> unitsOfFaction = units.get(unit.getFaction());
+		if (unitsOfFaction != null) {
+			unitsOfFaction.remove(unit);
+		}
 	}
 	
 	/**
@@ -56,5 +61,17 @@ public class UnitManager {
 	 */
 	public Collection<SimpleUnit> getUnits(Factions faction) {
 		return units.get(faction);
+	}
+
+	public void stopAllUnits() {
+		for (List<SimpleUnit> factionUnits : units.values()) {
+			for (SimpleUnit unit : factionUnits) {
+				unit.setState(States.IDLE);
+			}
+		}
+	}
+
+	public void removeAllUnits() {
+		units.clear();
 	}
 }

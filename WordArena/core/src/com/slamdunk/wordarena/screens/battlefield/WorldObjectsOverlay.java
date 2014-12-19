@@ -1,7 +1,6 @@
 package com.slamdunk.wordarena.screens.battlefield;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -27,11 +26,6 @@ public class WorldObjectsOverlay extends WorldOverlay {
 	public WorldObjectsOverlay(GameScreen gameScreen) {
 		// On crée un Stage en attendant que la méthode init() utilise le bon viewport
 		createStage(new FitViewport(800, 480));
-		// Crée l'image contenant le fond de carte
-		Image background = new Image();
-		background.setName("background");
-		background.addListener(new SpawnUnitListener(gameScreen));
-		getWorld().addActor(background);
 		// Initialisation du listener de déplacement de la caméra
 		moveCameraListener = new MoveCameraDragListener(getStage().getCamera());
 		getStage().addListener(moveCameraListener);
@@ -41,7 +35,15 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		paths = new Array<ComplexPath>();
 	}
 
-	public void init(Camera camera, float worldUnitsPerPixel) {
+	public void init(String mapFile, String svgDataFile) {
+		// Supprime les objets actuellement dans le monde
+		getWorld().clear();
+		
+		// Chargement de l'image de fond
+		setBackgroundMap(mapFile);
+		
+		// Chargement du SVG contenant les données additionnelles
+		loadObjects(svgDataFile);
 	}
 	
 	public SimpleUnit spawnUnit(Units unitType, Factions faction, float centerX, float centerY) {
@@ -105,7 +107,16 @@ public class WorldObjectsOverlay extends WorldOverlay {
 	 * @param mapImageFile
 	 */
 	public void setBackgroundMap(String mapImageFile) {
+		// Récupère le fond de carte
 		Image background = (Image)getWorld().findActor("background");
+		if (background == null) {
+			background = new Image();
+			background.setName("background");
+			background.addListener(new SpawnUnitListener((GameScreen)getScreen()));
+			getWorld().addActor(background);
+		}
+		
+		// Charge l'image à afficher comme fond de carte
 		TextureRegion region = new TextureRegion(new Texture(mapImageFile));
 		background.setDrawable(new TextureRegionDrawable(region));
 		background.setPosition(0, 0);

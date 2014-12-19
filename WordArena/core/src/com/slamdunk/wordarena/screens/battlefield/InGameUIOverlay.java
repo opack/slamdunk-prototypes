@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
+import com.slamdunk.toolkit.ui.Popup;
 import com.slamdunk.wordarena.units.Units;
 
 public class InGameUIOverlay extends UIOverlay {
@@ -37,7 +38,7 @@ public class InGameUIOverlay extends UIOverlay {
 	public void init(final Units... spawnables) {
 		// Charge les widgets
 		getStage().clear();
-		loadLayout("layouts/game.json");
+		loadLayout("layouts/battlefield.json");
 		
 		// Tous les boutons sont placés dans un groupe pour que seul un soit actif à la fois
 		ButtonGroup group = new ButtonGroup();
@@ -91,5 +92,15 @@ public class InGameUIOverlay extends UIOverlay {
 
 	public Units getSelectedUnit() {
 		return selectedUnit;
+	}
+	
+	public void showPopup(String message, ClickListener listener) {
+		final Popup popup = (Popup)getActor("popup-info");
+		popup.setMessage(message);
+		popup.getOkWidget().getListeners().clear();
+		if (listener != null) {
+			popup.getOkWidget().addListener(listener);
+		}
+		popup.show();
 	}
 }
