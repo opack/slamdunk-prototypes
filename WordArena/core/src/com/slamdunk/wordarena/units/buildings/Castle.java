@@ -66,10 +66,10 @@ public class Castle extends SimpleUnit {
 		tmpEnemies.addAll(enemies);
 		
 		// On vérifie si chaque unité est sur une des positions dans la portée.
-		updateBounds(tmpCastleBounds, this);
+		updateBounds(tmpCastleBounds);
 		for (SimpleUnit enemy : tmpEnemies) {
 			if (!enemy.isDead()) {
-				updateBounds(tmpEnemyBounds, enemy);
+				enemy.updateBounds(tmpEnemyBounds);
 				if (tmpEnemyBounds.overlaps(tmpCastleBounds)) {
 					// L'ennemi pénètre le château !!! On perd 1 HP et on retire l'unité
 					handleEventReceiveDamage(enemy, 1);
@@ -80,12 +80,5 @@ public class Castle extends SimpleUnit {
 				}
 			}
 		}
-	}
-
-	private void updateBounds(Rectangle bounds, SimpleUnit unit) {
-		bounds.x = unit.getX();
-		bounds.y = unit.getY();
-		bounds.width = unit.getWidth();
-		bounds.height = unit.getHeight();
 	}
 }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.world.Directions4;
@@ -76,6 +77,10 @@ public class SimpleUnit extends SlamActor {
 	 */
 	private float hp;
 	
+	/**
+	 * Table stockant les animations associées à chaque direction pour
+	 * chacun des état possibles
+	 */
 	private DoubleEntryArray<States, Directions4, Animation> animations;
 	
 	/**
@@ -429,5 +434,17 @@ public class SimpleUnit extends SlamActor {
 	 */
 	public boolean isDead() {
 		return hp <= 0;
+	}
+	
+	/**
+	 * Met à jour le rectangle spécifié avec les coordonnées de l'unité
+	 * @param bounds
+	 * @param unit
+	 */
+	public void updateBounds(Rectangle bounds) {
+		bounds.x = getX();
+		bounds.y = getY();
+		bounds.width = getWidth();
+		bounds.height = getHeight();
 	}
 }
