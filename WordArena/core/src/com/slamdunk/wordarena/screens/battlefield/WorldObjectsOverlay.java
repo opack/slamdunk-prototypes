@@ -24,7 +24,7 @@ public class WorldObjectsOverlay extends WorldOverlay {
 	private MoveCameraDragListener moveCameraListener;
 	
 	public WorldObjectsOverlay(GameScreen gameScreen) {
-		// On crée un Stage en attendant que la méthode init() utilise le bon viewport
+		// On crée un Stage en attendant que la méthode init() utilise le bon observationPoint
 		createStage(new FitViewport(800, 480));
 		// Initialisation du listener de déplacement de la caméra
 		moveCameraListener = new MoveCameraDragListener(getStage().getCamera());

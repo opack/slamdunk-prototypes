@@ -224,7 +224,7 @@ public class TiledMapOverlay implements SlamOverlay {
 		}
 		// Met à jour les matrices de la caméra
 		camera.update();
-		// Configure le renderer en fonction de ce que voit la caméra
+		// Configure le observationPoint en fonction de ce que voit la caméra
 		renderer.setView(camera);
 		// Procède au rendu de la map
 		renderer.render();

@@ -37,7 +37,7 @@ public class MoveCameraDragListener extends DragListener {
 	/**
 	 * Modifie les limites de déplacement de la caméra indiquée de façon à
 	 * ce que l'acteur spécifié soit toujours visible.
-	 * @param camera
+	 * @param observationPoint
 	 * @param alwaysSeenActor
 	 * @param margin
 	 */

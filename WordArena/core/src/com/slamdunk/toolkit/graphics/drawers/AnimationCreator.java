@@ -3,6 +3,7 @@ package com.slamdunk.toolkit.graphics.drawers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -59,6 +60,10 @@ public class AnimationCreator {
 		return new Animation(frameDuration, frames);
 	}
 	
+	public static Animation create(String spritesFile, int frameCols, int frameRows, float frameDuration, int... spriteIndexes) {
+		return create(spritesFile, frameCols, frameRows, frameDuration, null, spriteIndexes);
+	}
+	
 	/**
 	 * Crée une animation en utilisant une partie de la spriteSheet indiquée. Seuls les
 	 * sprites aux indices spécifiés par indexes sont utilisés.
@@ -70,7 +75,7 @@ public class AnimationCreator {
 	 * à droite et de haut en bas
 	 * @return
 	 */
-	public static Animation create(String spritesFile, int frameCols, int frameRows, float frameDuration, int... spriteIndexes) {
+	public static Animation create(String spritesFile, int frameCols, int frameRows, float frameDuration, PlayMode playMode, int... spriteIndexes) {
 		Texture spriteSheet = new Texture(Gdx.files.internal(spritesFile));
 		TextureRegion[][] tmp = TextureRegion.split(
 				spriteSheet,
@@ -81,6 +86,11 @@ public class AnimationCreator {
 		for (int spriteIndex : spriteIndexes) {
 			frames[index++] = tmp[spriteIndex / frameCols][spriteIndex % frameCols];
 		}
-		return new Animation(frameDuration, frames);
+		
+		Animation animation = new Animation(frameDuration, frames);
+		if (playMode != null) {
+			animation.setPlayMode(playMode);
+		}
+		return animation;
 	}
 }
