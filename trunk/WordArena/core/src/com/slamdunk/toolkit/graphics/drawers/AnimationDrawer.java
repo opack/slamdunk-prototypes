@@ -103,10 +103,10 @@ public class AnimationDrawer {
 	}
 	
 	/**
-	 * Dessine l'animation dans le batch indiqué, à la position
+	 * Dessine l'animation dans le drawBatch indiqué, à la position
 	 * de l'acteur
 	 * @param actor
-	 * @param batch
+	 * @param drawBatch
 	 */
 	public void draw(Actor actor, Batch batch) {
 		// Dessine l'animation, uniquement si elle est active et non nulle
@@ -203,7 +203,7 @@ public class AnimationDrawer {
 	 * <p>
 	 * EXAMPLE<br>
 	 * Actor has two animations idle and blinkeye. If you set the the momentary
-	 * animation as blinkeye, actor will blink eye and it will go its' regular
+	 * animation as blinkeye, actor will blink camera and it will go its' regular
 	 * animation such as idle
 	 * <p>
 	 * "animationAfterMomentary" For instance, a bat flies and changes into

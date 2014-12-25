@@ -12,7 +12,7 @@ public class SpriteBatchUtils {
 
     /**
      * Dessine le texte indiqué en le centrant dans la zone bounds.
-     * @param spriteBatch
+     * @param drawBatch
      * @param font
      * @param text
      * @param align

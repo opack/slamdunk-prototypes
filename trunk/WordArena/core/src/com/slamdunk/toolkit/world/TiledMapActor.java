@@ -81,7 +81,7 @@ public class TiledMapActor extends SlamActor {
 		tileHeight = (Integer)map.getProperties().get("tileheight");
 		pixelsByTile = (pixelsByUnit == -1) ? tileWidth : pixelsByUnit;
 		
-//		renderer = new OrthogonalTiledMapRenderer(map, 1/* / pixelsByTile*/);
+//		observationPoint = new OrthogonalTiledMapRenderer(map, 1/* / pixelsByTile*/);
 		renderer = new OrthogonalTiledMapRenderer(map, 1, getStage().getBatch());
 		
 		// Ajuste la taille de l'acteur à la carte 
@@ -102,9 +102,9 @@ public class TiledMapActor extends SlamActor {
 			return;
 		}
 //		// Met à jour les matrices de la caméra
-//		camera.update();
-//		// Configure le renderer en fonction de ce que voit la caméra
-//		renderer.setView((OrthographicCamera)getStage().getCamera());
+//		observationPoint.update();
+//		// Configure le observationPoint en fonction de ce que voit la caméra
+//		observationPoint.setView((OrthographicCamera)getStage().getCamera());
 		OrthographicCamera camera = (OrthographicCamera)getStage().getCamera();
 		float viewportWidth = camera.viewportWidth * camera.zoom;
 		float viewportHeight = camera.viewportHeight * camera.zoom;
