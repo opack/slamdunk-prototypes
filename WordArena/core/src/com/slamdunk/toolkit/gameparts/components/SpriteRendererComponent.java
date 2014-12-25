@@ -28,6 +28,7 @@ public class SpriteRendererComponent extends Component {
 	public void render(Batch batch) {
 		tmpOrigBatchColor = batch.getColor();
 		batch.setColor(tint);
+		System.out.println(transform.position);
 		batch.draw(textureRegion,
 			transform.position.x, transform.position.y,
 			transform.origin.x, transform.origin.y,
