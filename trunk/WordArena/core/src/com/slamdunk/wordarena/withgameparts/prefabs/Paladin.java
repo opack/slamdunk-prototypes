@@ -40,6 +40,9 @@ public class Paladin extends GameObject {
 		addComponent(controller);
 		addComponent(new AnimatorComponent());
 		addComponent(new SpriteRendererComponent());
-		addComponent(new PlayerMoveScript());
+		
+		PlayerMoveScript playerMoveScript = new PlayerMoveScript();
+		playerMoveScript.speed = 50;
+		addComponent(playerMoveScript);
 	}
 }
