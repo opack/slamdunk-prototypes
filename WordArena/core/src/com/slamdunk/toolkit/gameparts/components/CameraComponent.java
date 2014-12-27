@@ -1,7 +1,6 @@
 package com.slamdunk.toolkit.gameparts.components;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Matrix4;
 
 /**
@@ -32,17 +31,12 @@ public class CameraComponent extends Component {
 	}
 
 	@Override
-	public void update(float deltaTime) {
+	public void lateUpdate() {
 		orthoCam.position.set(transform.position);
 		orthoCam.viewportWidth = viewportWidth;
 		orthoCam.viewportHeight = viewportHeight;
 		orthoCam.zoom = zoom;
 		orthoCam.update();
-	}
-	
-	@Override
-	public void render(Batch batch) {
-		batch.setProjectionMatrix(orthoCam.combined);
 	}
 	
 	public Matrix4 getProjectionMatrix() {

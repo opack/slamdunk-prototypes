@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
@@ -109,7 +110,7 @@ public class WorldMapOverlay extends UIOverlay {
 	 */
 	public void createMissionButton(float centerX, float centerY, String battlefieldPropertiesFilePath) {
 		Button startMission = new Button(getSkin(), "default");
-		startMission.setCenterPosition(centerX, centerY);
+		startMission.setPosition(centerX, centerY, Align.center);
 		startMission.setSize(32, 32);
 		startMission.setUserObject(battlefieldPropertiesFilePath);
 		startMission.addListener(launchMissionListener);

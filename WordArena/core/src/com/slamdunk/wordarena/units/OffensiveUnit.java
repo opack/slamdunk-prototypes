@@ -7,6 +7,7 @@ import java.util.List;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.battlefield.GameScreen;
 
@@ -129,7 +130,7 @@ public class OffensiveUnit extends SimpleUnit {
 		super.performMove(delta);
 		
 		// Met à jour la portée de détection
-		range.setPosition(getCenterX(), getCenterY());
+		range.setPosition(getX(Align.center), getY(Align.center));
 		
 		// Cherche un ennemi à portée et l'attaque le cas échéant
 		searchAndAttackEnnemy();

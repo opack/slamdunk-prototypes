@@ -3,6 +3,7 @@ package com.slamdunk.wordarena.units.projectiles;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.battlefield.GameScreen;
 import com.slamdunk.wordarena.units.OffensiveUnit;
@@ -80,7 +81,7 @@ public class ProjectileUnit extends OffensiveUnit {
 		// Si le projectile est en déplacement, on vérifie s'il touche un ennemi
 		if (getState() == States.MOVING) {
 			// Met à jour la portée de détection
-			getRange().setPosition(getCenterX(), getCenterY());
+			getRange().setPosition(getX(Align.center), getY(Align.center));
 			// Recherche un ennemi à portée
 			searchAndAttackEnnemy();
 		}

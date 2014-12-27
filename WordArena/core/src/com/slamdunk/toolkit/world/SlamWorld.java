@@ -33,7 +33,7 @@ public class SlamWorld extends Group {
 	public SlamWorld(Viewport viewport) {
 		this();
 		setSize(viewport.getWorldWidth(), viewport.getWorldHeight());
-		setPosition(viewport.getViewportX(), viewport.getViewportY());
+		setPosition(viewport.getScreenX(), viewport.getScreenY());
 	}
 	
 	public float getSecondsElapsed() {

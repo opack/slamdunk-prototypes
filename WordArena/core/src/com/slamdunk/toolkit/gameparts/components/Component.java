@@ -34,6 +34,14 @@ public abstract class Component {
 	public boolean isUnique() {
 		return unique;
 	}
+
+	/**
+	 * Replace les valeurs par défaut du composant. Utilisé
+	 * pour réinitialiser les variables publiques notamment
+	 * avec des valeurs standards.
+	 */
+	public void reset() {
+	}
 	
 	/**
 	 * Méthode appelée 1 fois lors de l'initialisation du GameObject.
@@ -49,14 +57,34 @@ public abstract class Component {
 	}
 	
 	/**
-	 * Méthode appelée périodiquement pour mettre à jour le composant
+	 * Méthode appelée à intervalles réguliers pour mettre à jour la physique
+	 * du monde (déplacements, gravité...).
+	 */
+	public void physics() {
+	}
+
+	/**
+	 * Méthode appelée périodiquement pour mettre à jour le composant en
+	 * fonction de la logique du jeu, 1 fois par frame
 	 */
 	public void update(float deltaTime) {
 	}
 	
 	/**
+	 * Méthode appelée 1 fois par frame, après que tous les composants
+	 * aient effectué leur méthode update(). Cette méthode sert par exemple
+	 * à mettre à jour la position d'une caméra chargée de suivre un objet :
+	 * le personnage se déplace et tourne dans update(), et la caméra se
+	 * déplace et tourne à son tour une fois que tout est calculé, donc dans
+	 * postUpdate() ; ainsi on s'assure que le personnage s'est déplacé
+	 * complètement avant que la caméra ne suive sa position.
+	 */
+	public void lateUpdate() {
+	}
+	
+	/**
 	 * Méthode appelée à chaque frame pour dessiner le composant
-	 * @param drawBatch
+	 * @param batch
 	 */
 	public void render(Batch batch) {
 	}

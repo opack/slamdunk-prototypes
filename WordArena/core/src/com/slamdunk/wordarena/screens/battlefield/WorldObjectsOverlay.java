@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -55,7 +56,7 @@ public class WorldObjectsOverlay extends WorldOverlay {
 		UnitManager.getInstance().addUnit(unit);
 		
 		// Envoie l'unité sur le chemin spécifié
-		unit.setCenterPosition(centerX, centerY);
+		unit.setPosition(centerX, centerY, Align.center);
 		
 		return unit;
 	}
