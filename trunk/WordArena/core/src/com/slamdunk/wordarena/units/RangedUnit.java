@@ -1,5 +1,6 @@
 package com.slamdunk.wordarena.units;
 
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.battlefield.GameScreen;
 import com.slamdunk.wordarena.units.projectiles.ProjectileUnit;
@@ -29,7 +30,7 @@ public class RangedUnit extends OffensiveUnit {
 		ProjectileUnit projectile = UnitFactory.createProjectile(getGame(), projectileUnit);
 		projectile.setDamage(getDamage()); // Les dégâts du projectile dépendent de ceux de l'unité
 		projectile.setFaction(getFaction());
-		projectile.setCenterPosition(getCenterX(), getCenterY());
+		projectile.setPosition(getX(Align.center), getY(Align.center), Align.center);
 		UnitManager.getInstance().addUnit(projectile);
 		
 		// Envoi du projectile sur l'adversaire visé

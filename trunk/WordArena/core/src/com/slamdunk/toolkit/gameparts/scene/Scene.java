@@ -8,7 +8,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.slamdunk.toolkit.gameparts.components.CameraComponent;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.gameparts.gameobjects.ObservationPoint;
 
@@ -22,7 +21,11 @@ public class Scene implements Screen {
 	public ObservationPoint observationPoint;
 	private Batch drawBatch;
 	
+	private PhasePlanifier planifier;
+	
 	public Scene(int width, int height) {
+		planifier = new PhasePlanifier();
+		
 		layers = new ArrayList<Layer>();
 		layers.add(new Layer(DEFAULT_LAYER_NAME));
 		
@@ -30,8 +33,8 @@ public class Scene implements Screen {
 		
 		// Ajoute un GameObject ObservationPoint à la scène
 		observationPoint = new ObservationPoint();
-		observationPoint.getComponent(CameraComponent.class).viewportWidth = width;
-		observationPoint.getComponent(CameraComponent.class).viewportHeight = height;
+		observationPoint.camera.viewportWidth = width;
+		observationPoint.camera.viewportHeight = height;
 		addGameObject(observationPoint);
 	}
 	
@@ -61,7 +64,9 @@ public class Scene implements Screen {
 		if (found != -1) {
 			throw new IllegalArgumentException("There is already a layer with name " + name + " at index " + found);
 		}
-		layers.add(index, new Layer(name));
+		Layer layer = new Layer(name);
+		layers.add(index, layer);
+		layer.scene = this;
 		return index;
 	}
 	
@@ -78,15 +83,6 @@ public class Scene implements Screen {
 	}
 	
 	public void addGameObject(GameObject gameObject, int layerIndex) {
-		if (gameObject.isUnique()) {
-			Class<? extends GameObject> clazz = gameObject.getClass();
-			for (Layer curLayer : layers) {
-				if (curLayer.containsClass(clazz)) {
-					throw new IllegalStateException("There must only be one instance of " + clazz + " in a scene, as this GameObject is marked as unique.");
-				}
-			}
-		}
-		
 		if (layerIndex < 0
 		|| layerIndex > layers.size() - 1) {
 			throw new IllegalArgumentException("There is no layer at index " + layerIndex + ". Max layer index = " + (layers.size() - 1));
@@ -106,6 +102,7 @@ public class Scene implements Screen {
 	 * Initialise les GameObjects de la scène
 	 */
 	public void init() {
+		observationPoint.init();
 		for (Layer layer : layers) {
 			layer.init();
 		}
@@ -113,24 +110,44 @@ public class Scene implements Screen {
 	
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		// Récupération du temps écoulé depuis le dernier appel
+		planifier.update(Gdx.graphics.getRawDeltaTime());
 	    
-	    final float deltaTime = Gdx.graphics.getDeltaTime();
-	    for (Layer layer : layers) {
-	    	if (layer.active) {
-				layer.update(deltaTime);
-			}
-	    }
-	    
-		drawBatch.begin();
-		for (Layer layer : layers) {
-			if (layer.active
-			&& layer.visible) {
-				layer.render(drawBatch);
-			}
+	    // Calcul de la physique
+	    if (planifier.physicsTick()) {
+		    for (Layer layer : layers) {
+		    	if (layer.active) {
+					layer.physics(planifier.getPhysicsDeltaTime());
+				}
+		    }
 		}
-		drawBatch.end();
+	    
+	    if (planifier.frameTick()) {
+	    	// Application de la logique du jeu
+		    for (Layer layer : layers) {
+		    	if (layer.active) {
+					layer.update(planifier.getFrameDeltaTime());
+				}
+		    }
+		    for (Layer layer : layers) {
+		    	if (layer.active) {
+					layer.lateUpdate();
+				}
+		    }
+	    
+		    // Dessin de la scène
+		    Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+		    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+			drawBatch.begin();
+			drawBatch.setProjectionMatrix(observationPoint.camera.getProjectionMatrix());
+			for (Layer layer : layers) {
+				if (layer.active
+				&& layer.visible) {
+					layer.render(drawBatch);
+				}
+			}
+			drawBatch.end();
+	    }
 	}
 
 	@Override

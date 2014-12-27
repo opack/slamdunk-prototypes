@@ -12,9 +12,7 @@ public class ObservationPoint extends GameObject {
 	
 	public ObservationPoint() {
 		super();
-		
-		// Il ne peut y avoir qu'une seule caméra par scène
-		unique = true;
+		name = "ObservationPoint";
 		
 		// On a toujours un composant CameraComponent, qui indique
 		// quelle portion du monde est vu

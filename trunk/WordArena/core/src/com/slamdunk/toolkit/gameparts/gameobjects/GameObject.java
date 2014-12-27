@@ -15,13 +15,6 @@ public class GameObject {
 	private static final String DEFAULT_NAME_PREFIX = "GameObject";
 	private static long gameObjectsCount;
 	
-	/**
-	 * Indique si le GameObject doit être unique dans la scène.
-	 * Si true, une erreur sera levée si un autre GameObject de cette
-	 * classe tente d'être ajouté.
-	 */
-	public static boolean unique;
-	
 	private Map<Class<? extends Component>, Component> components;
 	
 	public Layer layer;
@@ -47,10 +40,6 @@ public class GameObject {
 		transform = new TransformComponent();
 		addComponent(transform);
 	}
-	
-	public boolean isUnique() {
-		return unique;
-	}
 
 	public void addComponent(Component component) {
 		if (component.isUnique()
@@ -60,6 +49,10 @@ public class GameObject {
 		
 		component.gameObject = this;
 		components.put(component.getClass(), component);
+	}
+	
+	public boolean removeComponent(Class<? extends Component> componentClass) {
+		return (components.remove(componentClass) != null);
 	}
 	
 	public <T extends Component> T getComponent(Class<T> componentClass) {
@@ -80,6 +73,24 @@ public class GameObject {
 	}
 	
 	/**
+	 * Met à jour la physique du GameObject en appelant la méthode
+	 * physics() de chacun des composants, dans l'ordre où ils ont
+	 * été ajoutés.
+	 * Cette méthode peut être appelée plusieurs fois par frame,
+	 * donc plusieurs fois avant qu'un appel soit fait à update().
+	 * L'appel est fait à intervalles réguliers
+	 * Attention : cette méthode appelle physics() uniquement sur 
+	 * les composants actifs.
+	 */
+	public void physics(float deltaTime) {
+		for (Component component : components.values()) {
+			if (component.active) {
+				component.update(deltaTime);
+			}
+		}
+	}
+	
+	/**
 	 * Met à jour la logique du GameObject en appelant la méthode
 	 * update() de chacun des composants, dans l'ordre où ils ont
 	 * été ajoutés.
@@ -90,6 +101,23 @@ public class GameObject {
 		for (Component component : components.values()) {
 			if (component.active) {
 				component.update(deltaTime);
+			}
+		}
+	}
+	
+	/**
+	 * Met à jour la logique du GameObject en appelant la méthode
+	 * lateUpdate() de chacun des composants, dans l'ordre où ils ont
+	 * été ajoutés.
+	 * Cette méthode n'est appelée qu'une fois que tous les composants
+	 * de tous les gameObjects on eut un appel à leur méthode update().
+	 * Attention : cette méthode appelle update() uniquement sur 
+	 * les composants actifs.
+	 */
+	public void lateUpdate() {
+		for (Component component : components.values()) {
+			if (component.active) {
+				component.lateUpdate();
 			}
 		}
 	}

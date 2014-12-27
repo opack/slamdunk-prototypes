@@ -1,6 +1,8 @@
 package com.slamdunk.toolkit.gameparts.scene;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -8,6 +10,8 @@ import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 
 public class Layer {
 	public String name;
+	
+	public Scene scene;
 	
 	public boolean active;
 	
@@ -19,9 +23,12 @@ public class Layer {
 	
 	public List<GameObject> gameObjects;
 	
+	private List<GameObject> tmpDepthSortedObjects;
+	
 	public Layer(String name) {
 		this.name = name;
 		gameObjects = new ArrayList<GameObject>();
+		tmpDepthSortedObjects = new ArrayList<GameObject>();
 		
 		// Par défaut, la couche est active et visible
 		active = true;
@@ -31,11 +38,20 @@ public class Layer {
 	public void addGameObject(GameObject gameObject) {
 		gameObject.layer = this;
 		gameObjects.add(gameObject);
+		tmpDepthSortedObjects.add(gameObject);
 	}
 	
 	public void init() {
 		for (GameObject gameObject : gameObjects) {
 			gameObject.init();
+		}
+	}
+	
+	public void physics(float deltaTime) {
+		for (GameObject gameObject : gameObjects) {
+			if (gameObject.active) {
+				gameObject.physics(deltaTime);
+			}
 		}
 	}
 	
@@ -46,21 +62,30 @@ public class Layer {
 			}
 		}
 	}
-
-	public void render(Batch drawBatch) {
+	
+	public void lateUpdate() {
 		for (GameObject gameObject : gameObjects) {
 			if (gameObject.active) {
-				gameObject.render(drawBatch);
+				gameObject.lateUpdate();
 			}
 		}
 	}
 
-	public boolean containsClass(Class<? extends GameObject> clazz) {
-		for (GameObject curGameObject : gameObjects) {
-			if (curGameObject.getClass() == clazz) {
-				return true;
+	public void render(Batch drawBatch) {
+		// Classe les gameObjects par z croissant pour commencer le rendu
+		// par ceux qui sont le plus au fond
+		Collections.sort(tmpDepthSortedObjects, new Comparator<GameObject>() {
+			@Override
+			public int compare(GameObject go1, GameObject go2) {
+				return Float.compare(go1.transform.position.z, go2.transform.position.z);
+			}
+		});
+		
+		// Dessine les objets
+		for (GameObject gameObject : tmpDepthSortedObjects) {
+			if (gameObject.active) {
+				gameObject.render(drawBatch);
 			}
 		}
-		return false;
 	}
 }

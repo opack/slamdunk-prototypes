@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.toolkit.world.SlamActor;
@@ -334,11 +335,11 @@ public class SimpleUnit extends SlamActor {
 	protected void performMove(float delta) {
 		// S'il reste un chemin à suivre, on le suit
 		if (pathCursor != null) {
-			tmpMoveCurrent.set(getCenterX(), getCenterY());
+			tmpMoveCurrent.set(getX(Align.center), getY(Align.center));
 
 			// Avance l'unité
 			pathCursor.move(delta, tmpMoveDestination);
-			setCenterPosition(tmpMoveDestination.x, tmpMoveDestination.y);
+			setPosition(tmpMoveDestination.x, tmpMoveDestination.y, Align.center);
 			handleEventMovedOnePosition();
 			
 			// Applique une rotation à l'unité en fonction de la direction
@@ -420,7 +421,7 @@ public class SimpleUnit extends SlamActor {
 	 * @return
 	 */
 	public Vector2 getCenterPosition() {
-		return new Vector2(getCenterX(), getCenterY());
+		return new Vector2(getX(Align.center), getY(Align.center));
 	}
 
 	@Override
