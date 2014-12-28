@@ -78,7 +78,8 @@ public class GameObject {
 	 * été ajoutés.
 	 * Cette méthode peut être appelée plusieurs fois par frame,
 	 * donc plusieurs fois avant qu'un appel soit fait à update().
-	 * L'appel est fait à intervalles réguliers
+	 * L'appel est fait à intervalles réguliers donc la valeur
+	 * de deltaTime est constante d'un appel sur l'autre.
 	 * Attention : cette méthode appelle physics() uniquement sur 
 	 * les composants actifs.
 	 */
