@@ -28,9 +28,4 @@ public class WordArenaGame extends SlamGame {
 		scene.init();
 		setScreen(scene);
 	}
-	
-	@Override
-	public void render() {
-		scene.render(0);
-	}
 }

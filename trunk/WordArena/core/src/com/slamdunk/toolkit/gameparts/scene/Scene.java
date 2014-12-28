@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,16 +15,21 @@ import com.slamdunk.toolkit.gameparts.gameobjects.ObservationPoint;
  * Contient tous les GameObjects d'une scène du jeu
  */
 public class Scene implements Screen {
+	public static final float DEFAULT_PHYSICS_FIXED_STEP = 1/80f;
+	public static final float DEFAULT_PHYSICS_MAX_STEP = 1/4f;
 	private static final String DEFAULT_LAYER_NAME = "default";
 	
 	public List<Layer> layers;
 	public ObservationPoint observationPoint;
 	private Batch drawBatch;
 	
-	private PhasePlanifier planifier;
+	public float physicsFixedStep;
+	public float physicsMaxStep;
+	private float accumulator;
 	
 	public Scene(int width, int height) {
-		planifier = new PhasePlanifier(80, 60);
+		physicsFixedStep = DEFAULT_PHYSICS_FIXED_STEP;
+		physicsMaxStep = DEFAULT_PHYSICS_MAX_STEP;
 		
 		layers = new ArrayList<Layer>();
 		layers.add(new Layer(DEFAULT_LAYER_NAME));
@@ -109,50 +113,64 @@ public class Scene implements Screen {
 		}
 	}
 	
-	FPSLogger fps = new FPSLogger();
-	
 	@Override
-	public void render(float delta) {
-		fps.log();
-		// Récupération du temps écoulé depuis le dernier appel
-		planifier.update(Gdx.graphics.getRawDeltaTime());
+	public void render(float deltaTime) {
+    	// Application de la logique du jeu
+    	applyGameLogic(deltaTime);
+    
+	    // Dessin de la scène
+	    renderScene();
 	    
 	    // Calcul de la physique
-	    if (planifier.physicsTick()) {
-	    	System.out.println("PHYSICS - " + planifier.getPhysicsDeltaTime());
-		    for (Layer layer : layers) {
-		    	if (layer.active) {
-					layer.physics(planifier.getPhysicsDeltaTime());
-				}
-		    }
-		}
-	    
-	    if (planifier.frameTick()) {
-	    	System.out.println("FRAME - " + planifier.getFrameDeltaTime());
-	    	// Application de la logique du jeu
-		    for (Layer layer : layers) {
-		    	if (layer.active) {
-					layer.update(planifier.getFrameDeltaTime());
-				}
-		    }
-		    for (Layer layer : layers) {
-		    	if (layer.active) {
-					layer.lateUpdate();
-				}
-		    }
-	    
-		    // Dessin de la scène
-		    Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-		    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-			drawBatch.begin();
-			drawBatch.setProjectionMatrix(observationPoint.camera.getProjectionMatrix());
-			for (Layer layer : layers) {
-				if (layer.active
-				&& layer.visible) {
-					layer.render(drawBatch);
-				}
+	    computePhysics(deltaTime);
+	}
+
+	private void applyGameLogic(float deltaTime) {
+		System.out.println("FRAME - " + deltaTime);
+		for (Layer layer : layers) {
+	    	if (layer.active) {
+				layer.update(deltaTime);
 			}
-			drawBatch.end();
+	    }
+	    for (Layer layer : layers) {
+	    	if (layer.active) {
+				layer.lateUpdate();
+			}
+	    }
+	}
+
+	private void renderScene() {
+		Gdx.gl.glClearColor(0, 0, 0.2f, 1);
+	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		drawBatch.begin();
+		drawBatch.setProjectionMatrix(observationPoint.camera.getProjectionMatrix());
+		for (Layer layer : layers) {
+			if (layer.active
+			&& layer.visible) {
+				layer.render(drawBatch);
+			}
+		}
+		drawBatch.end();
+	}
+	
+	private void computePhysics(float deltaTime) {
+		// S'assure que le temps de la frame est au pire de physicsMaxStep, de façon
+		// à donner une chance au CPU de rattraper son éventuel retard en faisant
+		// du coup moins d'itérations de calculs de physique
+		float frameTime = Math.min(deltaTime, physicsMaxStep);
+		
+	    accumulator += frameTime;
+	    while (accumulator >= physicsFixedStep) {
+	    	System.out.println("PHYSICS - " + deltaTime);
+	    	// Calcul de la physique pour 1 pas
+		    for (Layer layer : layers) {
+		    	if (layer.active) {
+					layer.physics(physicsFixedStep);
+				}
+		    }
+		    
+		    // On a 1 pas en moins dans le temps écoulé
+		    accumulator -= physicsFixedStep;
 	    }
 	}
 
