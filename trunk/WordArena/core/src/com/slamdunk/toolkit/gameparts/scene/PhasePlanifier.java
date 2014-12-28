@@ -5,17 +5,23 @@ package com.slamdunk.toolkit.gameparts.scene;
  * physics() et la méthode update()
  */
 public class PhasePlanifier {
-	/**
-	 * Nombre de màj de la physique qu'on souhaite seconde.
-	 * Cela détermine quand physicsTick() renvoie true.
-	 */
-	public float physicsRate;
+	private TimeAccumulator physicsTimer;
+	private TimeAccumulator frameTimer;
 	
 	/**
-	 * Nombre de frames qu'on souhaite afficher par seconde.
+	 * 
+	 * @param physicsRate Nombre de màj de la physique qu'on souhaite seconde.
+	 * Cela détermine quand physicsTick() renvoie true.
+	 * @param frameRate Nombre de frames qu'on souhaite afficher par seconde.
 	 * Cela détermine quand frameTick() renvoie true.
 	 */
-	public float frameRate;
+	public PhasePlanifier(float physicsRate, float frameRate) {
+		physicsTimer = new TimeAccumulator();
+		physicsTimer.tickTime = 1 / physicsRate;
+		
+		frameTimer = new TimeAccumulator();
+		frameTimer.tickTime = 1 / frameRate;
+	}
 	
 	/**
 	 * Met à jour les compteurs du planificateurs
@@ -23,15 +29,22 @@ public class PhasePlanifier {
 	 * @param rawDeltaTime
 	 */
 	public void update(float rawDeltaTime) {
+		physicsTimer.accumulate(rawDeltaTime);
+		frameTimer.accumulate(rawDeltaTime);
 	}
 	
 	/**
 	 * Indique s'il est temps de mettre à jour la physique,
-	 * ce qui implique l'appel à physics()
+	 * ce qui implique l'appel à physics().
+	 * Cette méthode prend aussi en compte le temps de
+	 * travail des calculs physiques de façon à ne pas
+	 * faire un tick() s'il ne reste pas assez de temps
+	 * avant le prochain frameTick
 	 * @return
 	 */
 	public boolean physicsTick() {
-		return false;
+		return physicsTimer.tick()
+			/*&& physicsTimer.getWorkTime() < frameTimer.getTimeToTick()*/;
 	}
 	
 	/**
@@ -39,7 +52,7 @@ public class PhasePlanifier {
 	 * @return
 	 */
 	public float getPhysicsDeltaTime() {
-		return 0;
+		return physicsTimer.getDeltaTime();
 	}
 
 	/**
@@ -48,8 +61,7 @@ public class PhasePlanifier {
 	 * @return
 	 */
 	public boolean frameTick() {
-		// TODO Auto-generated method stub
-		return false;
+		return frameTimer.tick();
 	}
 
 	/**
@@ -57,6 +69,6 @@ public class PhasePlanifier {
 	 * @return
 	 */
 	public float getFrameDeltaTime() {
-		return 0;
+		return frameTimer.getDeltaTime();
 	}
 }
