@@ -38,10 +38,4 @@ public class TestScene extends Scene {
 		paladin.getComponent(PathComponent.class).speed = 50;
 		addGameObject(paladin);
 	}
-	
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
-		super.render(delta);
-	}
 }

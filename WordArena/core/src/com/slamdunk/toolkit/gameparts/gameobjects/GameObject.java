@@ -85,7 +85,7 @@ public class GameObject {
 	public void physics(float deltaTime) {
 		for (Component component : components.values()) {
 			if (component.active) {
-				component.update(deltaTime);
+				component.physics(deltaTime);
 			}
 		}
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -24,7 +25,7 @@ public class Scene implements Screen {
 	private PhasePlanifier planifier;
 	
 	public Scene(int width, int height) {
-		planifier = new PhasePlanifier();
+		planifier = new PhasePlanifier(80, 60);
 		
 		layers = new ArrayList<Layer>();
 		layers.add(new Layer(DEFAULT_LAYER_NAME));
@@ -108,13 +109,17 @@ public class Scene implements Screen {
 		}
 	}
 	
+	FPSLogger fps = new FPSLogger();
+	
 	@Override
 	public void render(float delta) {
+		fps.log();
 		// Récupération du temps écoulé depuis le dernier appel
 		planifier.update(Gdx.graphics.getRawDeltaTime());
 	    
 	    // Calcul de la physique
 	    if (planifier.physicsTick()) {
+	    	System.out.println("PHYSICS - " + planifier.getPhysicsDeltaTime());
 		    for (Layer layer : layers) {
 		    	if (layer.active) {
 					layer.physics(planifier.getPhysicsDeltaTime());
@@ -123,6 +128,7 @@ public class Scene implements Screen {
 		}
 	    
 	    if (planifier.frameTick()) {
+	    	System.out.println("FRAME - " + planifier.getFrameDeltaTime());
 	    	// Application de la logique du jeu
 		    for (Layer layer : layers) {
 		    	if (layer.active) {

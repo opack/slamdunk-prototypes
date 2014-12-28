@@ -58,13 +58,16 @@ public class PathComponent extends Component {
 	}
 	
 	@Override
-	public void update(float deltaTime) {
+	public void physics(float deltaTime) {
 		tmpMoveCurrent.set(transformPosition.x, transformPosition.y);
 
 		// Avance l'unité
 		cursor.move(deltaTime, tmpMoveDestination);
 		transformPosition.set(tmpMoveDestination.x, tmpMoveDestination.y, 0);
-		
+	}
+	
+	@Override
+	public void update(float deltaTime) {
 		// Change la direction du gameObject
 		if (animationControllerComponent != null) {
 			animationControllerComponent.parameters.put("Direction", Directions4.getDirection(tmpMoveCurrent, tmpMoveDestination));

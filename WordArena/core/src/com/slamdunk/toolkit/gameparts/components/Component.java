@@ -45,7 +45,7 @@ public abstract class Component {
 	
 	/**
 	 * Méthode appelée 1 fois lors de l'initialisation du GameObject.
-	 * Cette méthode est utilise notamment si un composant doit utiliser
+	 * Cette méthode est utilisée notamment si un composant doit utiliser
 	 * d'autres composants, car à cette étape tous les composants
 	 * sont déjà instanciés (sauf si d'autres sont ajoutés dynamiquement par
 	 * la suite). Attention cependant car tous n'ont pas forcément été
@@ -59,8 +59,9 @@ public abstract class Component {
 	/**
 	 * Méthode appelée à intervalles réguliers pour mettre à jour la physique
 	 * du monde (déplacements, gravité...).
+	 * @param deltaTime 
 	 */
-	public void physics() {
+	public void physics(float deltaTime) {
 	}
 
 	/**

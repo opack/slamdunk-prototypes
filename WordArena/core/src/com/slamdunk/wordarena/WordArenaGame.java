@@ -8,7 +8,7 @@ import com.slamdunk.wordarena.screens.home.HomeScreen;
 import com.slamdunk.wordarena.screens.worldmap.WorldScreen;
 
 public class WordArenaGame extends SlamGame {
-	
+	TestScene scene;
 	@Override
 	public void create() {
 		super.create();
@@ -24,8 +24,13 @@ public class WordArenaGame extends SlamGame {
 		
 		// Affiche le premier écran
 		//setScreen(home);
-		TestScene scene = new TestScene();
+		scene = new TestScene();
 		scene.init();
 		setScreen(scene);
+	}
+	
+	@Override
+	public void render() {
+		scene.render(0);
 	}
 }
