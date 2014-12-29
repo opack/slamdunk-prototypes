@@ -3,7 +3,7 @@ GameParts
 [ ] Ajouter les composants :
 	[X] Particules
 	[ ] UI
-	[ ] LayeredSpriteRenderer
+	[/] LayeredSpriteRenderer : inutile, il suffit de faire un enfant à un GameObject
 	[ ] Colliders
 	[ ] Tween
 	[ ] Body et autres Box2d (https://github.com/libgdx/libgdx/wiki/box2d)

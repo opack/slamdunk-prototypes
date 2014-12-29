@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,7 +13,7 @@ import com.slamdunk.toolkit.gameparts.gameobjects.ObservationPoint;
 /**
  * Contient tous les GameObjects d'une scène du jeu
  */
-public class Scene implements Screen {
+public class Scene {
 	public static final float DEFAULT_PHYSICS_FIXED_STEP = 1/80f;
 	public static final float DEFAULT_PHYSICS_MAX_STEP = 1/4f;
 	public static final float DEFAULT_PHYSICS_TIME_SCALE = 1f;
@@ -103,6 +102,10 @@ public class Scene implements Screen {
 		return index;
 	}
 	
+	public GameObject addGameObject() {
+		return addGameObject(GameObject.class, 0);
+	}
+	
 	public <T extends GameObject> T addGameObject(Class<T> gameObjectClass) {
 		return addGameObject(gameObjectClass, 0);
 	}
@@ -156,7 +159,6 @@ public class Scene implements Screen {
 		root.init();
 	}
 	
-	@Override
 	public void render(float deltaTime) {
     	// Application de la logique du jeu
     	applyGameLogic(deltaTime);
@@ -196,35 +198,5 @@ public class Scene implements Screen {
 		    // On a 1 pas en moins dans le temps écoulé
 		    accumulator -= physicsFixedStep;
 	    }
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void show() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void resume() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void dispose() {
-		// TODO Auto-generated method stub
 	}
 }

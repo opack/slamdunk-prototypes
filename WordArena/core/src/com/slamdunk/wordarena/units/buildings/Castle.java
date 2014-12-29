@@ -6,7 +6,7 @@ import java.util.Collection;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.math.Rectangle;
-import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
+import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.battlefield.GameScreen;
@@ -20,7 +20,7 @@ import com.slamdunk.wordarena.units.Units;
  */
 public class Castle extends SimpleUnit {
 
-	private static final Animation ANIM_IDLE = AnimationCreator.create("textures/castle_idle.png", 8, 1, 0.0675f);
+	private static final Animation ANIM_IDLE = AnimationFactory.create("textures/castle_idle.png", 8, 1, 0.0675f);
 	static {
 		ANIM_IDLE.setPlayMode(PlayMode.LOOP);
 	}

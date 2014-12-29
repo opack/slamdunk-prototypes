@@ -1,4 +1,4 @@
-package com.slamdunk.toolkit.graphics.drawers;
+package com.slamdunk.toolkit.gameparts.creators;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,7 +14,7 @@ import com.badlogic.gdx.utils.Array;
  * @author Didier
  *
  */
-public class AnimationCreator {
+public class AnimationFactory {
 	
 	/**
 	 * Crée une animation en utilisant les régions nommées regionName dans l'atlas

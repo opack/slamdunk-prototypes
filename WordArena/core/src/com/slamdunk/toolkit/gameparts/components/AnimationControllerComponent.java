@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.utils.Array;
 
 /**
  * Gère différents états et les paramètres qui autorisent les transitions entre eux.
@@ -11,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.Animation;
  * Nécessite que le GameObject contienne un AnimatorComponent.
  */
 public class AnimationControllerComponent extends Component {
+	public static final String ANY_STATE_NAME = "AnyState";
+	
 	public class Condition {
 		public String parameter;
 		public Object completionValue;
@@ -30,10 +33,15 @@ public class AnimationControllerComponent extends Component {
 	}
 	
 	public class Transition {
-		public Condition[] conditions;
+		public Array<Condition> conditions;
 		public String nextState;
 		
 		public Transition (String nextState, Condition... conditions) {
+			this.nextState = nextState;
+			this.conditions = new Array<Condition>(conditions);
+		}
+		
+		public Transition (String nextState, Array<Condition> conditions) {
 			this.nextState = nextState;
 			this.conditions = conditions;
 		}
@@ -53,40 +61,53 @@ public class AnimationControllerComponent extends Component {
 	public class State {
 		public String name;
 		public Animation animation;
-		public Transition[] transitions;
+		public Array<Transition> transitions;
 		
 		public State(String name) {
 			this.name = name;
+			this.transitions = new Array<Transition>();
 		}
 		
 		public State(String name, Animation animation, Transition... transitions) {
-			this.name = name;
+			this(name);
 			this.animation = animation;
-			this.transitions = transitions;
+			this.transitions.addAll(transitions);
 		}
 		
-		public void performTransition() {
+
+		public void addTransition(String nextState, Condition... conditions) {
+			transitions.add(new Transition(nextState, conditions));
+		}
+		
+		public void addTransition(String nextState, Object... conditionDatas) {
+			Array<Condition> conditions = new Array<Condition>();
+			String parameter;
+			Object value;
+			for (int curCondition = 0; curCondition < conditionDatas.length; curCondition += 2) {
+				parameter = (String)conditionDatas[curCondition];
+				value = conditionDatas[curCondition + 1];
+				conditions.add(new Condition(parameter, value));
+			}
+			transitions.add(new Transition(nextState, conditions));
+		}
+		
+		public boolean performTransition() {
 			if (transitions != null) {
-				for (Transition transition : globalTransitions) {
-					if (transition.isComplete()) {
-						setCurrentState(transition.nextState);
-						return;
-					}
-				}
 				for (Transition transition : transitions) {
 					if (transition.isComplete()) {
 						setCurrentState(transition.nextState);
-						return;
+						return true;
 					}
 				}
 			}
+			return false;
 		}
 	}
 	
 	public Map<String, State> states;
 	public String defaultState;
 	public Map<String, Object> parameters;
-	public Transition[] globalTransitions;
+	public State anyState;
 	
 	private AnimatorComponent animator;
 	private State currentState;
@@ -96,20 +117,16 @@ public class AnimationControllerComponent extends Component {
 		states = new HashMap<String, State>();
 	}
 
-	public void setCurrentState(State state) {
-		if (state != currentState) {
-			animator.setAnimation(state.animation);
-			animator.stateTime = 0;
-			currentState = state;
-		}
-	}
-	
 	public void setCurrentState(String name) {
 		State newState = states.get(name);
 		if (newState == null) {
 			throw new IllegalArgumentException("There is no state named " + name + " !");
 		}
-		setCurrentState(newState);
+		if (newState != currentState) {
+			animator.setAnimation(newState.animation);
+			animator.stateTime = 0;
+			currentState = newState;
+		}
 	}
 	
 	@Override
@@ -123,8 +140,9 @@ public class AnimationControllerComponent extends Component {
 	public void reset() {
 		parameters.clear();
 		states.clear();
-		defaultState = "";
-		globalTransitions = null;
+		anyState = addState(ANY_STATE_NAME, null);
+		defaultState = null;
+		currentState = null;
 	}
 	
 	@Override
@@ -147,7 +165,15 @@ public class AnimationControllerComponent extends Component {
 	
 	@Override
 	public void update(float deltaTime) {
-		currentState.performTransition();
+		if (!anyState.performTransition()) {
+			currentState.performTransition();
+		}
+	}
+	
+	public State addState(String name, Animation animation) {
+		State state = this.new State(name, animation);
+		states.put(name, state);
+		return state;
 	}
 
 	public void addStates(State... states) {

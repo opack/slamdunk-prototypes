@@ -1,7 +1,7 @@
 package com.slamdunk.wordarena.units.troups;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
+import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.battlefield.GameScreen;
@@ -9,17 +9,17 @@ import com.slamdunk.wordarena.units.OffensiveUnit;
 import com.slamdunk.wordarena.units.Units;
 
 public class Imp extends OffensiveUnit {
-	private static final Animation ANIM_MOVING_UP = AnimationCreator.create("textures/imp_moving.png", 4, 4, 0.25f, 0, 1, 2, 3);
-	private static final Animation ANIM_MOVING_LEFT = AnimationCreator.create("textures/imp_moving.png", 4, 4, 0.25f, 4, 5, 6, 7);
-	private static final Animation ANIM_MOVING_DOWN = AnimationCreator.create("textures/imp_moving.png", 4, 4, 0.25f, 8, 9, 10, 11);
-	private static final Animation ANIM_MOVING_RIGHT = AnimationCreator.create("textures/imp_moving.png", 4, 4, 0.25f, 12, 13, 14, 15);
+	private static final Animation ANIM_MOVING_UP = AnimationFactory.create("textures/imp_moving.png", 4, 4, 0.25f, 0, 1, 2, 3);
+	private static final Animation ANIM_MOVING_LEFT = AnimationFactory.create("textures/imp_moving.png", 4, 4, 0.25f, 4, 5, 6, 7);
+	private static final Animation ANIM_MOVING_DOWN = AnimationFactory.create("textures/imp_moving.png", 4, 4, 0.25f, 8, 9, 10, 11);
+	private static final Animation ANIM_MOVING_RIGHT = AnimationFactory.create("textures/imp_moving.png", 4, 4, 0.25f, 12, 13, 14, 15);
 	
-	private static final Animation ANIM_ATTACKING_UP = AnimationCreator.create("textures/imp_attacking.png", 4, 4, 0.25f, 0, 1, 2, 3);
-	private static final Animation ANIM_ATTACKING_LEFT = AnimationCreator.create("textures/imp_attacking.png", 4, 4, 0.25f, 4, 5, 6, 7);
-	private static final Animation ANIM_ATTACKING_DOWN = AnimationCreator.create("textures/imp_attacking.png", 4, 4, 0.25f, 8, 9, 10, 11);
-	private static final Animation ANIM_ATTACKING_RIGHT = AnimationCreator.create("textures/imp_attacking.png", 4, 4, 0.25f, 12, 13, 14, 15);
+	private static final Animation ANIM_ATTACKING_UP = AnimationFactory.create("textures/imp_attacking.png", 4, 4, 0.25f, 0, 1, 2, 3);
+	private static final Animation ANIM_ATTACKING_LEFT = AnimationFactory.create("textures/imp_attacking.png", 4, 4, 0.25f, 4, 5, 6, 7);
+	private static final Animation ANIM_ATTACKING_DOWN = AnimationFactory.create("textures/imp_attacking.png", 4, 4, 0.25f, 8, 9, 10, 11);
+	private static final Animation ANIM_ATTACKING_RIGHT = AnimationFactory.create("textures/imp_attacking.png", 4, 4, 0.25f, 12, 13, 14, 15);
 	
-	private static final Animation ANIM_DYING = AnimationCreator.create("textures/imp_dying.png", 7, 1, 0.25f);
+	private static final Animation ANIM_DYING = AnimationFactory.create("textures/imp_dying.png", 7, 1, 0.25f);
 	
 	public Imp(GameScreen game) {
 		super(game, Units.IMP);
