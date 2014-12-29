@@ -24,6 +24,13 @@ public class ParticleRendererComponent extends Component {
 	private TransformComponent transform;
 	
 	@Override
+	public void reset() {
+		effectFile = null;
+		imagesDirectory = null;
+		particleEffect = null;
+	}
+	
+	@Override
 	public void init() {
 		transform = gameObject.getComponent(TransformComponent.class);
 		if (effectFile != null

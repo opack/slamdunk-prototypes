@@ -2,41 +2,63 @@ package com.slamdunk.wordarena.gameparts.prefabs;
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.slamdunk.toolkit.gameparts.components.AnimationControllerComponent;
-import com.slamdunk.toolkit.gameparts.components.AnimationControllerComponent.Transition;
 import com.slamdunk.toolkit.gameparts.components.PathComponent;
+import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
-import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
+import com.slamdunk.wordarena.gameparts.scripts.DirectionUpdaterScript;
 
 public class Paladin extends GameObject {
 	
 	public Paladin() {
+		// Ajout d'un composant permettant au Paladin de suivre un chemin
+		addComponent(PathComponent.class);
+		
+		// Ajout d'un composant permettant à l'animation de changer en fonction
+		// de l'action du paladin (déplacement ou oisif) et la direction vers
+		// laquelle il se tourne
 		AnimationControllerComponent animControllerComponent = addComponent(AnimationControllerComponent.class);
-		animControllerComponent.addStates(
-			animControllerComponent.new State("IdleRight", AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 3)),
-			animControllerComponent.new State("IdleUp", AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 0)),
-			animControllerComponent.new State("IdleLeft", AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 9)),
-			animControllerComponent.new State("IdleDown", AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 6)),
-			
-			animControllerComponent.new State("WalkingUp", AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 0, 1, 2)),
-			animControllerComponent.new State("WalkingRight", AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 3, 4, 5)),
-			animControllerComponent.new State("WalkingLeft", AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 9, 10, 11)),
-			animControllerComponent.new State("WalkingDown", AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 6, 7, 8))
-		);
-		animControllerComponent.globalTransitions = new Transition[] {
-			animControllerComponent.new Transition("IdleRight", animControllerComponent.new Condition("Direction", Directions4.RIGHT), animControllerComponent.new Condition("Action", States.IDLE)),
-			animControllerComponent.new Transition("IdleUp", animControllerComponent.new Condition("Direction", Directions4.UP), animControllerComponent.new Condition("Action", States.IDLE)),
-			animControllerComponent.new Transition("IdleLeft", animControllerComponent.new Condition("Direction", Directions4.LEFT), animControllerComponent.new Condition("Action", States.IDLE)),
-			animControllerComponent.new Transition("IdleDown", animControllerComponent.new Condition("Direction", Directions4.DOWN), animControllerComponent.new Condition("Action", States.IDLE)),
-			
-			animControllerComponent.new Transition("WalkingRight", animControllerComponent.new Condition("Direction", Directions4.RIGHT), animControllerComponent.new Condition("Action", States.MOVING)),
-			animControllerComponent.new Transition("WalkingUp", animControllerComponent.new Condition("Direction", Directions4.UP), animControllerComponent.new Condition("Action", States.MOVING)),
-			animControllerComponent.new Transition("WalkingLeft", animControllerComponent.new Condition("Direction", Directions4.LEFT), animControllerComponent.new Condition("Action", States.MOVING)),
-			animControllerComponent.new Transition("WalkingDown", animControllerComponent.new Condition("Direction", Directions4.DOWN), animControllerComponent.new Condition("Action", States.MOVING)),
-		};
+		animControllerComponent.addState("IdleRight", AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 3));
+		animControllerComponent.addState("IdleUp", AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 0));
+		animControllerComponent.addState("IdleLeft", AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 9));
+		animControllerComponent.addState("IdleDown", AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 6));
+		animControllerComponent.addState("WalkingUp", AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 0, 1, 2));
+		animControllerComponent.addState("WalkingRight", AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 3, 4, 5));
+		animControllerComponent.addState("WalkingLeft", AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 9, 10, 11));
+		animControllerComponent.addState("WalkingDown", AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 6, 7, 8));
+		
+		animControllerComponent.anyState.addTransition("IdleRight",
+			"Direction", Directions4.RIGHT,
+			"Action", States.IDLE);
+		animControllerComponent.anyState.addTransition("IdleUp",
+			"Direction", Directions4.UP,
+			"Action", States.IDLE);
+		animControllerComponent.anyState.addTransition("IdleLeft",
+			"Direction", Directions4.LEFT,
+			"Action", States.IDLE);
+		animControllerComponent.anyState.addTransition("IdleDown",
+			"Direction", Directions4.DOWN,
+			"Action", States.IDLE);
+		animControllerComponent.anyState.addTransition("WalkingRight",
+			"Direction", Directions4.RIGHT,
+			"Action", States.MOVING);
+		animControllerComponent.anyState.addTransition("WalkingUp",
+			"Direction", Directions4.UP,
+			"Action", States.MOVING);
+		animControllerComponent.anyState.addTransition("WalkingLeft",
+			"Direction", Directions4.LEFT,
+			"Action", States.MOVING);
+		animControllerComponent.anyState.addTransition("WalkingDown",
+			"Direction", Directions4.DOWN,
+			"Action", States.MOVING);
 		animControllerComponent.defaultState = "IdleDown";	
 		
-		addComponent(PathComponent.class);
+		// Ajout d'un script qui màj les paramètres de l'AnimationController
+		// en fonction de l'état du paladin (en déplacement ou non) et de la
+		// direction vers laquelle il se tourne
+		addComponent(DirectionUpdaterScript.class);
+		getComponent(DirectionUpdaterScript.class).directionParameter = "Direction";
+		getComponent(DirectionUpdaterScript.class).actionParameter = "Action";
 	}
 }

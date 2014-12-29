@@ -3,7 +3,7 @@ package com.slamdunk.wordarena.units.troups;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
+import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 import com.slamdunk.wordarena.screens.battlefield.GameScreen;
@@ -17,15 +17,15 @@ import com.slamdunk.wordarena.units.Units;
 public class Paladin extends OffensiveUnit {
 	public static final String IMAGE_SPAWN_BUTTON = "textures/warrior_spawn.png";
 	
-	private static final Animation ANIM_MOVING_UP = AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, 0, 1, 2);
-	private static final Animation ANIM_MOVING_RIGHT = AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, 3, 4, 5);
-	private static final Animation ANIM_MOVING_DOWN = AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, 6, 7, 8);
-	private static final Animation ANIM_MOVING_LEFT = AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, 9, 10, 11);
+	private static final Animation ANIM_MOVING_UP = AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, 0, 1, 2);
+	private static final Animation ANIM_MOVING_RIGHT = AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, 3, 4, 5);
+	private static final Animation ANIM_MOVING_DOWN = AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, 6, 7, 8);
+	private static final Animation ANIM_MOVING_LEFT = AnimationFactory.create("textures/warrior_moving.png", 3, 4, 0.25f, 9, 10, 11);
 	
-	private static final Animation ANIM_ATTACKING_UP = AnimationCreator.create("textures/warrior_attacking.png", 4, 4, 0.125f, 0, 1, 2, 3);
-	private static final Animation ANIM_ATTACKING_RIGHT = AnimationCreator.create("textures/warrior_attacking.png", 4, 4, 0.125f, 4, 5, 6, 7);
-	private static final Animation ANIM_ATTACKING_DOWN = AnimationCreator.create("textures/warrior_attacking.png", 4, 4, 0.125f, 8, 9, 10, 11);
-	private static final Animation ANIM_ATTACKING_LEFT = AnimationCreator.create("textures/warrior_attacking.png", 4, 4, 0.125f, 12, 13, 14, 15);
+	private static final Animation ANIM_ATTACKING_UP = AnimationFactory.create("textures/warrior_attacking.png", 4, 4, 0.125f, 0, 1, 2, 3);
+	private static final Animation ANIM_ATTACKING_RIGHT = AnimationFactory.create("textures/warrior_attacking.png", 4, 4, 0.125f, 4, 5, 6, 7);
+	private static final Animation ANIM_ATTACKING_DOWN = AnimationFactory.create("textures/warrior_attacking.png", 4, 4, 0.125f, 8, 9, 10, 11);
+	private static final Animation ANIM_ATTACKING_LEFT = AnimationFactory.create("textures/warrior_attacking.png", 4, 4, 0.125f, 12, 13, 14, 15);
 	
 	public Paladin(GameScreen game) {
 		super(game, Units.PALADIN);

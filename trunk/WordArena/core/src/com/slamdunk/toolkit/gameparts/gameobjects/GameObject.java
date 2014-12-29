@@ -12,6 +12,10 @@ import com.slamdunk.toolkit.gameparts.components.TransformComponent;
 
 /**
  * Objet du jeu. C'est un simple agrégat de composants.
+ * Lorsqu'un nouveau GameObject est créé dynamiquement, penser à appeler
+ * la méthode init() après avoir mis à jour les différentes variables de
+ * ses composants. En effet init() n'est appelée automatiquement qu'à
+ * la création de la scène.
  * Attention : Toujours utiliser les méthode add/remove pour manipuler la liste
  * de GameObjects enfants ou de composants !
  */
@@ -77,7 +81,24 @@ public class GameObject {
 	public List<GameObject> getChildren() {
 		return readOnlyChildren;
 	}
+	
+	public GameObject getChild(String name) {
+		if (name != null) {
+			for (GameObject child : children) {
+				if (name.equals(child.name)) {
+					return child;
+				}
+			}
+		}
+		return null;
+	}
 
+	/**
+	 * Crée une instance du composant de la classe indiquée et l'initialise
+	 * en appelant les méthode createDependencies() et reset().
+	 * @param componentClass
+	 * @return
+	 */
 	public <T extends Component> T addComponent(Class<T> componentClass) {
 		if (hasComponent(componentClass)) {
 			throw new IllegalStateException("There must only be one instance of " + componentClass + " in a GameObject, as this Component is marked as unique.");

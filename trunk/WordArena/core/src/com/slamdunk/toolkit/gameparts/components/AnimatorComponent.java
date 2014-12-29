@@ -2,7 +2,7 @@ package com.slamdunk.toolkit.gameparts.components;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
+import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 
 /**
  * Change l'image d'un SpriteRendererComponent en fonction d'une animation.
@@ -60,9 +60,9 @@ public class AnimatorComponent extends Component {
 		if (spriteSheet != null
 		&& !spriteSheet.isEmpty()) {
 			if (useFrames != null) {
-				animation = AnimationCreator.create(spriteSheet, nbCols, nbRows, frameDuration, playMode, useFrames);
+				animation = AnimationFactory.create(spriteSheet, nbCols, nbRows, frameDuration, playMode, useFrames);
 			} else {
-				animation = AnimationCreator.create(spriteSheet, nbCols, nbRows, frameDuration);
+				animation = AnimationFactory.create(spriteSheet, nbCols, nbRows, frameDuration);
 				animation.setPlayMode(playMode);
 			}
 		}
