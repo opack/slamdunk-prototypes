@@ -17,30 +17,57 @@ import com.slamdunk.toolkit.gameparts.gameobjects.ObservationPoint;
 public class Scene implements Screen {
 	public static final float DEFAULT_PHYSICS_FIXED_STEP = 1/80f;
 	public static final float DEFAULT_PHYSICS_MAX_STEP = 1/4f;
+	public static final float DEFAULT_PHYSICS_TIME_SCALE = 1f;
 	private static final String DEFAULT_LAYER_NAME = "default";
 	
 	public List<Layer> layers;
 	public ObservationPoint observationPoint;
+	public GameObject root;
 	private Batch drawBatch;
 	
+	/**
+	 * Interval fixe de temps auquel sont effectués les calculs
+	 * de la physique
+	 */
 	public float physicsFixedStep;
+	
+	/**
+	 * Temps maximal accordé à un pas de calculs physiques. Si le temps
+	 * entre 2 appels physiques dépasse cette valeur, alors c'est elle
+	 * qui est utilisé afin de laissé au processeur le temps de rattraper
+	 * son retard. Cela signifie qu'on fera pour un instant moins d'itérations
+	 * de calculs physiques qu'on aurait du. 
+	 */
 	public float physicsMaxStep;
-	private float accumulator;
+	
+	/**
+	 * La vitesse à laquelle le temps avance pour les calculs physiques.
+	 * Par exemple : 0.5 signifie que le temps avance moitié moins vite,
+	 * 2 indique que le temps avance 2 fois plus vite.
+	 */
+	public float physicsTimeScale;
+	
+	private float accumulator;	
 	
 	public Scene(int width, int height) {
 		physicsFixedStep = DEFAULT_PHYSICS_FIXED_STEP;
 		physicsMaxStep = DEFAULT_PHYSICS_MAX_STEP;
-		
-		layers = new ArrayList<Layer>();
-		layers.add(new Layer(DEFAULT_LAYER_NAME));
+		physicsTimeScale = DEFAULT_PHYSICS_TIME_SCALE;
 		
 		drawBatch = new SpriteBatch();
+		
+		// Ajoute un GameObject racine
+		root = new GameObject();
 		
 		// Ajoute un GameObject ObservationPoint à la scène
 		observationPoint = new ObservationPoint();
 		observationPoint.camera.viewportWidth = width;
 		observationPoint.camera.viewportHeight = height;
-		addGameObject(observationPoint);
+		root.addChild(observationPoint);
+		
+		// Ajoute une couche par défaut
+		layers = new ArrayList<Layer>();
+		addLayer(DEFAULT_LAYER_NAME);
 	}
 	
 	public int getLayerIndex(String name) {
@@ -69,31 +96,53 @@ public class Scene implements Screen {
 		if (found != -1) {
 			throw new IllegalArgumentException("There is already a layer with name " + name + " at index " + found);
 		}
-		Layer layer = new Layer(name);
-		layers.add(index, layer);
+		Layer layer = root.addChild(Layer.class);
+		layer.name = name;
 		layer.scene = this;
+		layers.add(index, layer);
 		return index;
 	}
 	
-	public void addGameObject(GameObject gameObject) {
-		addGameObject(gameObject, 0);
+	public <T extends GameObject> T addGameObject(Class<T> gameObjectClass) {
+		return addGameObject(gameObjectClass, 0);
 	}
-
-	public void addGameObject(GameObject gameObject, String layerName) {
+	
+	public <T extends GameObject> T addGameObject(Class<T> gameObjectClass, String layerName) {
 		int index = getLayerIndex(layerName);
 		if (index > layers.size() - 1) {
 			throw new IllegalArgumentException("There is no layer with name " + layerName + ".");
 		}
-		addGameObject(gameObject, index);		
+		return addGameObject(gameObjectClass, index);		
 	}
 	
-	public void addGameObject(GameObject gameObject, int layerIndex) {
+	public <T extends GameObject> T addGameObject(Class<T> gameObjectClass, int layerIndex) {
 		if (layerIndex < 0
 		|| layerIndex > layers.size() - 1) {
 			throw new IllegalArgumentException("There is no layer at index " + layerIndex + ". Max layer index = " + (layers.size() - 1));
 		}
 		Layer layer = layers.get(layerIndex);
-		layer.addGameObject(gameObject);
+		return layer.addChild(gameObjectClass);
+	}
+	
+	public GameObject addGameObject(GameObject gameObject) {
+		return addGameObject(gameObject, 0);
+	}
+
+	public GameObject addGameObject(GameObject gameObject, String layerName) {
+		int index = getLayerIndex(layerName);
+		if (index > layers.size() - 1) {
+			throw new IllegalArgumentException("There is no layer with name " + layerName + ".");
+		}
+		return addGameObject(gameObject, index);		
+	}
+	
+	public GameObject addGameObject(GameObject gameObject, int layerIndex) {
+		if (layerIndex < 0
+		|| layerIndex > layers.size() - 1) {
+			throw new IllegalArgumentException("There is no layer at index " + layerIndex + ". Max layer index = " + (layers.size() - 1));
+		}
+		Layer layer = layers.get(layerIndex);
+		return layer.addChild(gameObject);
 	}
 	
 	/**
@@ -103,14 +152,8 @@ public class Scene implements Screen {
 		// TODO
 	}
 	
-	/**
-	 * Initialise les GameObjects de la scène
-	 */
 	public void init() {
-		observationPoint.init();
-		for (Layer layer : layers) {
-			layer.init();
-		}
+		root.init();
 	}
 	
 	@Override
@@ -126,17 +169,8 @@ public class Scene implements Screen {
 	}
 
 	private void applyGameLogic(float deltaTime) {
-		System.out.println("FRAME - " + deltaTime);
-		for (Layer layer : layers) {
-	    	if (layer.active) {
-				layer.update(deltaTime);
-			}
-	    }
-	    for (Layer layer : layers) {
-	    	if (layer.active) {
-				layer.lateUpdate();
-			}
-	    }
+		root.update(deltaTime);
+		root.lateUpdate();
 	}
 
 	private void renderScene() {
@@ -144,12 +178,7 @@ public class Scene implements Screen {
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		drawBatch.begin();
 		drawBatch.setProjectionMatrix(observationPoint.camera.getProjectionMatrix());
-		for (Layer layer : layers) {
-			if (layer.active
-			&& layer.visible) {
-				layer.render(drawBatch);
-			}
-		}
+		root.render(drawBatch);
 		drawBatch.end();
 	}
 	
@@ -157,17 +186,12 @@ public class Scene implements Screen {
 		// S'assure que le temps de la frame est au pire de physicsMaxStep, de façon
 		// à donner une chance au CPU de rattraper son éventuel retard en faisant
 		// du coup moins d'itérations de calculs de physique
-		float frameTime = Math.min(deltaTime, physicsMaxStep);
+		float frameTime = Math.min(deltaTime * physicsTimeScale, physicsMaxStep);
 		
 	    accumulator += frameTime;
 	    while (accumulator >= physicsFixedStep) {
-	    	System.out.println("PHYSICS - " + deltaTime);
 	    	// Calcul de la physique pour 1 pas
-		    for (Layer layer : layers) {
-		    	if (layer.active) {
-					layer.physics(physicsFixedStep);
-				}
-		    }
+    		root.physics(physicsFixedStep);
 		    
 		    // On a 1 pas en moins dans le temps écoulé
 		    accumulator -= physicsFixedStep;

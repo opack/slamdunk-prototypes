@@ -6,7 +6,8 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.g2d.Animation;
 
 /**
- * Change l'animation d'un AnimatorComponent en fonction de différents paramètres.
+ * Gère différents états et les paramètres qui autorisent les transitions entre eux.
+ * Ce composant peut également changer l'animation d'un AnimatorComponent
  * Nécessite que le GameObject contienne un AnimatorComponent.
  */
 public class AnimationControllerComponent extends Component {
@@ -109,6 +110,21 @@ public class AnimationControllerComponent extends Component {
 			throw new IllegalArgumentException("There is no state named " + name + " !");
 		}
 		setCurrentState(newState);
+	}
+	
+	@Override
+	public void createDependencies() {
+		if (!gameObject.hasComponent(AnimatorComponent.class)) {
+			gameObject.addComponent(AnimatorComponent.class);
+		}
+	}
+	
+	@Override
+	public void reset() {
+		parameters.clear();
+		states.clear();
+		defaultState = "";
+		globalTransitions = null;
 	}
 	
 	@Override

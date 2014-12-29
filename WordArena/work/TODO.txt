@@ -1,3 +1,14 @@
+GameParts
+¯¯¯¯¯¯¯¯¯
+[ ] Ajouter les composants :
+	[X] Particules
+	[ ] UI
+	[ ] LayeredSpriteRenderer
+	[ ] Colliders
+	[ ] Tween
+	[ ] Body et autres Box2d (https://github.com/libgdx/libgdx/wiki/box2d)
+	[ ] Lumière
+
 Champ de bataille
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
 [ ] Gérer la fin de partie (affichage popup, retour à la carte du monde)

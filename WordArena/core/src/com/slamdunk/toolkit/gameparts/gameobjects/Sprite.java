@@ -8,7 +8,6 @@ public class Sprite extends GameObject {
 	public Sprite() {
 		super();
 		
-		spriteRenderer = new SpriteRendererComponent();
-		addComponent(spriteRenderer);
+		spriteRenderer = addComponent(SpriteRendererComponent.class);
 	}
 }

@@ -32,16 +32,16 @@ public class PlayerMoveScript extends Component {
 		action = "Moving";
 		if (Gdx.input.isKeyPressed(Keys.LEFT)) {
 			direction = Directions4.LEFT;
-			transform.position.x -= speed * deltaTime;
+			transform.worldPosition.x -= speed * deltaTime;
 		} else if (Gdx.input.isKeyPressed(Keys.RIGHT)) {
 			direction = Directions4.RIGHT;
-			transform.position.x += speed * deltaTime;
+			transform.worldPosition.x += speed * deltaTime;
 		} else if (Gdx.input.isKeyPressed(Keys.UP)) {
 			direction = Directions4.UP;
-			transform.position.y += speed * deltaTime;
+			transform.worldPosition.y += speed * deltaTime;
 		} else if (Gdx.input.isKeyPressed(Keys.DOWN)) {
 			direction = Directions4.DOWN;
-			transform.position.y -= speed * deltaTime;
+			transform.worldPosition.y -= speed * deltaTime;
 		} else {
 			action = "Idle";
 		}
