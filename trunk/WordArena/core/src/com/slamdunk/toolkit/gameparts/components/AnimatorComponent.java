@@ -32,6 +32,25 @@ public class AnimatorComponent extends Component {
 	private Animation animation;
 	
 	@Override
+	public void createDependencies() {
+		if (!gameObject.hasComponent(SpriteRendererComponent.class)) {
+			gameObject.addComponent(SpriteRendererComponent.class);
+		}
+	}
+	
+	@Override
+	public void reset() {
+		spriteSheet = null;
+		nbCols = 0;
+		nbRows = 0;
+		
+		useFrames = null;
+		frameDuration = 0;
+		stateTime = 0;
+		playMode = PlayMode.NORMAL;
+	}
+	
+	@Override
 	public void init() {
 		spriteRenderer = gameObject.getComponent(SpriteRendererComponent.class);
 		if (spriteRenderer == null) {

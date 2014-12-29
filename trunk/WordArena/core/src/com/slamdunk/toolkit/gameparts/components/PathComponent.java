@@ -11,13 +11,13 @@ import com.slamdunk.wordarena.ai.States;
 public class PathComponent extends Component {
 	public ComplexPath path;
 	
-	public float startPosition = 0f;
+	public float startPosition;
 	
-	public CursorMode cursorMode = CursorMode.FORWARD;
+	public CursorMode cursorMode;
 	
-	public float speed = 1f;
+	public float speed;
 	
-	public boolean paused = false;
+	public boolean paused;
 	
 	private ComplexPathCursor cursor;
 	
@@ -28,6 +28,15 @@ public class PathComponent extends Component {
 	private Vector3 transformPosition;
 	
 	private AnimationControllerComponent animationControllerComponent;
+	
+	@Override
+	public void reset() {
+		path = null;
+		startPosition = 0f;
+		cursorMode = CursorMode.FORWARD;
+		speed = 1f;
+		paused = false;
+	}
 	
 	@Override
 	public void init() {
@@ -42,7 +51,7 @@ public class PathComponent extends Component {
 		}
 		tmpMoveCurrent = new Vector2();
 		tmpMoveDestination = new Vector2();
-		transformPosition = gameObject.getComponent(TransformComponent.class).position;
+		transformPosition = gameObject.getComponent(TransformComponent.class).worldPosition;
 		animationControllerComponent = gameObject.getComponent(AnimationControllerComponent.class);
 		
 		// Récupère l'indice du segment correspondant à ce t

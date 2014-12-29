@@ -12,13 +12,6 @@ import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
  *  composants
  */
 public abstract class Component {
-	/**
-	 * Indique si le Component doit être unique dans le GameObject.
-	 * Si true, une erreur sera levée si un autre Component de cette
-	 * classe tente d'être ajouté.
-	 */
-	public static boolean unique;
-	
 	public GameObject gameObject;
 	
 	/**
@@ -31,8 +24,12 @@ public abstract class Component {
 		active = true;
 	}
 	
-	public boolean isUnique() {
-		return unique;
+	/**
+	 * Crée les composants dont dépend ce composant, s'ils n'existent pas
+	 * encore. Cette méthode est appelée dès l'ajout du composant au
+	 * GameObject
+	 */
+	public void createDependencies() {
 	}
 
 	/**
@@ -57,14 +54,6 @@ public abstract class Component {
 	}
 	
 	/**
-	 * Méthode appelée à intervalles réguliers pour mettre à jour la physique
-	 * du monde (déplacements, gravité...).
-	 * @param deltaTime 
-	 */
-	public void physics(float deltaTime) {
-	}
-
-	/**
 	 * Méthode appelée périodiquement pour mettre à jour le composant en
 	 * fonction de la logique du jeu, 1 fois par frame
 	 */
@@ -81,6 +70,14 @@ public abstract class Component {
 	 * complètement avant que la caméra ne suive sa position.
 	 */
 	public void lateUpdate() {
+	}
+	
+	/**
+	 * Méthode appelée à intervalles réguliers pour mettre à jour la physique
+	 * du monde (déplacements, gravité...).
+	 * @param deltaTime 
+	 */
+	public void physics(float deltaTime) {
 	}
 	
 	/**

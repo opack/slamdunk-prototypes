@@ -1,23 +1,28 @@
 package com.slamdunk.toolkit.gameparts.gameobjects;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.components.TransformComponent;
-import com.slamdunk.toolkit.gameparts.scene.Layer;
 
 /**
  * Objet du jeu. C'est un simple agrégat de composants.
+ * Attention : Toujours utiliser les méthode add/remove pour manipuler la liste
+ * de GameObjects enfants ou de composants !
  */
 public class GameObject {
 	private static final String DEFAULT_NAME_PREFIX = "GameObject";
 	private static long gameObjectsCount;
 	
+	public GameObject parent;
+	private List<GameObject> children;
+	private List<GameObject> readOnlyChildren;
 	private Map<Class<? extends Component>, Component> components;
-	
-	public Layer layer;
 	
 	public String name;
 	
@@ -33,22 +38,64 @@ public class GameObject {
 		// Par défaut, le gameObject est actif
 		active = true;
 		
+		// Crée la liste des enfants
+		children = new ArrayList<GameObject>();
+		readOnlyChildren = Collections.unmodifiableList(children);
+		
 		// Crée la table de composants
 		components = new LinkedHashMap<Class<? extends Component>, Component>();
 		
 		// Ajoute le premier composant, qui permet de positionner le GameObject dans le monde
-		transform = new TransformComponent();
-		addComponent(transform);
+		transform = addComponent(TransformComponent.class);
+	}
+	
+	public GameObject addChild() {
+		return addChild(new GameObject());
+	}
+	
+	public <T extends GameObject> T addChild(Class<T> childClass) {
+		T child = null;
+		try {
+			child = addChild(childClass.newInstance());
+		} catch (InstantiationException e) {
+			throw new IllegalStateException("Creation of GameObject " + childClass + " is impossible due to InstantiationException", e);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException("Creation of GameObject " + childClass + " is impossible due to IllegalAccessException", e);
+		}
+		return child;
+	}
+	
+	public <T extends GameObject> T addChild(T child) {
+		if (this == child) {
+			throw new IllegalArgumentException("A GameObject Cannot be a child of itself !");
+		}
+		child.parent = this;
+		children.add(child);
+		return child;
+	}
+	
+	public List<GameObject> getChildren() {
+		return readOnlyChildren;
 	}
 
-	public void addComponent(Component component) {
-		if (component.isUnique()
-		&& components.get(component.getClass()) != null) {
-			throw new IllegalStateException("There must only be one instance of " + component.getClass() + " in a GameObject, as this Component is marked as unique.");
+	public <T extends Component> T addComponent(Class<T> componentClass) {
+		if (hasComponent(componentClass)) {
+			throw new IllegalStateException("There must only be one instance of " + componentClass + " in a GameObject, as this Component is marked as unique.");
 		}
 		
-		component.gameObject = this;
-		components.put(component.getClass(), component);
+		T component = null;
+		try {
+			component = componentClass.newInstance();
+			component.gameObject = this;
+			components.put(component.getClass(), component);
+			component.createDependencies();
+			component.reset();
+		} catch (InstantiationException e) {
+			throw new IllegalStateException("Creation of component " + componentClass + " is impossible due to InstantiationException", e);
+		} catch (IllegalAccessException e) {
+			throw new IllegalStateException("Creation of component " + componentClass + " is impossible due to IllegalAccessException", e);
+		}
+		return component;
 	}
 	
 	public boolean removeComponent(Class<? extends Component> componentClass) {
@@ -59,16 +106,39 @@ public class GameObject {
 		return componentClass.cast(components.get(componentClass));
 	}
 	
+	public boolean hasComponent(Class<? extends Component> componentClass) {
+		return components.get(componentClass) != null;
+	}
+	
 	/**
-	 * Initialise les composant du GameObject en appelant la méthode
+	 * Place les valeurs par défaut dans les composants du GameObject 
+	 * en appelant la méthode reset() de chacun des composants, 
+	 * dans l'ordre où ils ont été ajoutés.
+	 * Attention : cette méthode appelle reset() sur chaque composant
+	 * et chaque enfant même s'il est inactif.
+	 */
+	public void reset() {
+		for (Component component : components.values()) {
+			component.reset();
+		}
+		for (GameObject child : children) {
+			child.reset();
+		}
+	}
+
+	/**
+	 * Initialise les composants du GameObject en appelant la méthode
 	 * init() de chacun des composants, dans l'ordre où ils ont
 	 * été ajoutés.
 	 * Attention : cette méthode appelle init() sur chaque composant
-	 * même s'il est inactif.
+	 * et chaque enfant même s'il est inactif.
 	 */
 	public void init() {
 		for (Component component : components.values()) {
 			component.init();
+		}
+		for (GameObject child : children) {
+			child.init();
 		}
 	}
 	
@@ -81,12 +151,17 @@ public class GameObject {
 	 * L'appel est fait à intervalles réguliers donc la valeur
 	 * de deltaTime est constante d'un appel sur l'autre.
 	 * Attention : cette méthode appelle physics() uniquement sur 
-	 * les composants actifs.
+	 * les composants et enfants actifs.
 	 */
 	public void physics(float deltaTime) {
 		for (Component component : components.values()) {
 			if (component.active) {
 				component.physics(deltaTime);
+			}
+		}
+		for (GameObject child : children) {
+			if (child.active) {
+				child.physics(deltaTime);
 			}
 		}
 	}
@@ -96,12 +171,17 @@ public class GameObject {
 	 * update() de chacun des composants, dans l'ordre où ils ont
 	 * été ajoutés.
 	 * Attention : cette méthode appelle update() uniquement sur 
-	 * les composants actifs.
+	 * les composants et enfants actifs.
 	 */
 	public void update(float deltaTime) {
 		for (Component component : components.values()) {
 			if (component.active) {
 				component.update(deltaTime);
+			}
+		}
+		for (GameObject child : children) {
+			if (child.active) {
+				child.update(deltaTime);
 			}
 		}
 	}
@@ -121,6 +201,11 @@ public class GameObject {
 				component.lateUpdate();
 			}
 		}
+		for (GameObject child : children) {
+			if (child.active) {
+				child.lateUpdate();
+			}
+		}
 	}
 	
 	/**
@@ -134,6 +219,11 @@ public class GameObject {
 		for (Component component : components.values()) {
 			if (component.active) {
 				component.render(batch);
+			}
+		}
+		for (GameObject child : children) {
+			if (child.active) {
+				child.render(batch);
 			}
 		}
 	}

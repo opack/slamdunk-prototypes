@@ -3,9 +3,7 @@ package com.slamdunk.wordarena.gameparts.prefabs;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.slamdunk.toolkit.gameparts.components.AnimationControllerComponent;
 import com.slamdunk.toolkit.gameparts.components.AnimationControllerComponent.Transition;
-import com.slamdunk.toolkit.gameparts.components.AnimatorComponent;
 import com.slamdunk.toolkit.gameparts.components.PathComponent;
-import com.slamdunk.toolkit.gameparts.components.SpriteRendererComponent;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.graphics.drawers.AnimationCreator;
 import com.slamdunk.toolkit.world.Directions4;
@@ -14,7 +12,7 @@ import com.slamdunk.wordarena.ai.States;
 public class Paladin extends GameObject {
 	
 	public Paladin() {
-		AnimationControllerComponent animControllerComponent = new AnimationControllerComponent();
+		AnimationControllerComponent animControllerComponent = addComponent(AnimationControllerComponent.class);
 		animControllerComponent.addStates(
 			animControllerComponent.new State("IdleRight", AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 3)),
 			animControllerComponent.new State("IdleUp", AnimationCreator.create("textures/warrior_moving.png", 3, 4, 0.25f, PlayMode.LOOP, 0)),
@@ -39,9 +37,6 @@ public class Paladin extends GameObject {
 		};
 		animControllerComponent.defaultState = "IdleDown";	
 		
-		addComponent(new PathComponent());
-		addComponent(animControllerComponent);
-		addComponent(new AnimatorComponent());
-		addComponent(new SpriteRendererComponent());
+		addComponent(PathComponent.class);
 	}
 }

@@ -16,7 +16,6 @@ public class ObservationPoint extends GameObject {
 		
 		// On a toujours un composant CameraComponent, qui indique
 		// quelle portion du monde est vu
-		camera = new CameraComponent();
-		addComponent(camera);
+		camera = addComponent(CameraComponent.class);
 	}
 }

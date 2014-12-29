@@ -8,31 +8,38 @@ import com.badlogic.gdx.math.Matrix4;
  * Doit ABSOLUMENT être le premier composant ajouté au GameObject.
  */
 public class CameraComponent extends Component {
+	public static final int DEFAULT_VIEWPORT_WIDTH = 800;
+	public static final int DEFAULT_VIEWPORT_HEIGHT = 480;
+	
 	public float zoom;
 	
 	public int viewportWidth;
 	
 	public int viewportHeight;
 	
-	protected OrthographicCamera orthoCam;
+	private OrthographicCamera orthoCam;
 	
 	private TransformComponent transform;
 	
-	public CameraComponent() {
-		orthoCam = new OrthographicCamera();
-		orthoCam.setToOrtho(false);
-		
+	@Override
+	public void reset() {
 		zoom = 1f;
+		viewportWidth = DEFAULT_VIEWPORT_WIDTH;
+		viewportHeight = DEFAULT_VIEWPORT_HEIGHT;
 	}
 	
 	@Override
 	public void init() {
 		transform = gameObject.getComponent(TransformComponent.class);
+		
+		orthoCam = new OrthographicCamera();
+		orthoCam.setToOrtho(false);
+		lateUpdate();
 	}
 
 	@Override
 	public void lateUpdate() {
-		orthoCam.position.set(transform.position);
+		orthoCam.position.set(transform.worldPosition);
 		orthoCam.viewportWidth = viewportWidth;
 		orthoCam.viewportHeight = viewportHeight;
 		orthoCam.zoom = zoom;

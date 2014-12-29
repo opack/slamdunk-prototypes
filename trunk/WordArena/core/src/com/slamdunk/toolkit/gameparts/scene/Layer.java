@@ -8,76 +8,41 @@ import java.util.List;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 
-public class Layer {
+public class Layer extends GameObject {
 	public String name;
 	
 	public Scene scene;
 	
-	public boolean active;
-	
 	/**
 	 * Indique si la couche est visible, donc si render() doit être appelé
-	 * sur les GameObjects de cette couche
+	 * sur les GameObjects de cette couche.
+	 * Cela permet d'avoir une couche invisible mais active.
 	 */
 	public boolean visible;
 	
-	public List<GameObject> gameObjects;
-	
 	private List<GameObject> tmpDepthSortedObjects;
 	
-	public Layer(String name) {
-		this.name = name;
-		gameObjects = new ArrayList<GameObject>();
+	public Layer() {
 		tmpDepthSortedObjects = new ArrayList<GameObject>();
 		
 		// Par défaut, la couche est active et visible
-		active = true;
 		visible = true;
 	}
 	
-	public void addGameObject(GameObject gameObject) {
-		gameObject.layer = this;
-		gameObjects.add(gameObject);
-		tmpDepthSortedObjects.add(gameObject);
+	@Override
+	public <T extends GameObject> T addChild(T child) {
+		super.addChild(child);
+		tmpDepthSortedObjects.add(child);
+		return child;
 	}
 	
-	public void init() {
-		for (GameObject gameObject : gameObjects) {
-			gameObject.init();
-		}
-	}
-	
-	public void physics(float deltaTime) {
-		for (GameObject gameObject : gameObjects) {
-			if (gameObject.active) {
-				gameObject.physics(deltaTime);
-			}
-		}
-	}
-	
-	public void update(float deltaTime) {
-		for (GameObject gameObject : gameObjects) {
-			if (gameObject.active) {
-				gameObject.update(deltaTime);
-			}
-		}
-	}
-	
-	public void lateUpdate() {
-		for (GameObject gameObject : gameObjects) {
-			if (gameObject.active) {
-				gameObject.lateUpdate();
-			}
-		}
-	}
-
 	public void render(Batch drawBatch) {
 		// Classe les gameObjects par z croissant pour commencer le rendu
 		// par ceux qui sont le plus au fond
 		Collections.sort(tmpDepthSortedObjects, new Comparator<GameObject>() {
 			@Override
 			public int compare(GameObject go1, GameObject go2) {
-				return Float.compare(go1.transform.position.z, go2.transform.position.z);
+				return Float.compare(go1.transform.worldPosition.z, go2.transform.worldPosition.z);
 			}
 		});
 		

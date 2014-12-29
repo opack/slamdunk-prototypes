@@ -5,17 +5,48 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 public class SpriteRendererComponent extends Component {
 	public String spriteFile;
 	public TextureRegion textureRegion;
-	public Color tint = new Color(Color.WHITE);
+	public Color tint;
+	
+	/**
+	 * Indique à partir de quel point (exprimé en % de la taille de l'image)
+	 * est dessiné le Sprite. Par défaut, le sprite est dessiné avec le coin
+	 * coin bas-gauche à l'emplacement de TransformComponent.worldPosition.
+	 * Pour centrer, il suffit de placer anchor à 0.5,0.5.
+	 */
+	public Vector2 anchor;
+	
+	/**
+	 * Indique quel point (exprimé en % de la taille de l'image) sert d'origine
+	 * pour le calcul de la rotation et de la mise à l'échelle. Par défaut,
+	 * c'est le point à l'emplacement de TransformComponent.worldPosition.
+	 * Pour centrer, il suffit de placer origin à 0.5,0.5.
+	 */
+	public Vector2 origin;
 	
 	private TransformComponent transform;
 	
 	private Color tmpOrigBatchColor;
-	private float textureWidth;
-	private float textureHeight;
+	private float tmpTextureWidth;
+	private float tmpTextureHeight;
+	
+	public SpriteRendererComponent() {
+		anchor = new Vector2();
+		origin = new Vector2();
+	}
+	
+	@Override
+	public void reset() {
+		spriteFile = null;
+		textureRegion = null;
+		tint = new Color(Color.WHITE);
+		anchor.set(0, 0);
+		origin.set(0, 0);
+	}
 	
 	@Override
 	public void init() {
@@ -32,17 +63,17 @@ public class SpriteRendererComponent extends Component {
 			return;
 		}
 		
-		textureWidth = textureRegion.getRegionWidth();
-		textureHeight = textureRegion.getRegionHeight();
+		tmpTextureWidth = textureRegion.getRegionWidth();
+		tmpTextureHeight = textureRegion.getRegionHeight();
 		
 		tmpOrigBatchColor = new Color(batch.getColor());
 		batch.setColor(tint);
 		batch.draw(textureRegion,
-			transform.position.x - transform.anchor.x * textureWidth, transform.position.y - transform.anchor.y * textureHeight,
-			transform.origin.x * textureWidth, transform.origin.y * textureHeight,
-			textureWidth, textureHeight,
-			transform.scale.x, transform.scale.y, 
-			transform.rotation.z);
+			transform.worldPosition.x - anchor.x * tmpTextureWidth, transform.worldPosition.y - anchor.y * tmpTextureHeight,
+			origin.x * tmpTextureWidth, origin.y * tmpTextureHeight,
+			tmpTextureWidth, tmpTextureHeight,
+			transform.worldScale.x, transform.worldScale.y, 
+			transform.worldRotation.z);
 		batch.setColor(tmpOrigBatchColor);
 	}
 }
