@@ -35,7 +35,7 @@ public class FollowScript extends Component {
 	private float alpha;
 	private float totalTime;
 	
-	private boolean stop;
+	private boolean tracking;
 	
 	@Override
 	public void reset() {
@@ -43,7 +43,7 @@ public class FollowScript extends Component {
 		reachTime = DEFAULT_REACH_TIME;
 		alpha = 0;
 		totalTime = 0;
-		stop = false;
+		tracking = false;
 	}
 	
 	@Override
@@ -57,10 +57,9 @@ public class FollowScript extends Component {
 	
 	@Override
 	public void update(float deltaTime) {
-		if (stop
+		if (!tracking
 		&& targetPosition.dst(trackerTransform.worldPosition) > leech) {
-			System.out.println("FOLLOWING");
-			stop = false;
+			tracking = true;
 			alpha = 0;
 			totalTime = 0;
 			startPosition.set(trackerTransform.worldPosition);
@@ -72,16 +71,15 @@ public class FollowScript extends Component {
 	
 	@Override
 	public void lateUpdate() {
-		if (stop) {
+		if (!tracking) {
 			return;
 		}
 		currentPosition.set(startPosition);
 		currentPosition.lerp(arrivalPosition, alpha);
 		trackerTransform.moveTo(currentPosition.x, currentPosition.y, currentPosition.z);
-		System.out.println(alpha);
+
 		if (alpha >= 1) {
-			System.out.println("STOP");
-			stop = true;
+			tracking = false;
 		}
 	}
 }
