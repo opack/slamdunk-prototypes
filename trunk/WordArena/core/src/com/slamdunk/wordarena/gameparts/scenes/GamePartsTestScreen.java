@@ -12,7 +12,7 @@ import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererPart;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.gameparts.gameobjects.Sprite;
 import com.slamdunk.toolkit.gameparts.scene.Scene;
-import com.slamdunk.wordarena.gameparts.SVGLoader;
+import com.slamdunk.wordarena.gameparts.creators.CustomSVGLoader;
 import com.slamdunk.wordarena.gameparts.prefabs.Castle;
 import com.slamdunk.wordarena.gameparts.prefabs.Paladin;
 
@@ -29,8 +29,7 @@ public class GamePartsTestScreen implements Screen {
 		scene = new Scene(800, 480);
 		
 		// Charge le SVG contenant le level design
-		SVGLoader sceneLoader = new SVGLoader();
-		sceneLoader.load("battlefields/battlefield0.svg");
+		CustomSVGLoader sceneLoader = new CustomSVGLoader("battlefields/battlefield0.svg");
 		
 		// Place la caméra au centre de l'écran
 		scene.observationPoint.transform.relativePosition.x = scene.observationPoint.camera.viewportWidth / 2;
