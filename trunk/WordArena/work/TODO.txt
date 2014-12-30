@@ -6,8 +6,9 @@ GameParts
 	[ ] Scripts de layout des enfants d'un GameObject
 		[ ] En cercle (autour du GameObject parent, avec un certain rayon)
 		[ ] En grille (possibilité de laisser certaines cases vides)
-	[/] LayeredSpriteRenderer : inutile, il suffit de faire un enfant à un GameObject
+	[ ] PoolComponent : gère un pool d'instances d'un certain GameObject
 	[ ] Colliders
+	[ ] DragComponent (avec un payload), DropTargetComponent DragAndDropScript
 	[ ] Tween
 	[ ] Body et autres Box2d (https://github.com/libgdx/libgdx/wiki/box2d)
 	[ ] Lumière

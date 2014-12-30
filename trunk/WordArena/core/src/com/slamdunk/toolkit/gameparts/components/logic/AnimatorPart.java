@@ -3,14 +3,14 @@ package com.slamdunk.toolkit.gameparts.components.logic;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererComponent;
+import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererPart;
 import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 
 /**
  * Change l'image d'un SpriteRendererComponent en fonction d'une animation.
  * Nécessite que le GameObject contienne un SpriteRendererComponent.
  */
-public class AnimatorComponent extends Component {
+public class AnimatorPart extends Component {
 	public String spriteSheet;
 	
 	public int nbCols;
@@ -29,14 +29,14 @@ public class AnimatorComponent extends Component {
 	
 	public PlayMode playMode;
 	
-	private SpriteRendererComponent spriteRenderer;
+	private SpriteRendererPart spriteRenderer;
 	
 	private Animation animation;
 	
 	@Override
 	public void createDependencies() {
-		if (!gameObject.hasComponent(SpriteRendererComponent.class)) {
-			gameObject.addComponent(SpriteRendererComponent.class);
+		if (!gameObject.hasComponent(SpriteRendererPart.class)) {
+			gameObject.addComponent(SpriteRendererPart.class);
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class AnimatorComponent extends Component {
 	
 	@Override
 	public void init() {
-		spriteRenderer = gameObject.getComponent(SpriteRendererComponent.class);
+		spriteRenderer = gameObject.getComponent(SpriteRendererPart.class);
 		if (spriteRenderer == null) {
 			throw new IllegalStateException("Missing SpriteRendererComponent component in the GameObject. The AnimatorComponent component cannot work properly.");
 		}

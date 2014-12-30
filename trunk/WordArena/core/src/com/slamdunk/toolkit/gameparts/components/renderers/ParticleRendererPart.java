@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
+import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 
 /**
  * 2 façons d'initialiser le renderer :
@@ -17,13 +17,13 @@ import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
  * dans le dossier Assets/Data (y placer aussi l'image utilisée dans la particule le cas
  * échéant). 
  */
-public class ParticleRendererComponent extends Component {
+public class ParticleRendererPart extends Component {
 	public String effectFile;
 	public String imagesDirectory;
 	
 	public ParticleEffect particleEffect;
 	
-	private TransformComponent transform;
+	private TransformPart transform;
 	
 	@Override
 	public void reset() {
@@ -34,7 +34,7 @@ public class ParticleRendererComponent extends Component {
 	
 	@Override
 	public void init() {
-		transform = gameObject.getComponent(TransformComponent.class);
+		transform = gameObject.getComponent(TransformPart.class);
 		if (effectFile != null
 		&& !effectFile.isEmpty()
 		&& imagesDirectory != null

@@ -3,8 +3,8 @@ package com.slamdunk.wordarena.gameparts.scripts;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.logic.AnimationControllerComponent;
-import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
+import com.slamdunk.toolkit.gameparts.components.logic.AnimationControllerScript;
+import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 import com.slamdunk.toolkit.world.Directions4;
 
 public class PlayerMoveScript extends Component {
@@ -17,12 +17,12 @@ public class PlayerMoveScript extends Component {
 	 */
 	public float speed;
 	
-	private AnimationControllerComponent animationController;
-	private TransformComponent transform;
+	private AnimationControllerScript animationController;
+	private TransformPart transform;
 	
 	@Override
 	public void init() {
-		animationController = gameObject.getComponent(AnimationControllerComponent.class);
+		animationController = gameObject.getComponent(AnimationControllerScript.class);
 		transform = gameObject.transform;
 	}
 	

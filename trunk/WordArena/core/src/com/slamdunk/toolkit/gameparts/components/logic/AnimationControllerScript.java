@@ -12,7 +12,7 @@ import com.slamdunk.toolkit.gameparts.components.Component;
  * Ce composant peut également changer l'animation d'un AnimatorComponent
  * Nécessite que le GameObject contienne un AnimatorComponent.
  */
-public class AnimationControllerComponent extends Component {
+public class AnimationControllerScript extends Component {
 	public static final String ANY_STATE_NAME = "AnyState";
 	
 	public class Condition {
@@ -110,10 +110,10 @@ public class AnimationControllerComponent extends Component {
 	public Map<String, Object> parameters;
 	public State anyState;
 	
-	private AnimatorComponent animator;
+	private AnimatorPart animator;
 	private State currentState;
 	
-	public AnimationControllerComponent() {
+	public AnimationControllerScript() {
 		parameters = new HashMap<String, Object>();
 		states = new HashMap<String, State>();
 	}
@@ -132,8 +132,8 @@ public class AnimationControllerComponent extends Component {
 	
 	@Override
 	public void createDependencies() {
-		if (!gameObject.hasComponent(AnimatorComponent.class)) {
-			gameObject.addComponent(AnimatorComponent.class);
+		if (!gameObject.hasComponent(AnimatorPart.class)) {
+			gameObject.addComponent(AnimatorPart.class);
 		}
 	}
 	
@@ -148,7 +148,7 @@ public class AnimationControllerComponent extends Component {
 	
 	@Override
 	public void init() {
-		animator = gameObject.getComponent(AnimatorComponent.class);
+		animator = gameObject.getComponent(AnimatorPart.class);
 		if (animator == null) {
 			throw new IllegalStateException("Missing AnimatorComponent component in the GameObject. The AnimationControllerComponent component cannot work properly.");
 		}

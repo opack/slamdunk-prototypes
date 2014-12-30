@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
+import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 
 /**
  * Objet du jeu. C'est un simple agrégat de composants.
@@ -32,7 +32,7 @@ public class GameObject {
 	
 	public boolean active;
 	
-	public TransformComponent transform;
+	public TransformPart transform;
 	
 	public GameObject() {
 		// Détermine un nom par défaut
@@ -50,7 +50,7 @@ public class GameObject {
 		components = new LinkedHashMap<Class<? extends Component>, Component>();
 		
 		// Ajoute le premier composant, qui permet de positionner le GameObject dans le monde
-		transform = addComponent(TransformComponent.class);
+		transform = addComponent(TransformPart.class);
 	}
 	
 	public GameObject addChild() {

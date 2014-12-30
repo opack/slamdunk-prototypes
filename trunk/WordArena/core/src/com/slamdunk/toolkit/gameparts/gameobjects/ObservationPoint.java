@@ -1,6 +1,6 @@
 package com.slamdunk.toolkit.gameparts.gameobjects;
 
-import com.slamdunk.toolkit.gameparts.components.CameraComponent;
+import com.slamdunk.toolkit.gameparts.components.CameraPart;
 
 /**
  * Point depuis lequel on observe la scène. Cela influe donc sur le rendu
@@ -8,7 +8,7 @@ import com.slamdunk.toolkit.gameparts.components.CameraComponent;
  * Doit ABSOLUMENT être le premier composant ajouté à la scène.
  */
 public class ObservationPoint extends GameObject {
-	public CameraComponent camera;
+	public CameraPart camera;
 	
 	public ObservationPoint() {
 		super();
@@ -16,6 +16,6 @@ public class ObservationPoint extends GameObject {
 		
 		// On a toujours un composant CameraComponent, qui indique
 		// quelle portion du monde est vu
-		camera = addComponent(CameraComponent.class);
+		camera = addComponent(CameraPart.class);
 	}
 }
