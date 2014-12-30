@@ -7,7 +7,7 @@ import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.ComplexPathCursor;
 import com.slamdunk.toolkit.world.path.CursorMode;
 
-public class PathComponent extends Component {
+public class PathScript extends Component {
 	public ComplexPath path;
 	
 	public float startPosition;
@@ -45,7 +45,7 @@ public class PathComponent extends Component {
 			throw new IllegalStateException("PathComponent cannot work properly : speed must be positive");
 		}
 		tmp = new Vector2();
-		transformPosition = gameObject.getComponent(TransformComponent.class).worldPosition;
+		transformPosition = gameObject.getComponent(TransformPart.class).worldPosition;
 		
 		// Récupère l'indice du segment correspondant à ce t
 		int segmentIndex = path.getSegmentIndexFromGlobalT(startPosition);

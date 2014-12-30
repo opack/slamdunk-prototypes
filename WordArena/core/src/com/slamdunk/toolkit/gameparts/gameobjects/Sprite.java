@@ -1,13 +1,13 @@
 package com.slamdunk.toolkit.gameparts.gameobjects;
 
-import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererComponent;
+import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererPart;
 
 public class Sprite extends GameObject {
-	public SpriteRendererComponent spriteRenderer;
+	public SpriteRendererPart spriteRenderer;
 	
 	public Sprite() {
 		super();
 		
-		spriteRenderer = addComponent(SpriteRendererComponent.class);
+		spriteRenderer = addComponent(SpriteRendererPart.class);
 	}
 }

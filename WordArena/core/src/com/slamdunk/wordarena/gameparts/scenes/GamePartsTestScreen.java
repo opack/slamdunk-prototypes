@@ -5,10 +5,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.slamdunk.toolkit.gameparts.components.position.PathComponent;
+import com.slamdunk.toolkit.gameparts.components.position.PathScript;
 import com.slamdunk.toolkit.gameparts.components.position.TrackerScript;
-import com.slamdunk.toolkit.gameparts.components.renderers.ParticleRendererComponent;
-import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererComponent;
+import com.slamdunk.toolkit.gameparts.components.renderers.ParticleRendererPart;
+import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererPart;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.gameparts.gameobjects.Sprite;
 import com.slamdunk.toolkit.gameparts.scene.Scene;
@@ -50,23 +50,23 @@ public class GamePartsTestScreen implements Screen {
 		
 		// Ajoute un paladin
 		Paladin paladin = scene.addGameObject(Paladin.class);
-		paladin.getComponent(SpriteRendererComponent.class).origin.set(0.5f,0.5f); // L'origine des rotations est le centre
-		paladin.getComponent(SpriteRendererComponent.class).anchor.set(0.5f,0.5f); // Position toujours exprimée par rapport au centre
-		paladin.getComponent(PathComponent.class).path = sceneLoader.paths.get(0);
-		paladin.getComponent(PathComponent.class).speed = 50;
+		paladin.getComponent(SpriteRendererPart.class).origin.set(0.5f,0.5f); // L'origine des rotations est le centre
+		paladin.getComponent(SpriteRendererPart.class).anchor.set(0.5f,0.5f); // Position toujours exprimée par rapport au centre
+		paladin.getComponent(PathScript.class).path = sceneLoader.paths.get(0);
+		paladin.getComponent(PathScript.class).speed = 50;
 		
 		GameObject dot = paladin.addChild();
-		dot.addComponent(SpriteRendererComponent.class);
-		dot.getComponent(SpriteRendererComponent.class).spriteFile = "textures/dot.png";
+		dot.addComponent(SpriteRendererPart.class);
+		dot.getComponent(SpriteRendererPart.class).spriteFile = "textures/dot.png";
 		dot.transform.relativePosition.set(16, 16, 0);
-		dot.addComponent(ParticleRendererComponent.class);
-		dot.getComponent(ParticleRendererComponent.class).effectFile = "particles/firebeam.p";
-		dot.getComponent(ParticleRendererComponent.class).imagesDirectory = "particles";
-		dot.getComponent(ParticleRendererComponent.class).active = false;
+		dot.addComponent(ParticleRendererPart.class);
+		dot.getComponent(ParticleRendererPart.class).effectFile = "particles/firebeam.p";
+		dot.getComponent(ParticleRendererPart.class).imagesDirectory = "particles";
+		dot.getComponent(ParticleRendererPart.class).active = false;
 		
 		GameObject dot2 = scene.addGameObject();
-		dot2.addComponent(SpriteRendererComponent.class);
-		dot2.getComponent(SpriteRendererComponent.class).spriteFile = "textures/dot.png";
+		dot2.addComponent(SpriteRendererPart.class);
+		dot2.getComponent(SpriteRendererPart.class).spriteFile = "textures/dot.png";
 		dot2.transform.relativePosition.set(160, 160, 0);
 		
 		scene.observationPoint.getComponent(TrackerScript.class).target = paladin;

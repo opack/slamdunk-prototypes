@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
+import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 
-public class SpriteRendererComponent extends Component {
+public class SpriteRendererPart extends Component {
 	public String spriteFile;
 	public TextureRegion textureRegion;
 	public Color tint;
@@ -30,13 +30,13 @@ public class SpriteRendererComponent extends Component {
 	 */
 	public Vector2 origin;
 	
-	private TransformComponent transform;
+	private TransformPart transform;
 	
 	private Color tmpOrigBatchColor;
 	private float tmpTextureWidth;
 	private float tmpTextureHeight;
 	
-	public SpriteRendererComponent() {
+	public SpriteRendererPart() {
 		anchor = new Vector2();
 		origin = new Vector2();
 	}
@@ -52,7 +52,7 @@ public class SpriteRendererComponent extends Component {
 	
 	@Override
 	public void init() {
-		transform = gameObject.getComponent(TransformComponent.class);
+		transform = gameObject.getComponent(TransformPart.class);
 		if (spriteFile != null
 		&& !spriteFile.isEmpty()) {
 			textureRegion = new TextureRegion(new Texture(Gdx.files.internal(spriteFile)));

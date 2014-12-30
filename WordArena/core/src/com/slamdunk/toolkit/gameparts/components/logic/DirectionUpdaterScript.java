@@ -3,7 +3,7 @@ package com.slamdunk.toolkit.gameparts.components.logic;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
+import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 
@@ -28,7 +28,7 @@ public class DirectionUpdaterScript extends Component {
 	 */
 	public String actionParameter;
 	
-	private AnimationControllerComponent animationControllerComponent;
+	private AnimationControllerScript animationControllerComponent;
 	private Vector3 transformPosition;
 	
 	private Vector2 lastPosition;
@@ -42,8 +42,8 @@ public class DirectionUpdaterScript extends Component {
 	
 	@Override
 	public void init() {
-		animationControllerComponent = gameObject.getComponent(AnimationControllerComponent.class);
-		transformPosition = gameObject.getComponent(TransformComponent.class).worldPosition;
+		animationControllerComponent = gameObject.getComponent(AnimationControllerScript.class);
+		transformPosition = gameObject.getComponent(TransformPart.class).worldPosition;
 		
 		currentPosition = new Vector2();
 		lastPosition = new Vector2();

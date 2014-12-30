@@ -24,7 +24,7 @@ public class TrackerScript extends Component {
 	 */
 	public float reachTime;
 
-	private TransformComponent trackerTransform;
+	private TransformPart trackerTransform;
 	private Vector3 targetPosition;
 	
 	private Vector3 startPosition;

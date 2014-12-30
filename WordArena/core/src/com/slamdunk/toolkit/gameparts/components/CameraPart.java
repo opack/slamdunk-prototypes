@@ -2,13 +2,13 @@ package com.slamdunk.toolkit.gameparts.components;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
-import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
+import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 
 /**
  * Représente l'oeil à travers lequel on voit la scène.
  * Doit ABSOLUMENT être le premier composant ajouté au GameObject.
  */
-public class CameraComponent extends Component {
+public class CameraPart extends Component {
 	public static final int DEFAULT_VIEWPORT_WIDTH = 800;
 	public static final int DEFAULT_VIEWPORT_HEIGHT = 480;
 	
@@ -20,7 +20,7 @@ public class CameraComponent extends Component {
 	
 	private OrthographicCamera orthoCam;
 	
-	private TransformComponent transform;
+	private TransformPart transform;
 	
 	@Override
 	public void reset() {
@@ -31,7 +31,7 @@ public class CameraComponent extends Component {
 	
 	@Override
 	public void init() {
-		transform = gameObject.getComponent(TransformComponent.class);
+		transform = gameObject.getComponent(TransformPart.class);
 		
 		orthoCam = new OrthographicCamera();
 		orthoCam.setToOrtho(false);

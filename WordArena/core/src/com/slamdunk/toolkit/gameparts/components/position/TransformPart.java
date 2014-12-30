@@ -13,7 +13,7 @@ import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
  * pour placer et dessiner le GameObject.
  * Donc : édition -> positions relatives, calcul & rendu -> positions absolues. 
  */
-public class TransformComponent extends Component {
+public class TransformPart extends Component {
 	/**
 	 * Position dans le monde, calculée lors de l'appel
 	 * à physics().
@@ -50,9 +50,9 @@ public class TransformComponent extends Component {
 	 */
 	public Vector3 relativeScale;
 	
-	private TransformComponent parentTransform;
+	private TransformPart parentTransform;
 	
-	public TransformComponent() {
+	public TransformPart() {
 		worldPosition = new Vector3();
 		worldRotation = new Vector3();
 		worldScale = new Vector3();
