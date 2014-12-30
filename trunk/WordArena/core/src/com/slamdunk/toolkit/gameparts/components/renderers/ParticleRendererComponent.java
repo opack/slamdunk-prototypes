@@ -1,8 +1,10 @@
-package com.slamdunk.toolkit.gameparts.components;
+package com.slamdunk.toolkit.gameparts.components.renderers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.slamdunk.toolkit.gameparts.components.Component;
+import com.slamdunk.toolkit.gameparts.components.TransformComponent;
 
 /**
  * 2 façons d'initialiser le renderer :

@@ -1,7 +1,9 @@
-package com.slamdunk.toolkit.gameparts.components;
+package com.slamdunk.toolkit.gameparts.components.logic;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.slamdunk.toolkit.gameparts.components.Component;
+import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererComponent;
 import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 
 /**
