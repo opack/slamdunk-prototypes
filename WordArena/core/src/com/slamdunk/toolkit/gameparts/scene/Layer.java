@@ -37,6 +37,9 @@ public class Layer extends GameObject {
 	}
 	
 	public void render(Batch drawBatch) {
+		if (!visible) {
+			return;
+		}
 		// Classe les gameObjects par z croissant pour commencer le rendu
 		// par ceux qui sont le plus au fond
 		Collections.sort(tmpDepthSortedObjects, new Comparator<GameObject>() {

@@ -6,12 +6,15 @@ GameParts
 	[ ] Scripts de layout des enfants d'un GameObject
 		[ ] En cercle (autour du GameObject parent, avec un certain rayon)
 		[ ] En grille (possibilité de laisser certaines cases vides)
-	[ ] PoolComponent : gère un pool d'instances d'un certain GameObject
+	[ ] PoolPart : gère un pool d'instances d'un certain GameObject
 	[ ] Colliders
 	[ ] DragComponent (avec un payload), DropTargetComponent DragAndDropScript
 	[ ] Tween
 	[ ] Body et autres Box2d (https://github.com/libgdx/libgdx/wiki/box2d)
 	[ ] Lumière
+[ ] Configuration d'un Component (variables publiques) à partir d'un fichier JSON
+	-> Ajouter une méthode load(JSonValue) qui initialise le Component par réflexion
+	-> Ajouter une méthode JSonValue save() qui enregistre le Component par réflexion
 
 Champ de bataille
 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
