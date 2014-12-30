@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.TransformComponent;
+import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
 
 public class SpriteRendererComponent extends Component {
 	public String spriteFile;

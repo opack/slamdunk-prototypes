@@ -1,10 +1,9 @@
-package com.slamdunk.wordarena.gameparts.scripts;
+package com.slamdunk.toolkit.gameparts.components.logic;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.TransformComponent;
-import com.slamdunk.toolkit.gameparts.components.logic.AnimationControllerComponent;
+import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 

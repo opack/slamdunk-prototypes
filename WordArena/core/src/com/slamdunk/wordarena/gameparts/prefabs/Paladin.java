@@ -1,13 +1,13 @@
 package com.slamdunk.wordarena.gameparts.prefabs;
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.slamdunk.toolkit.gameparts.components.PathComponent;
 import com.slamdunk.toolkit.gameparts.components.logic.AnimationControllerComponent;
+import com.slamdunk.toolkit.gameparts.components.logic.DirectionUpdaterScript;
+import com.slamdunk.toolkit.gameparts.components.position.PathComponent;
 import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
-import com.slamdunk.wordarena.gameparts.scripts.DirectionUpdaterScript;
 
 public class Paladin extends GameObject {
 	

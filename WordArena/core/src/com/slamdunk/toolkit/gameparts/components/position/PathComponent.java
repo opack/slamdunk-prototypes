@@ -1,7 +1,8 @@
-package com.slamdunk.toolkit.gameparts.components;
+package com.slamdunk.toolkit.gameparts.components.position;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.ComplexPathCursor;
 import com.slamdunk.toolkit.world.path.CursorMode;
