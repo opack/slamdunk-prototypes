@@ -3,6 +3,9 @@ GameParts
 [ ] Ajouter les composants :
 	[X] Particules
 	[ ] UI
+	[ ] Scripts de layout des enfants d'un GameObject
+		[ ] En cercle (autour du GameObject parent, avec un certain rayon)
+		[ ] En grille (possibilité de laisser certaines cases vides)
 	[/] LayeredSpriteRenderer : inutile, il suffit de faire un enfant à un GameObject
 	[ ] Colliders
 	[ ] Tween
