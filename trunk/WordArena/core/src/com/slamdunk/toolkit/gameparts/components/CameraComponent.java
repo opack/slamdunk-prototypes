@@ -2,6 +2,7 @@ package com.slamdunk.toolkit.gameparts.components;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
+import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
 
 /**
  * Représente l'oeil à travers lequel on voit la scène.

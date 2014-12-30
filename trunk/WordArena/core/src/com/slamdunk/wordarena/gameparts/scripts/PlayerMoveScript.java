@@ -3,8 +3,8 @@ package com.slamdunk.wordarena.gameparts.scripts;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.TransformComponent;
 import com.slamdunk.toolkit.gameparts.components.logic.AnimationControllerComponent;
+import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
 import com.slamdunk.toolkit.world.Directions4;
 
 public class PlayerMoveScript extends Component {

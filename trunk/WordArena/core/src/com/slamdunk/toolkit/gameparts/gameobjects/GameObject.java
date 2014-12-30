@@ -8,7 +8,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.TransformComponent;
+import com.slamdunk.toolkit.gameparts.components.position.TransformComponent;
 
 /**
  * Objet du jeu. C'est un simple agrégat de composants.

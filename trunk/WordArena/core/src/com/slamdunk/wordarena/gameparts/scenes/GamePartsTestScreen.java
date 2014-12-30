@@ -5,7 +5,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.slamdunk.toolkit.gameparts.components.PathComponent;
+import com.slamdunk.toolkit.gameparts.components.position.PathComponent;
+import com.slamdunk.toolkit.gameparts.components.position.TrackerScript;
 import com.slamdunk.toolkit.gameparts.components.renderers.ParticleRendererComponent;
 import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererComponent;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
@@ -14,7 +15,6 @@ import com.slamdunk.toolkit.gameparts.scene.Scene;
 import com.slamdunk.wordarena.gameparts.SVGLoader;
 import com.slamdunk.wordarena.gameparts.prefabs.Castle;
 import com.slamdunk.wordarena.gameparts.prefabs.Paladin;
-import com.slamdunk.wordarena.gameparts.scripts.FollowScript;
 
 public class GamePartsTestScreen implements Screen {
 	private Scene scene;
@@ -35,7 +35,7 @@ public class GamePartsTestScreen implements Screen {
 		// Place la caméra au centre de l'écran
 		scene.observationPoint.transform.relativePosition.x = scene.observationPoint.camera.viewportWidth / 2;
 		scene.observationPoint.transform.relativePosition.y = scene.observationPoint.camera.viewportHeight / 2;
-		scene.observationPoint.addComponent(FollowScript.class);
+		scene.observationPoint.addComponent(TrackerScript.class);
 		
 		// Ajoute une couche à la scène
 		scene.addLayer("background", 0);
@@ -69,9 +69,9 @@ public class GamePartsTestScreen implements Screen {
 		dot2.getComponent(SpriteRendererComponent.class).spriteFile = "textures/dot.png";
 		dot2.transform.relativePosition.set(160, 160, 0);
 		
-		scene.observationPoint.getComponent(FollowScript.class).target = paladin;
-		scene.observationPoint.getComponent(FollowScript.class).leech = 100;
-		scene.observationPoint.getComponent(FollowScript.class).reachTime = 1;
+		scene.observationPoint.getComponent(TrackerScript.class).target = paladin;
+		scene.observationPoint.getComponent(TrackerScript.class).leech = 100;
+		scene.observationPoint.getComponent(TrackerScript.class).reachTime = 1;
 		
 		scene.init();
 	}

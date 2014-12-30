@@ -1,14 +1,13 @@
-package com.slamdunk.wordarena.gameparts.scripts;
+package com.slamdunk.toolkit.gameparts.components.position;
 
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.components.TransformComponent;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 
 /**
  * Va sur la cible lorsque celle-ci s'éloigne d'une certaine valeur
  */
-public class FollowScript extends Component {
+public class TrackerScript extends Component {
 	public static final float DEFAULT_REACH_TIME = 1f;
 	
 	/**
