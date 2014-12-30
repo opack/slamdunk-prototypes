@@ -1,7 +1,7 @@
 package com.slamdunk.wordarena.gameparts.prefabs;
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.slamdunk.toolkit.gameparts.components.AnimatorComponent;
+import com.slamdunk.toolkit.gameparts.components.logic.AnimatorComponent;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 
 public class Castle extends GameObject {

@@ -1,10 +1,11 @@
-package com.slamdunk.toolkit.gameparts.components;
+package com.slamdunk.toolkit.gameparts.components.logic;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.Array;
+import com.slamdunk.toolkit.gameparts.components.Component;
 
 /**
  * Gère différents états et les paramètres qui autorisent les transitions entre eux.

@@ -2,12 +2,17 @@ package com.slamdunk.wordarena.gameparts.scripts;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-import com.slamdunk.toolkit.gameparts.components.AnimationControllerComponent;
 import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.components.TransformComponent;
+import com.slamdunk.toolkit.gameparts.components.logic.AnimationControllerComponent;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
 
+/**
+ * Met à jour des paramètres dans un AnimationControllerComponent
+ * en fonction de la direction vers laquelle se tourne le GameObject
+ * et de son état (en déplacement ou à l'arrêt).
+ */
 public class DirectionUpdaterScript extends Component {
 	/**
 	 * Paramètre de l'AnimationController à définir contenant

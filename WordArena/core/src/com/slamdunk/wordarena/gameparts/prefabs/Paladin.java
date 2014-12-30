@@ -1,8 +1,8 @@
 package com.slamdunk.wordarena.gameparts.prefabs;
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
-import com.slamdunk.toolkit.gameparts.components.AnimationControllerComponent;
 import com.slamdunk.toolkit.gameparts.components.PathComponent;
+import com.slamdunk.toolkit.gameparts.components.logic.AnimationControllerComponent;
 import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.world.Directions4;

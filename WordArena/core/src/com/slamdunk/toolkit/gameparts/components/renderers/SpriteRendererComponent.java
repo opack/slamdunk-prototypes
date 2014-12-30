@@ -1,4 +1,4 @@
-package com.slamdunk.toolkit.gameparts.components;
+package com.slamdunk.toolkit.gameparts.components.renderers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.slamdunk.toolkit.gameparts.components.Component;
+import com.slamdunk.toolkit.gameparts.components.TransformComponent;
 
 public class SpriteRendererComponent extends Component {
 	public String spriteFile;
