@@ -18,7 +18,6 @@ public class Scene {
 	public static final float DEFAULT_PHYSICS_FIXED_STEP = 1/80f;
 	public static final float DEFAULT_PHYSICS_MAX_STEP = 1/4f;
 	public static final float DEFAULT_PHYSICS_TIME_SCALE = 1f;
-	private static final String DEFAULT_LAYER_NAME = "default";
 	
 	public Stage ui;
 	public List<Layer> layers;
@@ -75,7 +74,6 @@ public class Scene {
 		
 		// Ajoute une couche par défaut
 		layers = new ArrayList<Layer>();
-		addLayer(DEFAULT_LAYER_NAME);
 	}
 	
 	public int getLayerIndex(String name) {
@@ -89,7 +87,19 @@ public class Scene {
 		return index;
 	}
 	
-	public int addLayer(String name) {
+	public Layer getLayer(int index) {
+		return layers.get(index);
+	}
+	
+	public Layer getLayer(String name) {
+		int index = getLayerIndex(name);
+		if (index == - 1) {
+			throw new IllegalArgumentException("There is no layer with name " + name + ".");
+		}
+		return layers.get(index);
+	}
+	
+	public Layer addLayer(String name) {
 		return addLayer(name, layers.size());
 	}
 	
@@ -99,64 +109,18 @@ public class Scene {
 	 * @param index
 	 * @return Indice de la couche
 	 */
-	public int addLayer(String name, int index) {
+	public Layer addLayer(String name, int index) {
 		int found = getLayerIndex(name);
 		if (found != -1) {
 			throw new IllegalArgumentException("There is already a layer with name " + name + " at index " + found);
 		}
-		Layer layer = root.addChild(Layer.class);
+		Layer layer = root.createChild(Layer.class);
 		layer.name = name;
 		layer.scene = this;
 		layers.add(index, layer);
-		return index;
-	}
-	
-	public GameObject addGameObject() {
-		return addGameObject(GameObject.class, 0);
-	}
-	
-	public <T extends GameObject> T addGameObject(Class<T> gameObjectClass) {
-		return addGameObject(gameObjectClass, 0);
-	}
-	
-	public <T extends GameObject> T addGameObject(Class<T> gameObjectClass, String layerName) {
-		int index = getLayerIndex(layerName);
-		if (index > layers.size() - 1) {
-			throw new IllegalArgumentException("There is no layer with name " + layerName + ".");
-		}
-		return addGameObject(gameObjectClass, index);		
-	}
-	
-	public <T extends GameObject> T addGameObject(Class<T> gameObjectClass, int layerIndex) {
-		if (layerIndex < 0
-		|| layerIndex > layers.size() - 1) {
-			throw new IllegalArgumentException("There is no layer at index " + layerIndex + ". Max layer index = " + (layers.size() - 1));
-		}
-		Layer layer = layers.get(layerIndex);
-		return layer.addChild(gameObjectClass);
-	}
-	
-	public GameObject addGameObject(GameObject gameObject) {
-		return addGameObject(gameObject, 0);
+		return layer;
 	}
 
-	public GameObject addGameObject(GameObject gameObject, String layerName) {
-		int index = getLayerIndex(layerName);
-		if (index > layers.size() - 1) {
-			throw new IllegalArgumentException("There is no layer with name " + layerName + ".");
-		}
-		return addGameObject(gameObject, index);		
-	}
-	
-	public GameObject addGameObject(GameObject gameObject, int layerIndex) {
-		if (layerIndex < 0
-		|| layerIndex > layers.size() - 1) {
-			throw new IllegalArgumentException("There is no layer at index " + layerIndex + ". Max layer index = " + (layers.size() - 1));
-		}
-		Layer layer = layers.get(layerIndex);
-		return layer.addChild(gameObject);
-	}
-	
 	/**
 	 * Charge une scène depuis un fichier
 	 */
