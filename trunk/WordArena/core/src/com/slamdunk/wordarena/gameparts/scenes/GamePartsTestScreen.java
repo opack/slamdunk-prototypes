@@ -11,8 +11,10 @@ import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererPart;
 import com.slamdunk.toolkit.gameparts.components.ui.UIButtonPart;
 import com.slamdunk.toolkit.gameparts.components.ui.UIComponent;
 import com.slamdunk.toolkit.gameparts.components.ui.UIProgressBarPart;
+import com.slamdunk.toolkit.gameparts.creators.GameObjectFactory;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.gameparts.gameobjects.Sprite;
+import com.slamdunk.toolkit.gameparts.scene.Layer;
 import com.slamdunk.toolkit.gameparts.scene.Scene;
 import com.slamdunk.wordarena.gameparts.creators.CustomSVGLoader;
 import com.slamdunk.wordarena.gameparts.prefabs.Castle;
@@ -30,21 +32,22 @@ public class GamePartsTestScreen implements Screen {
 	private void createScene() {
 		// Crée une nouvelle scène à la taille de l'écran et avec une couche d'IHM
 		scene = new Scene(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+		final Layer backgroundLayer = scene.addLayer("background");	// Le fond de carte sera ajouté dans cette couche
+		final Layer foregroundLayer = scene.addLayer("foreground");	// Cette couche contiendra tous les autres éléments
 		
 		// Charge le SVG contenant le level design
 		CustomSVGLoader sceneLoader = new CustomSVGLoader("battlefields/battlefield0.svg");
 		
 		// Ajoute un fond de carte à la scène
-		Sprite map = new Sprite();
+		Sprite map = GameObjectFactory.create(Sprite.class);
 		map.spriteRenderer.spriteFile = "maps/battlefield0.png";
-		scene.addLayer("background", 0);		// La carte sera ajoutée dans une couche spéciale
-		scene.addGameObject(map, "background");
+		backgroundLayer.addChild(map);
 		
 		// Ajoute un château
-		scene.addGameObject(Castle.class);
+		foregroundLayer.createChild(Castle.class);
 		
 		// Ajoute un paladin
-		Paladin paladin = scene.addGameObject(Paladin.class);
+		Paladin paladin = foregroundLayer.createChild(Paladin.class);
 		paladin.name = "Paladin";
 		paladin.getComponent(SpriteRendererPart.class).origin.set(0.5f,0.5f); // L'origine des rotations est le centre
 		paladin.getComponent(SpriteRendererPart.class).anchor.set(0.5f,0.5f); // Position toujours exprimée par rapport au centre
@@ -52,7 +55,7 @@ public class GamePartsTestScreen implements Screen {
 		paladin.getComponent(PathFollowerScript.class).speed = 50;
 		
 		// Ajoute un point qui suivra le paladin
-		GameObject dot = paladin.addChild();
+		GameObject dot = paladin.createChild();
 		dot.addComponent(SpriteRendererPart.class);
 		dot.getComponent(SpriteRendererPart.class).spriteFile = "textures/dot.png";
 		dot.transform.relativePosition.set(16, 16, 0);
@@ -63,16 +66,17 @@ public class GamePartsTestScreen implements Screen {
 		
 		// Bouton
 		Skin skin = new Skin(Gdx.files.internal("skins/uiskin/uiskin.json"));
-		GameObject button = scene.addGameObject();
+		GameObject button = foregroundLayer.createChild();
+		button.transform.relativePosition.set(10, 240, 0);
 		button.addComponent(UIButtonPart.class);
 		button.getComponent(UIButtonPart.class).skin = skin;
 		button.getComponent(UIButtonPart.class).script = new ButtonClickTestScript();
 		button.getComponent(UIButtonPart.class).text = "Test bouton";
-		button.transform.relativePosition.set(10, 240, 0);
 		
 		// Slider
-		GameObject slider = scene.addGameObject();
+		GameObject slider = foregroundLayer.createChild();
 		slider.addComponent(UIProgressBarPart.class);
+		slider.transform.relativePosition.set(100, 120, 0);
 		slider.getComponent(UIProgressBarPart.class).skin = skin;
 		slider.getComponent(UIProgressBarPart.class).minValue = 0;
 		slider.getComponent(UIProgressBarPart.class).currentValue = 50;
@@ -80,12 +84,11 @@ public class GamePartsTestScreen implements Screen {
 		slider.getComponent(UIProgressBarPart.class).stepSize = 1;
 		slider.getComponent(UIProgressBarPart.class).verticalOriented = false;
 		slider.getComponent(UIProgressBarPart.class).isSlider = true;
-		slider.transform.relativePosition.set(100, 120, 0);
 		slider.addComponent(PathSpeedTweakerScript.class);
 		slider.getComponent(PathSpeedTweakerScript.class).pathFollower = paladin.getComponent(PathFollowerScript.class);
 		
 		// GameObject de test pour attacher un widget lambda
-		GameObject anyWidgetUI = scene.addGameObject();
+		GameObject anyWidgetUI = foregroundLayer.createChild();
 		anyWidgetUI.addComponent(UIComponent.class);
 		anyWidgetUI.getComponent(UIComponent.class).skin = skin;
 		anyWidgetUI.getComponent(UIComponent.class).actor = new Label("Test label", skin);

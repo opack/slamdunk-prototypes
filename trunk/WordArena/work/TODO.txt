@@ -17,7 +17,9 @@ GameParts
 	- getById(long)
 	- find(Class<? extends GameObject>, String name)
 	- findAll(Class<? extends GameObject>)
+	- findWithComponents(Class<? extends Component>...)
 	- create(...) -> Reprend le code des méthode addGameObject() existantes, qui appelleront désormais cette méthode
+	- createWithComponents(Class<? extends Component>...)
 [ ] Configuration d'un Component (variables publiques) à partir d'un fichier JSON
 	-> Ajouter une méthode load(JSonValue) qui initialise le Component par réflexion
 	-> Ajouter une méthode JSonValue save() qui enregistre le Component par réflexion

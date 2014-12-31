@@ -9,6 +9,7 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
+import com.slamdunk.toolkit.gameparts.creators.GameObjectFactory;
 import com.slamdunk.toolkit.gameparts.scene.Scene;
 
 /**
@@ -57,22 +58,14 @@ public class GameObject {
 		transform = addComponent(TransformPart.class);
 	}
 	
-	public GameObject addChild() {
-		return addChild(new GameObject());
+	public GameObject createChild() {
+		return addChild(GameObjectFactory.create());
 	}
 	
-	public <T extends GameObject> T addChild(Class<T> childClass) {
-		T child = null;
-		try {
-			child = addChild(childClass.newInstance());
-		} catch (InstantiationException e) {
-			throw new IllegalStateException("Creation of GameObject " + childClass + " is impossible due to InstantiationException", e);
-		} catch (IllegalAccessException e) {
-			throw new IllegalStateException("Creation of GameObject " + childClass + " is impossible due to IllegalAccessException", e);
-		}
-		return child;
+	public <T extends GameObject> T createChild(Class<T> childClass) {
+		return addChild(GameObjectFactory.create(childClass));
 	}
-	
+
 	public <T extends GameObject> T addChild(T child) {
 		if (this == child) {
 			throw new IllegalArgumentException("A GameObject Cannot be a child of itself !");
@@ -88,14 +81,11 @@ public class GameObject {
 	}
 	
 	public GameObject findChild(String name) {
-		if (name != null) {
-			for (GameObject child : children) {
-				if (name.equals(child.name)) {
-					return child;
-				}
-			}
-		}
-		return null;
+		return findChild(GameObject.class, name);
+	}
+	
+	public GameObject findChild(String name, boolean recurse) {
+		return findChild(GameObject.class, name, recurse);
 	}
 	
 	/**
@@ -164,8 +154,27 @@ public class GameObject {
 		return componentClass.cast(components.get(componentClass));
 	}
 	
+	/**
+	 * Indique si le GameObject possède un composant ayant la classe passée en argument
+	 * @param componentClasses
+	 * @return
+	 */
 	public boolean hasComponent(Class<? extends Component> componentClass) {
 		return components.get(componentClass) != null;
+	}
+	
+	/**
+	 * Indique si le GameObject possède un composant de chaque classe passée en argument
+	 * @param componentClasses
+	 * @return
+	 */
+	public boolean hasComponents(Class<? extends Component>... componentClasses) {
+		for (Class<? extends Component> componentClass : componentClasses) {
+			if (components.get(componentClass) == null) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**
