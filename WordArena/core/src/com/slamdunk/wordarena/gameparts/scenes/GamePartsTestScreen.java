@@ -28,22 +28,16 @@ public class GamePartsTestScreen implements Screen {
 	}
 	
 	private void createScene() {
-		scene = new Scene(800, 480, true);
+		// Crée une nouvelle scène à la taille de l'écran et avec une couche d'IHM
+		scene = new Scene(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
 		
 		// Charge le SVG contenant le level design
 		CustomSVGLoader sceneLoader = new CustomSVGLoader("battlefields/battlefield0.svg");
 		
-		// Place la caméra au centre de l'écran
-		scene.observationPoint.transform.relativePosition.x = scene.observationPoint.camera.viewportWidth / 2;
-		scene.observationPoint.transform.relativePosition.y = scene.observationPoint.camera.viewportHeight / 2;
-		scene.observationPoint.addComponent(TrackerScript.class);
-		
-		// Ajoute une couche à la scène
-		scene.addLayer("background", 0);
-		
-		// Ajoute un sprite à la scène
+		// Ajoute un fond de carte à la scène
 		Sprite map = new Sprite();
 		map.spriteRenderer.spriteFile = "maps/battlefield0.png";
+		scene.addLayer("background", 0);		// La carte sera ajoutée dans une couche spéciale
 		scene.addGameObject(map, "background");
 		
 		// Ajoute un château
@@ -57,6 +51,7 @@ public class GamePartsTestScreen implements Screen {
 		paladin.getComponent(PathFollowerScript.class).path = sceneLoader.paths.get(0);
 		paladin.getComponent(PathFollowerScript.class).speed = 50;
 		
+		// Ajoute un point qui suivra le paladin
 		GameObject dot = paladin.addChild();
 		dot.addComponent(SpriteRendererPart.class);
 		dot.getComponent(SpriteRendererPart.class).spriteFile = "textures/dot.png";
@@ -66,11 +61,7 @@ public class GamePartsTestScreen implements Screen {
 		dot.getComponent(ParticleRendererPart.class).imagesDirectory = "particles";
 		dot.getComponent(ParticleRendererPart.class).active = false;
 		
-		GameObject dot2 = scene.addGameObject();
-		dot2.addComponent(SpriteRendererPart.class);
-		dot2.getComponent(SpriteRendererPart.class).spriteFile = "textures/dot.png";
-		dot2.transform.relativePosition.set(160, 160, 0);
-		
+		// Bouton
 		Skin skin = new Skin(Gdx.files.internal("skins/uiskin/uiskin.json"));
 		GameObject button = scene.addGameObject();
 		button.addComponent(UIButtonPart.class);
@@ -79,6 +70,7 @@ public class GamePartsTestScreen implements Screen {
 		button.getComponent(UIButtonPart.class).text = "Test bouton";
 		button.transform.relativePosition.set(10, 240, 0);
 		
+		// Slider
 		GameObject slider = scene.addGameObject();
 		slider.addComponent(UIProgressBarPart.class);
 		slider.getComponent(UIProgressBarPart.class).skin = skin;
@@ -92,16 +84,22 @@ public class GamePartsTestScreen implements Screen {
 		slider.addComponent(PathSpeedTweakerScript.class);
 		slider.getComponent(PathSpeedTweakerScript.class).pathFollower = paladin.getComponent(PathFollowerScript.class);
 		
-		GameObject dbg = scene.addGameObject();
-		dbg.addComponent(UIComponent.class);
-		dbg.getComponent(UIComponent.class).skin = skin;
-		dbg.getComponent(UIComponent.class).actor = new Label("Test label", skin);
-		dbg.transform.relativePosition.set(100, 150, 0);
+		// GameObject de test pour attacher un widget lambda
+		GameObject anyWidgetUI = scene.addGameObject();
+		anyWidgetUI.addComponent(UIComponent.class);
+		anyWidgetUI.getComponent(UIComponent.class).skin = skin;
+		anyWidgetUI.getComponent(UIComponent.class).actor = new Label("Test label", skin);
+		anyWidgetUI.transform.relativePosition.set(100, 150, 0);
 		
+		// Place la caméra au centre de l'écran et suit le Paladin
+		scene.observationPoint.transform.relativePosition.x = scene.observationPoint.camera.viewportWidth / 2;
+		scene.observationPoint.transform.relativePosition.y = scene.observationPoint.camera.viewportHeight / 2;
+		scene.observationPoint.addComponent(TrackerScript.class);
 		scene.observationPoint.getComponent(TrackerScript.class).target = paladin;
 		scene.observationPoint.getComponent(TrackerScript.class).leech = 100;
 		scene.observationPoint.getComponent(TrackerScript.class).reachTime = 1;
 		
+		// Initialise les GameObjects de la scène
 		scene.init();
 	}
 
