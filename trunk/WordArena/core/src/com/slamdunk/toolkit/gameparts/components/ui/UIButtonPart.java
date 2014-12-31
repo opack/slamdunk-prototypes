@@ -7,6 +7,7 @@ import com.slamdunk.toolkit.ui.ButtonClickListener;
 public class UIButtonPart extends UIComponent {
 	public ButtonClickScript script;
 	public String text;
+	
 	private TextButton button;
 	
 	@Override
@@ -25,8 +26,10 @@ public class UIButtonPart extends UIComponent {
 		super.init();
 	}
 	
-	public boolean onTouchDown(int button) {
-		System.out.println("UIButtonPart.onTouchDown()");
-		return false;
+	@Override
+	public void updateWidget() {
+		if (!button.getText().equals(text)) {
+			button.setText(text);
+		}
 	}
 }

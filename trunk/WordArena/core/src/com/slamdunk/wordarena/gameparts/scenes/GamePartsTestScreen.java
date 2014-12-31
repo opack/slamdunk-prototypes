@@ -86,7 +86,7 @@ public class GamePartsTestScreen implements Screen {
 		slider.getComponent(UISliderPart.class).minValue = 0;
 		slider.getComponent(UISliderPart.class).currentValue = 50;
 		slider.getComponent(UISliderPart.class).maxValue = 100;
-		slider.getComponent(UISliderPart.class).stepValue = 1;
+		slider.getComponent(UISliderPart.class).stepSize = 1;
 		slider.getComponent(UISliderPart.class).verticalOriented = false;
 		slider.transform.relativePosition.set(100, 120, 0);
 		slider.addComponent(PathSpeedTweakerScript.class);

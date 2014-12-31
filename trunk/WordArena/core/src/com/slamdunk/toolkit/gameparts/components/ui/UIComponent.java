@@ -26,4 +26,12 @@ public class UIComponent extends Component {
 	public void physics(float deltaTime) {
 		actor.setPosition(worldPosition.x, worldPosition.y);
 	}
+	
+	/**
+	 * Méthode qui doit être appelée lorsque la modification d'une
+	 * des variables publiques de ce Component doit être propagée
+	 * vers le widget enveloppé.
+	 */
+	public void updateWidget() {
+	}
 }
