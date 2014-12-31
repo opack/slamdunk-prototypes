@@ -2,20 +2,20 @@ package com.slamdunk.wordarena.gameparts.scripts;
 
 import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.components.position.PathFollowerScript;
-import com.slamdunk.toolkit.gameparts.components.ui.UISliderPart;
+import com.slamdunk.toolkit.gameparts.components.ui.UIProgressBarPart;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 
 public class PathSpeedTweakerScript extends Component {
 	public GameObject pathObject;
 	
-	private UISliderPart slider;
+	private UIProgressBarPart slider;
 	private PathFollowerScript path;
 	
 	private float oldValue;
 	
 	@Override
 	public void init() {
-		slider = gameObject.getComponent(UISliderPart.class);
+		slider = gameObject.getComponent(UIProgressBarPart.class);
 		if (slider == null) {
 			throw new IllegalStateException("PathSpeedTweakerScript cannot work properly since the GameObject it is attached to does not have a UISliderPart.");
 		}
