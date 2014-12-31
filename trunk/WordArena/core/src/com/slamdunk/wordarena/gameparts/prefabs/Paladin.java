@@ -3,7 +3,7 @@ package com.slamdunk.wordarena.gameparts.prefabs;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.slamdunk.toolkit.gameparts.components.logic.AnimationControllerScript;
 import com.slamdunk.toolkit.gameparts.components.logic.DirectionUpdaterScript;
-import com.slamdunk.toolkit.gameparts.components.position.PathScript;
+import com.slamdunk.toolkit.gameparts.components.position.PathFollowerScript;
 import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.world.Directions4;
@@ -13,7 +13,7 @@ public class Paladin extends GameObject {
 	
 	public Paladin() {
 		// Ajout d'un composant permettant au Paladin de suivre un chemin
-		addComponent(PathScript.class);
+		addComponent(PathFollowerScript.class);
 		
 		// Ajout d'un composant permettant à l'animation de changer en fonction
 		// de l'action du paladin (déplacement ou oisif) et la direction vers

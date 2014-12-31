@@ -17,7 +17,6 @@ public class TransformPart extends Component {
 	/**
 	 * Position dans le monde, calculée lors de l'appel
 	 * à physics().
-	 * Lecture seule
 	 */
 	public Vector3 worldPosition;
 	

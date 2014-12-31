@@ -22,7 +22,7 @@ public class OffensiveUnit extends SimpleUnit {
 	private Circle range;
 	
 	/**
-	 * Interval de temps entre 2 attaques (en secondes)
+	 * Intervalle de temps entre 2 attaques (en secondes)
 	 */
 	private float attackInterval;
 	

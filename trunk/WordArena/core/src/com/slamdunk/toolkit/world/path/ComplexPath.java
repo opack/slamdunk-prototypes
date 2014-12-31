@@ -6,11 +6,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
 /**
- * Liste de chemins qu'on peut suivre pour passer de l'un à l'autre.
+ * Liste de segments qu'on peut suivre pour passer de l'un à l'autre, formant
+ * ainsi un chemin.
  * Cet objet peut être partagé entre plusieurs objets grâce à
  * l'utilisation d'un PathCursor, qui peut "se déplacer" sur le chemin.
  * 
- * Ce chemin complexe est séparé en plusieurs chemins, que l'on appelle
+ * Ce chemin complexe est séparé en plusieurs segments, que l'on appelle
  * des segments.
  * Chaque segment peut être traité indépendemment et les valeurs qui
  * le composent peuvent être lues grâce au paramètre t, variant entre
@@ -72,9 +73,9 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	}
 	
 	/**
-	 * Crée une liste de chemins qui passent par les points indiqués. Le chemin
+	 * Crée une liste de segments qui passent par les points indiqués. Le chemin
 	 * global ainsi créé est un chemin continu entre tous ces points, cela signifie
-	 * que chaque chemin du ComplexPath est un chemin entre un point et le suivant
+	 * que chaque segment du ComplexPath est un chemin entre un point et le suivant
 	 * dans le tableau fourni en paramètre.
 	 * @param closePath Si true, un dernier segment est créé entre le premier et le
 	 * dernier point
@@ -86,7 +87,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 		if (points.length < 2) {
 			throw new IllegalArgumentException("The points list must contain at least 2 values.");
 		}
-		// Crée les chemins puis les ajoute en mettant à jour le tableau des longueurs
+		// Crée les segments puis les ajoute en mettant à jour le tableau des longueurs
 		for (int cur = 0; cur < points.length - 1; cur++) {
 			add(new Bezier<Vector2>(points, cur, 2));
 		}
@@ -96,7 +97,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	}
 	
 	/**
-	 * Crée une liste de chemins dont chaque chemin passe par les points
+	 * Crée une liste de segments passant par les points
 	 * d'un item du tableau pointsArrays.
 	 * @param pointsArrays
 	 */
@@ -109,7 +110,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	}
 	
 	/**
-	 * Crée une liste de chemins en utilisant les chemins fournis
+	 * Crée une liste de segments en utilisant les chemins fournis
 	 * @param paths
 	 */
 	public ComplexPath(Path<Vector2>... paths) {
@@ -130,7 +131,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	}
 	
 	/**
-	 * Crée une liste de chemins en utilisant les chemins fournis
+	 * Crée une liste de segments en utilisant les chemins fournis
 	 * @param paths
 	 */
 	public ComplexPath(Array<Path<Vector2>> paths) {
@@ -167,13 +168,13 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	}
 
 	/**
-	 * Ajoute une nouveau chemin à la liste et met à jour le
+	 * Ajoute une nouveau segment à la liste et met à jour le
 	 * tableau des longueurs
 	 * @param path
 	 */
 	@Override
 	public void add(Path<Vector2> path) {
-		// Ajoute le chemin à la liste
+		// Ajoute le segment à la liste
 		super.add(path);
 		// Calcule sa longueur
 		SegmentData data = new SegmentData();
@@ -188,7 +189,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	public void addAll(Array<? extends Path<Vector2>> array) {
 		super.addAll(array);
 		
-		// Calcule la longueur des chemins
+		// Calcule la longueur des segments
 		for (Path<Vector2> path : array) {
 			SegmentData data = new SegmentData();
 			data.length = path.approxLength(APPROX_LENGTH_SAMPLES);
@@ -200,7 +201,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	}
 	
 	/**
-	 * Ajoute de nouveaux chemins à la liste et met à jour le
+	 * Ajoute de nouveaux segments à la liste et met à jour le
 	 * tableau des longueurs
 	 * @param path
 	 */
@@ -208,7 +209,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	public void addAll(Array<? extends Path<Vector2>> array, int offset, int length) {
 		super.addAll(array, offset, length);
 		
-		// Calcule la longueur des chemins
+		// Calcule la longueur des segments
 		final int lastPath = offset + length;
 		Path<Vector2> path;
 		for (int curPath = offset; curPath < lastPath; curPath++) {
@@ -224,7 +225,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	}
 	
 	/**
-	 * Ajoute de nouveaux chemins à la liste et met à jour le
+	 * Ajoute de nouveaux segments à la liste et met à jour le
 	 * tableau des longueurs
 	 * @param path
 	 */
@@ -232,7 +233,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	public void addAll(Path<Vector2>... array) {
 		super.addAll(array);
 		
-		// Calcule la longueur des chemins
+		// Calcule la longueur des segments
 		for (Path<Vector2> path : array) {
 			SegmentData data = new SegmentData();
 			data.length = path.approxLength(APPROX_LENGTH_SAMPLES);
@@ -244,7 +245,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	}
 	
 	/**
-	 * Ajoute de nouveaux chemins à la liste et met à jour le
+	 * Ajoute de nouveaux segments à la liste et met à jour le
 	 * tableau des longueurs
 	 * @param path
 	 */
@@ -252,7 +253,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	public void addAll(Path<Vector2>[] array, int offset, int length) {
 		super.addAll(array, offset, length);
 		
-		// Calcule la longueur des chemins
+		// Calcule la longueur des segments
 		final int lastPath = offset + length;
 		Path<Vector2> path;
 		for (int curPath = offset; curPath < lastPath; curPath++) {
@@ -268,7 +269,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	}
 	
 	/**
-	 * Retourne le chemin sur lequel se trouve le curseur
+	 * Retourne le segment sur lequel se trouve le curseur
 	 * @param cursor
 	 * @return
 	 */
@@ -301,7 +302,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 			result = null;
 			return;
 		}
-		path.valueAt(result, cursor.getPosition());
+		path.valueAt(result, cursor.getLocalPosition());
 	}
 	
 	/**
@@ -336,7 +337,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 	}
 
 	/**
-	 * Retourne une valeur localT (propre au chemin d'indice segmentIndex)
+	 * Retourne une valeur localT (propre au segment d'indice segmentIndex)
 	 * à partir d'une valeur globalT
 	 * @param globalT
 	 * @param segmentIndex
@@ -348,11 +349,11 @@ public class ComplexPath extends Array<Path<Vector2>> {
 			updateGlobalTIntervals();
 		}
 		
-		// On replace l'interval à partir de 0 au lieu de min,
+		// On replace l'intervalle à partir de 0 au lieu de min,
 		// puis on fait un bête calcul de pourcentage pour savoir
 		// ou se situe globalT (décalée de -min aussi) par rapport
 		// au max (décalé de -min).
-		// c'est donc notre valeur de localT, entre 0 et 1.
+		// C'est donc notre valeur de localT, entre 0 et 1.
 		final SegmentData data = segmentsData.get(segmentIndex);
 		float localT = (globalT - data.globalTmin) / (data.globalTmax - data.globalTmin);
 		if (localT < 0) {
@@ -361,6 +362,23 @@ public class ComplexPath extends Array<Path<Vector2>> {
 			localT = 1;
 		}
 		return localT;
+	}
+	
+	/**
+	 * Retourne une valeur globalT (propre au ComplexPath)
+	 * à partir d'une valeur localT (propre au segment d'indice segmentIndex)
+	 * @param globalT
+	 * @param segmentIndex
+	 * @return
+	 */
+	public float convertToGlobalT(float localT, int segmentIndex) {
+		// Recalcule les intervals de globalT si nécessaire
+		if (updateGlobalTIntervals) {
+			updateGlobalTIntervals();
+		}
+		
+		final SegmentData data = segmentsData.get(segmentIndex);
+		return localT * (data.globalTmax - data.globalTmin) + data.globalTmin; 
 	}
 
 	/**
@@ -469,7 +487,7 @@ public class ComplexPath extends Array<Path<Vector2>> {
 				minDistance = distance;
 				
 				// Mise à jour du curseur avec la position la plus proche
-				result.setPosition(curT);
+				result.setGlobalPosition(curT);
 				result.setCurrentSegmentIndex(pathIndex);
 				
 				// Si on souhaite récupérer la position sur le chemin qui est 

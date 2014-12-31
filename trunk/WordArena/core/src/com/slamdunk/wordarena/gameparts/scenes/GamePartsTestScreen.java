@@ -2,31 +2,35 @@ package com.slamdunk.wordarena.gameparts.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.slamdunk.toolkit.gameparts.components.position.PathScript;
+import com.slamdunk.toolkit.gameparts.components.position.PathFollowerScript;
 import com.slamdunk.toolkit.gameparts.components.position.TrackerScript;
 import com.slamdunk.toolkit.gameparts.components.renderers.ParticleRendererPart;
 import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererPart;
+import com.slamdunk.toolkit.gameparts.components.ui.UIButtonPart;
+import com.slamdunk.toolkit.gameparts.components.ui.UIComponent;
+import com.slamdunk.toolkit.gameparts.components.ui.UISliderPart;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.gameparts.gameobjects.Sprite;
 import com.slamdunk.toolkit.gameparts.scene.Scene;
 import com.slamdunk.wordarena.gameparts.creators.CustomSVGLoader;
 import com.slamdunk.wordarena.gameparts.prefabs.Castle;
 import com.slamdunk.wordarena.gameparts.prefabs.Paladin;
+import com.slamdunk.wordarena.gameparts.scripts.ButtonClickTestScript;
+import com.slamdunk.wordarena.gameparts.scripts.PathSpeedTweakerScript;
 
 public class GamePartsTestScreen implements Screen {
 	private Scene scene;
-	private Stage stage;
+//	private Stage stage;
 	
 	public GamePartsTestScreen() {
 		createScene();
-		createUI();
+		//createUI();
 	}
 	
 	private void createScene() {
-		scene = new Scene(800, 480);
+		scene = new Scene(800, 480, true);
 		
 		// Charge le SVG contenant le level design
 		CustomSVGLoader sceneLoader = new CustomSVGLoader("battlefields/battlefield0.svg");
@@ -51,8 +55,8 @@ public class GamePartsTestScreen implements Screen {
 		Paladin paladin = scene.addGameObject(Paladin.class);
 		paladin.getComponent(SpriteRendererPart.class).origin.set(0.5f,0.5f); // L'origine des rotations est le centre
 		paladin.getComponent(SpriteRendererPart.class).anchor.set(0.5f,0.5f); // Position toujours exprimée par rapport au centre
-		paladin.getComponent(PathScript.class).path = sceneLoader.paths.get(0);
-		paladin.getComponent(PathScript.class).speed = 50;
+		paladin.getComponent(PathFollowerScript.class).path = sceneLoader.paths.get(0);
+		paladin.getComponent(PathFollowerScript.class).speed = 50;
 		
 		GameObject dot = paladin.addChild();
 		dot.addComponent(SpriteRendererPart.class);
@@ -68,6 +72,32 @@ public class GamePartsTestScreen implements Screen {
 		dot2.getComponent(SpriteRendererPart.class).spriteFile = "textures/dot.png";
 		dot2.transform.relativePosition.set(160, 160, 0);
 		
+		Skin skin = new Skin(Gdx.files.internal("skins/uiskin/uiskin.json"));
+		GameObject button = scene.addGameObject();
+		button.addComponent(UIButtonPart.class);
+		button.getComponent(UIButtonPart.class).skin = skin;
+		button.getComponent(UIButtonPart.class).script = new ButtonClickTestScript();
+		button.getComponent(UIButtonPart.class).text = "Test bouton";
+		button.transform.relativePosition.set(10, 240, 0);
+		
+		GameObject slider = scene.addGameObject();
+		slider.addComponent(UISliderPart.class);
+		slider.getComponent(UISliderPart.class).skin = skin;
+		slider.getComponent(UISliderPart.class).minValue = 0;
+		slider.getComponent(UISliderPart.class).currentValue = 50;
+		slider.getComponent(UISliderPart.class).maxValue = 100;
+		slider.getComponent(UISliderPart.class).stepValue = 1;
+		slider.getComponent(UISliderPart.class).verticalOriented = false;
+		slider.transform.relativePosition.set(100, 120, 0);
+		slider.addComponent(PathSpeedTweakerScript.class);
+		slider.getComponent(PathSpeedTweakerScript.class).pathObject = paladin;
+		
+		GameObject dbg = scene.addGameObject();
+		dbg.addComponent(UIComponent.class);
+		dbg.getComponent(UIComponent.class).skin = skin;
+		dbg.getComponent(UIComponent.class).actor = new CheckBox("Test checkbox", skin);
+		dbg.transform.relativePosition.set(100, 150, 0);
+		
 		scene.observationPoint.getComponent(TrackerScript.class).target = paladin;
 		scene.observationPoint.getComponent(TrackerScript.class).leech = 100;
 		scene.observationPoint.getComponent(TrackerScript.class).reachTime = 1;
@@ -75,11 +105,11 @@ public class GamePartsTestScreen implements Screen {
 		scene.init();
 	}
 	
-	private void createUI() {
-		stage = new Stage();
-		Skin skin = new Skin(Gdx.files.internal("skins/uiskin/uiskin.json"));
-		stage.addActor(new Button(skin));
-	}
+//	private void createUI() {
+//		stage = new Stage();
+//		Skin skin = new Skin(Gdx.files.internal("skins/uiskin/uiskin.json"));
+//		stage.addActor(new Button(skin));
+//	}
 
 	@Override
 	public void show() {
@@ -90,8 +120,8 @@ public class GamePartsTestScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		scene.render(delta);
-		stage.act(delta);
-		stage.draw();
+//		stage.act(delta);
+//		stage.draw();
 	}
 
 	@Override

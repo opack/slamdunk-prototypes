@@ -31,7 +31,7 @@ public class BasicAI implements AI {
 	@Override
 	public void act(float delta) {
 		interval += delta;
-	if (interval > nextSpawn && paths.size > 0) {
+		if (interval > nextSpawn && paths.size > 0) {
 			// Choix d'une unité au hasard
 			int choosenUnit = MathUtils.random(9);
 			Units unit;
