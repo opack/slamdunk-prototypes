@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.gameparts.gameobjects.ObservationPoint;
 
@@ -19,13 +20,14 @@ public class Scene {
 	public static final float DEFAULT_PHYSICS_TIME_SCALE = 1f;
 	private static final String DEFAULT_LAYER_NAME = "default";
 	
+	public Stage ui;
 	public List<Layer> layers;
 	public ObservationPoint observationPoint;
 	public GameObject root;
 	private Batch drawBatch;
 	
 	/**
-	 * Interval fixe de temps auquel sont effectués les calculs
+	 * Intervalle fixe de temps auquel sont effectués les calculs
 	 * de la physique
 	 */
 	public float physicsFixedStep;
@@ -48,15 +50,22 @@ public class Scene {
 	
 	private float accumulator;	
 	
-	public Scene(int width, int height) {
+	public Scene(int width, int height, boolean hasUI) {
 		physicsFixedStep = DEFAULT_PHYSICS_FIXED_STEP;
 		physicsMaxStep = DEFAULT_PHYSICS_MAX_STEP;
 		physicsTimeScale = DEFAULT_PHYSICS_TIME_SCALE;
 		
 		drawBatch = new SpriteBatch();
 		
+		// Crée la couche pour l'interface utilisateur si besoin
+		if (hasUI) {
+			ui = new Stage();
+			Gdx.input.setInputProcessor(ui);
+		}
+		
 		// Ajoute un GameObject racine
 		root = new GameObject();
+		root.scene = this;
 		
 		// Ajoute un GameObject ObservationPoint à la scène
 		observationPoint = new ObservationPoint();
@@ -182,6 +191,10 @@ public class Scene {
 		drawBatch.setProjectionMatrix(observationPoint.camera.getProjectionMatrix());
 		root.render(drawBatch);
 		drawBatch.end();
+		
+		if (ui != null) {
+			ui.draw();
+		}
 	}
 	
 	private void computePhysics(float deltaTime) {

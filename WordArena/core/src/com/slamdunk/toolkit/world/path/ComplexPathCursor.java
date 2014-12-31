@@ -41,9 +41,9 @@ public class ComplexPathCursor {
 	private float segmentTime;
 	
 	/**
-	 * Indique la position du curseur sur le chemin (entre 0.0f et 1.0f)
+	 * Indique la position du curseur sur le segment courant (entre 0.0f et 1.0f)
 	 */
-	private float position;
+	private float localT;
 	
 	/**
 	 * Nombre de fois qu'on a fait le tour du chemin
@@ -61,11 +61,19 @@ public class ComplexPathCursor {
 	 */
 	private float direction;
 	
-	public ComplexPathCursor(ComplexPath path, float speed, CursorMode mode) {
-		this.path = path;
+	public ComplexPathCursor() {
+		this.speed = 1;
+		this.mode = CursorMode.FORWARD;
+	}
+	
+	public ComplexPathCursor(float speed, CursorMode mode) {
 		this.speed = speed;
 		this.mode = mode;
-		reset();
+	}
+	
+	public ComplexPathCursor(ComplexPath path, float speed, CursorMode mode) {
+		this(speed, mode);
+		setPath(path);
 	}
 	
 	public ComplexPathCursor(ComplexPath path, float speed) {
@@ -75,9 +83,32 @@ public class ComplexPathCursor {
 	public CursorMode getMode() {
 		return mode;
 	}
+	
+	public void setPath(ComplexPath path) {
+		this.path = path;
+		reset();
+	}
 
 	public void setMode(CursorMode mode) {
 		this.mode = mode;
+		// Le mode peut changer la direction. On s'assure
+		// qu'on va bien dans la bonne direction
+		if (direction != 0) {
+			switch (mode) {
+			case FORWARD:
+			case LOOP_FORWARD:
+				direction = 1;
+				break;
+			case BACKWARD:
+			case LOOP_BACKWARD:
+				direction = -1;
+				break;
+			case LOOP_PINGPONG:
+				// Rien à faire car on doit aller dans les 2 sens
+				// donc le sens actuel est le bon ;-)
+				break;
+			}
+		}
 	}
 
 	public float getSpeed() {
@@ -90,6 +121,7 @@ public class ComplexPathCursor {
 	 */
 	public void setSpeed(float speed) {
 		this.speed = speed;
+		updateSegmentTime();
 	}
 	
 	public int getCurrentSegmentIndex() {
@@ -100,8 +132,12 @@ public class ComplexPathCursor {
 		this.currentSegmentIndex = current;
 	}
 
-	public float getPosition() {
-		return position;
+	public float getLocalPosition() {
+		return localT;
+	}
+	
+	public float getGlobalPosition() {
+		return path.convertToGlobalT(localT, currentSegmentIndex);
 	}
 	
 	/**
@@ -162,18 +198,42 @@ public class ComplexPathCursor {
 	}
 	
 	/**
-	 * Définit la position actuelle du curseur sur le chemin courant.
+	 * Définit la position actuelle du curseur sur le segment courant.
 	 * Borné entre 0 et 1.
 	 * @param position
 	 */
-	public void setPosition(float position) {
+	public void setLocalPosition(float position) {
 		if (position <= 0) {
 			position = 0;
 		} else if (position > 1) {
 			position = 1;
 		}
 		
-		this.position = position;
+		this.localT = position;
+	}
+	
+	/**
+	 * Définit la position actuelle du curseur sur le chemin
+	 * complet.
+	 * Borné entre 0 et 1.
+	 */
+	public void setGlobalPosition(float globalT) {
+		// Borne la valeur
+		if (globalT <= 0) {
+			globalT = 0;
+		} else if (globalT > 1) {
+			globalT = 1;
+		}
+		
+		// Récupère l'indice du segment correspondant à ce t
+		int segmentIndex = path.getSegmentIndexFromGlobalT(globalT);
+
+		// Récupère la valeur de t localisée à ce segment
+		float localT = path.convertToLocalT(globalT, segmentIndex);
+
+		// Positionne le curseur à cet endroit
+		setCurrentSegmentIndex(segmentIndex);
+		setLocalPosition(localT);
 	}
 
 	public ComplexPath getPath() {
@@ -193,20 +253,20 @@ public class ComplexPathCursor {
 		case FORWARD:
 		case LOOP_FORWARD:
 		case LOOP_PINGPONG:
-			position = 0;
+			localT = 0;
 			currentSegmentIndex = 0;
 			direction = 1;
 			break;
 		// En BACKWARD et LOOP_BACKWARD, on commence de la fin et on va vers le début du chemin.
 		case BACKWARD:
 		case LOOP_BACKWARD:
-			position = 1;
+			localT = 1;
 			currentSegmentIndex = path.size - 1;
 			direction = -1;
 			break;
 		}
 		laps = 0;
-		segmentTime = path.getLength(currentSegmentIndex) / speed;
+		updateSegmentTime();
 	}
 	
 	/**
@@ -233,10 +293,10 @@ public class ComplexPathCursor {
 		}
 		// Avance en fonction de la direction, du temps écoulé
 		// et du temps à parcourir sur le segment
-		position += direction * (delta / segmentTime);
+		localT += direction * (delta / segmentTime);
 		
 		// Passe au chemin suivant
-		while (position < 0 || position > 1f) {
+		while (localT < 0 || localT > 1f) {
 			// Passe au chemin suivant dans la liste
 			currentSegmentIndex += (int)direction;
 			if (currentSegmentIndex < 0 || currentSegmentIndex >= path.size) {
@@ -246,13 +306,13 @@ public class ComplexPathCursor {
 				switch (mode) {
 				// On ne fait rien d'autre, on s'arrête à la fin du chemin
 				case FORWARD:
-					position = 1;
+					localT = 1;
 					currentSegmentIndex = path.size - 1;
 					direction = 0;
 					break;
 				// On ne fait rien d'autre, on s'arrête au début du chemin
 				case BACKWARD:
-					position = 0;
+					localT = 0;
 					currentSegmentIndex = 0;
 					direction = 0;
 					break;
@@ -262,7 +322,7 @@ public class ComplexPathCursor {
 					break;
 				// On repart dans l'autre sens
 				case LOOP_PINGPONG:
-					position = direction + 1 - position;
+					localT = direction + 1 - localT;
 					direction *= -1;
 					currentSegmentIndex += (int)direction;
 					break;
@@ -273,18 +333,22 @@ public class ComplexPathCursor {
 			} else {
 				// On n'a pas fait un tour. On remet alors simplement
 				// la position entre les bornes d'un chemin normal
-				position -= direction;
+				localT -= direction;
 			}
 			
 			// Adapte le temps de parcours du segment pour que la vitesse
 			// reste constante
-			segmentTime = path.getLength(currentSegmentIndex) / speed;
+			updateSegmentTime();
 		}
 		
 		// Met à jour le vecteur contenant la position, s'il est fourni
 		if (newPosition != null) {
 			valueAt(newPosition);
 		}
+	}
+
+	private void updateSegmentTime() {
+		segmentTime = path.getLength(currentSegmentIndex) / speed;
 	}
 
 	/**
@@ -294,7 +358,7 @@ public class ComplexPathCursor {
 	 * @param result
 	 */
 	public void valueAt(Vector2 result) {
-		path.valueAt(currentSegmentIndex, position, result);
+		path.valueAt(currentSegmentIndex, localT, result);
 	}
 	
 	/**
@@ -304,21 +368,21 @@ public class ComplexPathCursor {
 	 * @return
 	 */
 	public boolean isArrivalReached() {
-		return (mode == CursorMode.FORWARD && position == 1)
-			|| (mode == CursorMode.BACKWARD && position == 0);
+		return (mode == CursorMode.FORWARD && localT == 1)
+			|| (mode == CursorMode.BACKWARD && localT == 0);
 	}
 
 	/**
 	 * Place le curseur à l'extrémité du chemin dont le nom est spécifié
 	 * @param string
 	 */
-	public void setPosition(String extremityName) {
+	public void setGlobalPosition(String extremityName) {
 		float newPosition = PathUtils.getExtremityByName(path, extremityName);
 		if (newPosition == -1) {
 			return;
 		}
 		
-		this.position = newPosition;
+		this.localT = newPosition;
 	}
 
 	public float getDirection() {

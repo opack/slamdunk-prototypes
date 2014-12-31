@@ -255,7 +255,7 @@ public class SimpleUnit extends SlamActor {
 			}
 			pathCursor = new ComplexPathCursor(path, getSpeed(), cursorMode);
 			pathCursor.setCurrentSegmentIndex(segmentIndex);
-			pathCursor.setPosition(localT);
+			pathCursor.setGlobalPosition(localT);
 			
 			// Place l'unité à l'endroit du curseur
 			pathCursor.valueAt(tmpMoveCurrent);

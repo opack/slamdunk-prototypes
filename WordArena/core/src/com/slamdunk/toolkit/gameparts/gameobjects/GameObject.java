@@ -9,6 +9,7 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
+import com.slamdunk.toolkit.gameparts.scene.Scene;
 
 /**
  * Objet du jeu. C'est un simple agrégat de composants.
@@ -23,6 +24,7 @@ public class GameObject {
 	private static final String DEFAULT_NAME_PREFIX = "GameObject";
 	private static long gameObjectsCount;
 	
+	public Scene scene;
 	public GameObject parent;
 	private List<GameObject> children;
 	private List<GameObject> readOnlyChildren;
@@ -73,6 +75,7 @@ public class GameObject {
 		if (this == child) {
 			throw new IllegalArgumentException("A GameObject Cannot be a child of itself !");
 		}
+		child.scene = scene;
 		child.parent = this;
 		children.add(child);
 		return child;
