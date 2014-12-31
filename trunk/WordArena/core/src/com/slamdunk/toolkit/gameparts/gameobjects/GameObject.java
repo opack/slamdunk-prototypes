@@ -30,6 +30,7 @@ public class GameObject {
 	private List<GameObject> readOnlyChildren;
 	private Map<Class<? extends Component>, Component> components;
 	
+	public long id;
 	public String name;
 	
 	public boolean active;
@@ -38,8 +39,9 @@ public class GameObject {
 	
 	public GameObject() {
 		// Détermine un nom par défaut
+		id = gameObjectsCount;
+		name = DEFAULT_NAME_PREFIX + id;
 		gameObjectsCount++;
-		name = DEFAULT_NAME_PREFIX + gameObjectsCount;
 		
 		// Par défaut, le gameObject est actif
 		active = true;
@@ -85,11 +87,43 @@ public class GameObject {
 		return readOnlyChildren;
 	}
 	
-	public GameObject getChild(String name) {
+	public GameObject findChild(String name) {
 		if (name != null) {
 			for (GameObject child : children) {
 				if (name.equals(child.name)) {
 					return child;
+				}
+			}
+		}
+		return null;
+	}
+	
+	/**
+	 * Raccourci pour {@link #findChild(Class, String, boolean)} avec recurse=true
+	 * @param childClass
+	 * @param name
+	 * @return
+	 */
+	public <T extends GameObject> T findChild(Class<T> childClass, String name) {
+		return findChild(childClass, name, true);
+	}
+	
+	public <T extends GameObject> T findChild(Class<T> childClass, String name, boolean recurse) {
+		if (name != null) {
+			// Cherche dans les enfants du GameObject
+			for (GameObject child : children) {
+				if (name.equals(child.name)) {
+					return childClass.cast(child);
+				}
+			}
+			// Demande aux enfants de chercher dans leurs enfants
+			if (recurse) {
+				T found;
+				for (GameObject child : children) {
+					found = child.findChild(childClass, name, recurse);
+					if (found != null) {
+						return found;
+					}
 				}
 			}
 		}

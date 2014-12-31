@@ -13,6 +13,11 @@ GameParts
 	[ ] Tween
 	[ ] Body et autres Box2d (https://github.com/libgdx/libgdx/wiki/box2d)
 	[ ] Lumière
+[ ] Ajouter un GameObjectManager qui permet :
+	- getById(long)
+	- find(Class<? extends GameObject>, String name)
+	- findAll(Class<? extends GameObject>)
+	- create(...) -> Reprend le code des méthode addGameObject() existantes, qui appelleront désormais cette méthode
 [ ] Configuration d'un Component (variables publiques) à partir d'un fichier JSON
 	-> Ajouter une méthode load(JSonValue) qui initialise le Component par réflexion
 	-> Ajouter une méthode JSonValue save() qui enregistre le Component par réflexion

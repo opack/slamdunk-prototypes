@@ -22,11 +22,9 @@ import com.slamdunk.wordarena.gameparts.scripts.PathSpeedTweakerScript;
 
 public class GamePartsTestScreen implements Screen {
 	private Scene scene;
-//	private Stage stage;
 	
 	public GamePartsTestScreen() {
 		createScene();
-		//createUI();
 	}
 	
 	private void createScene() {
@@ -53,6 +51,7 @@ public class GamePartsTestScreen implements Screen {
 		
 		// Ajoute un paladin
 		Paladin paladin = scene.addGameObject(Paladin.class);
+		paladin.name = "Paladin";
 		paladin.getComponent(SpriteRendererPart.class).origin.set(0.5f,0.5f); // L'origine des rotations est le centre
 		paladin.getComponent(SpriteRendererPart.class).anchor.set(0.5f,0.5f); // Position toujours exprimée par rapport au centre
 		paladin.getComponent(PathFollowerScript.class).path = sceneLoader.paths.get(0);
@@ -88,14 +87,15 @@ public class GamePartsTestScreen implements Screen {
 		slider.getComponent(UIProgressBarPart.class).maxValue = 100;
 		slider.getComponent(UIProgressBarPart.class).stepSize = 1;
 		slider.getComponent(UIProgressBarPart.class).verticalOriented = false;
+		slider.getComponent(UIProgressBarPart.class).isSlider = true;
 		slider.transform.relativePosition.set(100, 120, 0);
 		slider.addComponent(PathSpeedTweakerScript.class);
-		slider.getComponent(PathSpeedTweakerScript.class).pathObject = paladin;
+		slider.getComponent(PathSpeedTweakerScript.class).pathFollower = paladin.getComponent(PathFollowerScript.class);
 		
 		GameObject dbg = scene.addGameObject();
 		dbg.addComponent(UIComponent.class);
 		dbg.getComponent(UIComponent.class).skin = skin;
-		dbg.getComponent(UIComponent.class).actor = new Label("Test checkbox", skin);
+		dbg.getComponent(UIComponent.class).actor = new Label("Test label", skin);
 		dbg.transform.relativePosition.set(100, 150, 0);
 		
 		scene.observationPoint.getComponent(TrackerScript.class).target = paladin;
@@ -104,24 +104,16 @@ public class GamePartsTestScreen implements Screen {
 		
 		scene.init();
 	}
-	
-//	private void createUI() {
-//		stage = new Stage();
-//		Skin skin = new Skin(Gdx.files.internal("skins/uiskin/uiskin.json"));
-//		stage.addActor(new Button(skin));
-//	}
 
 	@Override
 	public void show() {
 		// TODO Auto-generated method stub
-		
 	}
 
+	float dbg;
 	@Override
 	public void render(float delta) {
 		scene.render(delta);
-//		stage.act(delta);
-//		stage.draw();
 	}
 
 	@Override
