@@ -2,7 +2,7 @@ package com.slamdunk.wordarena.gameparts.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.gameparts.components.position.PathFollowerScript;
 import com.slamdunk.toolkit.gameparts.components.position.TrackerScript;
@@ -10,7 +10,7 @@ import com.slamdunk.toolkit.gameparts.components.renderers.ParticleRendererPart;
 import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererPart;
 import com.slamdunk.toolkit.gameparts.components.ui.UIButtonPart;
 import com.slamdunk.toolkit.gameparts.components.ui.UIComponent;
-import com.slamdunk.toolkit.gameparts.components.ui.UISliderPart;
+import com.slamdunk.toolkit.gameparts.components.ui.UIProgressBarPart;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.gameparts.gameobjects.Sprite;
 import com.slamdunk.toolkit.gameparts.scene.Scene;
@@ -81,13 +81,13 @@ public class GamePartsTestScreen implements Screen {
 		button.transform.relativePosition.set(10, 240, 0);
 		
 		GameObject slider = scene.addGameObject();
-		slider.addComponent(UISliderPart.class);
-		slider.getComponent(UISliderPart.class).skin = skin;
-		slider.getComponent(UISliderPart.class).minValue = 0;
-		slider.getComponent(UISliderPart.class).currentValue = 50;
-		slider.getComponent(UISliderPart.class).maxValue = 100;
-		slider.getComponent(UISliderPart.class).stepSize = 1;
-		slider.getComponent(UISliderPart.class).verticalOriented = false;
+		slider.addComponent(UIProgressBarPart.class);
+		slider.getComponent(UIProgressBarPart.class).skin = skin;
+		slider.getComponent(UIProgressBarPart.class).minValue = 0;
+		slider.getComponent(UIProgressBarPart.class).currentValue = 50;
+		slider.getComponent(UIProgressBarPart.class).maxValue = 100;
+		slider.getComponent(UIProgressBarPart.class).stepSize = 1;
+		slider.getComponent(UIProgressBarPart.class).verticalOriented = false;
 		slider.transform.relativePosition.set(100, 120, 0);
 		slider.addComponent(PathSpeedTweakerScript.class);
 		slider.getComponent(PathSpeedTweakerScript.class).pathObject = paladin;
@@ -95,7 +95,7 @@ public class GamePartsTestScreen implements Screen {
 		GameObject dbg = scene.addGameObject();
 		dbg.addComponent(UIComponent.class);
 		dbg.getComponent(UIComponent.class).skin = skin;
-		dbg.getComponent(UIComponent.class).actor = new CheckBox("Test checkbox", skin);
+		dbg.getComponent(UIComponent.class).actor = new Label("Test checkbox", skin);
 		dbg.transform.relativePosition.set(100, 150, 0);
 		
 		scene.observationPoint.getComponent(TrackerScript.class).target = paladin;
