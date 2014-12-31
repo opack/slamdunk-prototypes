@@ -2,7 +2,7 @@ package com.slamdunk.wordarena.gameparts.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.gameparts.components.position.PathFollowerScript;
 import com.slamdunk.toolkit.gameparts.components.position.TrackerScript;
@@ -11,6 +11,7 @@ import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererPart;
 import com.slamdunk.toolkit.gameparts.components.ui.UIButtonPart;
 import com.slamdunk.toolkit.gameparts.components.ui.UIComponent;
 import com.slamdunk.toolkit.gameparts.components.ui.UIProgressBarPart;
+import com.slamdunk.toolkit.gameparts.components.ui.UITextFieldPart;
 import com.slamdunk.toolkit.gameparts.creators.GameObjectFactory;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.gameparts.gameobjects.Sprite;
@@ -73,6 +74,13 @@ public class GamePartsTestScreen implements Screen {
 		button.getComponent(UIButtonPart.class).script = new ButtonClickTestScript();
 		button.getComponent(UIButtonPart.class).text = "Test bouton";
 		
+		// TextField
+		GameObject textField = foregroundLayer.createChild();
+		textField.transform.relativePosition.set(150, 240, 0);
+		textField.addComponent(UITextFieldPart.class);
+		textField.getComponent(UITextFieldPart.class).skin = skin;
+		textField.getComponent(UITextFieldPart.class).text = "Test TextField";
+		
 		// Slider
 		GameObject slider = foregroundLayer.createChild();
 		slider.addComponent(UIProgressBarPart.class);
@@ -91,7 +99,7 @@ public class GamePartsTestScreen implements Screen {
 		GameObject anyWidgetUI = foregroundLayer.createChild();
 		anyWidgetUI.addComponent(UIComponent.class);
 		anyWidgetUI.getComponent(UIComponent.class).skin = skin;
-		anyWidgetUI.getComponent(UIComponent.class).actor = new Label("Test label", skin);
+		anyWidgetUI.getComponent(UIComponent.class).actor = new SelectBox<String>(skin);
 		anyWidgetUI.transform.relativePosition.set(100, 150, 0);
 		
 		// Place la caméra au centre de l'écran et suit le Paladin
@@ -111,7 +119,6 @@ public class GamePartsTestScreen implements Screen {
 		// TODO Auto-generated method stub
 	}
 
-	float dbg;
 	@Override
 	public void render(float delta) {
 		scene.render(delta);
