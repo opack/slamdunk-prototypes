@@ -75,7 +75,6 @@ public class GridLayoutScript extends Component {
 						child = children.get(curChild);
 						child.transform.relativePosition.x = col * columnWidth;
 						child.transform.relativePosition.y = direction * row * rowHeight;
-						System.out.println(child.transform.relativePosition);
 						curChild++;
 					} else {
 						break doLayout;
