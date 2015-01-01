@@ -2,14 +2,19 @@ package com.slamdunk.wordarena.gameparts.scenes;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.slamdunk.toolkit.gameparts.components.position.CircleLayoutScript;
+import com.slamdunk.toolkit.gameparts.components.position.GridLayoutScript;
 import com.slamdunk.toolkit.gameparts.components.position.PathFollowerScript;
 import com.slamdunk.toolkit.gameparts.components.position.TrackerScript;
 import com.slamdunk.toolkit.gameparts.components.renderers.ParticleRendererPart;
 import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererPart;
 import com.slamdunk.toolkit.gameparts.components.ui.UIButtonPart;
 import com.slamdunk.toolkit.gameparts.components.ui.UIComponent;
+import com.slamdunk.toolkit.gameparts.components.ui.UIImagePart;
 import com.slamdunk.toolkit.gameparts.components.ui.UIProgressBarPart;
 import com.slamdunk.toolkit.gameparts.components.ui.UITextFieldPart;
 import com.slamdunk.toolkit.gameparts.creators.GameObjectFactory;
@@ -101,6 +106,65 @@ public class GamePartsTestScreen implements Screen {
 		anyWidgetUI.getComponent(UIComponent.class).skin = skin;
 		anyWidgetUI.getComponent(UIComponent.class).actor = new SelectBox<String>(skin);
 		anyWidgetUI.transform.relativePosition.set(100, 150, 0);
+		
+		// Test layout en cercle
+		GameObject circleLayout = foregroundLayer.createChild();
+		circleLayout.transform.relativePosition.set(400, 240, 0);
+		circleLayout.addComponent(UIImagePart.class);
+		circleLayout.getComponent(UIImagePart.class).textureRegion = new TextureRegion(new Texture(Gdx.files.internal("textures/dot.png")));
+		circleLayout.addComponent(CircleLayoutScript.class);
+		circleLayout.getComponent(CircleLayoutScript.class).radius = 50;
+		GameObject circleLayoutChild1 = circleLayout.createChild();
+		circleLayoutChild1.addComponent(UIButtonPart.class);
+		circleLayoutChild1.getComponent(UIButtonPart.class).skin = skin;
+		circleLayoutChild1.getComponent(UIButtonPart.class).text = "C1";
+		GameObject circleLayoutChild2 = circleLayout.createChild();
+		circleLayoutChild2.addComponent(UIButtonPart.class);
+		circleLayoutChild2.getComponent(UIButtonPart.class).skin = skin;
+		circleLayoutChild2.getComponent(UIButtonPart.class).text = "C2";
+		GameObject circleLayoutChild3 = circleLayout.createChild();
+		circleLayoutChild3.addComponent(UIButtonPart.class);
+		circleLayoutChild3.getComponent(UIButtonPart.class).skin = skin;
+		circleLayoutChild3.getComponent(UIButtonPart.class).text = "C3";
+		GameObject circleLayoutChild4 = circleLayout.createChild();
+		circleLayoutChild4.addComponent(UIButtonPart.class);
+		circleLayoutChild4.getComponent(UIButtonPart.class).skin = skin;
+		circleLayoutChild4.getComponent(UIButtonPart.class).text = "C4";
+		GameObject circleLayoutChild5 = circleLayout.createChild();
+		circleLayoutChild5.addComponent(UIButtonPart.class);
+		circleLayoutChild5.getComponent(UIButtonPart.class).skin = skin;
+		circleLayoutChild5.getComponent(UIButtonPart.class).text = "C5";
+		
+		// Test layout en grille
+		GameObject gridLayout = foregroundLayer.createChild();
+		gridLayout.transform.relativePosition.set(400, 100, 0);
+		gridLayout.addComponent(UIImagePart.class);
+		gridLayout.getComponent(UIImagePart.class).textureRegion = new TextureRegion(new Texture(Gdx.files.internal("textures/dot.png")));
+		gridLayout.addComponent(GridLayoutScript.class);
+		gridLayout.getComponent(GridLayoutScript.class).nbColumns = 3;
+		gridLayout.getComponent(GridLayoutScript.class).nbRows = 3;
+		gridLayout.getComponent(GridLayoutScript.class).columnWidth = 100;
+		gridLayout.getComponent(GridLayoutScript.class).rowHeight = 50;
+		GameObject gridLayoutChild1 = gridLayout.createChild();
+		gridLayoutChild1.addComponent(UIButtonPart.class);
+		gridLayoutChild1.getComponent(UIButtonPart.class).skin = skin;
+		gridLayoutChild1.getComponent(UIButtonPart.class).text = "G1";
+		GameObject gridLayoutChild2 = gridLayout.createChild();
+		gridLayoutChild2.addComponent(UIButtonPart.class);
+		gridLayoutChild2.getComponent(UIButtonPart.class).skin = skin;
+		gridLayoutChild2.getComponent(UIButtonPart.class).text = "G2";
+		GameObject gridLayoutChild3 = gridLayout.createChild();
+		gridLayoutChild3.addComponent(UIButtonPart.class);
+		gridLayoutChild3.getComponent(UIButtonPart.class).skin = skin;
+		gridLayoutChild3.getComponent(UIButtonPart.class).text = "G3";
+		GameObject gridLayoutChild4 = gridLayout.createChild();
+		gridLayoutChild4.addComponent(UIButtonPart.class);
+		gridLayoutChild4.getComponent(UIButtonPart.class).skin = skin;
+		gridLayoutChild4.getComponent(UIButtonPart.class).text = "G4";
+		GameObject gridLayoutChild5 = gridLayout.createChild();
+		gridLayoutChild5.addComponent(UIButtonPart.class);
+		gridLayoutChild5.getComponent(UIButtonPart.class).skin = skin;
+		gridLayoutChild5.getComponent(UIButtonPart.class).text = "G5";
 		
 		// Place la caméra au centre de l'écran et suit le Paladin
 		scene.observationPoint.transform.relativePosition.x = scene.observationPoint.camera.viewportWidth / 2;

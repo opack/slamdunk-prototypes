@@ -3,8 +3,10 @@ GameParts
 [ ] Ajouter les composants :
 	[ ] UI
 	[ ] Scripts de layout des enfants d'un GameObject
-		[ ] En cercle (autour du GameObject parent, avec un certain rayon)
-		[ ] En grille (possibilité de laisser certaines cases vides)
+		[X] En cercle (autour du GameObject parent, avec un certain rayon)
+		[X] En grille (possibilité de laisser certaines cases vides)
+		[ ] Alignement (aligne les enfants de façon à ce que le x;y du parent soit dans un coin, à gauche/droite, en haut/bas, au centre).
+			Ex : pour centrer un objet : on laisse le parent être positionné puis on aligne l'enfant
 	( ] ShapeRendererPart
 	[ ] PoolPart : gère un pool d'instances d'un certain GameObject
 	[ ] Colliders
