@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.slamdunk.toolkit.gameparts.AnchorPoint;
 import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 
@@ -15,12 +17,12 @@ public class SpriteRendererPart extends Component {
 	public Color tint;
 	
 	/**
-	 * Indique à partir de quel point (exprimé en % de la taille de l'image)
-	 * est dessiné le Sprite. Par défaut, le sprite est dessiné avec le coin
-	 * coin bas-gauche à l'emplacement de TransformComponent.worldPosition.
-	 * Pour centrer, il suffit de placer anchor à 0.5,0.5.
+	 * Indique quel point de l'image sera aligné sur les coordonnées du TransformPart.
+	 * Par exemple, si la valeur est TOP_RIGHT, cela signifie que le coin
+	 * haut-droit de l'image sera aligné sur le TransformPart du GameObject.
+	 * Par défaut, la valeur est BOTTOM_LEFT.
 	 */
-	public Vector2 anchor;
+	public AnchorPoint anchor;
 	
 	/**
 	 * Indique quel point (exprimé en % de la taille de l'image) sert d'origine
@@ -35,10 +37,11 @@ public class SpriteRendererPart extends Component {
 	private Color tmpOrigBatchColor;
 	private float tmpTextureWidth;
 	private float tmpTextureHeight;
+	private Vector3 tmpDrawPosition;
 	
 	public SpriteRendererPart() {
-		anchor = new Vector2();
 		origin = new Vector2();
+		tmpDrawPosition = new Vector3();
 	}
 	
 	@Override
@@ -46,7 +49,7 @@ public class SpriteRendererPart extends Component {
 		spriteFile = null;
 		textureRegion = null;
 		tint = new Color(Color.WHITE);
-		anchor.set(0, 0);
+		anchor = AnchorPoint.BOTTOM_LEFT;
 		origin.set(0, 0);
 	}
 	
@@ -68,10 +71,13 @@ public class SpriteRendererPart extends Component {
 		tmpTextureWidth = textureRegion.getRegionWidth();
 		tmpTextureHeight = textureRegion.getRegionHeight();
 		
+		// Calcule l'offset du dessin
+		anchor.computeAlignedPosition(transform.worldPosition, tmpTextureWidth, tmpTextureHeight, tmpDrawPosition);
+		
 		tmpOrigBatchColor = new Color(batch.getColor());
 		batch.setColor(tint);
 		batch.draw(textureRegion,
-			transform.worldPosition.x - anchor.x * tmpTextureWidth, transform.worldPosition.y - anchor.y * tmpTextureHeight,
+			tmpDrawPosition.x, tmpDrawPosition.y,
 			origin.x * tmpTextureWidth, origin.y * tmpTextureHeight,
 			tmpTextureWidth, tmpTextureHeight,
 			transform.worldScale.x, transform.worldScale.y, 

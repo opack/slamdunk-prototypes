@@ -24,6 +24,11 @@ public abstract class Component {
 		active = true;
 	}
 	
+	@Override
+	public String toString() {
+		return getClass().getSimpleName();
+	}
+	
 	/**
 	 * Crée les composants dont dépend ce composant, s'ils n'existent pas
 	 * encore. Cette méthode est appelée dès l'ajout du composant au
