@@ -19,6 +19,14 @@ public class PathFollowerScript extends Component {
 	public CursorMode browseMode;
 	public float speed;
 	
+	/**
+	 * Indique si le follower est arrivé au bout du chemin.
+	 * Retourne toujours false pour browseMode = LOOP_FORWARD,
+	 * LOOP_BACKWARD ou LOOP_PINGPONG
+	 * Lecture seule
+	 */
+	public boolean arrived;
+	
 	private ComplexPathCursor cursor;
 	private Vector2 tmp;
 	private Vector3 transformPosition;
@@ -30,6 +38,7 @@ public class PathFollowerScript extends Component {
 		speed = 50;
 		path = null;
 		browseMode = CursorMode.FORWARD;
+		arrived = false;
 		cursor = null;
 	}
 
@@ -65,6 +74,7 @@ public class PathFollowerScript extends Component {
 		
 		// Met à jour les variables pour une éventuelle lecture
 		position = cursor.getGlobalPosition();
+		arrived = cursor.isArrivalReached();
 	}
 	
 	/**
