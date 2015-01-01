@@ -6,8 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.slamdunk.toolkit.gameparts.AnchorPoint;
 import com.slamdunk.toolkit.gameparts.components.position.AlignScript;
-import com.slamdunk.toolkit.gameparts.components.position.AlignScript.AlignSpots;
 import com.slamdunk.toolkit.gameparts.components.position.CircleLayoutScript;
 import com.slamdunk.toolkit.gameparts.components.position.GridLayoutScript;
 import com.slamdunk.toolkit.gameparts.components.position.PathFollowerScript;
@@ -60,7 +60,7 @@ public class GamePartsTestScreen implements Screen {
 		Paladin paladin = foregroundLayer.createChild(Paladin.class);
 		paladin.name = "Paladin";
 		paladin.getComponent(SpriteRendererPart.class).origin.set(0.5f,0.5f); // L'origine des rotations est le centre
-		paladin.getComponent(SpriteRendererPart.class).anchor.set(0.5f,0.5f); // Position toujours exprimée par rapport au centre
+		paladin.getComponent(SpriteRendererPart.class).anchor = AnchorPoint.MIDDLE_CENTER; // Position toujours exprimée par rapport au centre
 		paladin.getComponent(PathFollowerScript.class).path = sceneLoader.paths.get(0);
 		paladin.getComponent(PathFollowerScript.class).speed = 50;
 		
@@ -88,8 +88,8 @@ public class GamePartsTestScreen implements Screen {
 		GameObject buttonChild = button.createChild();
 		buttonChild.addComponent(AlignScript.class);
 		buttonChild.getComponent(AlignScript.class).anchor = button;
-		buttonChild.getComponent(AlignScript.class).alignSpot = AlignSpots.BOTTOM_CENTER;
-		buttonChild.getComponent(AlignScript.class).anchorAlignSpot = AlignSpots.BOTTOM_RIGHT;
+		buttonChild.getComponent(AlignScript.class).gameObjectPointToAlign = AnchorPoint.BOTTOM_CENTER;
+		buttonChild.getComponent(AlignScript.class).anchorReferencePoint = AnchorPoint.BOTTOM_RIGHT;
 		buttonChild.addComponent(UIButtonPart.class);
 		buttonChild.getComponent(UIButtonPart.class).skin = skin;
 		buttonChild.getComponent(UIButtonPart.class).text = "Child";

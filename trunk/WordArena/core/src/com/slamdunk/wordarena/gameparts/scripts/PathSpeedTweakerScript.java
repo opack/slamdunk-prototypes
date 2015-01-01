@@ -18,7 +18,7 @@ public class PathSpeedTweakerScript extends Component {
 		}
 		
 		if (pathFollower == null) {
-			throw new IllegalArgumentException("Missin pathFollower parameter.");
+			throw new IllegalArgumentException("Missing pathFollower parameter.");
 		}
 		
 		updateSliderFromFollower();

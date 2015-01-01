@@ -1,6 +1,7 @@
 package com.slamdunk.toolkit.gameparts.components.position;
 
 import com.badlogic.gdx.math.Vector3;
+import com.slamdunk.toolkit.gameparts.AnchorPoint;
 import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 
@@ -12,17 +13,10 @@ import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
  * le TransformPart) et doivent donc être ajoutés en premier dans le GameObject.
  */
 public class AlignScript extends Component {
-	public enum AlignSpots {
-		BOTTOM_LEFT,
-		BOTTOM_CENTER,
-		BOTTOM_RIGHT,
-		MIDDLE_LEFT,
-		MIDDLE_CENTER,
-		MIDDLE_RIGHT,
-		TOP_LEFT,
-		TOP_CENTER,
-		TOP_RIGHT
-	}
+	/**
+	 * Point du GameObject à aligner
+	 */
+	public AnchorPoint gameObjectPointToAlign;
 	
 	/**
 	 * L'ancre par rapport à laquelle doit être effectué l'alignement
@@ -30,14 +24,9 @@ public class AlignScript extends Component {
 	public GameObject anchor;
 	
 	/**
-	 * Point du GameObject à aligner
+	 * Point de l'ancre sur laquelle s'aligner
 	 */
-	public AlignSpots alignSpot;
-	
-	/**
-	 * Point de l'ancre à aligner
-	 */
-	public AlignSpots anchorAlignSpot;
+	public AnchorPoint anchorReferencePoint;
 	
 	/**
 	 * Si true, l'alignement sera réeffectué à chaque
@@ -74,8 +63,8 @@ public class AlignScript extends Component {
 	
 	@Override
 	public void reset() {
-		alignSpot = AlignSpots.MIDDLE_CENTER;
-		anchorAlignSpot = AlignSpots.MIDDLE_CENTER;
+		gameObjectPointToAlign = AnchorPoint.MIDDLE_CENTER;
+		anchorReferencePoint = AnchorPoint.MIDDLE_CENTER;
 		maintainAlignment = true;
 		layout = true;
 
@@ -113,8 +102,8 @@ public class AlignScript extends Component {
 			}
 			
 			// Calcule la position des points d'alignement
-			computeAlignSpotPosition(gameObject.transform.worldPosition, size.width, size.height, alignSpot, tmpAlignSpotPosition);
-			computeAlignSpotPosition(anchorWorldPosition, anchorWidth, anchorHeight, anchorAlignSpot, tmpAnchorAlignSpotPosition);
+			gameObjectPointToAlign.computeAlignSpotPosition(gameObject.transform.worldPosition, size.width, size.height, tmpAlignSpotPosition);
+			anchorReferencePoint.computeAlignSpotPosition(anchorWorldPosition, anchorWidth, anchorHeight, tmpAnchorAlignSpotPosition);
 			
 			// Calcule le décalage à effectuer pour que le point d'alignement
 			// du GameObject conteneur soit aligné avec celui de l'ancre
@@ -125,45 +114,6 @@ public class AlignScript extends Component {
 			gameObject.transform.relativePosition.sub(tmpAlignSpotPosition);
 			
 			layout = false;
-		}
-	}
-
-	/**
-	 * Calcule la position du point d'alignement
-	 * @param worldPosition
-	 * @param size
-	 * @param alignSpot
-	 * @param result
-	 */
-	private void computeAlignSpotPosition(Vector3 worldPosition, float width, float height, AlignSpots alignSpot, Vector3 result) {
-		switch (alignSpot) {
-		case BOTTOM_LEFT:
-			result.set(worldPosition.x, worldPosition.y, worldPosition.z);
-			break;
-		case BOTTOM_CENTER:
-			result.set(worldPosition.x + width / 2, worldPosition.y, worldPosition.z);
-			break;
-		case BOTTOM_RIGHT:
-			result.set(worldPosition.x + width, worldPosition.y, worldPosition.z);
-			break;
-		case MIDDLE_LEFT:
-			result.set(worldPosition.x, worldPosition.y + height / 2, worldPosition.z);
-			break;
-		case MIDDLE_CENTER:
-			result.set(worldPosition.x + width / 2, worldPosition.y + height / 2, worldPosition.z);
-			break;
-		case MIDDLE_RIGHT:
-			result.set(worldPosition.x + width, worldPosition.y + height / 2, worldPosition.z);
-			break;
-		case TOP_LEFT:
-			result.set(worldPosition.x, worldPosition.y + height, worldPosition.z);
-			break;
-		case TOP_CENTER:
-			result.set(worldPosition.x + width / 2, worldPosition.y + height, worldPosition.z);
-			break;
-		case TOP_RIGHT:
-			result.set(worldPosition.x + width, worldPosition.y + height, worldPosition.z);
-			break;
 		}
 	}
 }

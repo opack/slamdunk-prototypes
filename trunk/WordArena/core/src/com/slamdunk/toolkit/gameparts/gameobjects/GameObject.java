@@ -58,6 +58,16 @@ public class GameObject {
 		transform = addComponent(TransformPart.class);
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(getClass().getSimpleName());
+		sb.append(" id: ").append(id);
+		sb.append(", name :").append(name);
+		sb.append(", components : [").append(components.values());
+		return sb.toString();
+	}
+	
 	public GameObject createChild() {
 		return addChild(GameObjectFactory.create());
 	}
@@ -78,6 +88,17 @@ public class GameObject {
 	
 	public List<GameObject> getChildren() {
 		return readOnlyChildren;
+	}
+	
+	/**
+	 * Raccourci pour getChildren().get(0)
+	 * @return
+	 */
+	public GameObject getFirstChild() {
+		if (readOnlyChildren.isEmpty()) {
+			return null;
+		}
+		return readOnlyChildren.get(0);
 	}
 	
 	public GameObject findChild(String name) {

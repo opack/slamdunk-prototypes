@@ -110,8 +110,8 @@ public class AnimationControllerScript extends Component {
 	public Map<String, Object> parameters;
 	public State anyState;
 	
-	private AnimatorPart animator;
 	private State currentState;
+	private AnimatorPart animator;
 	
 	public AnimationControllerScript() {
 		parameters = new HashMap<String, Object>();
