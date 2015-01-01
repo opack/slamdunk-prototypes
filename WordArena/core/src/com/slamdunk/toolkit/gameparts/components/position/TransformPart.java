@@ -2,7 +2,6 @@ package com.slamdunk.toolkit.gameparts.components.position;
 
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.gameparts.components.Component;
-import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 
 /**
  * Exprime la position, rotation et mise à l'échelle de façon relative par rapport
@@ -80,35 +79,6 @@ public class TransformPart extends Component {
 			parentTransform = null;
 		}
 		physics(0);
-	}
-	
-	/**
-	 * Change les coordonnées de ce transform et modifie
-	 * celles des TransformComponent enfants du GameObject
-	 * de façon à ce que toutes les distances relatives
-	 * soient inchangées
-	 * @param x
-	 * @param y
-	 * @param x
-	 */
-	public void moveTo(float x, float y, float z) {
-		translate(x - relativePosition.x, y - relativePosition.y, z - relativePosition.z);
-	}
-	
-	/**
-	 * Déplace les coordonnées de ce transform et modifie
-	 * celles des TransformComponent enfants du GameObject
-	 * de façon à ce que toutes les distances relatives
-	 * soient inchangées
-	 * @param x
-	 * @param y
-	 * @param x
-	 */
-	public void translate(float offsetX, float offsetY, float offsetZ) {
-		relativePosition.add(offsetX, offsetY, offsetZ);
-		for (GameObject child : gameObject.getChildren()) {
-			child.transform.translate(offsetX, offsetY, offsetZ);
-		}
 	}
 	
 	@Override

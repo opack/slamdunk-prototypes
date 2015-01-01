@@ -7,7 +7,9 @@ import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 
 /**
- * Place les enfants du GameObject conteneur en cercle autour de leur parent
+ * Place les enfants du GameObject conteneur en cercle autour de leur parent.
+ * Les scripts de Layout doivent être exécutés en premier (juste après
+ * le TransformPart) et doivent donc être ajoutés en premier dans le GameObject.
  */
 public class CircleLayoutScript extends Component {
 	public float radius;
@@ -27,7 +29,7 @@ public class CircleLayoutScript extends Component {
 	}
 
 	@Override
-	public void update(float deltaTime) {
+	public void physics(float deltaTime) {
 		if (layout) {
 			final List<GameObject> children = gameObject.getChildren();
 			final int nbChildren = children.size();

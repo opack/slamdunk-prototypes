@@ -9,7 +9,7 @@ import com.slamdunk.toolkit.ui.ButtonClickListener;
  * Représente un bouton ou une case à cocher
  */
 public class UIButtonPart extends UIComponent {
-	public ButtonClickScript script;
+	public ButtonClickScript onClickScript;
 	public String text;
 	
 	/**
@@ -22,7 +22,7 @@ public class UIButtonPart extends UIComponent {
 	
 	@Override
 	public void reset() {
-		script = null;
+		onClickScript = null;
 		text = "";
 		isCheckBox = false;
 	}
@@ -37,8 +37,8 @@ public class UIButtonPart extends UIComponent {
 		button.addListener(new ButtonClickListener() {
 			@Override
 			public void clicked(Button button) {
-				if (script != null) {
-					script.clicked(button);
+				if (onClickScript != null) {
+					onClickScript.clicked(button);
 				}
 			}
 		});

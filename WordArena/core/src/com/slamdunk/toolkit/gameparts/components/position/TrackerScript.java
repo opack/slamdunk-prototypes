@@ -75,7 +75,7 @@ public class TrackerScript extends Component {
 		}
 		currentPosition.set(startPosition);
 		currentPosition.lerp(arrivalPosition, alpha);
-		trackerTransform.moveTo(currentPosition.x, currentPosition.y, currentPosition.z);
+		trackerTransform.relativePosition.set(currentPosition.x, currentPosition.y, currentPosition.z);
 
 		if (alpha >= 1) {
 			tracking = false;
