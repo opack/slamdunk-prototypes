@@ -30,6 +30,7 @@ import com.slamdunk.wordarena.gameparts.prefabs.Castle;
 import com.slamdunk.wordarena.gameparts.prefabs.Paladin;
 import com.slamdunk.wordarena.gameparts.scripts.ButtonClickTestScript;
 import com.slamdunk.wordarena.gameparts.scripts.ChangeAlignScript;
+import com.slamdunk.wordarena.gameparts.scripts.CircleWaouwScript;
 import com.slamdunk.wordarena.gameparts.scripts.PathSpeedTweakerScript;
 
 public class GamePartsTestScreen implements Screen {
@@ -41,7 +42,7 @@ public class GamePartsTestScreen implements Screen {
 	
 	private void createScene() {
 		// Crée une nouvelle scène à la taille de l'écran et avec une couche d'IHM
-		scene = new Scene(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true);
+		scene = new Scene(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), true, true);
 		final Layer backgroundLayer = scene.addLayer("background");	// Le fond de carte sera ajouté dans cette couche
 		final Layer foregroundLayer = scene.addLayer("foreground");	// Cette couche contiendra tous les autres éléments
 		
@@ -63,6 +64,7 @@ public class GamePartsTestScreen implements Screen {
 		paladin.getComponent(SpriteRendererPart.class).anchor = AnchorPoint.MIDDLE_CENTER; // Position toujours exprimée par rapport au centre
 		paladin.getComponent(PathFollowerScript.class).path = sceneLoader.paths.get(0);
 		paladin.getComponent(PathFollowerScript.class).speed = 50;
+		paladin.addComponent(CircleWaouwScript.class);
 		
 		// Ajoute un point qui suivra le paladin
 		GameObject dot = paladin.createChild();

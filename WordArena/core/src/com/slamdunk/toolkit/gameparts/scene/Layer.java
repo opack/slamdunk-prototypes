@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 
 public class Layer extends GameObject {
@@ -36,7 +37,7 @@ public class Layer extends GameObject {
 		return child;
 	}
 	
-	public void render(Batch drawBatch) {
+	public void render(Batch drawBatch, ShapeRenderer shapeRenderer) {
 		if (!visible) {
 			return;
 		}
@@ -52,7 +53,7 @@ public class Layer extends GameObject {
 		// Dessine les objets
 		for (GameObject gameObject : tmpDepthSortedObjects) {
 			if (gameObject.active) {
-				gameObject.render(drawBatch);
+				gameObject.render(drawBatch, shapeRenderer);
 			}
 		}
 	}

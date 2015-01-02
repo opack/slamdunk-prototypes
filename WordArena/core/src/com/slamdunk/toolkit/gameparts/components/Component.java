@@ -1,6 +1,7 @@
 package com.slamdunk.toolkit.gameparts.components;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 
 /**
@@ -88,7 +89,8 @@ public abstract class Component {
 	/**
 	 * Méthode appelée à chaque frame pour dessiner le composant
 	 * @param batch
+	 * @param shapeRenderer
 	 */
-	public void render(Batch batch) {
+	public void render(Batch batch, ShapeRenderer shapeRenderer) {
 	}
 }

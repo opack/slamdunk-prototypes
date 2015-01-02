@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.gameparts.gameobjects.ObservationPoint;
@@ -20,6 +21,7 @@ public class Scene {
 	public static final float DEFAULT_PHYSICS_TIME_SCALE = 1f;
 	
 	public Stage ui;
+	public ShapeRenderer shapeRenderer;
 	public List<Layer> layers;
 	public ObservationPoint observationPoint;
 	public GameObject root;
@@ -49,7 +51,7 @@ public class Scene {
 	
 	private float accumulator;	
 	
-	public Scene(int width, int height, boolean hasUI) {
+	public Scene(int width, int height, boolean hasUI, boolean useShapeRendering) {
 		physicsFixedStep = DEFAULT_PHYSICS_FIXED_STEP;
 		physicsMaxStep = DEFAULT_PHYSICS_MAX_STEP;
 		physicsTimeScale = DEFAULT_PHYSICS_TIME_SCALE;
@@ -60,6 +62,12 @@ public class Scene {
 		if (hasUI) {
 			ui = new Stage();
 			Gdx.input.setInputProcessor(ui);
+		}
+		
+		// Crée le renderer chargé de dessiner les formes
+		if (useShapeRendering) {
+			shapeRenderer = new ShapeRenderer();
+			shapeRenderer.setAutoShapeType(true);
 		}
 		
 		// Ajoute un GameObject racine
@@ -153,7 +161,14 @@ public class Scene {
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		drawBatch.begin();
 		drawBatch.setProjectionMatrix(observationPoint.camera.getProjectionMatrix());
-		root.render(drawBatch);
+		if (shapeRenderer != null) {
+			shapeRenderer.setProjectionMatrix(observationPoint.camera.getProjectionMatrix());
+			shapeRenderer.begin();
+		}
+		root.render(drawBatch, shapeRenderer);
+		if (shapeRenderer != null) {
+			shapeRenderer.end();
+		}
 		drawBatch.end();
 		
 		if (ui != null) {
