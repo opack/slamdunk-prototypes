@@ -3,6 +3,7 @@ package com.slamdunk.toolkit.gameparts.components.renderers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 
@@ -55,7 +56,7 @@ public class ParticleRendererPart extends Component {
 	}
 	
 	@Override
-	public void render(Batch batch) {
+	public void render(Batch batch, ShapeRenderer shapeRenderer) {
 		particleEffect.draw(batch);
 	}
 	

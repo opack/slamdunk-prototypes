@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 import com.slamdunk.toolkit.gameparts.creators.GameObjectFactory;
@@ -303,15 +304,15 @@ public class GameObject {
 	 * Attention : cette méthode appelle draw() uniquement sur 
 	 * les composants actifs.
 	 */
-	public void render(Batch batch) {
+	public void render(Batch batch, ShapeRenderer shapeRenderer) {
 		for (Component component : components.values()) {
 			if (component.active) {
-				component.render(batch);
+				component.render(batch, shapeRenderer);
 			}
 		}
 		for (GameObject child : children) {
 			if (child.active) {
-				child.render(batch);
+				child.render(batch, shapeRenderer);
 			}
 		}
 	}
