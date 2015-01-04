@@ -323,21 +323,29 @@ public class GameObject {
 	
 	/**
 	 * Indique si le point spécifié touche le GameObject
+	 * ou un de ses enfants
 	 * @param x
 	 * @param y
 	 * @return
 	 */
-	public boolean isAt(float x, float y) {
+	public GameObject hit(float x, float y) {
 		BoundsPart bounds = getComponent(BoundsPart.class);
 		if (bounds != null) {
 			if (bounds.contains(x, y)) {
-				return true;
+				return this;
 			}
 		} else if (x == transform.worldPosition.x
 				&& y == transform.worldPosition.y) {
-			return true;
+			return this;
 		}
-		return false;
+		GameObject hit;
+		for (GameObject child : children) {
+			hit = child.hit(x, y);
+			if (hit != null) {
+				return hit;
+			}
+		}
+		return null;
 	}
 	
 	
@@ -347,7 +355,8 @@ public class GameObject {
 	 * @param y
 	 * @param pointer
 	 * @param button
-	 * @return
+	 * @return true si l'évènement a été géré. Dans ce cas, le GameObject
+	 * recevra aussi tous les futurs touchUp() et touchDragged().
 	 */
 	public boolean touchDown(float x, float y, int pointer, int button) {
 		if (touchHandler == null) {
@@ -363,7 +372,7 @@ public class GameObject {
 	 * @param y
 	 * @param pointer
 	 * @param button
-	 * @return
+	 * @return true si l'évènement a été géré
 	 */
 	public boolean touchDragged(float x, float y, int pointer) {
 		if (touchHandler == null) {
@@ -379,7 +388,7 @@ public class GameObject {
 	 * @param y
 	 * @param pointer
 	 * @param button
-	 * @return
+	 * @return true si l'évènement a été géré
 	 */
 	public boolean touchUp(float x, float y, int pointer, int button) {
 		if (touchHandler == null) {
