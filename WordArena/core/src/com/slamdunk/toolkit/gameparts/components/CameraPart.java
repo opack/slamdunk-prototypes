@@ -2,6 +2,8 @@ package com.slamdunk.toolkit.gameparts.components;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Matrix4;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 
 /**
@@ -21,6 +23,12 @@ public class CameraPart extends Component {
 	private OrthographicCamera orthoCam;
 	
 	private TransformPart transform;
+	
+	private Vector3 tmp;
+	
+	public CameraPart() {
+		tmp = new Vector3();
+	}
 	
 	@Override
 	public void reset() {
@@ -49,5 +57,15 @@ public class CameraPart extends Component {
 	
 	public Matrix4 getProjectionMatrix() {
 		return orthoCam.combined;
+	}
+
+	/**
+	 * Transforme les coordonnées écran en coordonnées du monde.
+	 * @param screenCoords
+	 */
+	public void unproject(Vector2 screenCoords) {
+		tmp.set(screenCoords.x, screenCoords.y, 1);
+		orthoCam.unproject(tmp);
+		screenCoords.set(tmp.x, tmp.y);
 	}
 }

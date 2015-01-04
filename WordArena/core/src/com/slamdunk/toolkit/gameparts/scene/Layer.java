@@ -57,4 +57,65 @@ public class Layer extends GameObject {
 			}
 		}
 	}
+	
+	/**
+	 * Retourne le GameObject le plus proche de l'écran et se trouvant
+	 * aux coordonnées indiquées
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public GameObject hit(float x, float y) {
+		GameObject gameObject = null;
+		for (int depth = tmpDepthSortedObjects.size() - 1; depth > -1; depth--) {
+			gameObject = tmpDepthSortedObjects.get(depth);
+			if (gameObject.isAt(x, y)) {
+				break;
+			}
+		}
+		return gameObject;
+	}
+
+	public boolean touchDown(float x, float y, int pointer, int button) {
+		// Demande à chaque GameObject, par ordre de profondeur, s'il est
+		// intéressé par ce touchDown
+		GameObject gameObject;
+		for (int depth = tmpDepthSortedObjects.size() - 1; depth > -1; depth--) {
+			gameObject = tmpDepthSortedObjects.get(depth);
+			if (gameObject.isAt(x, y)
+			&& gameObject.touchDown(x, y, pointer, button)) {
+				scene.touchFocus = gameObject;
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean touchDragged(float x, float y, int pointer) {
+		// Demande à chaque GameObject, par ordre de profondeur, s'il est
+		// intéressé par ce touchUp
+		GameObject gameObject;
+		for (int depth = tmpDepthSortedObjects.size() - 1; depth > -1; depth--) {
+			gameObject = tmpDepthSortedObjects.get(depth);
+			if (gameObject.isAt(x, y)
+			&& gameObject.touchDragged(x, y, pointer)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean touchUp(float x, float y, int pointer, int button) {
+		// Demande à chaque GameObject, par ordre de profondeur, s'il est
+		// intéressé par ce touchUp
+		GameObject gameObject;
+		for (int depth = tmpDepthSortedObjects.size() - 1; depth > -1; depth--) {
+			gameObject = tmpDepthSortedObjects.get(depth);
+			if (gameObject.isAt(x, y)
+			&& gameObject.touchUp(x, y, pointer, button)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

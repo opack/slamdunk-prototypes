@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.gameparts.gameobjects.ObservationPoint;
@@ -15,7 +18,7 @@ import com.slamdunk.toolkit.gameparts.gameobjects.ObservationPoint;
 /**
  * Contient tous les GameObjects d'une scène du jeu
  */
-public class Scene {
+public class Scene extends InputAdapter {
 	public static final float DEFAULT_PHYSICS_FIXED_STEP = 1/80f;
 	public static final float DEFAULT_PHYSICS_MAX_STEP = 1/4f;
 	public static final float DEFAULT_PHYSICS_TIME_SCALE = 1f;
@@ -25,6 +28,11 @@ public class Scene {
 	public List<Layer> layers;
 	public ObservationPoint observationPoint;
 	public GameObject root;
+	/**
+	 * GameObject qui a actuellement le focus pour les touches, càd celui qui
+	 * a répondu true à onTouchDown()
+	 */
+	public GameObject touchFocus;
 	private Batch drawBatch;
 	
 	/**
@@ -49,9 +57,13 @@ public class Scene {
 	 */
 	public float physicsTimeScale;
 	
-	private float accumulator;	
+	private float accumulator;
+	
+	private Vector2 tempCoords;
 	
 	public Scene(int width, int height, boolean hasUI, boolean useShapeRendering) {
+		tempCoords = new Vector2();
+		
 		physicsFixedStep = DEFAULT_PHYSICS_FIXED_STEP;
 		physicsMaxStep = DEFAULT_PHYSICS_MAX_STEP;
 		physicsTimeScale = DEFAULT_PHYSICS_TIME_SCALE;
@@ -61,7 +73,16 @@ public class Scene {
 		// Crée la couche pour l'interface utilisateur si besoin
 		if (hasUI) {
 			ui = new Stage();
-			Gdx.input.setInputProcessor(ui);
+		}
+		
+		// Déclaration des inputs processors
+		if (hasUI) {
+			InputMultiplexer inputMux = new InputMultiplexer();
+			inputMux.addProcessor(ui);
+			inputMux.addProcessor(this);
+			Gdx.input.setInputProcessor(inputMux);
+		} else {
+			Gdx.input.setInputProcessor(this);
 		}
 		
 		// Crée le renderer chargé de dessiner les formes
@@ -190,5 +211,119 @@ public class Scene {
 		    // On a 1 pas en moins dans le temps écoulé
 		    accumulator -= physicsFixedStep;
 	    }
+	}
+	
+	/**
+	 * Cherche si un GameObject est touché aux coordonnées indiquées en demandant à
+	 * chaque couche, dans l'ordre inverse de leur ajout, donc de la plus proche
+	 * de l'écran à la plus éloignée
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public GameObject hit(float x, float y) {
+		Layer layer;
+		GameObject hit = null;
+		for (int depth = layers.size() - 1; depth > -1; depth--) {
+			layer = layers.get(depth);
+			hit = layer.hit(tempCoords.x, tempCoords.y);
+			if (hit != null) {
+				break;
+			}
+		}
+		return hit;
+	}
+	
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		if (screenX < 0
+		|| screenX >= observationPoint.camera.viewportWidth
+		|| Gdx.graphics.getHeight() - screenY < 0
+		|| Gdx.graphics.getHeight() - screenY >= observationPoint.camera.viewportHeight) {
+			return false;
+		}
+
+		// Récupère les coordonnées relatives à la scène
+		observationPoint.camera.unproject(tempCoords.set(screenX, screenY));
+		
+		// Cherche si un GameObject est intéressé par cette touche en demandant à
+		// chaque couche, dans l'ordre inverse de leur ajout, donc de la plus proche
+		// de l'écran à la plus éloignée
+		Layer layer;
+		for (int depth = layers.size() - 1; depth > -1; depth--) {
+			layer = layers.get(depth);
+			if (layer.touchDown(tempCoords.x, tempCoords.y, pointer, button)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		if (screenX < 0
+		|| screenX >= observationPoint.camera.viewportWidth
+		|| Gdx.graphics.getHeight() - screenY < 0
+		|| Gdx.graphics.getHeight() - screenY >= observationPoint.camera.viewportHeight) {
+			return false;
+		}
+
+		// Récupère les coordonnées relatives à la scène
+		observationPoint.camera.unproject(tempCoords.set(screenX, screenY));
+		
+		// Si un objet a le focus, on lui envoie le message
+		if (touchFocus != null) {
+			if (touchFocus.touchDragged(tempCoords.x, tempCoords.y, pointer)) {
+				touchFocus = null;
+			}
+			return true;
+		}
+		// Sinon, on cherche si un GameObject est intéressé par cette touche en demandant à
+		// chaque couche, dans l'ordre inverse de leur ajout, donc de la plus proche
+		// de l'écran à la plus éloignée
+		else {
+			Layer layer;
+			for (int depth = layers.size() - 1; depth > -1; depth--) {
+				layer = layers.get(depth);
+				if (layer.touchDragged(tempCoords.x, tempCoords.y, pointer)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		if (screenX < 0
+		|| screenX >= observationPoint.camera.viewportWidth
+		|| Gdx.graphics.getHeight() - screenY < 0
+		|| Gdx.graphics.getHeight() - screenY >= observationPoint.camera.viewportHeight) {
+			return false;
+		}
+
+		// Récupère les coordonnées relatives à la scène
+		observationPoint.camera.unproject(tempCoords.set(screenX, screenY));
+		
+		// Si un objet a le focus, on lui envoie le message
+		if (touchFocus != null) {
+			if (touchFocus.touchUp(tempCoords.x, tempCoords.y, pointer, button)) {
+				touchFocus = null;
+			}
+			return true;
+		}
+		// Sinon, on cherche si un GameObject est intéressé par cette touche en demandant à
+		// chaque couche, dans l'ordre inverse de leur ajout, donc de la plus proche
+		// de l'écran à la plus éloignée
+		else {
+			Layer layer;
+			for (int depth = layers.size() - 1; depth > -1; depth--) {
+				layer = layers.get(depth);
+				if (layer.touchUp(tempCoords.x, tempCoords.y, pointer, button)) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 }

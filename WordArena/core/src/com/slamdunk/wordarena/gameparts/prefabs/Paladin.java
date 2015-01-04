@@ -1,13 +1,17 @@
 package com.slamdunk.wordarena.gameparts.prefabs;
 
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
+import com.slamdunk.toolkit.gameparts.components.TouchHandlerPart;
 import com.slamdunk.toolkit.gameparts.components.logic.AnimationControllerScript;
 import com.slamdunk.toolkit.gameparts.components.logic.DirectionUpdaterScript;
+import com.slamdunk.toolkit.gameparts.components.position.BoundsPart;
 import com.slamdunk.toolkit.gameparts.components.position.PathFollowerScript;
+import com.slamdunk.toolkit.gameparts.components.renderers.SpriteRendererPart;
 import com.slamdunk.toolkit.gameparts.creators.AnimationFactory;
 import com.slamdunk.toolkit.gameparts.gameobjects.GameObject;
 import com.slamdunk.toolkit.world.Directions4;
 import com.slamdunk.wordarena.ai.States;
+import com.slamdunk.wordarena.gameparts.scripts.TouchHandlerTestScript;
 
 public class Paladin extends GameObject {
 	
@@ -60,5 +64,14 @@ public class Paladin extends GameObject {
 		addComponent(DirectionUpdaterScript.class);
 		getComponent(DirectionUpdaterScript.class).directionParameter = "Direction";
 		getComponent(DirectionUpdaterScript.class).actionParameter = "Action";
+		
+		// Ajoute un composant contenant les limites du GameObject. Ce composant
+		// sera mis à jour lors du dessin des sprites
+		addComponent(BoundsPart.class);
+		getComponent(SpriteRendererPart.class).bounds = getComponent(BoundsPart.class);
+		
+		// Ajoute un script chargé de gérer les touches
+		addComponent(TouchHandlerPart.class).handler = new TouchHandlerTestScript();
+		
 	}
 }
