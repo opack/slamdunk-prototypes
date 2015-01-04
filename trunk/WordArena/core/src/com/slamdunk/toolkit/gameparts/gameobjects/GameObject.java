@@ -9,6 +9,8 @@ import java.util.Map;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.slamdunk.toolkit.gameparts.components.Component;
+import com.slamdunk.toolkit.gameparts.components.TouchHandlerPart;
+import com.slamdunk.toolkit.gameparts.components.position.BoundsPart;
 import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 import com.slamdunk.toolkit.gameparts.creators.GameObjectFactory;
 import com.slamdunk.toolkit.gameparts.scene.Scene;
@@ -38,6 +40,7 @@ public class GameObject {
 	public boolean active;
 	
 	public TransformPart transform;
+	public TouchHandlerPart touchHandler;
 	
 	public GameObject() {
 		// Détermine un nom par défaut
@@ -229,6 +232,7 @@ public class GameObject {
 		for (GameObject child : children) {
 			child.init();
 		}
+		touchHandler = getComponent(TouchHandlerPart.class);
 	}
 	
 	/**
@@ -315,5 +319,72 @@ public class GameObject {
 				child.render(batch, shapeRenderer);
 			}
 		}
+	}
+	
+	/**
+	 * Indique si le point spécifié touche le GameObject
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean isAt(float x, float y) {
+		BoundsPart bounds = getComponent(BoundsPart.class);
+		if (bounds != null) {
+			if (bounds.contains(x, y)) {
+				return true;
+			}
+		} else if (x == transform.worldPosition.x
+				&& y == transform.worldPosition.y) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * Appelée lorsqu'une touche se fait au-dessus du GameObject
+	 * @param x
+	 * @param y
+	 * @param pointer
+	 * @param button
+	 * @return
+	 */
+	public boolean touchDown(float x, float y, int pointer, int button) {
+		if (touchHandler == null) {
+			return false;
+		}
+		return touchHandler.active && touchHandler.handler.touchDown(x, y, pointer, button);
+	}
+	
+	/**
+	 * Appelée lorsqu'une touche est déplacée. Cet appel est fait uniquement
+	 * sur le GameObject qui a répondu true à touchDown().
+	 * @param x
+	 * @param y
+	 * @param pointer
+	 * @param button
+	 * @return
+	 */
+	public boolean touchDragged(float x, float y, int pointer) {
+		if (touchHandler == null) {
+			return false;
+		}
+		return touchHandler.active && touchHandler.handler.touchDragged(x, y, pointer);
+	}
+	
+	/**
+	 * Appelée lorsqu'une touche est relâchée. Cet appel est fait uniquement
+	 * sur le GameObject qui a répondu true à touchDown().
+	 * @param x
+	 * @param y
+	 * @param pointer
+	 * @param button
+	 * @return
+	 */
+	public boolean touchUp(float x, float y, int pointer, int button) {
+		if (touchHandler == null) {
+			return false;
+		}
+		return touchHandler.active && touchHandler.handler.touchUp(x, y, pointer, button);
 	}
 }

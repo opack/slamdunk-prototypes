@@ -10,6 +10,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.toolkit.gameparts.AnchorPoint;
 import com.slamdunk.toolkit.gameparts.components.Component;
+import com.slamdunk.toolkit.gameparts.components.position.BoundsPart;
+import com.slamdunk.toolkit.gameparts.components.position.SizePart;
 import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 
 public class SpriteRendererPart extends Component {
@@ -32,6 +34,18 @@ public class SpriteRendererPart extends Component {
 	 * Pour centrer, il suffit de placer origin à 0.5,0.5.
 	 */
 	public Vector2 origin;
+	
+	/**
+	 * SizePart à mettre à jour avec les dimensions du sprite
+	 * effectivement dessiné
+	 */
+	public SizePart size;
+	
+	/**
+	 * BoundsPart à mettre à jour avec les coordonnées et dimensions du sprite
+	 * effectivement dessiné
+	 */
+	public BoundsPart bounds;
 	
 	private TransformPart transform;
 	
@@ -71,6 +85,10 @@ public class SpriteRendererPart extends Component {
 		
 		tmpTextureWidth = textureRegion.getRegionWidth();
 		tmpTextureHeight = textureRegion.getRegionHeight();
+		if (size != null) {
+			size.width = tmpTextureWidth;
+			size.height = tmpTextureHeight;
+		}
 		
 		// Calcule l'offset du dessin
 		anchor.computeAlignedPosition(transform.worldPosition, tmpTextureWidth, tmpTextureHeight, tmpDrawPosition);
@@ -84,5 +102,12 @@ public class SpriteRendererPart extends Component {
 			transform.worldScale.x, transform.worldScale.y, 
 			transform.worldRotation.z);
 		batch.setColor(tmpOrigBatchColor);
+		
+		if (bounds != null) {
+			bounds.x = tmpDrawPosition.x;
+			bounds.y = tmpDrawPosition.y;
+			bounds.width = tmpTextureWidth;
+			bounds.height = tmpTextureHeight;
+		}
 	}
 }
