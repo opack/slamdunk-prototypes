@@ -73,6 +73,7 @@ public class GridLayoutScript extends Component {
 			final int nbChildren = children.size();
 			
 			GameObject child;
+			GridPositionPart position;
 			int curChild = 0;
 			doLayout: for (int row = 0; row < nbRows; row++) {
 				for (int col = 0; col < nbColumns; col++) {
@@ -80,6 +81,13 @@ public class GridLayoutScript extends Component {
 						child = children.get(curChild);
 						child.transform.relativePosition.x = col * columnWidth;
 						child.transform.relativePosition.y = direction * row * rowHeight;
+						
+						position = child.getComponent(GridPositionPart.class);
+						if (position != null) {
+							position.column = col;
+							position.row = row;
+						}
+						
 						curChild++;
 					} else {
 						break doLayout;

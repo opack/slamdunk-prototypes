@@ -75,6 +75,9 @@ public class SpriteRendererPart extends Component {
 		&& !spriteFile.isEmpty()) {
 			textureRegion = new TextureRegion(new Texture(Gdx.files.internal(spriteFile)));
 		}
+		
+		size = gameObject.getComponent(SizePart.class);
+		bounds = gameObject.getComponent(BoundsPart.class);
 	}
 
 	@Override

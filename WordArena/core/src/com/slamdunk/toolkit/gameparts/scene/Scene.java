@@ -61,7 +61,11 @@ public class Scene extends InputAdapter {
 	
 	private Vector2 tempCoords;
 	
-	public Scene(int width, int height, boolean hasUI, boolean useShapeRendering) {
+	public Scene(int width, int height) {
+		this(width, height, false, false);
+	}
+	
+	public Scene(int width, int height, boolean useUI, boolean useShapeRendering) {
 		tempCoords = new Vector2();
 		
 		physicsFixedStep = DEFAULT_PHYSICS_FIXED_STEP;
@@ -71,12 +75,12 @@ public class Scene extends InputAdapter {
 		drawBatch = new SpriteBatch();
 		
 		// Crée la couche pour l'interface utilisateur si besoin
-		if (hasUI) {
+		if (useUI) {
 			ui = new Stage();
 		}
 		
 		// Déclaration des inputs processors
-		if (hasUI) {
+		if (useUI) {
 			InputMultiplexer inputMux = new InputMultiplexer();
 			inputMux.addProcessor(ui);
 			inputMux.addProcessor(this);
@@ -246,15 +250,12 @@ public class Scene extends InputAdapter {
 		// Récupère les coordonnées relatives à la scène
 		observationPoint.camera.unproject(tempCoords.set(screenX, screenY));
 		
-		// Cherche si un GameObject est intéressé par cette touche en demandant à
-		// chaque couche, dans l'ordre inverse de leur ajout, donc de la plus proche
-		// de l'écran à la plus éloignée
-		Layer layer;
-		for (int depth = layers.size() - 1; depth > -1; depth--) {
-			layer = layers.get(depth);
-			if (layer.touchDown(tempCoords.x, tempCoords.y, pointer, button)) {
-				return true;
-			}
+		// Récupère l'objet touché
+		GameObject hit = hit(tempCoords.x, tempCoords.y);
+		if (hit != null
+		&& hit.touchDown(tempCoords.x, tempCoords.y, pointer, button)) {
+			touchFocus = hit;
+			return true;
 		}
 		return false;
 	}
@@ -264,7 +265,8 @@ public class Scene extends InputAdapter {
 		if (screenX < 0
 		|| screenX >= observationPoint.camera.viewportWidth
 		|| Gdx.graphics.getHeight() - screenY < 0
-		|| Gdx.graphics.getHeight() - screenY >= observationPoint.camera.viewportHeight) {
+		|| Gdx.graphics.getHeight() - screenY >= observationPoint.camera.viewportHeight
+		|| touchFocus == null) {
 			return false;
 		}
 
@@ -272,25 +274,7 @@ public class Scene extends InputAdapter {
 		observationPoint.camera.unproject(tempCoords.set(screenX, screenY));
 		
 		// Si un objet a le focus, on lui envoie le message
-		if (touchFocus != null) {
-			if (touchFocus.touchDragged(tempCoords.x, tempCoords.y, pointer)) {
-				touchFocus = null;
-			}
-			return true;
-		}
-		// Sinon, on cherche si un GameObject est intéressé par cette touche en demandant à
-		// chaque couche, dans l'ordre inverse de leur ajout, donc de la plus proche
-		// de l'écran à la plus éloignée
-		else {
-			Layer layer;
-			for (int depth = layers.size() - 1; depth > -1; depth--) {
-				layer = layers.get(depth);
-				if (layer.touchDragged(tempCoords.x, tempCoords.y, pointer)) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return touchFocus.touchDragged(tempCoords.x, tempCoords.y, pointer);
 	}
 	
 	@Override
@@ -298,7 +282,8 @@ public class Scene extends InputAdapter {
 		if (screenX < 0
 		|| screenX >= observationPoint.camera.viewportWidth
 		|| Gdx.graphics.getHeight() - screenY < 0
-		|| Gdx.graphics.getHeight() - screenY >= observationPoint.camera.viewportHeight) {
+		|| Gdx.graphics.getHeight() - screenY >= observationPoint.camera.viewportHeight
+		|| touchFocus == null) {
 			return false;
 		}
 
@@ -306,24 +291,8 @@ public class Scene extends InputAdapter {
 		observationPoint.camera.unproject(tempCoords.set(screenX, screenY));
 		
 		// Si un objet a le focus, on lui envoie le message
-		if (touchFocus != null) {
-			if (touchFocus.touchUp(tempCoords.x, tempCoords.y, pointer, button)) {
-				touchFocus = null;
-			}
-			return true;
-		}
-		// Sinon, on cherche si un GameObject est intéressé par cette touche en demandant à
-		// chaque couche, dans l'ordre inverse de leur ajout, donc de la plus proche
-		// de l'écran à la plus éloignée
-		else {
-			Layer layer;
-			for (int depth = layers.size() - 1; depth > -1; depth--) {
-				layer = layers.get(depth);
-				if (layer.touchUp(tempCoords.x, tempCoords.y, pointer, button)) {
-					return true;
-				}
-			}
-		}
-		return false;
+		boolean handled = touchFocus.touchUp(tempCoords.x, tempCoords.y, pointer, button);
+		touchFocus = null;
+		return handled;
 	}
 }
