@@ -7,8 +7,8 @@ import com.slamdunk.wordarena.WordArenaGame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.height = 480;
-		config.width = 800;
+		config.width = WordArenaGame.SCREEN_WIDTH;
+		config.height = WordArenaGame.SCREEN_HEIGHT;
 		new LwjglApplication(new WordArenaGame(), config);
 	}
 }
