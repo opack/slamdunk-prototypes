@@ -2,10 +2,10 @@ package com.slamdunk.toolkit.gameparts.components.logic;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
+import com.slamdunk.pixelkingdomadvanced.ai.States;
 import com.slamdunk.toolkit.gameparts.components.Component;
 import com.slamdunk.toolkit.gameparts.components.position.TransformPart;
 import com.slamdunk.toolkit.world.Directions4;
-import com.slamdunk.wordarena.ai.States;
 
 /**
  * Met à jour des paramètres dans un AnimationControllerComponent
