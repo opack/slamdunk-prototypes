@@ -34,9 +34,12 @@ public class GameUI {
 			group.setVisible(false);
 			stage.addActor(group);
 		}
-		Gdx.input.setInputProcessor(stage);
 	}
 	
+	public Stage getStage() {
+		return stage;
+	}
+
 	/**
 	 * Charge les composants à afficher lorsque le jeu est à l'état indiqué
 	 */
