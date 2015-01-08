@@ -1,3 +1,7 @@
+Ashley
+¯¯¯¯¯¯
+Trouver un moyen de mixer UI et rendering normal : p-e avec un Stage superposé aux coordonnées du monde réel ? Mais alors on a 2 couches, donc pas un vrai mix... :s
+
 GameParts
 ¯¯¯¯¯¯¯¯¯
 [ ] Ajouter les composants :
