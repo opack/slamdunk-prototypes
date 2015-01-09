@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.slamdunk.wordarena.systems.BoundsSystem;
+import com.slamdunk.wordarena.systems.InputSystem;
 import com.slamdunk.wordarena.systems.RenderingSystem;
 
 public class GameScreen extends ScreenAdapter {
@@ -16,15 +17,17 @@ public class GameScreen extends ScreenAdapter {
 	private GameUI ui;
 
 	public GameScreen (WordArenaGame game) {
+		RenderingSystem renderingSystem = new RenderingSystem(game.batcher);
+		InputSystem inputSystem = new InputSystem(renderingSystem.getCamera());
+		
 		engine = new Engine();
 		engine.addSystem(new BoundsSystem());
-		engine.addSystem(new RenderingSystem(game.batcher));
-		
-		input
-		
+		engine.addSystem(inputSystem);
+		engine.addSystem(renderingSystem);
+				
 		ui = new GameUI(this);
 		
-		Gdx.input.setInputProcessor(new InputMultiplexer(this, ui.getStage()));
+		Gdx.input.setInputProcessor(new InputMultiplexer(ui.getStage(), inputSystem));
 		
 		loadNextLevel();
 		
@@ -35,8 +38,10 @@ public class GameScreen extends ScreenAdapter {
 		engine.removeAllEntities();
 		
 		int lastScore = arena != null ? arena.score : 0;
-		arena = new Arena(engine);
+		arena = new Arena(engine, 25, 15);
 		arena.score = lastScore;
+		
+		engine.getSystem(InputSystem.class).setArena(arena);
 	}
 
 	public void update (float deltaTime) {
@@ -45,12 +50,12 @@ public class GameScreen extends ScreenAdapter {
 		engine.update(deltaTime);
 		
 		if (state == GameStates.RUNNING) {
-			if (arena.state == Arena.ARENA_STATE_NEXT_LEVEL) {
+			if (arena.state == GameStates.LEVEL_END) {
 				System.out.println("ARENA_STATE_NEXT_LEVEL");
 				// TODO
 //				game.setScreen(new WinScreen(game));
 			}
-			if (arena.state == Arena.ARENA_STATE_GAME_OVER) {
+			if (arena.state == GameStates.OVER) {
 				changeState(GameStates.OVER);
 			}
 		}
@@ -95,9 +100,11 @@ public class GameScreen extends ScreenAdapter {
 
 	private void pauseSystems() {
 		engine.getSystem(BoundsSystem.class).setProcessing(false);
+		engine.getSystem(InputSystem.class).setProcessing(false);
 	}
 	
 	private void resumeSystems() {
 		engine.getSystem(BoundsSystem.class).setProcessing(true);
+		engine.getSystem(InputSystem.class).setProcessing(true);
 	}
 }

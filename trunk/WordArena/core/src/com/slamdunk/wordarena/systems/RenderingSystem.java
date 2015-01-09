@@ -1,24 +1,7 @@
-/*******************************************************************************
- * Copyright 2014 See AUTHORS file.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *   http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- ******************************************************************************/
-
 package com.slamdunk.wordarena.systems;
 
 import java.util.Comparator;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
@@ -54,24 +37,16 @@ public class RenderingSystem extends IteratingSystem {
 	private OrthographicCamera cam;
 	private Stage stage;
 	
-	private ComponentMapper<TextureComponent> textureMapper;
-	private ComponentMapper<TransformComponent> transformMapper;
-	private ComponentMapper<BoundsComponent> boundsMapper;
-	
 	@SuppressWarnings("unchecked")
 	public RenderingSystem(SpriteBatch batch) {
 		super(Family.all(TransformComponent.class, TextureComponent.class).get());
-		
-		textureMapper = ComponentMapper.getFor(TextureComponent.class);
-		transformMapper = ComponentMapper.getFor(TransformComponent.class);
-		boundsMapper = ComponentMapper.getFor(BoundsComponent.class);
 		
 		renderQueue = new Array<Entity>();
 		
 		comparator = new Comparator<Entity>() {
 			@Override
 			public int compare(Entity entityA, Entity entityB) {
-				return (int)Math.signum(transformMapper.get(entityA).pos.z - transformMapper.get(entityB).pos.z);
+				return (int)Math.signum(ComponentMappers.TRANSFORM.get(entityA).pos.z - ComponentMappers.TRANSFORM.get(entityB).pos.z);
 			}
 		};
 		
@@ -98,28 +73,28 @@ public class RenderingSystem extends IteratingSystem {
 		batch.begin();
 		
 		for (Entity entity : renderQueue) {
-			TextureComponent tex = textureMapper.get(entity);
+			TextureComponent texture = ComponentMappers.TEXTURE.get(entity);
 			
-			if (tex.region == null) {
+			if (texture.region == null) {
 				continue;
 			}
 			
-			TransformComponent transform = transformMapper.get(entity);
-			BoundsComponent bounds = boundsMapper.get(entity);
+			TransformComponent transform = ComponentMappers.TRANSFORM.get(entity);
+			BoundsComponent bounds = ComponentMappers.BOUNDS.get(entity);
 
 			// Calcule la taille de l'image en dimensions du monde
-			float width = tex.region.getRegionWidth() * PIXELS_TO_CELLS;
-			float height = tex.region.getRegionHeight() * PIXELS_TO_CELLS;
+			float width = texture.region.getRegionWidth() * PIXELS_TO_CELLS;
+			float height = texture.region.getRegionHeight() * PIXELS_TO_CELLS;
 			// Si l'entité a une taille, on convertit l'utilise
 			if (bounds != null) {
 				width *= bounds.bounds.width;
 				height *= bounds.bounds.height;
 			}
-			float originX = width * 0.5f;
-			float originY = height * 0.5f;
+			float originX = width * 0;
+			float originY = height * 0;
 			
 			batch.draw(
-				tex.region,
+				texture.region,
 				transform.pos.x - originX, transform.pos.y - originY,
 				originX, originY,
 				width, height,

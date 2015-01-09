@@ -6,5 +6,5 @@ package com.slamdunk.wordarena;
  */
 public enum Layers {
 	BACKGROUND,
-	CELLS;
+	LETTERS;
 }
