@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.math.MathUtils;
 import com.slamdunk.wordarena.components.BoundsComponent;
 import com.slamdunk.wordarena.components.CameraComponent;
+import com.slamdunk.wordarena.components.ColliderComponent;
 import com.slamdunk.wordarena.components.InputComponent;
 import com.slamdunk.wordarena.components.LetterCellComponent;
 import com.slamdunk.wordarena.components.TextureComponent;
@@ -56,6 +57,14 @@ public class Arena {
 		bounds.bounds.width = 1;
 		bounds.bounds.height = 1;
 		
+		// Création d'un collider placé au milieu de la case et faisant la moitié
+		// de sa taille
+		ColliderComponent collider = new ColliderComponent();
+		collider.relativeOrigin.x = 0.25f;
+		collider.relativeOrigin.x = 0.25f;
+		collider.bounds.width = 0.5f;
+		collider.bounds.height = 0.5f;
+		
 		InputComponent input = new InputComponent();
 		
 		LetterCellComponent letterCell = new LetterCellComponent();
@@ -67,10 +76,11 @@ public class Arena {
 		
 		Entity entity = new Entity();
 		entity.add(transform);
+		entity.add(bounds);
+		entity.add(collider);
 		entity.add(texture);
 		entity.add(input);
 		entity.add(letterCell);
-		entity.add(bounds);
 		
 		engine.addEntity(entity);
 	}
