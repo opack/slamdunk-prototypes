@@ -54,12 +54,6 @@ public class RenderingSystem extends IteratingSystem {
 		
 		cam = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
 		cam.position.set(FRUSTUM_WIDTH / 2, FRUSTUM_HEIGHT / 2, 0);
-		
-		stage = new Stage(new FitViewport(FRUSTUM_WIDTH, FRUSTUM_HEIGHT, cam), batch);
-		Skin skin = new Skin(Gdx.files.internal("skins/uiskin/uiskin.json"));
-		TextButton btn = new TextButton("DBG", skin);
-		btn.setPosition(20, 30);
-		stage.addActor(btn);
 	}
 
 	@Override
@@ -104,9 +98,6 @@ public class RenderingSystem extends IteratingSystem {
 		
 		batch.end();
 		renderQueue.clear();
-		
-//		stage.act(deltaTime);
-//		stage.draw();
 	}
 	
 	@Override

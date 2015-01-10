@@ -15,7 +15,7 @@ import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.CellStates;
 import com.slamdunk.wordarena.GameStates;
 import com.slamdunk.wordarena.WordArenaGame;
-import com.slamdunk.wordarena.components.BoundsComponent;
+import com.slamdunk.wordarena.components.ColliderComponent;
 import com.slamdunk.wordarena.components.InputComponent;
 import com.slamdunk.wordarena.components.LetterCellComponent;
 import com.slamdunk.wordarena.components.TextureComponent;
@@ -33,7 +33,7 @@ public class InputSystem extends IteratingSystem implements InputProcessor {
 	
 	@SuppressWarnings("unchecked")
 	public InputSystem(Camera camera) {
-		super(Family.all(InputComponent.class, TextureComponent.class, BoundsComponent.class, TransformComponent.class).get());
+		super(Family.all(InputComponent.class, TextureComponent.class, ColliderComponent.class, TransformComponent.class).get());
 
 		this.camera = camera;
 		
@@ -86,10 +86,10 @@ public class InputSystem extends IteratingSystem implements InputProcessor {
 	
 	@Override
 	public void processEntity(Entity entity, float deltaTime) {
-		BoundsComponent bounds = ComponentMappers.BOUNDS.get(entity);
-		
+		ColliderComponent collider = ComponentMappers.COLLIDER.get(entity);
+
 		if (lastEntityId != entity.getId()
-		&& bounds.bounds.contains(lastTouch.x, lastTouch.y)) {
+		&& collider.bounds.contains(lastTouch.x, lastTouch.y)) {
 			lastEntityId = entity.getId();
 			
 			updateLetterCellState(entity, CellStates.SELECTED);

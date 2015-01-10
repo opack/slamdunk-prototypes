@@ -1,10 +1,12 @@
 package com.slamdunk.wordarena;
 
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.slamdunk.wordarena.systems.BoundsSystem;
+import com.slamdunk.wordarena.systems.ColliderSystem;
 import com.slamdunk.wordarena.systems.InputSystem;
 import com.slamdunk.wordarena.systems.RenderingSystem;
 
@@ -22,6 +24,7 @@ public class GameScreen extends ScreenAdapter {
 		
 		engine = new Engine();
 		engine.addSystem(new BoundsSystem());
+		engine.addSystem(new ColliderSystem());
 		engine.addSystem(inputSystem);
 		engine.addSystem(renderingSystem);
 				
@@ -97,14 +100,22 @@ public class GameScreen extends ScreenAdapter {
 		}
 	}
 	
-
+	/**
+	 * Met tous les systèmes en pause sauf le RenderingSystem
+	 */
 	private void pauseSystems() {
-		engine.getSystem(BoundsSystem.class).setProcessing(false);
-		engine.getSystem(InputSystem.class).setProcessing(false);
+		for (EntitySystem system : engine.getSystems()) {
+			system.setProcessing(false);
+		}
+		engine.getSystem(RenderingSystem.class).setProcessing(true);
 	}
 	
+	/**
+	 * Démarre tous les systèmes
+	 */
 	private void resumeSystems() {
-		engine.getSystem(BoundsSystem.class).setProcessing(true);
-		engine.getSystem(InputSystem.class).setProcessing(true);
+		for (EntitySystem system : engine.getSystems()) {
+			system.setProcessing(true);
+		}
 	}
 }
