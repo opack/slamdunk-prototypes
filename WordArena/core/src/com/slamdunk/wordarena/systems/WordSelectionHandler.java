@@ -1,35 +1,29 @@
 package com.slamdunk.wordarena.systems;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.Family;
-import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.wordarena.Arena;
 import com.slamdunk.wordarena.CellStates;
 import com.slamdunk.wordarena.GameStates;
-import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.components.ColliderComponent;
-import com.slamdunk.wordarena.components.InputComponent;
 import com.slamdunk.wordarena.components.LetterCellComponent;
 import com.slamdunk.wordarena.components.TextureComponent;
 import com.slamdunk.wordarena.components.TransformComponent;
 
-public class InputSystem extends IteratingSystem implements InputProcessor {
+public class WordSelectionHandler implements InputProcessor {
 	private Vector3 tmp;
-	private Vector2 lastTouch;
 	
 	private Entity lastEntity;
-	private List<Entity> selectedLetters;
-	
-	private boolean isDragging;
+	private List<Entity> selectedEntities;
 	
 	private Arena arena;
 	private Camera camera;
@@ -37,19 +31,19 @@ public class InputSystem extends IteratingSystem implements InputProcessor {
 	private Rectangle screenBounds;
 	private Rectangle arenaBounds;
 	
-	@SuppressWarnings("unchecked")
-	public InputSystem(Camera camera) {
-		super(Family.all(InputComponent.class, TextureComponent.class, ColliderComponent.class, TransformComponent.class).get());
-
+	public WordSelectionHandler(Camera camera) {
 		this.camera = camera;
 		
 		tmp = new Vector3();
-		lastTouch = new Vector2();
 		
-		selectedLetters = new ArrayList<Entity>();
+		selectedEntities = new ArrayList<Entity>();
 		
-		screenBounds = new Rectangle(0, 0, WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT);
+		screenBounds = new Rectangle(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		arenaBounds = new Rectangle(0, 0, 0, 0);
+	}
+	
+	public List<Entity> getSelectedEntities() {
+		return Collections.unmodifiableList(selectedEntities);
 	}
 
 	public Arena getArena() {
@@ -70,6 +64,8 @@ public class InputSystem extends IteratingSystem implements InputProcessor {
 	 */
 	private boolean updateLastTouch(int screenX, int screenY) {
 		// Vérifie que les coordonnées sont bien sur la zone d'affichage
+		// Ce test sert notamment en desktop car la fenêtre peut être plus petite
+		// que l'écran. On ignore donc les touches hors de la fenêtre.
 		if (!screenBounds.contains(screenX, screenY)) {
 			return false;
 		}
@@ -84,18 +80,31 @@ public class InputSystem extends IteratingSystem implements InputProcessor {
 		}
 		
 		// Vérifier si la nouvelle case est bien autour de la dernière case sélectionnée
+		int arenaX = (int)tmp.x;
+		int arenaY = (int)tmp.y;
 		if (lastEntity != null) {
 			TransformComponent lastTransform = ComponentMappers.TRANSFORM.get(lastEntity);
-			if (Math.abs(tmp.x - lastTransform.pos.x) > 2
-			|| Math.abs(tmp.y - lastTransform.pos.y) > 2) {
-				System.out.println(tmp + " / " + lastTransform.pos);
-				return false;
+			if (Math.abs(arenaX - lastTransform.pos.x) > 1
+			|| Math.abs(arenaY - lastTransform.pos.y) > 1) {
+				return true;
 			}
 		}
 		
-		// Tout est bon, la touche est valide ! On l'enregistre pour que la lettre
-		// correspondante soit sélectionnée lors du prochain update
-		lastTouch.set(tmp.x, tmp.y);
+		// Sélectionne la case
+		Entity entity = arena.getEntityAt(arenaX, arenaY);
+		ColliderComponent collider = ComponentMappers.COLLIDER.get(entity);
+
+		if ((lastEntity == null	|| lastEntity.getId() != entity.getId())
+		&& collider.bounds.contains(tmp.x, tmp.y)) {
+			// Conserve l'entité de la dernière lettre sélectionnée
+			lastEntity = entity;
+			
+			// Marque la lettre comme sélectionnée
+			updateLetterCellState(entity, CellStates.SELECTED);
+			
+			// Ajoute la lettre aux lettres sélectionnées pour constituer un mot
+			selectedEntities.add(entity);
+		}
 		return true;
 	}
 	
@@ -112,31 +121,6 @@ public class InputSystem extends IteratingSystem implements InputProcessor {
 		case SELECTED:
 			texture.tint.set(Color.YELLOW);
 			break;
-		}
-	}
-	
-	@Override
-	public void update(float deltaTime) {
-		if (!isDragging) {
-			return;
-		}
-		super.update(deltaTime);
-	}
-	
-	@Override
-	public void processEntity(Entity entity, float deltaTime) {
-		ColliderComponent collider = ComponentMappers.COLLIDER.get(entity);
-
-		if ((lastEntity == null	|| lastEntity.getId() != entity.getId())
-		&& collider.bounds.contains(lastTouch.x, lastTouch.y)) {
-			// Conserve l'entité de la dernière lettre sélectionnée
-			lastEntity = entity;
-			
-			// Marque la lettre comme sélectionnée
-			updateLetterCellState(entity, CellStates.SELECTED);
-			
-			// Ajoute la lettre aux lettres sélectionnées pour constituer un mot
-			selectedLetters.add(entity);
 		}
 	}
 
@@ -159,7 +143,6 @@ public class InputSystem extends IteratingSystem implements InputProcessor {
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if (arena.state == GameStates.RUNNING
 		&& updateLastTouch(screenX, screenY)) {
-			isDragging = true;
 			return true;
 		}
 		return false;
@@ -168,31 +151,12 @@ public class InputSystem extends IteratingSystem implements InputProcessor {
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		updateLastTouch(screenX, screenY);
-		isDragging = true;
 		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		if (!selectedLetters.isEmpty()) {
-			// Teste si le mot est valide
-			StringBuilder word = new StringBuilder();
-			for (Entity entity : selectedLetters) {
-				word.append(ComponentMappers.LETTER_CELL.get(entity).letter.label);
-			}
-			arena.validateWord(word.toString());
-			
-			// Réinitialise les lettres sélectionnées
-			for (Entity entity : selectedLetters) {
-				updateLetterCellState(entity, CellStates.NORMAL);
-			}
-			selectedLetters.clear();
-			lastEntity = null;
-		}
-		
-		// Fin de la sélection
-		isDragging = false;
-		return true;
+		return false;
 	}
 
 	@Override
@@ -203,5 +167,13 @@ public class InputSystem extends IteratingSystem implements InputProcessor {
 	@Override
 	public boolean scrolled(int amount) {
 		return false;
+	}
+
+	public void resetSelection() {
+		for (Entity entity : selectedEntities) {
+			updateLetterCellState(entity, CellStates.NORMAL);
+		}
+		selectedEntities.clear();
+		lastEntity = null;
 	}
 }

@@ -1,9 +1,15 @@
 package com.slamdunk.wordarena;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.slamdunk.wordarena.components.BoundsComponent;
 import com.slamdunk.wordarena.components.CameraComponent;
 import com.slamdunk.wordarena.components.ColliderComponent;
@@ -14,18 +20,37 @@ import com.slamdunk.wordarena.components.TransformComponent;
 import com.slamdunk.wordarena.letters.LetterGenerator;
 import com.slamdunk.wordarena.letters.Letters;
 import com.slamdunk.wordarena.systems.RenderingSystem;
-import com.slamdunk.wordarena.words.WordTree;
 
 public class Arena {
 	private static final int MIN_WORD_LENGTH = 3;
-	private static final WordTree words;
+//	private static final WordTree words;
+	private static final Set<String> words;
 	static {
-		words = new WordTree();
-		words.load("words.txt", MIN_WORD_LENGTH);
+//		words = new WordTree();
+//		words.load("words.txt", MIN_WORD_LENGTH);
+		words = new HashSet<String>();
+		FileHandle file = Gdx.files.internal("words.txt");
+		BufferedReader reader = new BufferedReader(file.reader("UTF-8"));
+		String extracted = null;
+		try {
+			while ((extracted = reader.readLine()) != null) {
+				if (extracted.length() >= MIN_WORD_LENGTH) {
+					words.add(extracted);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	private int width;
 	private int height;
+	private Entity[][] entities;
 	
 	public int score;
 	public GameStates state;
@@ -35,6 +60,7 @@ public class Arena {
 		this.engine = engine;
 		this.width = width;
 		this.height = height;
+		entities = new Entity[width][height];
 
 		createBackground();
 		createArena();
@@ -59,13 +85,13 @@ public class Arena {
 		int curLetter = 0;
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				createCell(CellStates.NORMAL, x, y, letters.get(curLetter));
+				entities[x][y] = createCell(CellStates.NORMAL, x, y, letters.get(curLetter));
 				curLetter++;
 			}
 		}
 	}
 	
-	private void createCell(CellStates type, float x, float y, Letters letter) {
+	private Entity createCell(CellStates type, float x, float y, Letters letter) {
 		TransformComponent transform = new TransformComponent();
 		transform.pos.set(x, y, Layers.LETTERS.ordinal());
 		
@@ -73,13 +99,13 @@ public class Arena {
 		bounds.bounds.width = 1;
 		bounds.bounds.height = 1;
 		
-		// Création d'un collider placé au milieu de la case et faisant la moitié
-		// de sa taille
+		// Création d'un collider placé au milieu de la case
+		// et faisant les 3/4 de sa taille
 		ColliderComponent collider = new ColliderComponent();
-		collider.relativeOrigin.x = 0.25f;
-		collider.relativeOrigin.x = 0.25f;
-		collider.bounds.width = 0.5f;
-		collider.bounds.height = 0.5f;
+		collider.relativeOrigin.x = 0.125f;
+		collider.relativeOrigin.x = 0.125f;
+		collider.bounds.width = 0.75f;
+		collider.bounds.height = 0.75f;
 		
 		InputComponent input = new InputComponent();
 		
@@ -99,6 +125,7 @@ public class Arena {
 		entity.add(letterCell);
 		
 		engine.addEntity(entity);
+		return entity;
 	}
 	
 	private void createCamera() {
@@ -137,5 +164,9 @@ public class Arena {
 		} else {
 			System.out.println(word + " n'est pas un mot valide.");
 		}
+	}
+
+	public Entity getEntityAt(int x, int y) {
+		return entities[x][y];
 	}
 }

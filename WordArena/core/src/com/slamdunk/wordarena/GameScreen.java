@@ -1,14 +1,18 @@
 package com.slamdunk.wordarena;
 
+import java.util.List;
+
 import com.badlogic.ashley.core.Engine;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.slamdunk.wordarena.systems.BoundsSystem;
 import com.slamdunk.wordarena.systems.ColliderSystem;
-import com.slamdunk.wordarena.systems.InputSystem;
+import com.slamdunk.wordarena.systems.ComponentMappers;
 import com.slamdunk.wordarena.systems.RenderingSystem;
+import com.slamdunk.wordarena.systems.WordSelectionHandler;
 
 public class GameScreen extends ScreenAdapter {
 	private Engine engine;
@@ -17,20 +21,20 @@ public class GameScreen extends ScreenAdapter {
 	
 	private Arena arena;
 	private GameUI ui;
+	
+	private WordSelectionHandler wordSelectionHandler;
 
 	public GameScreen (WordArenaGame game) {
 		RenderingSystem renderingSystem = new RenderingSystem(game.batcher);
-		InputSystem inputSystem = new InputSystem(renderingSystem.getCamera());
-		
 		engine = new Engine();
 		engine.addSystem(new BoundsSystem());
 		engine.addSystem(new ColliderSystem());
-		engine.addSystem(inputSystem);
 		engine.addSystem(renderingSystem);
 				
 		ui = new GameUI(this);
-		
-		Gdx.input.setInputProcessor(new InputMultiplexer(ui.getStage(), inputSystem));
+
+		wordSelectionHandler = new WordSelectionHandler(renderingSystem.getCamera());
+		Gdx.input.setInputProcessor(new InputMultiplexer(ui.getStage(), wordSelectionHandler));
 		
 		loadNextLevel();
 		
@@ -44,7 +48,7 @@ public class GameScreen extends ScreenAdapter {
 		arena = new Arena(engine, 25, 15);
 		arena.score = lastScore;
 		
-		engine.getSystem(InputSystem.class).setArena(arena);
+		wordSelectionHandler.setArena(arena);
 	}
 
 	public void update (float deltaTime) {
@@ -116,6 +120,21 @@ public class GameScreen extends ScreenAdapter {
 	private void resumeSystems() {
 		for (EntitySystem system : engine.getSystems()) {
 			system.setProcessing(true);
+		}
+	}
+
+	public void validateWord() {
+		List<Entity> selectedLetters = wordSelectionHandler.getSelectedEntities();
+		if (!selectedLetters.isEmpty()) {
+			// Teste si le mot est valide
+			StringBuilder word = new StringBuilder();
+			for (Entity entity : selectedLetters) {
+				word.append(ComponentMappers.LETTER_CELL.get(entity).letter.label);
+			}
+			arena.validateWord(word.toString());
+			
+			// Réinitialise les lettres sélectionnées
+			wordSelectionHandler.resetSelection();
 		}
 	}
 }
