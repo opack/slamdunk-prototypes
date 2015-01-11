@@ -5,15 +5,10 @@ import java.util.Comparator;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.components.BoundsComponent;
 import com.slamdunk.wordarena.components.TextureComponent;
@@ -35,7 +30,6 @@ public class RenderingSystem extends IteratingSystem {
 	private Array<Entity> renderQueue;
 	private Comparator<Entity> comparator;
 	private OrthographicCamera cam;
-	private Stage stage;
 	
 	@SuppressWarnings("unchecked")
 	public RenderingSystem(SpriteBatch batch) {
@@ -87,6 +81,7 @@ public class RenderingSystem extends IteratingSystem {
 			float originX = width * 0;
 			float originY = height * 0;
 			
+			batch.setColor(texture.tint);
 			batch.draw(
 				texture.region,
 				transform.pos.x - originX, transform.pos.y - originY,
