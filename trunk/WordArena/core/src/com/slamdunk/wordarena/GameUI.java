@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 
 public class GameUI {
 	private Stage stage;
@@ -18,18 +19,16 @@ public class GameUI {
 	
 	public GameUI(GameScreen screen) {
 		this.screen = screen;
-		componentsGroups = new ArrayList<Group>();
 
 		Skin skin = new Skin(Gdx.files.internal("skins/uiskin/uiskin.json"));
-		
-		componentsGroups.clear();
+		componentsGroups = new ArrayList<Group>();
 		createReadyGroup(skin);
 		createRunningGroup(skin);
 		createPausedGroup(skin);
 		createLevelEndGroup(skin);
 		createGameOverGroup(skin);
 		
-		stage = new Stage();
+		stage = new Stage(new FillViewport(WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT));
 		for (Group group : componentsGroups) {
 			group.setVisible(false);
 			stage.addActor(group);
@@ -84,6 +83,16 @@ public class GameUI {
 			}
 		});
 		group.addActor(pause);
+		
+		TextButton validate = new TextButton("VALIDER", skin);
+		validate.setPosition(WordArenaGame.SCREEN_WIDTH - validate.getWidth(), 0);
+		validate.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				screen.validateWord();
+			}
+		});
+		group.addActor(validate);
 		
 		componentsGroups.add(group);
 	}
