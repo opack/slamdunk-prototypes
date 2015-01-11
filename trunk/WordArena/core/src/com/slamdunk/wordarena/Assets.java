@@ -22,6 +22,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.settings.SlamSettings;
+import com.slamdunk.wordarena.letters.Letters;
 
 public class Assets {
 	public static Texture background;
