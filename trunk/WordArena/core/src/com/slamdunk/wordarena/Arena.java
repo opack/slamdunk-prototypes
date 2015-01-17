@@ -22,8 +22,8 @@ import com.slamdunk.wordarena.systems.ComponentMappers;
 import com.slamdunk.wordarena.systems.RenderingSystem;
 
 public class Arena {
+	public static final float CELL_GAP = 0.05f;
 	private static final int MIN_WORD_LENGTH = 3;
-	private static final float CELL_GAP = 0.05f;
 	
 	private static final Set<String> words;
 	static {
@@ -91,7 +91,7 @@ public class Arena {
 	
 	private Entity createCell(CellStates type, float x, float y, Letters letter) {
 		TransformComponent transform = new TransformComponent();
-		transform.pos.set(x,y/*x + x * CELL_GAP, y + y * CELL_GAP*/, Layers.LETTERS.ordinal());
+		transform.pos.set(x + x * CELL_GAP, y + y * CELL_GAP, Layers.LETTERS.ordinal());
 		
 		BoundsComponent bounds = new BoundsComponent();
 		bounds.bounds.width = 1;
