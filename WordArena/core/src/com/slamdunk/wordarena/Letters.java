@@ -1,6 +1,8 @@
-package com.slamdunk.wordarena.letters;
+package com.slamdunk.wordarena;
 
-public enum Letters {
+import com.slamdunk.toolkit.lang.Deckable;
+
+public enum Letters implements Deckable {
 	A(9, "A"),
 	B(2, "B"),
 	C(2, "C"),
@@ -34,5 +36,10 @@ public enum Letters {
 	Letters(int representation, String label) {
 		this.representation = representation;
 		this.label = label;
+	}
+
+	@Override
+	public int countInOneDeck() {
+		return representation;
 	}
 }

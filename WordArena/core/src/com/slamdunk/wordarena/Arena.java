@@ -10,6 +10,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.wordarena.components.BoundsComponent;
 import com.slamdunk.wordarena.components.CameraComponent;
 import com.slamdunk.wordarena.components.ColliderComponent;
@@ -17,17 +18,15 @@ import com.slamdunk.wordarena.components.InputComponent;
 import com.slamdunk.wordarena.components.LetterCellComponent;
 import com.slamdunk.wordarena.components.TextureComponent;
 import com.slamdunk.wordarena.components.TransformComponent;
-import com.slamdunk.wordarena.letters.LetterGenerator;
-import com.slamdunk.wordarena.letters.Letters;
+import com.slamdunk.wordarena.systems.ComponentMappers;
 import com.slamdunk.wordarena.systems.RenderingSystem;
 
 public class Arena {
 	private static final int MIN_WORD_LENGTH = 3;
-//	private static final WordTree words;
+	private static final float CELL_GAP = 0.05f;
+	
 	private static final Set<String> words;
 	static {
-//		words = new WordTree();
-//		words.load("words.txt", MIN_WORD_LENGTH);
 		words = new HashSet<String>();
 		FileHandle file = Gdx.files.internal("words.txt");
 		BufferedReader reader = new BufferedReader(file.reader("UTF-8"));
@@ -50,7 +49,8 @@ public class Arena {
 	
 	private int width;
 	private int height;
-	private Entity[][] entities;
+	private Entity[][] letterCells;
+	private Deck<Letters> lettersDeck;
 	
 	public int score;
 	public GameStates state;
@@ -60,7 +60,7 @@ public class Arena {
 		this.engine = engine;
 		this.width = width;
 		this.height = height;
-		entities = new Entity[width][height];
+		letterCells = new Entity[width][height];
 
 		createBackground();
 		createArena();
@@ -80,20 +80,18 @@ public class Arena {
 
 	private void createArena() {
 		// Génère des lettres en tenant compte de leur représentation
-		List<Letters> letters = LetterGenerator.generate(width * height);
+		lettersDeck = new Deck<Letters>(Letters.values(), 1);
 		
-		int curLetter = 0;
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
-				entities[x][y] = createCell(CellStates.NORMAL, x, y, letters.get(curLetter));
-				curLetter++;
+				letterCells[x][y] = createCell(CellStates.NORMAL, x, y, lettersDeck.draw());
 			}
 		}
 	}
 	
 	private Entity createCell(CellStates type, float x, float y, Letters letter) {
 		TransformComponent transform = new TransformComponent();
-		transform.pos.set(x, y, Layers.LETTERS.ordinal());
+		transform.pos.set(x,y/*x + x * CELL_GAP, y + y * CELL_GAP*/, Layers.LETTERS.ordinal());
 		
 		BoundsComponent bounds = new BoundsComponent();
 		bounds.bounds.width = 1;
@@ -153,20 +151,36 @@ public class Arena {
 	}
 
 	/**
-	 * Tente de valider le mot, et ajoute des points au score le cas
-	 * échéant.
-	 * @param word
+	 * Tente de valider le mot. Si le mot est valide :
+	 *  - le score est modifié
+	 *  - de nouvelles lettres sont choisies
+	 *  - les lettres sont désélectionnées
+	 * @param selectedLetters
 	 */
-	public void validateWord(String word) {
-		if (words.contains(word)) {
-			score += word.length();
-			System.out.println(word + " rapporte " + word.length() + " points. Nouveau score : " + score);
-		} else {
-			System.out.println(word + " n'est pas un mot valide.");
+	public boolean validateWord(List<Entity> selectedLetters) {
+		// Vérifie si le mot est valide
+		StringBuilder wordLetters = new StringBuilder();
+		for (Entity entity : selectedLetters) {
+			wordLetters.append(ComponentMappers.LETTER_CELL.get(entity).letter.label);
 		}
+		final String word = wordLetters.toString();
+		if (!words.contains(word)) {
+			System.out.println(word + " n'est pas un mot valide.");
+			return false;
+		}
+		
+		// Modifie le score
+		score += word.length();
+		System.out.println(word + " rapporte " + word.length() + " points. Nouveau score : " + score);
+		
+		// Choisie de nouvelles lettres et réinitialise leur état
+		for (Entity entity : selectedLetters) {
+			ComponentMappers.LETTER_CELL.get(entity).letter = lettersDeck.draw();
+		}
+		return true;
 	}
 
 	public Entity getEntityAt(int x, int y) {
-		return entities[x][y];
+		return letterCells[x][y];
 	}
 }
