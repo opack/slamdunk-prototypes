@@ -52,8 +52,8 @@ public class WordSelectionHandler implements InputProcessor {
 
 	public void setArena(Arena arena) {
 		this.arena = arena;
-		arenaBounds.width = arena.getWidth();
-		arenaBounds.height = arena.getHeight();
+		arenaBounds.width = arena.getWidth() * (1 + Arena.CELL_GAP);
+		arenaBounds.height = arena.getHeight() * (1 + Arena.CELL_GAP);
 	}
 
 	/**
