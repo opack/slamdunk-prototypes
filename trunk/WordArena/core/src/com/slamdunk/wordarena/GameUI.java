@@ -94,6 +94,16 @@ public class GameUI {
 		});
 		group.addActor(validate);
 		
+		TextButton cancel = new TextButton("ANNULER", skin);
+		cancel.setPosition(validate.getX() - 10 - cancel.getWidth(), 0);
+		cancel.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				screen.cancelWord();
+			}
+		});
+		group.addActor(cancel);
+		
 		componentsGroups.add(group);
 	}
 

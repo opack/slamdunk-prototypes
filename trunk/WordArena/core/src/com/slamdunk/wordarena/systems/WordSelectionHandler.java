@@ -8,10 +8,10 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.slamdunk.wordarena.Arena;
+import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.CellStates;
 import com.slamdunk.wordarena.GameStates;
 import com.slamdunk.wordarena.components.ColliderComponent;
@@ -113,15 +113,16 @@ public class WordSelectionHandler implements InputProcessor {
 		letterCell.type = state;
 		
 		TextureComponent texture = ComponentMappers.TEXTURE.get(entity);
-		//texture.region = Assets.letterData.get(letterCell.letter, letterCell.type);
-		switch (state) {
-		case NORMAL:
-			texture.tint.set(Color.WHITE);
-			break;
-		case SELECTED:
-			texture.tint.set(Color.YELLOW);
-			break;
-		}
+		texture.region = Assets.letterData.get(letterCell.letter, letterCell.type);
+		// Préférer la texture plutôt que la teinte car cela laisse la possibilité d'utiliser des animations
+//		switch (state) {
+//		case NORMAL:
+//			texture.tint.set(Color.WHITE);
+//			break;
+//		case SELECTED:
+//			texture.tint.set(Color.YELLOW);
+//			break;
+//		}
 	}
 
 	@Override

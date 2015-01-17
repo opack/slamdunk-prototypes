@@ -10,7 +10,6 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.slamdunk.wordarena.systems.BoundsSystem;
 import com.slamdunk.wordarena.systems.ColliderSystem;
-import com.slamdunk.wordarena.systems.ComponentMappers;
 import com.slamdunk.wordarena.systems.RenderingSystem;
 import com.slamdunk.wordarena.systems.WordSelectionHandler;
 
@@ -123,18 +122,24 @@ public class GameScreen extends ScreenAdapter {
 		}
 	}
 
+	/**
+	 * Vérifie si le mot est valide, ajoute des points au score
+	 * le cas échéant et choisit d'autres lettres sur le mot
+	 * sélectionné.
+	 */
 	public void validateWord() {
 		List<Entity> selectedLetters = wordSelectionHandler.getSelectedEntities();
 		if (!selectedLetters.isEmpty()) {
-			// Teste si le mot est valide
-			StringBuilder word = new StringBuilder();
-			for (Entity entity : selectedLetters) {
-				word.append(ComponentMappers.LETTER_CELL.get(entity).letter.label);
-			}
-			arena.validateWord(word.toString());
-			
-			// Réinitialise les lettres sélectionnées
-			wordSelectionHandler.resetSelection();
+			arena.validateWord(selectedLetters);
 		}
+		
+		cancelWord();
+	}
+
+	/**
+	 * Réinitialise les lettres sélectionnées
+	 */
+	public void cancelWord() {
+		wordSelectionHandler.resetSelection();
 	}
 }
