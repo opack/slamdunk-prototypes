@@ -90,8 +90,13 @@ public class WordSelectionHandler implements InputProcessor {
 			}
 		}
 		
-		// Sélectionne la case
+		// Vérifie si la nouvelle case n'est pas déjà sélectionnée
 		Entity entity = arena.getEntityAt(arenaX, arenaY);
+		if (selectedEntities.contains(entity)) {
+			return true;
+		}
+		
+		// Sélectionne la case
 		ColliderComponent collider = ComponentMappers.COLLIDER.get(entity);
 
 		if ((lastEntity == null	|| lastEntity.getId() != entity.getId())
@@ -114,15 +119,6 @@ public class WordSelectionHandler implements InputProcessor {
 		
 		TextureComponent texture = ComponentMappers.TEXTURE.get(entity);
 		texture.region = Assets.letterData.get(letterCell.letter, letterCell.type);
-		// Préférer la texture plutôt que la teinte car cela laisse la possibilité d'utiliser des animations
-//		switch (state) {
-//		case NORMAL:
-//			texture.tint.set(Color.WHITE);
-//			break;
-//		case SELECTED:
-//			texture.tint.set(Color.YELLOW);
-//			break;
-//		}
 	}
 
 	@Override
