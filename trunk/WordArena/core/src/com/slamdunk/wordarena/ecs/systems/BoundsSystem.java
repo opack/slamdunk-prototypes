@@ -1,10 +1,10 @@
-package com.slamdunk.wordarena.systems;
+package com.slamdunk.wordarena.ecs.systems;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.slamdunk.wordarena.components.BoundsComponent;
-import com.slamdunk.wordarena.components.TransformComponent;
+import com.slamdunk.wordarena.ecs.components.BoundsComponent;
+import com.slamdunk.wordarena.ecs.components.TransformComponent;
 
 public class BoundsSystem extends IteratingSystem {
 	

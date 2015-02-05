@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.systems;
+package com.slamdunk.wordarena.ecs.systems;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -10,14 +10,14 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.slamdunk.wordarena.Arena;
-import com.slamdunk.wordarena.Assets;
-import com.slamdunk.wordarena.CellStates;
-import com.slamdunk.wordarena.GameStates;
-import com.slamdunk.wordarena.components.ColliderComponent;
-import com.slamdunk.wordarena.components.LetterCellComponent;
-import com.slamdunk.wordarena.components.TextureComponent;
-import com.slamdunk.wordarena.components.TransformComponent;
+import com.slamdunk.wordarena.ecs.Assets;
+import com.slamdunk.wordarena.ecs.CellStates;
+import com.slamdunk.wordarena.ecs.GameStates;
+import com.slamdunk.wordarena.ecs.arena.Arena;
+import com.slamdunk.wordarena.ecs.components.ColliderComponent;
+import com.slamdunk.wordarena.ecs.components.LetterCellComponent;
+import com.slamdunk.wordarena.ecs.components.TextureComponent;
+import com.slamdunk.wordarena.ecs.components.TransformComponent;
 
 public class WordSelectionHandler implements InputProcessor {
 	private Vector3 tmp;

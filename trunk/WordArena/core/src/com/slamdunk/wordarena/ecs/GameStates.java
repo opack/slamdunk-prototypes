@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena;
+package com.slamdunk.wordarena.ecs;
 
 public enum GameStates {
 	READY,

@@ -1,14 +1,17 @@
-package com.slamdunk.wordarena;
+package com.slamdunk.wordarena.ecs;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.settings.SlamSettings;
-import com.slamdunk.wordarena.Assets;
 
 public class WordArenaGame extends SlamGame {
 	public static final int SCREEN_WIDTH = 800;
 	public static final int SCREEN_HEIGHT = 480;
+	
+	// Utilisé par tous les écrans
+	public SpriteBatch batcher;
 	
 	@Override
 	public void create() {
@@ -17,19 +20,22 @@ public class WordArenaGame extends SlamGame {
 		// Initialise les réglages
 		SlamSettings.init("WordArena");
 		
-		// Charge les ressources
-		Assets.load();
-		
 		// Crée les écrans
 //		HomeScreen home = new HomeScreen(this);
 //		addScreen(home);
 //		addScreen(new WorldScreen(this));
 //		addScreen(new GameScreen(this));
-		addScreen(new ArenaScreen(this));
 		
 		// Affiche le premier écran
 //		setScreen(home);
-		setScreen(ArenaScreen.NAME);
+		
+		
+//		setScreen(new GamePartsTestScreen());
+//		setScreen(new WordArenaScreen());
+		
+		Assets.load();
+		batcher = new SpriteBatch();
+		setScreen(new GameScreen(this));
 	}
 	
 	@Override
