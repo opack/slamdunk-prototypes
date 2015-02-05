@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena;
+package com.slamdunk.wordarena.ecs.arena;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,15 +11,20 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.slamdunk.toolkit.lang.Deck;
-import com.slamdunk.wordarena.components.BoundsComponent;
-import com.slamdunk.wordarena.components.CameraComponent;
-import com.slamdunk.wordarena.components.ColliderComponent;
-import com.slamdunk.wordarena.components.InputComponent;
-import com.slamdunk.wordarena.components.LetterCellComponent;
-import com.slamdunk.wordarena.components.TextureComponent;
-import com.slamdunk.wordarena.components.TransformComponent;
-import com.slamdunk.wordarena.systems.ComponentMappers;
-import com.slamdunk.wordarena.systems.RenderingSystem;
+import com.slamdunk.wordarena.ecs.Assets;
+import com.slamdunk.wordarena.ecs.CellStates;
+import com.slamdunk.wordarena.ecs.GameStates;
+import com.slamdunk.wordarena.ecs.Layers;
+import com.slamdunk.wordarena.ecs.Letters;
+import com.slamdunk.wordarena.ecs.components.BoundsComponent;
+import com.slamdunk.wordarena.ecs.components.CameraComponent;
+import com.slamdunk.wordarena.ecs.components.ColliderComponent;
+import com.slamdunk.wordarena.ecs.components.InputComponent;
+import com.slamdunk.wordarena.ecs.components.LetterCellComponent;
+import com.slamdunk.wordarena.ecs.components.TextureComponent;
+import com.slamdunk.wordarena.ecs.components.TransformComponent;
+import com.slamdunk.wordarena.ecs.systems.ComponentMappers;
+import com.slamdunk.wordarena.ecs.systems.RenderingSystem;
 
 public class Arena {
 	public static final float CELL_GAP = 0.05f;
@@ -49,8 +54,8 @@ public class Arena {
 	
 	private int width;
 	private int height;
-	private Entity[][] letterCells;
 	private Deck<Letters> lettersDeck;
+	private Entity[][] letterCells;
 	
 	public int score;
 	public GameStates state;
@@ -87,6 +92,14 @@ public class Arena {
 				letterCells[x][y] = createCell(CellStates.NORMAL, x, y, lettersDeck.draw());
 			}
 		}
+		
+		// Crée les zones
+		ZoneBuilder builder = new ZoneBuilder();
+		
+		builder.add(letterCells[0][0]);
+		builder.add(letterCells[1][0]);
+		builder.add(letterCells[1][1]);
+		engine.addEntity(builder.build());
 	}
 	
 	private Entity createCell(CellStates type, float x, float y, Letters letter) {

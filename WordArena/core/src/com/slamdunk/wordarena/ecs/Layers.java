@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena;
+package com.slamdunk.wordarena.ecs;
 
 /**
  * Cette énumération définit également l'ordre dans lequel sont dessinés les objets :

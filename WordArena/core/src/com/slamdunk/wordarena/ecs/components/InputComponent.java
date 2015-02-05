@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.components;
+package com.slamdunk.wordarena.ecs.components;
 
 import com.badlogic.ashley.core.Component;
 

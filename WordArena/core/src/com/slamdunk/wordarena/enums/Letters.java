@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena;
+package com.slamdunk.wordarena.enums;
 
 import com.slamdunk.toolkit.lang.Deckable;
 

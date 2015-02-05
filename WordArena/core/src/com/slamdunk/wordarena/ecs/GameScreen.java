@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena;
+package com.slamdunk.wordarena.ecs;
 
 import java.util.List;
 
@@ -8,10 +8,11 @@ import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
-import com.slamdunk.wordarena.systems.BoundsSystem;
-import com.slamdunk.wordarena.systems.ColliderSystem;
-import com.slamdunk.wordarena.systems.RenderingSystem;
-import com.slamdunk.wordarena.systems.WordSelectionHandler;
+import com.slamdunk.wordarena.ecs.arena.Arena;
+import com.slamdunk.wordarena.ecs.systems.BoundsSystem;
+import com.slamdunk.wordarena.ecs.systems.ColliderSystem;
+import com.slamdunk.wordarena.ecs.systems.RenderingSystem;
+import com.slamdunk.wordarena.ecs.systems.WordSelectionHandler;
 
 public class GameScreen extends ScreenAdapter {
 	private Engine engine;

@@ -3,7 +3,7 @@ package com.slamdunk.wordarena.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.slamdunk.wordarena.WordArenaGame;
+import com.slamdunk.wordarena.ecs.WordArenaGame;
 
 public class HtmlLauncher extends GwtApplication {
 
