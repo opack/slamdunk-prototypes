@@ -8,7 +8,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import com.slamdunk.toolkit.screen.overlays.SlamOverlay;
 
 /**
@@ -118,10 +117,6 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 
 	@Override
 	public void render(float delta) {
-		// Efface l'écran
-		Gdx.gl.glClearColor(0, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
 		// Fait agir les acteurs (mise à jour de la logique du jeu)
 		for (SlamOverlay overlay : overlays) {
 			overlay.act(delta);

@@ -23,12 +23,14 @@ public class ZoneBuilder {
 		return owner;
 	}
 
-	public void setOwner(Zones owner) {
+	public ZoneBuilder setOwner(Zones owner) {
 		this.owner = owner;
+		return this;
 	}
 
-	public void addCell(ArenaCell cell) {
+	public ZoneBuilder addCell(ArenaCell cell) {
 		cells.put(cell.getData().position, cell);
+		return this;
 	}
 
 	private ZoneEdge createEdge(ArenaCell cell, Borders border) {
@@ -80,7 +82,8 @@ public class ZoneBuilder {
 		}
 	}
 
-	public void reset() {
+	public ZoneBuilder reset() {
 		cells.clear();
+		return this;
 	}
 }
