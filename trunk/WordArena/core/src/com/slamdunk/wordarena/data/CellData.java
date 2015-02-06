@@ -1,13 +1,9 @@
 package com.slamdunk.wordarena.data;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.slamdunk.toolkit.world.point.Point;
-import com.slamdunk.wordarena.enums.Borders;
+import com.slamdunk.wordarena.enums.CellOwners;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.Letters;
-import com.slamdunk.wordarena.enums.Zones;
 
 /**
  * Représente les données d'une cellule
@@ -30,18 +26,20 @@ public class CellData {
 	public final Point position;
 	
 	/**
-	 * Indique quel dessin de zone doit être représenté
-	 * sur le bord spécifié
+	 * Indique qui possède la cellule
 	 */
-	public final Map<Borders, Zones> zoneOnBorder;
+	public CellOwners owner;
+	
+	/**
+	 * Indique le poids de cette cellule
+	 */
+	public int weight;
 	
 	public CellData() {
 		letter = Letters.A;
 		state = CellStates.NORMAL;
 		position = new Point(0, 0);
-		zoneOnBorder = new HashMap<Borders, Zones>();
-		for (Borders border : Borders.values()) {
-			zoneOnBorder.put(border, Zones.NONE);
-		}
+		owner = CellOwners.NONE;
+		weight = 1;
 	}
 }

@@ -6,24 +6,24 @@ import java.util.Map;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.Borders;
-import com.slamdunk.wordarena.enums.Zones;
+import com.slamdunk.wordarena.enums.CellOwners;
 
 public class ZoneBuilder {
 	private Map<Point, ArenaCell> cells;
-	private Zones owner;
+	private CellOwners owner;
 	private Point tmp;
 	
 	public ZoneBuilder() {
-		owner = Zones.NEUTRAL;
+		owner = CellOwners.NEUTRAL;
 		cells = new HashMap<Point, ArenaCell>();
 		tmp = new Point(0, 0);
 	}
 	
-	public Zones getOwner() {
+	public CellOwners getOwner() {
 		return owner;
 	}
 
-	public ZoneBuilder setOwner(Zones owner) {
+	public ZoneBuilder setOwner(CellOwners owner) {
 		this.owner = owner;
 		return this;
 	}
@@ -37,7 +37,6 @@ public class ZoneBuilder {
 		ZoneEdge edge = new ZoneEdge();
 		edge.border = border;
 		edge.cell = cell;
-		edge.image = cell.getBorderImage(border);
 		return edge;
 	}
 

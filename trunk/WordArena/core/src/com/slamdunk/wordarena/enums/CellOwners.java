@@ -3,7 +3,7 @@ package com.slamdunk.wordarena.enums;
 /**
  * Détaille à qui appartient une zone 
  */
-public enum Zones {
+public enum CellOwners {
 	/**
 	 * Pas de zone
 	 */

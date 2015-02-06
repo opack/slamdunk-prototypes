@@ -13,7 +13,7 @@
    height="297mm"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.48.4 r"
    sodipodi:docname="letters.svg">
   <defs
      id="defs4" />
@@ -24,15 +24,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="722.60226"
-     inkscape:cy="935.91574"
+     inkscape:zoom="1.4"
+     inkscape:cx="269.73409"
+     inkscape:cy="952.02066"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1440"
-     inkscape:window-height="837"
-     inkscape:window-x="-8"
+     inkscape:window-width="1680"
+     inkscape:window-height="988"
+     inkscape:window-x="1672"
      inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
@@ -64,7 +64,7 @@
          transform="translate(-38.584807,-10.101525)"
          id="g4005">
         <rect
-           style="fill:#e6e6e6;fill-opacity:1;stroke:#000000;stroke-width:0.86900002;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+           style="fill:#e6e6e6;fill-opacity:1;stroke:#000000;stroke-width:0.869;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
            id="rect2985"
            width="47.1306"
            height="47.1306"
@@ -1364,6 +1364,26 @@
              x="1529.4296"
              y="152.49055">Z</tspan></text>
       </g>
+    </g>
+    <g
+       id="g4003"
+       inkscape:export-filename="D:\perso\dev\slamdunk-prototypes\WordArena\work\cells.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         y="242.64177"
+         x="67.145973"
+         height="44"
+         width="44"
+         id="rect2985-60"
+         style="fill:#ffffff;fill-opacity:1;stroke:#cbcbcb;stroke-width:3.99999976;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:0.50196078;stroke-dasharray:none;stroke-dashoffset:0" />
+      <rect
+         y="242.64177"
+         x="115.14597"
+         height="44"
+         width="44"
+         id="rect2985-60-7"
+         style="fill:#ffe680;fill-opacity:1;stroke:#cbcbcb;stroke-width:3.99999976;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:0.50196078;stroke-dasharray:none;stroke-dashoffset:0" />
     </g>
   </g>
 </svg>
