@@ -1,16 +1,14 @@
 package com.slamdunk.wordarena.data;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.Borders;
 
 /**
- * Représente un côté d'une zone
+ * Représente un côté d'une zone s'étendant entre 2 cellules
  */
 public class ZoneEdge {
 	public ArenaCell cell;
 	public Borders border;
-	public Image image;
 	
 	@Override
 	public boolean equals(Object other) {
