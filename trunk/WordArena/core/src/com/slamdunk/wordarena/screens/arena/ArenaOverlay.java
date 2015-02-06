@@ -1,6 +1,7 @@
 package com.slamdunk.wordarena.screens.arena;
 
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.slamdunk.pixelkingdomadvanced.screens.MoveCameraDragListener;
 import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
 import com.slamdunk.wordarena.WordArenaGame;
@@ -16,8 +17,13 @@ public class ArenaOverlay extends WorldOverlay {
 	private Deck<Letters> lettersDeck;
 	private ArenaCell[][] cells;
 	
+	private MoveCameraDragListener moveCameraListener;
+	
 	public ArenaOverlay() {
 		createStage(new FitViewport(WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT));
+		
+		moveCameraListener = new MoveCameraDragListener(getStage().getCamera());
+		getStage().addListener(moveCameraListener);
 	}
 	
 	/**
@@ -41,6 +47,8 @@ public class ArenaOverlay extends WorldOverlay {
 				getWorld().addActor(cells[x][y]);
 			}
 		}
+		
+		moveCameraListener.computeMoveBounds(getStage().getCamera(), getWorld(), 20);
 	}
 	
 	/**

@@ -3,11 +3,15 @@ package com.slamdunk.wordarena.actors;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.slamdunk.toolkit.ui.GroupEx;
 import com.slamdunk.wordarena.Assets;
+import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.enums.Borders;
+import com.slamdunk.wordarena.enums.CellStates;
 
 /**
  * Une cellule de l'arène. Une cellule contient bien sûr une lettre
@@ -48,6 +52,14 @@ public class ArenaCell extends GroupEx {
 		
 		// Met à jour les images
 		updateCellImages();
+		
+		// Ajoute le listener pour sélectionner la lettre
+		addListener(new InputListener() {
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				return WordSelectionHandler.getInstance().addCell(ArenaCell.this);
+			}
+		});
 	}
 	
 	public CellData getData() {
@@ -82,5 +94,39 @@ public class ArenaCell extends GroupEx {
 		for (Borders border : Borders.values()) {
 			borders.get(border).setDrawable(Assets.borders.get(border, data.zoneOnBorder.get(border)));
 		}
+	}
+	
+	@Override
+	public boolean equals(Object other) {
+		if (other instanceof ArenaCell) {
+			// 2 cellules sont considérées identiques si elles sont
+			// au même endroit
+			ArenaCell cell2 = (ArenaCell)other;
+			return cell2.data.position.equals(data.position);
+		}
+		return false;
+	}
+	
+	@Override
+	public int hashCode() {
+		return data.position.hashCode();
+	}
+
+	/**
+	 * Sélectionne la cellule, ce qui a pour effet de changer son état
+	 * (qui passe à SELECTED) et l'image de la lettre
+	 */
+	public void select() {
+		data.state = CellStates.SELECTED;
+		updateCellImages();
+	}
+	
+	/**
+	 * Désélectionne la cellule, ce qui a pour effet de changer son état
+	 * (qui passe à NORMAL) et l'image de la lettre
+	 */
+	public void unselect() {
+		data.state = CellStates.NORMAL;
+		updateCellImages();
 	}
 }
