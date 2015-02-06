@@ -1,8 +1,7 @@
-package com.slamdunk.wordarena;
+package com.slamdunk.wordarena.screens.arena;
 
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
-import com.slamdunk.wordarena.screens.arena.ArenaOverlay;
 
 public class ArenaScreen extends SlamScreen {
 	public static final String NAME = "ARENA";
