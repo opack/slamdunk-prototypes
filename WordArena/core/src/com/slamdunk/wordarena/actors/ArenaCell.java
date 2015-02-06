@@ -13,7 +13,7 @@ import com.slamdunk.wordarena.enums.Borders;
  * Une cellule de l'arène. Une cellule contient bien sûr une lettre
  * mais aussi 4 bords qui indique à quelle zone appartient la cellule.
  */
-public class Cell extends GroupEx {
+public class ArenaCell extends GroupEx {
 	/**
 	 * Les 4 images placées sur les bords de la cellule
 	 */
@@ -29,7 +29,7 @@ public class Cell extends GroupEx {
 	 */
 	private final CellData data;
 	
-	public Cell() {
+	public ArenaCell() {
 		// Crée les composants de la cellule
 		data = new CellData();
 		
@@ -37,15 +37,21 @@ public class Cell extends GroupEx {
 		for (Borders border : Borders.values()) {
 			Image image = new Image(Assets.borders.get(border, data.zoneOnBorder.get(border)));
 			borders.put(border, image);
+			addActor(image);
 		}
 		
 		letter = new Image(Assets.letters.get(data.letter, data.state));
+		addActor(letter);
 		
 		// Place les images aux bons endroits
 		layoutImages();		
 		
 		// Met à jour les images
 		updateCellImages();
+	}
+	
+	public CellData getData() {
+		return data;
 	}
 
 	/**
@@ -70,7 +76,7 @@ public class Cell extends GroupEx {
 	/**
 	 * Met à jour les images de cette cellule
 	 */
-	private void updateCellImages() {
+	public void updateCellImages() {
 		letter.setDrawable(Assets.letters.get(data.letter, data.state));
 		
 		for (Borders border : Borders.values()) {

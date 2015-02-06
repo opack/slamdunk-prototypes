@@ -56,18 +56,18 @@ public class Assets {
 			borders.put(Borders.LEFT, zone, new TextureRegionDrawable(leftBorderRegion));
 			
 			TextureRegion rightBorderRegion = new TextureRegion(leftBorderRegion);
-			rightBorderRegion.flip(false, true);
+			rightBorderRegion.flip(true, false);
 			borders.put(Borders.RIGHT, zone, new TextureRegionDrawable(rightBorderRegion));
 		}
 		
 		final TextureRegion[][] horizontalTextures = splitSpriteSheet("textures/borders_horizontal.png", Zones.values().length, 1);
 		for (Zones zone : Zones.values()) {
-			TextureRegion bottomBorderRegion = horizontalTextures[zone.ordinal()][0];
-			borders.put(Borders.BOTTOM, zone, new TextureRegionDrawable(bottomBorderRegion));
-			
-			TextureRegion topBorderRegion = new TextureRegion(bottomBorderRegion);
-			topBorderRegion.flip(true, false);
+			TextureRegion topBorderRegion = horizontalTextures[zone.ordinal()][0];
 			borders.put(Borders.TOP, zone, new TextureRegionDrawable(topBorderRegion));
+			
+			TextureRegion bottomBorderRegion = new TextureRegion(topBorderRegion);
+			bottomBorderRegion.flip(false, true);
+			borders.put(Borders.BOTTOM, zone, new TextureRegionDrawable(bottomBorderRegion));
 		}
 	}
 	
