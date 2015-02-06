@@ -65,6 +65,10 @@ public class ArenaCell extends GroupEx {
 	public CellData getData() {
 		return data;
 	}
+	
+	public Image getBorderImage(Borders border) {
+		return borders.get(border);
+	}
 
 	/**
 	 * Place les images aux bons endroits
