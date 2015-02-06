@@ -1,7 +1,5 @@
 package com.slamdunk.wordarena;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
@@ -13,6 +11,7 @@ public class WordArenaGame extends SlamGame {
 	@Override
 	public void create() {
 		super.create();
+		setClearColor(1, 1, 1, 1);
 		
 		// Initialise les réglages
 		SlamSettings.init("WordArena");
@@ -21,23 +20,9 @@ public class WordArenaGame extends SlamGame {
 		Assets.load();
 		
 		// Crée les écrans
-//		HomeScreen home = new HomeScreen(this);
-//		addScreen(home);
-//		addScreen(new WorldScreen(this));
-//		addScreen(new GameScreen(this));
 		addScreen(new ArenaScreen(this));
 		
 		// Affiche le premier écran
-//		setScreen(home);
 		setScreen(ArenaScreen.NAME);
-	}
-	
-	@Override
-	public void render() {
-		GL20 gl = Gdx.gl;
-		gl.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
-		super.render();
 	}
 }
