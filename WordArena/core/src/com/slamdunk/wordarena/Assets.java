@@ -6,6 +6,8 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
@@ -22,6 +24,8 @@ public class Assets {
 	public static Map<CellStates, TextureRegionDrawable> cells;
 	public static DoubleEntryArray<Borders, CellOwners, TextureRegionDrawable> borders;
 	
+	public static Texture edge;
+	
 	public static Texture loadTexture (String file) {
 		return new Texture(Gdx.files.internal(file));
 	}
@@ -32,6 +36,10 @@ public class Assets {
 		loadCells();
 		background = loadTexture("textures/background.png");
 		backgroundRegion = new TextureRegion(background, 0, 0, 320, 480);
+		
+		edge = new Texture(Gdx.files.internal("textures/edge.png"));
+		edge.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+        edge.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 	}
 
 	public static void playSound (Sound sound) {

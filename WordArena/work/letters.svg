@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="269.73409"
-     inkscape:cy="952.02066"
+     inkscape:zoom="7.919596"
+     inkscape:cx="151.30864"
+     inkscape:cy="1015.1882"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1384,6 +1384,30 @@
          width="44"
          id="rect2985-60-7"
          style="fill:#ffe680;fill-opacity:1;stroke:#cbcbcb;stroke-width:3.99999976;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:0.50196078;stroke-dasharray:none;stroke-dashoffset:0" />
+    </g>
+    <g
+       id="g4046"
+       transform="matrix(0,1,-1,0,123.88689,-84.214919)">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\perso\dev\slamdunk-prototypes\WordArena\android\assets\textures\rope.png"
+         style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect2985-60-7-9"
+         width="3"
+         height="3"
+         x="102.5509"
+         y="16.335934" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="D:\perso\dev\slamdunk-prototypes\WordArena\android\assets\textures\rope.png"
+         style="fill:#ffffff;fill-opacity:1;stroke:#ff0000;stroke-width:1;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         id="rect2985-60-7-9-5"
+         width="3"
+         height="3"
+         x="102.5509"
+         y="20.336035" />
     </g>
   </g>
 </svg>
