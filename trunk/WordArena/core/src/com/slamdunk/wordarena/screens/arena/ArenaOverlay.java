@@ -5,6 +5,7 @@ import com.slamdunk.pixelkingdomadvanced.screens.MoveCameraDragListener;
 import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
 import com.slamdunk.wordarena.WordArenaGame;
+import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.Borders;
 import com.slamdunk.wordarena.enums.CellStates;
@@ -34,6 +35,8 @@ public class ArenaOverlay extends WorldOverlay {
 	 * @param height Hauteur de l'arène, en nombre de cellules
 	 */
 	public void buildArena(final int width, final int height) {
+		final WordSelectionHandler wordSelectionHandler = ((ArenaScreen)getScreen()).getWordSelectionHandler();
+		
 		// Génère des lettres en tenant compte de leur représentation
 		lettersDeck = new Deck<Letters>(Letters.values(), 1);
 		
@@ -41,7 +44,7 @@ public class ArenaOverlay extends WorldOverlay {
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
 				// Création de la cellule
-				cells[x][y] = createCell(CellStates.NORMAL, x, y, lettersDeck.draw());
+				cells[x][y] = createCell(wordSelectionHandler, CellStates.NORMAL, x, y, lettersDeck.draw());
 				
 				// Ajout de la cellule à l'arène
 				getWorld().addActor(cells[x][y]);
@@ -59,8 +62,8 @@ public class ArenaOverlay extends WorldOverlay {
 	 * @param letter
 	 * @return
 	 */
-	private ArenaCell createCell(CellStates state, int x, int y, Letters letter) {
-		ArenaCell cell = new ArenaCell();
+	private ArenaCell createCell(WordSelectionHandler wordSelectionHandler, CellStates state, int x, int y, Letters letter) {
+		ArenaCell cell = new ArenaCell(wordSelectionHandler);
 		
 		// Définition des données du modèle
 		cell.getData().letter = letter;

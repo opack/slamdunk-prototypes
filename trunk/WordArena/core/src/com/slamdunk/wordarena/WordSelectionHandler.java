@@ -1,8 +1,14 @@
 package com.slamdunk.wordarena;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.CellStates;
 
@@ -11,16 +17,41 @@ import com.slamdunk.wordarena.enums.CellStates;
  * peut être ajoutée au mot.
  */
 public class WordSelectionHandler {
-	private static WordSelectionHandler instance = new WordSelectionHandler();
+	private static final int MIN_WORD_LENGTH = 3;
 	
 	private List<ArenaCell> selectedCells;
 	
-	private WordSelectionHandler() {
+	private final Set<String> words;
+	
+	public WordSelectionHandler() {
 		selectedCells = new ArrayList<ArenaCell>();
+		
+		words = new HashSet<String>();
+		loadWords();
 	}
 	
-	public static WordSelectionHandler getInstance() {
-		return instance;
+	/**
+	 * Charge les mots du dictionnaire
+	 */
+	private void loadWords() {
+		words.clear();
+		FileHandle file = Gdx.files.internal("words.txt");
+		BufferedReader reader = new BufferedReader(file.reader("UTF-8"));
+		String extracted = null;
+		try {
+			while ((extracted = reader.readLine()) != null) {
+				if (extracted.length() >= MIN_WORD_LENGTH) {
+					words.add(extracted);
+				}
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -57,5 +88,21 @@ public class WordSelectionHandler {
 			cell.unselect();
 		}
 		selectedCells.clear();
+	}
+	
+	/**
+	 * Tente de valider le mot. 
+	 * @param selectedLetters
+	 * @return true si le mot est valide
+	 */
+	public boolean validate() {
+		// Reconstitue le mot à partir des cellules sélectionnées
+		StringBuilder wordLetters = new StringBuilder();
+		for (ArenaCell cell : selectedCells) {
+			wordLetters.append(cell.getData().letter.label);
+		}
+		
+		// Vérifie si le mot est valide
+		return words.contains(wordLetters.toString());
 	}
 }

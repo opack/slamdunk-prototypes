@@ -33,7 +33,7 @@ public class ArenaCell extends GroupEx {
 	 */
 	private final CellData data;
 	
-	public ArenaCell() {
+	public ArenaCell(final WordSelectionHandler wordSelectionHandler) {
 		// Crée les composants de la cellule
 		data = new CellData();
 		
@@ -57,7 +57,7 @@ public class ArenaCell extends GroupEx {
 		addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				return WordSelectionHandler.getInstance().addCell(ArenaCell.this);
+				return wordSelectionHandler.addCell(ArenaCell.this);
 			}
 		});
 	}
