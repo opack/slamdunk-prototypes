@@ -1,5 +1,8 @@
 package com.slamdunk.wordarena.screens.arena;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.pixelkingdomadvanced.screens.MoveCameraDragListener;
 import com.slamdunk.toolkit.lang.Deck;
@@ -7,6 +10,8 @@ import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.data.ArenaZone;
+import com.slamdunk.wordarena.data.ZoneBuilder;
 import com.slamdunk.wordarena.enums.Borders;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.Letters;
@@ -17,11 +22,14 @@ public class ArenaOverlay extends WorldOverlay {
 	
 	private Deck<Letters> lettersDeck;
 	private ArenaCell[][] cells;
+	private List<ArenaZone> zones;
 	
 	private MoveCameraDragListener moveCameraListener;
 	
 	public ArenaOverlay() {
 		createStage(new FitViewport(WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT));
+		
+		zones = new ArrayList<ArenaZone>();
 		
 		moveCameraListener = new MoveCameraDragListener(getStage().getCamera());
 		getStage().addListener(moveCameraListener);
@@ -40,6 +48,7 @@ public class ArenaOverlay extends WorldOverlay {
 		// Génère des lettres en tenant compte de leur représentation
 		lettersDeck = new Deck<Letters>(Letters.values(), 1);
 		
+		// Crée l'arène
 		cells = new ArenaCell[width][height];
 		for (int y = 0; y < height; y++) {
 			for (int x = 0; x < width; x++) {
@@ -51,6 +60,17 @@ public class ArenaOverlay extends WorldOverlay {
 			}
 		}
 		
+		// Crée les zones
+		ZoneBuilder zoneBuilder = new ZoneBuilder();
+		zoneBuilder.setOwner(Zones.NEUTRAL);
+		zoneBuilder.addCell(cells[0][0]);
+		zoneBuilder.addCell(cells[0][1]);
+		zoneBuilder.addCell(cells[1][1]);
+		zoneBuilder.addCell(cells[2][1]);
+		ArenaZone zone = zoneBuilder.build();
+		zones.add(zone);
+		
+		// Ajoute le listener permettant de déplacer l'arène
 		moveCameraListener.computeMoveBounds(getStage().getCamera(), getWorld(), 20);
 	}
 	
