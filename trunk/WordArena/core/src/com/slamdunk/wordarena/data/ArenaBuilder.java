@@ -29,7 +29,7 @@ public class ArenaBuilder {
 	
 	private String[] types;
 	private String[] letters;
-	private int[] weights;
+	private int[] powers;
 	private int[] owners;
 	private String[] zones;
 	
@@ -55,8 +55,8 @@ public class ArenaBuilder {
 		this.letters = letters;
 	}
 
-	public void setWeights(int[] weights) {
-		this.weights = weights;
+	public void setPowers(int[] powers) {
+		this.powers = powers;
 	}
 
 	public void setOwners(int[] owners) {
@@ -95,11 +95,11 @@ public class ArenaBuilder {
 		setLetters(letters);
 		
 		// Charge les lettres initiales.
-		int[] weights = plan.getIntegerArrayProperty("plan.weights", CELL_SEPARATOR);
-		if (weights == null) {
+		int[] powers = plan.getIntegerArrayProperty("plan.powers", CELL_SEPARATOR);
+		if (powers == null) {
 			return false;
 		}
-		setWeights(weights);
+		setPowers(powers);
 		
 		// Charge les lettres initiales.
 		int[] owners = plan.getIntegerArrayProperty("plan.owners", CELL_SEPARATOR);
@@ -165,7 +165,7 @@ public class ArenaBuilder {
 				
 				data.type = CellTypes.valueOf(types[index]);
 				data.letter = chooseLetter(data.type, letters[index]);
-				data.weight = chooseWeight(data.type, weights[index]);
+				data.power = choosePower(data.type, powers[index]);
 				data.owner = chooseOwner(data.type, owners[index]);
 				
 				// Placement de la cellule dans le monde et mise à jour du display
@@ -187,11 +187,11 @@ public class ArenaBuilder {
 		return CellOwners.values()[ownerIndex];
 	}
 
-	private int chooseWeight(CellTypes cellType, int weight) {
-		if (!cellType.hasWeight()) {
+	private int choosePower(CellTypes cellType, int power) {
+		if (!cellType.hasPower()) {
 			return 0;
 		}
-		return weight;
+		return power;
 	}
 
 	/**

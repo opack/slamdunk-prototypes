@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.data.ArenaZone;
+import com.slamdunk.wordarena.enums.CellOwners;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
 
@@ -77,11 +78,16 @@ public class WordSelectionHandler {
 			}
 		}
 		// Si c'est la première lettre du mot, on s'assure qu'elle est dans
-		// une zone contrôlée par le joueur
+		// une zone contrôlée par le joueur ou qu'elle est elle-même
+		// contrôlée par le joueur
 		else {
 			ArenaZone zone = cell.getData().zone;
-			if (zone == null
-			|| zone.getOwner() != arenaScreen.getCurrentPlayer().owner) {
+			CellOwners player = arenaScreen.getCurrentPlayer().owner;
+			if (
+			// La cellule n'est pas dans une zone du joueur
+			(zone == null || zone.getOwner() != player)
+			// La cellule n'est pas contrôlée par le joueur
+			&& cell.getData().owner != player) {
 				return false;
 			}
 		}

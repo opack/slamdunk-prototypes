@@ -117,8 +117,8 @@ public class ArenaZone {
 			cellData = cell.getData();
 			// TODO DBG Faut-il dire qu'il faut également battre "NEUTRE" pour conquérir la zone ? Si oui, retirer ce test
 			if (cellData.owner != CellOwners.NEUTRAL) {
-				// Ajout du poids de la cellule au poids de ce joueur
-				occupations.put(cellData.owner, occupations.get(cellData.owner) + cellData.weight);
+				// Ajout de la puissance de la cellule à celle de ce joueur
+				occupations.put(cellData.owner, occupations.get(cellData.owner) + cellData.power);
 			}
 		}
 		
