@@ -53,12 +53,13 @@ public class ArenaScreen extends SlamScreen {
 		curPlayer = 0;
 		
 		loadNextLevel();
-		changeState(GameStates.READY);
 	}
 
 	public void loadNextLevel() {
 		arena.buildArena(10, 10);
+		arena.setVisible(false);
 		wordSelectionHandler.reset();
+		changeState(GameStates.READY);
 	}
 
 	/**
@@ -66,8 +67,18 @@ public class ArenaScreen extends SlamScreen {
 	 * @param newState
 	 */
 	public void changeState(GameStates newState) {
+		if (newState == state) {
+			return;
+		}
 		state = newState;
 		ui.present(newState);
+		
+		// Si on démarre la partie, alors on affiche l'arène
+		if (newState == GameStates.RUNNING) {
+			arena.setVisible(true);
+		} else if (newState == GameStates.PAUSED) {
+			arena.setVisible(false);
+		}
 	}
 	
 	/**

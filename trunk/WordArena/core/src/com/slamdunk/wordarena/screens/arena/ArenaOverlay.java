@@ -146,4 +146,12 @@ public class ArenaOverlay extends WorldOverlay {
 			zone.updateOwner();
 		}
 	}
+
+	/**
+	 * Affiche ou masque l'arène
+	 * @param visible
+	 */
+	public void setVisible(boolean visible) {
+		getWorld().setVisible(visible);
+	}
 }

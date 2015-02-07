@@ -1,7 +1,13 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
-[ ] Sélection de lettres sur touch, déplacement caméra sur drag
-[ ] Dessin des zones de l'arène
+[ ] Création de l'arène à partir d'un fichier. Format :
+	- Partie donnant des indications sur le type de l'arène (donc l'objectif)
+	- Partie décrivant l'arène et les cellules : indique où il y a des cellules et de quel type elles sont (vide, occupées par un joueur...)
+	- Partie décrivant les zones
+[ ] Gérer la vie d'une partie :
+	- 1 grille de lettres par round
+	- 2 rounds gagnants. Le premier joueur a jouer change à chaque round
+	- 1 round = 5 coups par joueur
 
 Ashley
 ¯¯¯¯¯¯
