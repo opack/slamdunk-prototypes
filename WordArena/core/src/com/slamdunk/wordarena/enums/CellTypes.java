@@ -26,7 +26,7 @@ public enum CellTypes {
 		}
 		
 		@Override
-		public boolean hasWeight() {
+		public boolean hasPower() {
 			return false;
 		}
 	},
@@ -42,7 +42,7 @@ public enum CellTypes {
 		}
 		
 		@Override
-		public boolean hasWeight() {
+		public boolean hasPower() {
 			return false;
 		}
 	},
@@ -78,7 +78,7 @@ public enum CellTypes {
 	 */
 	S {
 		@Override
-		public boolean hasWeight() {
+		public boolean hasPower() {
 			return false;
 		}
 	};
@@ -108,10 +108,10 @@ public enum CellTypes {
 	}
 	
 	/**
-	 * Indique si la cellule peut avoir un poids
+	 * Indique si la cellule peut avoir une puissance
 	 * @return
 	 */
-	public boolean hasWeight() {
+	public boolean hasPower() {
 		return true;
 	}
 }

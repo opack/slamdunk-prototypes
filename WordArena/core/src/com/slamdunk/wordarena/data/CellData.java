@@ -37,9 +37,9 @@ public class CellData {
 	public CellOwners owner;
 	
 	/**
-	 * Indique le poids de cette cellule
+	 * Indique la puissance de cette cellule
 	 */
-	public int weight;
+	public int power;
 	
 	/**
 	 * Indique dans quelle zone se trouve cette cellule
@@ -51,7 +51,7 @@ public class CellData {
 		state = CellStates.NORMAL;
 		position = new Point(0, 0);
 		owner = CellOwners.NEUTRAL;
-		weight = 1;
+		power = 1;
 		zone = null;
 	}
 }

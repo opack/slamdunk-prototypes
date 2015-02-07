@@ -30,7 +30,7 @@ public enum Letters implements Deckable {
 	Y(1, "Y"),
 	Z(1, "Z"),
 	EMPTY(0, ""),
-	JOKER(3, "?");
+	JOKER(0, "?");
 	
 	public int representation;
 	public String label;
