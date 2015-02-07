@@ -105,4 +105,8 @@ public class WordSelectionHandler {
 		// Vérifie si le mot est valide
 		return words.contains(wordLetters.toString());
 	}
+
+	public List<ArenaCell> getSelectedCells() {
+		return selectedCells;
+	}
 }
