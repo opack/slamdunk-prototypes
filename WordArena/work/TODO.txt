@@ -1,5 +1,6 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
+[ ] Renommer cell weight en cell power
 [ ] Création de l'arène à partir d'un fichier. Format :
 	- Partie donnant des indications sur le type de l'arène (donc l'objectif)
 	- Partie décrivant l'arène et les cellules : indique où il y a des cellules et de quel type elles sont (vide, occupées par un joueur...)
