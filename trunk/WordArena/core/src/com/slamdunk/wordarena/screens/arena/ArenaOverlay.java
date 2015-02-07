@@ -63,24 +63,26 @@ public class ArenaOverlay extends WorldOverlay {
 					CellStates.NORMAL,
 					x, y,
 					lettersDeck.draw(),
-					CellOwners.NONE,
+					CellOwners.NEUTRAL,
 					1);
 				
 				// Ajout de la cellule à l'arène
 				getWorld().addActor(cells[x][y]);
 			}
 		}
+
+		// DBG
+		cells[0][0].setOwner(CellOwners.PLAYER1);
+		cells[5][5].setOwner(CellOwners.PLAYER2);
+		cells[5][6].setOwner(CellOwners.PLAYER2);
+		cells[5][7].setOwner(CellOwners.PLAYER3);
 		
 		// Crée les zones
 		ZoneBuilder zoneBuilder = new ZoneBuilder();
-		cells[0][0].getData().owner = CellOwners.PLAYER1;
 		zoneBuilder.addCell(cells[0][0]).addCell(cells[0][1]).addCell(cells[1][1]).addCell(cells[2][1]);
 		zones.add(zoneBuilder.build());
 		
 		zoneBuilder.reset();
-		cells[5][5].getData().owner = CellOwners.PLAYER2;
-		cells[5][6].getData().owner = CellOwners.PLAYER2;
-		cells[5][7].getData().owner = CellOwners.PLAYER3;
 		zoneBuilder.addCell(cells[5][5]).addCell(cells[5][6]).addCell(cells[5][7]).addCell(cells[6][5]).addCell(cells[6][6]);
 		zones.add(zoneBuilder.build());
 		

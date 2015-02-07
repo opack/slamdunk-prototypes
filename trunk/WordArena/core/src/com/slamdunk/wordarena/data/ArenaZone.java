@@ -2,13 +2,16 @@ package com.slamdunk.wordarena.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.slamdunk.toolkit.graphics.SpriteBatchUtils;
 import com.slamdunk.wordarena.Assets;
+import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.CellOwners;
 
 /**
@@ -58,7 +61,7 @@ public class ArenaZone {
 			return;
 		}
 		// Owner null ou aucun ? On considère que la zone est neutre
-		if (owner == null || owner == CellOwners.NONE) {
+		if (owner == null) {
 			owner = CellOwners.NEUTRAL;
 		}
 		// Changement de l'owner
@@ -69,10 +72,8 @@ public class ArenaZone {
 	
 	private void prepareLines() {
 		lines.clear();
-		if (owner != CellOwners.NONE) {
-			for (ZoneEdge edge : edges) {
-				lines.add(SpriteBatchUtils.createSpritedLine(Assets.edges.get(owner), edge.p1, edge.p2));
-			}
+		for (ZoneEdge edge : edges) {
+			lines.add(SpriteBatchUtils.createSpritedLine(Assets.edges.get(owner), edge.p1, edge.p2));
 		}
 		invalidate = false;
 	}
@@ -99,15 +100,22 @@ public class ArenaZone {
 	 * des cellules
 	 */
 	public void updateOwner() {
+		// Liste les cellules uniques : donc qu'une sSet<E>e fois même si une cellule est sur 2 côtés
+		Set<ArenaCell> cells = new HashSet<ArenaCell>();
+		for (ZoneEdge edge : edges) {
+			cells.add(edge.cell);
+		}
+		
 		// Compte le nombre de cellules occupées par chaque joueur
 		Map<CellOwners, Integer> occupations = new HashMap<CellOwners, Integer>();
 		for (CellOwners owner : CellOwners.values()) {
 			occupations.put(owner, 0);
 		}
 		CellData cellData;
-		for (ZoneEdge edge : edges) {
-			cellData = edge.cell.getData();
-			if (cellData.owner != CellOwners.NONE) {
+		for (ArenaCell cell : cells) {
+			cellData = cell.getData();
+			// TODO DBG Faut-il dire qu'il faut également battre "NEUTRE" pour conquérir la zone ? Si oui, retirer ce test
+			if (cellData.owner != CellOwners.NEUTRAL) {
 				// Ajout du poids de la cellule au poids de ce joueur
 				occupations.put(cellData.owner, occupations.get(cellData.owner) + cellData.weight);
 			}
