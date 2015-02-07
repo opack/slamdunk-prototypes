@@ -1,9 +1,12 @@
 package com.slamdunk.toolkit.graphics;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class SpriteBatchUtils {
     public static enum TextAlignment {
@@ -67,4 +70,22 @@ public class SpriteBatchUtils {
         // Dessine le texte
         font.draw(spriteBatch, text, x, y);
     }
+    
+    /**
+     * Crée un Sprite qui se répète le long d'une ligne 
+     * @param p1
+     * @param p2
+     * @return
+     */
+    public static Sprite createSpritedLine(final Texture texture, final Vector2 p1, final Vector2 p2) {
+		int length = (int) p1.dst(p2);
+		int height = texture.getHeight();
+		
+		final Sprite sprite = new Sprite(texture, 0, 0, length, height);
+		sprite.setOrigin(0, height / 2);
+		sprite.setPosition(p1.x, p1.y);
+		float degrees = (float)Math.toDegrees(Math.atan2(p2.y - p1.y, p2.x - p1.x));
+		sprite.setRotation(degrees);
+		return sprite;
+   }
 }

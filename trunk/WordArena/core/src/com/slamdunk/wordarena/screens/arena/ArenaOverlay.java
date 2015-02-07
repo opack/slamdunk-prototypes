@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.pixelkingdomadvanced.screens.MoveCameraDragListener;
@@ -72,12 +73,14 @@ public class ArenaOverlay extends WorldOverlay {
 		
 		// Crée les zones
 		ZoneBuilder zoneBuilder = new ZoneBuilder();
-		zoneBuilder.setOwner(CellOwners.NEUTRAL);
+		cells[0][0].getData().owner = CellOwners.PLAYER1;
 		zoneBuilder.addCell(cells[0][0]).addCell(cells[0][1]).addCell(cells[1][1]).addCell(cells[2][1]);
 		zones.add(zoneBuilder.build());
 		
 		zoneBuilder.reset();
-		zoneBuilder.setOwner(CellOwners.PLAYER1);
+		cells[5][5].getData().owner = CellOwners.PLAYER2;
+		cells[5][6].getData().owner = CellOwners.PLAYER2;
+		cells[5][7].getData().owner = CellOwners.PLAYER3;
 		zoneBuilder.addCell(cells[5][5]).addCell(cells[5][6]).addCell(cells[5][7]).addCell(cells[6][5]).addCell(cells[6][6]);
 		zones.add(zoneBuilder.build());
 		
@@ -113,5 +116,14 @@ public class ArenaOverlay extends WorldOverlay {
 		cell.setPosition(x * cell.getWidth(), y * cell.getHeight());
 		
 		return cell;
+	}
+	
+	@Override
+	public void draw() {
+		super.draw();
+		Batch batch = getStage().getBatch();
+		for (ArenaZone zone : zones) {
+			zone.draw(batch);
+		}
 	}
 }

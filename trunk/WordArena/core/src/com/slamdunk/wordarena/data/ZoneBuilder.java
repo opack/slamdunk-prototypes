@@ -4,30 +4,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.slamdunk.toolkit.world.point.Point;
+import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.Borders;
 import com.slamdunk.wordarena.enums.CellOwners;
 
 public class ZoneBuilder {
+	private final float borderThickness;
+	
 	private Map<Point, ArenaCell> cells;
-	private CellOwners owner;
+	
 	private Point tmp;
 	
 	public ZoneBuilder() {
-		owner = CellOwners.NEUTRAL;
+		borderThickness = Assets.edges.get(CellOwners.NEUTRAL).getHeight();
 		cells = new HashMap<Point, ArenaCell>();
 		tmp = new Point(0, 0);
 	}
 	
-	public CellOwners getOwner() {
-		return owner;
-	}
-
-	public ZoneBuilder setOwner(CellOwners owner) {
-		this.owner = owner;
-		return this;
-	}
-
 	public ZoneBuilder addCell(ArenaCell cell) {
 		cells.put(cell.getData().position, cell);
 		return this;
@@ -37,6 +31,30 @@ public class ZoneBuilder {
 		ZoneEdge edge = new ZoneEdge();
 		edge.border = border;
 		edge.cell = cell;
+		
+		final float cellX = cell.getX();
+		final float cellY = cell.getY();
+		final float cellWidth = cell.getWidth();
+		final float cellHeight = cell.getHeight();
+		
+		switch (border) {
+		case BOTTOM:
+			edge.p1.set(cellX, cellY);
+			edge.p2.set(cellX + cellWidth, cellY);
+			break;
+		case LEFT:
+			edge.p1.set(cellX, cellY);
+			edge.p2.set(cellX, cellY + cellHeight);
+			break;
+		case RIGHT:
+			edge.p1.set(cellX + cellWidth - borderThickness, cellY);
+			edge.p2.set(cellX + cellWidth - borderThickness, cellY + cellHeight);
+			break;
+		case TOP:
+			edge.p1.set(cellX, cellY + cellHeight - borderThickness);
+			edge.p2.set(cellX + cellWidth, cellY + cellHeight - borderThickness);
+			break;
+		}
 		return edge;
 	}
 
@@ -48,7 +66,7 @@ public class ZoneBuilder {
 		// Crée la zone
 		final ArenaZone zone = new ArenaZone();
 		
-		// Ajoute les côtés uniques dans la zone
+		// Ajoute les côtés uniques dans la liste
 		for (ArenaCell cell : cells.values()) {
 			checkEdge(cell, Borders.LEFT, -1, 0, zone);
 			checkEdge(cell, Borders.TOP, 0, +1, zone);
@@ -56,12 +74,11 @@ public class ZoneBuilder {
 			checkEdge(cell, Borders.BOTTOM, 0, -1, zone);
 		}
 		
-		// Change l'owner de la zone pour que tous les côtés ajoutés
-		// prennent la bonne couleur
-		zone.setOwner(owner);
+		// Choisit l'owner de la zone
+		zone.updateOwner();
 		return zone;
 	}
-	
+
 	/**
 	 * Vérifie si le voisin à l'offset indiqué fait partie de cette zone.
 	 * Si non, alors c'est que ce côté marque la fin de la zone, et il est
