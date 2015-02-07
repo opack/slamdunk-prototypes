@@ -75,4 +75,21 @@ public class TypedProperties extends Properties {
         if (v == null) return fallback;
         return v;
     }
+    
+    public String[] getStringArrayProperty(String name, String regex) {
+        String v = getProperty(name);
+        if (v == null) return null;
+        return v.split(regex);
+    }
+    
+    public int[] getIntegerArrayProperty(String name, String regex) {
+        String v = getProperty(name);
+        if (v == null) return null;
+        String[] stringArray = v.split(regex);
+        int[] intArray = new int[stringArray.length];
+        for (int curValue = 0; curValue < stringArray.length; curValue++) {
+        	intArray[curValue] = Integer.parseInt(stringArray[curValue]);
+        }
+        return intArray;
+    }
 }

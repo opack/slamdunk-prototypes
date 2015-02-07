@@ -3,12 +3,18 @@ package com.slamdunk.wordarena.data;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.enums.CellOwners;
 import com.slamdunk.wordarena.enums.CellStates;
+import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
 
 /**
  * Représente les données d'une cellule
  */
 public class CellData {
+	/**
+	 * Le type de la cellule
+	 */
+	public CellTypes type;
+	
 	/**
 	 * La lettre contenue dans la cellule
 	 */

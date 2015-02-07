@@ -28,7 +28,9 @@ public enum Letters implements Deckable {
 	W(1, "W"),
 	X(1, "X"),
 	Y(1, "Y"),
-	Z(1, "Z");
+	Z(1, "Z"),
+	EMPTY(0, ""),
+	JOKER(3, "?");
 	
 	public int representation;
 	public String label;
