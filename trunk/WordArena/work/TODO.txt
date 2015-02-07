@@ -1,6 +1,6 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
-[ ] Possibilité de désélectionner une partie du mot en touchant sur une cellule sélectionnée
+[ ] Ne pas sélectionner de lettre lorsqu'on déplace l'arène
 [ ] Avoir un visuel différent par types de cellule
 [ ] Gérer la vie d'une partie :
 	- 1 grille de lettres par round
