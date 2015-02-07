@@ -46,7 +46,7 @@ public class ArenaCell extends GroupEx {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				if (data.type.isSelectable()) {
-					wordSelectionHandler.addCell(ArenaCell.this);
+					wordSelectionHandler.selectCell(ArenaCell.this);
 				}
 				return true;
 			}

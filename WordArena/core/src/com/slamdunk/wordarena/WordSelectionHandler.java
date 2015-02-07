@@ -62,10 +62,13 @@ public class WordSelectionHandler {
 	 * Ajoute la cellule indiquée au mot si elle peut l'être
 	 * @return true si la cellule a pu être ajoutée au mot
 	 */
-	public boolean addCell(ArenaCell cell) {
+	public boolean selectCell(ArenaCell cell) {
 		// Vérifie que la cellule n'est pas déjà sélectionnée
 		if (cell.getData().state == CellStates.SELECTED
 		|| selectedCells.contains(cell)) {
+			// La cellule est déjà sélectionnée : on souhaite donc
+			// la désélectionner, ainsi que les suivantes
+			unselectCellsFrom(cell);
 			return false;
 		}
 		
@@ -98,6 +101,20 @@ public class WordSelectionHandler {
 		return true;
 	}
 	
+	private void unselectCellsFrom(ArenaCell cell) {
+		int index = selectedCells.indexOf(cell);
+		if (index == -1) {
+			return;
+		}
+		
+		final int lastCellIndex = selectedCells.size() - 1;
+		ArenaCell removed;
+		for (int curSelected = lastCellIndex; curSelected >= index; curSelected--) {
+			removed = selectedCells.remove(curSelected);
+			removed.unselect();
+		}
+	}
+
 	/**
 	 * Réinitialise le mot sélectionné, supprimant toutes les lettres
 	 */
