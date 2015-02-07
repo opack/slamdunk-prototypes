@@ -39,7 +39,7 @@ public class CellData {
 		letter = Letters.A;
 		state = CellStates.NORMAL;
 		position = new Point(0, 0);
-		owner = CellOwners.NONE;
+		owner = CellOwners.NEUTRAL;
 		weight = 1;
 	}
 }

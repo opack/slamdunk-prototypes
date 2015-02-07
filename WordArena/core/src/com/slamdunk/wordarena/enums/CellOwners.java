@@ -1,36 +1,31 @@
 package com.slamdunk.wordarena.enums;
 
 /**
- * Détaille à qui appartient une zone 
+ * Détaille à qui appartient une cellule 
  */
 public enum CellOwners {
 	/**
-	 * Pas de zone
-	 */
-	NONE,
-	
-	/**
-	 * Zone neutre
+	 * Cellule neutre
 	 */
 	NEUTRAL,
 	
 	/**
-	 * Zone possédée par le joueur 1
+	 * Cellule possédée par le joueur 1
 	 */
 	PLAYER1,
 	
 	/**
-	 * Zone possédée par le joueur 2
+	 * Cellule possédée par le joueur 2
 	 */
 	PLAYER2,
 	
 	/**
-	 * Zone possédée par le joueur 3
+	 * Cellule possédée par le joueur 3
 	 */
 	PLAYER3,
 	
 	/**
-	 * Zone possédée par le joueur 4
+	 * Cellule possédée par le joueur 4
 	 */
 	PLAYER4;
 }

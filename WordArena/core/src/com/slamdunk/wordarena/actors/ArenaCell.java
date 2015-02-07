@@ -11,6 +11,7 @@ import com.slamdunk.toolkit.ui.GroupEx;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.data.CellData;
+import com.slamdunk.wordarena.enums.CellOwners;
 import com.slamdunk.wordarena.enums.CellStates;
 
 /**
@@ -32,7 +33,7 @@ public class ArenaCell extends GroupEx {
 		data = new CellData();
 		
 		// Crée les acteurs
-		background = new Image(Assets.cells.get(CellStates.NORMAL));
+		background = new Image(Assets.cells.get(data.owner, data.state));
 		background.setTouchable(Touchable.disabled);
 		addActor(background);
 		letter = new Label("?", skin);
@@ -71,7 +72,7 @@ public class ArenaCell extends GroupEx {
 	
 	public void updateDisplay() {
 		letter.setText(data.letter.label);
-		background.setDrawable(Assets.cells.get(data.state));
+		background.setDrawable(Assets.cells.get(data.owner, data.state));
 	}
 
 	/**
@@ -90,5 +91,14 @@ public class ArenaCell extends GroupEx {
 	public void unselect() {
 		data.state = CellStates.NORMAL;
 		updateDisplay();
+	}
+
+	/**
+	 * Change le propriétaire de la cellule et met à jour l'image
+	 * @param owner
+	 */
+	public void setOwner(CellOwners owner) {
+		data.owner = owner;
+		updateDisplay();		
 	}
 }
