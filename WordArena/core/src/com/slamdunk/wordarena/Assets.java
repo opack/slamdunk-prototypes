@@ -24,7 +24,7 @@ public class Assets {
 	public static Map<CellStates, TextureRegionDrawable> cells;
 	public static DoubleEntryArray<Borders, CellOwners, TextureRegionDrawable> borders;
 	
-	public static Texture edge;
+	public static Map<CellOwners, Texture> edges;
 	
 	public static Texture loadTexture (String file) {
 		return new Texture(Gdx.files.internal(file));
@@ -34,12 +34,9 @@ public class Assets {
 		loadLetters();
 		loadBorders();
 		loadCells();
+		loadEdges();
 		background = loadTexture("textures/background.png");
 		backgroundRegion = new TextureRegion(background, 0, 0, 320, 480);
-		
-		edge = new Texture(Gdx.files.internal("textures/edge.png"));
-		edge.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-        edge.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 	}
 
 	public static void playSound (Sound sound) {
@@ -56,6 +53,35 @@ public class Assets {
 			region = textures[0][state.ordinal()];
 			cells.put(state, new TextureRegionDrawable(region));
 		}
+	}
+	
+	private static void loadEdges() {
+		edges = new HashMap<CellOwners, Texture>();
+
+	    Texture neutral = new Texture(Gdx.files.internal("textures/edge_neutral.png"));
+	    neutral.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		neutral.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+	    edges.put(CellOwners.NEUTRAL, neutral);
+	    
+	    Texture player1 = new Texture(Gdx.files.internal("textures/edge_player1.png"));
+	    player1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+	    player1.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+	    edges.put(CellOwners.PLAYER1, player1);
+	    
+	    Texture player2 = new Texture(Gdx.files.internal("textures/edge_player2.png"));
+		player2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		player2.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+	    edges.put(CellOwners.PLAYER2, player2);
+	    
+	    Texture player3 = new Texture(Gdx.files.internal("textures/edge_player3.png"));
+		player3.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		player3.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+	    edges.put(CellOwners.PLAYER3, player3);
+	    
+	    Texture player4 = new Texture(Gdx.files.internal("textures/edge_player4.png"));
+		player4.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		player4.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+	    edges.put(CellOwners.PLAYER4, player4);
 	}
 	
 	private static void loadLetters() {

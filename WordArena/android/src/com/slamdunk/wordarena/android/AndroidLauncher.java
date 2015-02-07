@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.surfaceview.RatioResolutionStrategy;
-import com.slamdunk.wordarena.ecs.WordArenaGame;
+import com.slamdunk.wordarena_ecs.WordArenaGame;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

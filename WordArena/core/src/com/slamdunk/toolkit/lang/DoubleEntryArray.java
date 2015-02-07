@@ -55,4 +55,8 @@ public class DoubleEntryArray<Entry1Type, Entry2Type, ValueType> {
         }
         return values.values();
 	}
+
+	public boolean isEmpty() {
+		return data.isEmpty();
+	}
 }
