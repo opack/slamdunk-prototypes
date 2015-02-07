@@ -10,7 +10,9 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.enums.CellStates;
+import com.slamdunk.wordarena.screens.arena.ArenaScreen;
 
 /**
  * Gère le mot actuellement sélectionné et détermine si une cellule
@@ -18,12 +20,13 @@ import com.slamdunk.wordarena.enums.CellStates;
  */
 public class WordSelectionHandler {
 	private static final int MIN_WORD_LENGTH = 3;
-	
+
+	private ArenaScreen arenaScreen;
 	private List<ArenaCell> selectedCells;
-	
 	private final Set<String> words;
 	
-	public WordSelectionHandler() {
+	public WordSelectionHandler(ArenaScreen screen) {
+		this.arenaScreen = screen;
 		selectedCells = new ArrayList<ArenaCell>();
 		
 		words = new HashSet<String>();
@@ -70,6 +73,15 @@ public class WordSelectionHandler {
 			ArenaCell last = selectedCells.get(selectedCells.size() - 1);
 			double distance = last.getData().position.distance(cell.getData().position);
 			if (distance >= 2) {
+				return false;
+			}
+		}
+		// Si c'est la première lettre du mot, on s'assure qu'elle est dans
+		// une zone contrôlée par le joueur
+		else {
+			ArenaZone zone = cell.getData().zone;
+			if (zone == null
+			|| zone.getOwner() != arenaScreen.getCurrentPlayer().owner) {
 				return false;
 			}
 		}

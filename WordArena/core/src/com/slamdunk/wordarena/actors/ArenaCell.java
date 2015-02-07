@@ -45,7 +45,8 @@ public class ArenaCell extends GroupEx {
 		addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				return wordSelectionHandler.addCell(ArenaCell.this);
+				wordSelectionHandler.addCell(ArenaCell.this);
+				return true;
 			}
 		});
 	}

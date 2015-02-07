@@ -1,7 +1,9 @@
 package com.slamdunk.wordarena.screens.arena;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -136,14 +138,21 @@ public class ArenaOverlay extends WorldOverlay {
 	 * @param owner
 	 */
 	public void setOwner(List<ArenaCell> cells, CellOwners owner) {
-		// Change le propriétaire des cellules
+		// Change le propriétaire des cellules et note les zones impactées
+		Set<ArenaZone> impactedZones = new HashSet<ArenaZone>();
+		ArenaZone zone;
 		for (ArenaCell cell : cells) {
 			cell.setOwner(owner);
+			
+			zone = cell.getData().zone;
+			if (zone != null) {
+				impactedZones.add(zone);
+			}
 		}
 		
 		// Change le propriétaire des zones
-		for (ArenaZone zone : zones) {
-			zone.updateOwner();
+		for (ArenaZone impactedZone : impactedZones) {
+			impactedZone.updateOwner();
 		}
 	}
 

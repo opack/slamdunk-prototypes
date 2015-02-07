@@ -48,6 +48,7 @@ public class ArenaZone {
 	
 	public void addEdge(ZoneEdge edge) {
 		edges.add(edge);
+		edge.cell.getData().zone = this;
 		invalidate = true;
 	}
 
