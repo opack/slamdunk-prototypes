@@ -128,4 +128,22 @@ public class ArenaOverlay extends WorldOverlay {
 			zone.draw(batch);
 		}
 	}
+
+	/**
+	 * Change le propriétaire des cellules indiquées et celui des zones
+	 * les contenant le cas échéant
+	 * @param cells
+	 * @param owner
+	 */
+	public void setOwner(List<ArenaCell> cells, CellOwners owner) {
+		// Change le propriétaire des cellules
+		for (ArenaCell cell : cells) {
+			cell.setOwner(owner);
+		}
+		
+		// Change le propriétaire des zones
+		for (ArenaZone zone : zones) {
+			zone.updateOwner();
+		}
+	}
 }

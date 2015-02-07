@@ -1,8 +1,11 @@
 package com.slamdunk.wordarena.screens.arena;
 
+import java.util.List;
+
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordSelectionHandler;
+import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
 
 public class ArenaScreen extends SlamScreen {
@@ -14,6 +17,9 @@ public class ArenaScreen extends SlamScreen {
 	private GameStates state;
 	private WordSelectionHandler wordSelectionHandler;
 	
+	private List<Player> players;
+	private int curPlayer;
+	
 	public ArenaScreen(SlamGame game) {
 		super(game);
 		
@@ -24,8 +30,6 @@ public class ArenaScreen extends SlamScreen {
 		addOverlay(ui);
 		
 		wordSelectionHandler = new WordSelectionHandler();
-		loadNextLevel();
-		changeState(GameStates.READY);
 	}
 
 	@Override
@@ -42,6 +46,14 @@ public class ArenaScreen extends SlamScreen {
 		if (state == GameStates.RUNNING) {
 			changeState(GameStates.PAUSED);
 		}
+	}
+	
+	public void prepareGame(List<Player> players) {
+		this.players = players;
+		curPlayer = 0;
+		
+		loadNextLevel();
+		changeState(GameStates.READY);
 	}
 
 	public void loadNextLevel() {
@@ -66,11 +78,23 @@ public class ArenaScreen extends SlamScreen {
 	public void validateWord() {
 		if (wordSelectionHandler.validate()) {
 			System.out.println("ArenaScreen.validateWord() Mot valide B-)");
+			// Toutes les cellules passent sous la domination du joueur
+			arena.setOwner(wordSelectionHandler.getSelectedCells(), players.get(curPlayer).owner);
+			// Fin du tour de ce joueur
+			endTurn();
 		} else {
 			System.out.println("ArenaScreen.validateWord() Mot invalide :(");
 		}
 		
 		cancelWord();
+	}
+
+	/**
+	 * Termine le tour du joueur actuel et passe au joueur suivant
+	 */
+	private void endTurn() {
+		// Le joueur suivant est celui juste après
+		curPlayer = (curPlayer + 1) % players.size();
 	}
 
 	/**
