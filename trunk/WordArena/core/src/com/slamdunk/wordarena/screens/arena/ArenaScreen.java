@@ -29,7 +29,7 @@ public class ArenaScreen extends SlamScreen {
 		ui = new ArenaUI();
 		addOverlay(ui);
 		
-		wordSelectionHandler = new WordSelectionHandler();
+		wordSelectionHandler = new WordSelectionHandler(this);
 	}
 
 	@Override
@@ -51,7 +51,6 @@ public class ArenaScreen extends SlamScreen {
 	public void prepareGame(List<Player> players) {
 		this.players = players;
 		curPlayer = 0;
-		
 		loadNextLevel();
 	}
 
@@ -106,6 +105,10 @@ public class ArenaScreen extends SlamScreen {
 	private void endTurn() {
 		// Le joueur suivant est celui juste après
 		curPlayer = (curPlayer + 1) % players.size();
+	}
+	
+	public Player getCurrentPlayer() {
+		return players.get(curPlayer);
 	}
 
 	/**

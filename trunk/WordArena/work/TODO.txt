@@ -8,6 +8,8 @@ WordArena
 	- 1 grille de lettres par round
 	- 2 rounds gagnants. Le premier joueur a jouer change à chaque round
 	- 1 round = 5 coups par joueur
+	- Détection de la fin de partie (si un joueur n'a plus de zone, il perd)
+[X] Interdire de commencer un mot hors d'une zone contrôlée
 
 Ashley
 ¯¯¯¯¯¯

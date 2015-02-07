@@ -35,11 +35,17 @@ public class CellData {
 	 */
 	public int weight;
 	
+	/**
+	 * Indique dans quelle zone se trouve cette cellule
+	 */
+	public ArenaZone zone;
+	
 	public CellData() {
 		letter = Letters.A;
 		state = CellStates.NORMAL;
 		position = new Point(0, 0);
 		owner = CellOwners.NEUTRAL;
 		weight = 1;
+		zone = null;
 	}
 }
