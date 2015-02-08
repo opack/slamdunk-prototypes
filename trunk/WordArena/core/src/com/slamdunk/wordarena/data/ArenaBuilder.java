@@ -3,18 +3,17 @@ package com.slamdunk.wordarena.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.toolkit.lang.KeyListMap;
 import com.slamdunk.toolkit.lang.TypedProperties;
-import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.CellOwners;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
+import com.slamdunk.wordarena.Assets;
 
 /**
  * Construit une arène à partir d'un plan
@@ -38,7 +37,7 @@ public class ArenaBuilder {
 	private KeyListMap<String, ArenaCell> cellsByZone;
 	
 	public ArenaBuilder(WordSelectionHandler wordSelectionHandler) {
-		this(wordSelectionHandler, new Skin(Gdx.files.internal(UIOverlay.DEFAULT_SKIN)));
+		this(wordSelectionHandler, Assets.skin);
 	}
 	
 	public ArenaBuilder(WordSelectionHandler wordSelectionHandler, Skin skin) {

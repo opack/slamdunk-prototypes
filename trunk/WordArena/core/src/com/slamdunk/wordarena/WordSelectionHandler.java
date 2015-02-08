@@ -21,7 +21,7 @@ import com.slamdunk.wordarena.screens.arena.ArenaScreen;
  * peut être ajoutée au mot.
  */
 public class WordSelectionHandler {
-	private static final int MIN_WORD_LENGTH = 3;
+	private static final int MIN_WORD_LENGTH = 2;
 
 	private ArenaScreen arenaScreen;
 	private List<ArenaCell> selectedCells;

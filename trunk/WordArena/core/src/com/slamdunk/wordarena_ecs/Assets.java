@@ -20,10 +20,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.settings.SlamSettings;
 
 public class Assets {
+	public static Skin skin;
 	public static Texture background;
 	public static TextureRegion backgroundRegion;
 	public static DoubleEntryArray<Letters, CellStates, TextureRegion> letterData;
@@ -33,6 +35,7 @@ public class Assets {
 	}
 
 	public static void load () {
+		skin = new Skin(Gdx.files.internal("skins/wordarena/uiskin.json"));
 		loadLetters();
 		background = loadTexture("textures/background.png");
 		backgroundRegion = new TextureRegion(background, 0, 0, 320, 480);
