@@ -7,6 +7,7 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
+import com.slamdunk.wordarena.enums.ReturnCodes;
 
 public class ArenaScreen extends SlamScreen {
 	public static final String NAME = "ARENA";
@@ -86,16 +87,23 @@ public class ArenaScreen extends SlamScreen {
 	 * sélectionné.
 	 */
 	public void validateWord() {
-		if (wordSelectionHandler.validate()) {
-			System.out.println("ArenaScreen.validateWord() Mot valide B-)");
+		ReturnCodes result = wordSelectionHandler.validate();
+		String word = wordSelectionHandler.getLastValidatedWord();
+		switch (result) {
+		case OK:
+			System.out.println(word + " est valide ! C'est au joueur suivant de jouer.");
 			// Toutes les cellules passent sous la domination du joueur
 			arena.setOwner(wordSelectionHandler.getSelectedCells(), players.get(curPlayer).owner);
 			// Fin du tour de ce joueur
 			endTurn();
-		} else {
-			System.out.println("ArenaScreen.validateWord() Mot invalide :(");
+			break;
+		case WORD_ALREADY_PLAYED:
+			System.out.println(word + " a déjà été joué pendant ce round. Merci de jouer un autre mot.");
+			break;
+		case WORD_UNKNOWN:
+			System.out.println(word + " n'existe pas dans le dictionnaire de WordArena. Merci de jouer un autre mot.");
+			break;
 		}
-		
 		cancelWord();
 	}
 

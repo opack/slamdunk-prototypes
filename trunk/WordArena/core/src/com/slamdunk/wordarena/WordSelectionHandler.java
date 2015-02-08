@@ -13,6 +13,7 @@ import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.enums.CellOwners;
 import com.slamdunk.wordarena.enums.CellStates;
+import com.slamdunk.wordarena.enums.ReturnCodes;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
 
 /**
@@ -24,13 +25,16 @@ public class WordSelectionHandler {
 
 	private ArenaScreen arenaScreen;
 	private List<ArenaCell> selectedCells;
-	private final Set<String> words;
+	private final Set<String> dictionnary;
+	private final Set<String> alreadyPlayed;
+	private String lastValidatedWord;
 	
 	public WordSelectionHandler(ArenaScreen screen) {
 		this.arenaScreen = screen;
 		selectedCells = new ArrayList<ArenaCell>();
 		
-		words = new HashSet<String>();
+		dictionnary = new HashSet<String>();
+		alreadyPlayed = new HashSet<String>();
 		loadWords();
 	}
 	
@@ -38,14 +42,14 @@ public class WordSelectionHandler {
 	 * Charge les mots du dictionnaire
 	 */
 	private void loadWords() {
-		words.clear();
+		dictionnary.clear();
 		FileHandle file = Gdx.files.internal("words.txt");
 		BufferedReader reader = new BufferedReader(file.reader("UTF-8"));
 		String extracted = null;
 		try {
 			while ((extracted = reader.readLine()) != null) {
 				if (extracted.length() >= MIN_WORD_LENGTH) {
-					words.add(extracted);
+					dictionnary.add(extracted);
 				}
 			}
 		} catch (IOException e) {
@@ -123,6 +127,7 @@ public class WordSelectionHandler {
 			cell.unselect();
 		}
 		selectedCells.clear();
+		alreadyPlayed.clear();
 	}
 	
 	/**
@@ -130,18 +135,37 @@ public class WordSelectionHandler {
 	 * @param selectedLetters
 	 * @return true si le mot est valide
 	 */
-	public boolean validate() {
+	public ReturnCodes validate() {
 		// Reconstitue le mot à partir des cellules sélectionnées
 		StringBuilder wordLetters = new StringBuilder();
 		for (ArenaCell cell : selectedCells) {
 			wordLetters.append(cell.getData().letter.label);
 		}
+		lastValidatedWord = wordLetters.toString();
 		
 		// Vérifie si le mot est valide
-		return words.contains(wordLetters.toString());
+		if (!dictionnary.contains(lastValidatedWord)) {
+			return ReturnCodes.WORD_UNKNOWN;
+		}
+		if (alreadyPlayed.contains(lastValidatedWord)) {
+			return ReturnCodes.WORD_ALREADY_PLAYED;
+		}
+		
+		// Le mot est valide. Ajout à la liste des mots joués.
+		alreadyPlayed.add(lastValidatedWord);
+		return ReturnCodes.OK;
 	}
 
 	public List<ArenaCell> getSelectedCells() {
 		return selectedCells;
+	}
+
+	/**
+	 * Retourne le dernier mot dont on a tenté la validation
+	 * au moyen de la méthode {@link #validate()}.
+	 * @return
+	 */
+	public String getLastValidatedWord() {
+		return lastValidatedWord;
 	}
 }
