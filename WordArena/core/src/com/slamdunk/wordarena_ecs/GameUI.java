@@ -3,7 +3,6 @@ package com.slamdunk.wordarena_ecs;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,7 +19,7 @@ public class GameUI {
 	public GameUI(GameScreen screen) {
 		this.screen = screen;
 
-		Skin skin = new Skin(Gdx.files.internal("skins/uiskin/uiskin.json"));
+		final Skin skin = Assets.skin;
 		componentsGroups = new ArrayList<Group>();
 		createReadyGroup(skin);
 		createRunningGroup(skin);

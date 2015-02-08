@@ -1,7 +1,6 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
 [ ] Implémenter le pinch to zoom
-[ ] Mettre la font des lettres en noir
 [ ] Ne pas sélectionner de lettre lorsqu'on déplace l'arène
 [ ] Avoir un visuel différent par types de cellule
 [ ] Gérer la vie d'une partie :

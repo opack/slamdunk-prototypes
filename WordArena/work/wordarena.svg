@@ -25,8 +25,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="7.919596"
-     inkscape:cx="93.750234"
-     inkscape:cy="983.98731"
+     inkscape:cx="62.934764"
+     inkscape:cy="994.08884"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -782,7 +782,8 @@
        transform="translate(11.760713,5.555839)"
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\edge_neutral.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       style="fill:#ac9d93;fill-opacity:1;stroke:#ac9d93;stroke-opacity:1">
       <rect
          y="60.296577"
          x="55.616844"
@@ -796,7 +797,8 @@
        id="g3097-7"
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\edge_player1.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       style="fill:#2a7fff;fill-opacity:1;stroke:#2a7fff;stroke-opacity:1">
       <rect
          y="60.296577"
          x="55.616844"
@@ -810,7 +812,8 @@
        id="g3097-9"
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\edge_player2.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       style="fill:#ff6600;fill-opacity:1;stroke:#ff6600;stroke-opacity:1">
       <rect
          y="60.296577"
          x="55.616844"
@@ -824,7 +827,8 @@
        id="g3097-2"
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\edge_player3.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       style="fill:#5aa02c;fill-opacity:1;stroke:#5aa02c;stroke-opacity:1">
       <rect
          y="60.296577"
          x="55.616844"
@@ -838,7 +842,8 @@
        id="g3097-1"
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\edge_player4.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       style="fill:#ab37c8;fill-opacity:1;stroke:#ab37c8;stroke-opacity:1">
       <rect
          y="60.296577"
          x="55.616844"

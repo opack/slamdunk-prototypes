@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.settings.SlamSettings;
@@ -16,18 +17,30 @@ import com.slamdunk.wordarena.enums.CellOwners;
 import com.slamdunk.wordarena.enums.CellStates;
 
 public class Assets {
+	public static Skin skin;
+//	public static Map<CellOwners, LabelStyle> ownerStyles;
+	
 	public static Texture background;
 	public static TextureRegion backgroundRegion;
 	public static DoubleEntryArray<CellOwners, CellStates, TextureRegionDrawable> cells;
 	public static Map<CellOwners, Texture> edges;
 	
 	public static void load () {
+		loadSkin();
 		loadCells();
 		loadEdges();
 		background = loadTexture("textures/background.png");
 		backgroundRegion = new TextureRegion(background, 0, 0, 320, 480);
 	}
 	
+	private static void loadSkin() {
+		skin = new Skin(Gdx.files.internal("skins/wordarena/uiskin.json"));
+//		ownerStyles = new HashMap<CellOwners, LabelStyle>();
+//		for (CellOwners owner : CellOwners.values()) {
+//			ownerStyles.put(owner, skin.get(owner.name(), LabelStyle.class));
+//		}
+	}
+
 	public static Texture loadTexture (String file) {
 		return new Texture(Gdx.files.internal(file));
 	}
