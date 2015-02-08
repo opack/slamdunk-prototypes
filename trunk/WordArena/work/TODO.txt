@@ -1,5 +1,6 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
+[ ] Faire les dispose() dans Assets, les overlays...
 [ ] Implémenter le pinch to zoom
 [ ] Ne pas sélectionner de lettre lorsqu'on déplace l'arène
 [ ] Avoir un visuel différent par types de cellule

@@ -51,7 +51,7 @@ public class ArenaScreen extends SlamScreen {
 	
 	public void prepareGame(List<Player> players) {
 		this.players = players;
-		curPlayer = 0;
+		setCurrentPlayer(0);
 		loadNextLevel();
 	}
 
@@ -112,9 +112,14 @@ public class ArenaScreen extends SlamScreen {
 	 */
 	private void endTurn() {
 		// Le joueur suivant est celui juste après
-		curPlayer = (curPlayer + 1) % players.size();
+		setCurrentPlayer((curPlayer + 1) % players.size());
 	}
 	
+	private void setCurrentPlayer(int playerIndex) {
+		curPlayer = playerIndex;
+		ui.setCurrentPlayer(players.get(playerIndex));
+	}
+
 	public Player getCurrentPlayer() {
 		return players.get(curPlayer);
 	}
