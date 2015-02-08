@@ -74,6 +74,11 @@ public class ZoneBuilder {
 			checkEdge(cell, Borders.BOTTOM, 0, -1, zone);
 		}
 		
+		// Affecte la zone à chaque cellule
+		for (ArenaCell cell : cells.values()) {
+			cell.getData().zone = zone;
+		}
+		
 		// Choisit l'owner de la zone
 		zone.updateOwner();
 		return zone;

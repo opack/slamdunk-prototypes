@@ -123,6 +123,6 @@ public class ArenaScreen extends SlamScreen {
 	 * Réinitialise les lettres sélectionnées
 	 */
 	public void cancelWord() {
-		wordSelectionHandler.reset();
+		wordSelectionHandler.cancel();
 	}
 }

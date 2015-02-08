@@ -120,13 +120,11 @@ public class WordSelectionHandler {
 	}
 
 	/**
-	 * Réinitialise le mot sélectionné, supprimant toutes les lettres
+	 * Réinitialise le mot sélectionné, supprimant toutes les lettres,
+	 * ainsi que la liste des mots joués à ce round
 	 */
 	public void reset() {
-		for (ArenaCell cell : selectedCells) {
-			cell.unselect();
-		}
-		selectedCells.clear();
+		cancel();
 		alreadyPlayed.clear();
 	}
 	
@@ -154,6 +152,17 @@ public class WordSelectionHandler {
 		// Le mot est valide. Ajout à la liste des mots joués.
 		alreadyPlayed.add(lastValidatedWord);
 		return ReturnCodes.OK;
+	}
+	
+	/**
+	 * Réinitialise le mot sélectionné, supprimant toutes
+	 * les lettres
+	 */
+	public void cancel() {
+		for (ArenaCell cell : selectedCells) {
+			cell.unselect();
+		}
+		selectedCells.clear();
 	}
 
 	public List<ArenaCell> getSelectedCells() {
