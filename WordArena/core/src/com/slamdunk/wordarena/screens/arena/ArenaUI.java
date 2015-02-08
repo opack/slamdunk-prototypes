@@ -7,18 +7,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
+import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordArenaGame;
+import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
 
 public class ArenaUI extends UIOverlay {
 	private List<Group> componentsGroups;
 	private ArenaScreen screen;
+	private Label currentPlayer;
 	
 	public ArenaUI() {
 		// Par défaut, on travaillera dans un Stage qui prend tout l'écran
@@ -84,7 +88,12 @@ public class ArenaUI extends UIOverlay {
 		Group group = new Group();
 		group.setUserObject(GameStates.RUNNING);
 		
+		currentPlayer = new Label("", skin);
+		currentPlayer.setPosition(50, WordArenaGame.SCREEN_HEIGHT - 25);
+		group.addActor(currentPlayer);
+		
 		TextButton pause = new TextButton("PAUSE", skin);
+		pause.setPosition(WordArenaGame.SCREEN_WIDTH - pause.getWidth(), WordArenaGame.SCREEN_HEIGHT - pause.getHeight());
 		pause.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -186,5 +195,10 @@ public class ArenaUI extends UIOverlay {
 		group.addActor(backToMain);
 		
 		componentsGroups.add(group);
+	}
+	
+	public void setCurrentPlayer(Player player) {
+		currentPlayer.setText(player.name);
+		currentPlayer.setStyle(Assets.ownerStyles.get(player.owner));
 	}
 }

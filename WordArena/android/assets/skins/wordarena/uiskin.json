@@ -1,15 +1,15 @@
 {
 com.badlogic.gdx.graphics.g2d.BitmapFont: { default-font: { file: arial_18.fnt } },
 com.badlogic.gdx.graphics.Color: {
-	green: { a: 1, b: 0, g: 1, r: 0 },
-	white: { a: 1, b: 1, g: 1, r: 1 },
-	red: { a: 1, b: 0, g: 0, r: 1 },
-	black: { a: 1, b: 0, g: 0, r: 0 },
-	neutral: { a: 1, b: 0.67, g: 0.62, r: 0.58 },
-	player1: { a: 1, b: 0.16, g: 0.50, r: 1.00 },
-	player2: { a: 1, b: 1.00, g: 0.40, r: 0.00 },
-	player3: { a: 1, b: 0.35, g: 0.63, r: 0.17 },
-	player4: { a: 1, b: 0.67, g: 0.22, r: 0.78 }
+	green: { a: 1, r: 0, g: 1, b: 0 },
+	white: { a: 1, r: 1, g: 1, b: 1 },
+	red: { a: 1, r: 1, g: 0, b: 0 },
+	black: { a: 1, r: 0, g: 0, b: 0 },
+	neutral: { a: 1, r: 0.67, g: 0.62, b: 0.58 },
+	player1: { a: 1, r: 0.16, g: 0.50, b: 1.00 },
+	player2: { a: 1, r: 1.00, g: 0.40, b: 0.00 },
+	player3: { a: 1, r: 0.35, g: 0.63, b: 0.17 },
+	player4: { a: 1, r: 0.67, g: 0.22, b: 0.78 }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dialogDim: { name: white, color: { r: 0, g: 0, b: 0, a: 0.45 } }
