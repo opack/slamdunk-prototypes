@@ -133,14 +133,14 @@ public class ArenaBuilder {
 
 	private void buildZones() {
 		arena.zones = new ArrayList<ArenaZone>();
-		ZoneBuilder zoneBuilder = new ZoneBuilder();
 		for (Map.Entry<String, List<ArenaCell>> entry : cellsByZone.entrySet()) {
-			zoneBuilder.reset();
-			zoneBuilder.setZoneId(entry.getKey());			
+			ArenaZone zone = new ArenaZone();
+			zone.id = entry.getKey();			
 			for (ArenaCell cell : entry.getValue()) {
-				zoneBuilder.addCell(cell);
+				zone.addCell(cell);
 			}
-			arena.zones.add(zoneBuilder.build());
+			zone.update();
+			arena.zones.add(zone);
 		}
 	}
 

@@ -148,7 +148,7 @@ public class WordSelectionHandler {
 		if (alreadyPlayed.contains(lastValidatedWord)) {
 			return ReturnCodes.WORD_ALREADY_PLAYED;
 		}
-		
+
 		// Le mot est valide. Ajout à la liste des mots joués.
 		alreadyPlayed.add(lastValidatedWord);
 		return ReturnCodes.OK;
