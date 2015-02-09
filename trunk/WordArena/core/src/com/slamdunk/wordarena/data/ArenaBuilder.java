@@ -2,6 +2,7 @@ package com.slamdunk.wordarena.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.lang.Deck;
@@ -133,9 +134,10 @@ public class ArenaBuilder {
 	private void buildZones() {
 		arena.zones = new ArrayList<ArenaZone>();
 		ZoneBuilder zoneBuilder = new ZoneBuilder();
-		for (List<ArenaCell> cellsOfZone : cellsByZone.values()) {
+		for (Map.Entry<String, List<ArenaCell>> entry : cellsByZone.entrySet()) {
 			zoneBuilder.reset();
-			for (ArenaCell cell : cellsOfZone) {
+			zoneBuilder.setZoneId(entry.getKey());			
+			for (ArenaCell cell : entry.getValue()) {
 				zoneBuilder.addCell(cell);
 			}
 			arena.zones.add(zoneBuilder.build());

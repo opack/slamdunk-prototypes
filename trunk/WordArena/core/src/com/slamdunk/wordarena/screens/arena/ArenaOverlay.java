@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.pixelkingdomadvanced.screens.MoveCameraDragListener;
 import com.slamdunk.toolkit.lang.TypedProperties;
@@ -50,8 +52,21 @@ public class ArenaOverlay extends WorldOverlay {
 				getWorld().addActor(data.cells[x][y]);
 			}
 		}
+		
+		// Place la caméra au centre de l'arène
+		centerCamera();
 	}
 	
+	/**
+	 * Place la caméra au centre de l'arène 
+	 */
+	public void centerCamera() {
+		Actor arena = getWorld();
+		Camera camera = getStage().getCamera();
+		camera.position.x = arena.getX() + arena.getWidth() / 2;
+		camera.position.y = arena.getY() + arena.getHeight() / 2;
+	}
+
 	@Override
 	public void draw() {
 		super.draw();

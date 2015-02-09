@@ -14,6 +14,8 @@ public class ZoneBuilder {
 	
 	private Map<Point, ArenaCell> cells;
 	
+	private String zoneId;
+	
 	private Point tmp;
 	
 	public ZoneBuilder() {
@@ -22,6 +24,10 @@ public class ZoneBuilder {
 		tmp = new Point(0, 0);
 	}
 	
+	public void setZoneId(String zoneId) {
+		this.zoneId = zoneId;
+	}
+
 	public ZoneBuilder addCell(ArenaCell cell) {
 		cells.put(cell.getData().position, cell);
 		return this;
@@ -65,6 +71,10 @@ public class ZoneBuilder {
 	public ArenaZone build() {
 		// Crée la zone
 		final ArenaZone zone = new ArenaZone();
+		zone.id = zoneId;
+		
+		// Affecte les cellules à la zone
+		zone.setCells(cells.values());
 		
 		// Ajoute les côtés uniques dans la liste
 		for (ArenaCell cell : cells.values()) {
@@ -73,14 +83,6 @@ public class ZoneBuilder {
 			checkEdge(cell, Borders.RIGHT, +1, 0, zone);
 			checkEdge(cell, Borders.BOTTOM, 0, -1, zone);
 		}
-		
-		// Affecte la zone à chaque cellule
-		for (ArenaCell cell : cells.values()) {
-			cell.getData().zone = zone;
-		}
-		
-		// Choisit l'owner de la zone
-		zone.updateOwner();
 		return zone;
 	}
 

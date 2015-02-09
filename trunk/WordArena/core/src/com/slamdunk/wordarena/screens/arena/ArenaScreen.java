@@ -147,4 +147,8 @@ public class ArenaScreen extends SlamScreen {
 	public void cancelWord() {
 		wordSelectionHandler.cancel();
 	}
+
+	public void centerCamera() {
+		arena.centerCamera();
+	}
 }
