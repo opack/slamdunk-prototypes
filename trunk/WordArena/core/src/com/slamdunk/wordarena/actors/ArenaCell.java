@@ -1,7 +1,5 @@
 package com.slamdunk.wordarena.actors;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -42,15 +40,7 @@ public class ArenaCell extends GroupEx {
 		addActor(letter);
 		
 		// Ajoute le listener pour sélectionner la lettre
-		addListener(new InputListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				if (data.type.isSelectable()) {
-					wordSelectionHandler.selectCell(ArenaCell.this);
-				}
-				return true;
-			}
-		});
+		addListener(new CellSelectionListener(this, wordSelectionHandler));
 	}
 	
 	public CellData getData() {
