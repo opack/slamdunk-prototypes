@@ -36,6 +36,10 @@ public abstract class SlamScreen implements Screen, InputProcessor {
 		Gdx.input.setInputProcessor(inputMux);
 	}
 	
+	public InputMultiplexer getInputMultiplexer() {
+		return inputMux;
+	}
+
 	/**
 	 * Ajoute un overlay à la liste et enregistre son input processor
 	 * @param overlay

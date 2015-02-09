@@ -6,13 +6,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.slamdunk.pixelkingdomadvanced.screens.MoveCameraDragListener;
 import com.slamdunk.pixelkingdomadvanced.screens.battlefield.GameScreen;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.toolkit.svg.SVGParse;
 import com.slamdunk.toolkit.svg.elements.SVGRootElement;
 import com.slamdunk.toolkit.ui.ButtonClickListener;
+import com.slamdunk.toolkit.ui.MoveCameraDragListener;
 
 /**
  * Gère une carte du monde qui contient plusieurs boutons à cliquer

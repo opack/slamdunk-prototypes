@@ -28,8 +28,6 @@ public abstract class StageOverlay implements SlamOverlay {
 
 	public void createStage(Viewport viewport) {
 		stage = new Stage(viewport);
-		//DBG TODO Vérifier si on peut supprimer car inutile
-		//stage.getCamera().position.set(SlamViewportSettings.SCREEN_W / 2, SlamViewportSettings.SCREEN_H / 2, 0);
 	}
 	
 	@Override

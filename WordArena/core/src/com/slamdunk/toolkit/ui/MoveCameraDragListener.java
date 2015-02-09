@@ -1,4 +1,4 @@
-package com.slamdunk.pixelkingdomadvanced.screens;
+package com.slamdunk.toolkit.ui;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.math.MathUtils;
