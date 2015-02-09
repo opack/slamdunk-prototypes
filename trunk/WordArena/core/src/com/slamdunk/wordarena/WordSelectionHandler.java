@@ -142,12 +142,12 @@ public class WordSelectionHandler {
 		lastValidatedWord = wordLetters.toString();
 		
 		// Vérifie si le mot est valide
-//DBG		if (!dictionnary.contains(lastValidatedWord)) {
-//			return ReturnCodes.WORD_UNKNOWN;
-//		}
-//		if (alreadyPlayed.contains(lastValidatedWord)) {
-//			return ReturnCodes.WORD_ALREADY_PLAYED;
-//		}
+		if (!dictionnary.contains(lastValidatedWord)) {
+			return ReturnCodes.WORD_UNKNOWN;
+		}
+		if (alreadyPlayed.contains(lastValidatedWord)) {
+			return ReturnCodes.WORD_ALREADY_PLAYED;
+		}
 		
 		// Le mot est valide. Ajout à la liste des mots joués.
 		alreadyPlayed.add(lastValidatedWord);
