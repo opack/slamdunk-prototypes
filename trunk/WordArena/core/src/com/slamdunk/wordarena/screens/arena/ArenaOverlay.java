@@ -30,6 +30,10 @@ public class ArenaOverlay extends WorldOverlay {
 		getStage().addListener(moveCameraListener);
 	}
 	
+	public ArenaData getData() {
+		return data;
+	}
+
 	/**
 	 * Crée l'arène de jeu, c'est-à-dire le tableau de cellules.
 	 * Cette méthode crée une simple arène rectangulaire, sans
