@@ -50,7 +50,7 @@ public class WordArenaGame extends SlamGame {
 		players.add(p2);
 		
 		ArenaScreen arena = (ArenaScreen)getScreen(ArenaScreen.NAME);
-		arena.prepareGame(players);
+		arena.prepareGame("arenas/2.properties", players);
 		setScreen(ArenaScreen.NAME);
 	}
 }

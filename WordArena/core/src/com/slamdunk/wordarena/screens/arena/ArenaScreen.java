@@ -1,6 +1,8 @@
 package com.slamdunk.wordarena.screens.arena;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
@@ -9,13 +11,16 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.MyGestureHandler;
 import com.slamdunk.wordarena.actors.ZoomInputProcessor;
+import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.data.Player;
+import com.slamdunk.wordarena.enums.CellOwners;
 import com.slamdunk.wordarena.enums.GameStates;
 import com.slamdunk.wordarena.enums.ReturnCodes;
 
 public class ArenaScreen extends SlamScreen {
 	public static final String NAME = "ARENA";
 	private static final int TURNS_PER_ROUND = 10;
+	private static final int ROUNDS_TO_WIN = 2;
 	
 	private ArenaOverlay arena;
 	private ArenaUI ui;
@@ -23,7 +28,9 @@ public class ArenaScreen extends SlamScreen {
 	private GameStates state;
 	private WordSelectionHandler wordSelectionHandler;
 	
+	private String arenaPlanFile;
 	private List<Player> players;
+	
 	private int curPlayer;
 	private int curTurn;
 	private int curRound;
@@ -61,16 +68,23 @@ public class ArenaScreen extends SlamScreen {
 		}
 	}
 	
-	public void prepareGame(List<Player> players) {
+	public void prepareGame(String arenaPlanFile, List<Player> players) {
+		this.arenaPlanFile = arenaPlanFile;
 		this.players = players;
+		
+		loadArena();
+		
 		setCurrentPlayer(0);
-		loadLevel();
+		curTurn = 0;
+		curRound = 0;
 	}
 
-	public void loadLevel() {
-		arena.buildArena("arenas/2.properties");
+	public void loadArena() {
+		arena.buildArena(arenaPlanFile);
 		arena.setVisible(false);
+		
 		wordSelectionHandler.reset();
+		
 		changeState(GameStates.READY);
 	}
 
@@ -107,7 +121,7 @@ public class ArenaScreen extends SlamScreen {
 			// Toutes les cellules passent sous la domination du joueur
 			arena.setOwner(wordSelectionHandler.getSelectedCells(), players.get(curPlayer).owner);
 			// Fin du tour de ce joueur
-			endTurn();
+			endStroke();
 			break;
 		case WORD_ALREADY_PLAYED:
 			System.out.println(word + " a déjà été joué pendant ce round. Merci de jouer un autre mot.");
@@ -120,30 +134,59 @@ public class ArenaScreen extends SlamScreen {
 	}
 
 	/**
-	 * Termine le tour du joueur actuel et passe au joueur suivant
+	 * Termine le coup du joueur actuel et passe au joueur suivant
 	 */
-	private void endTurn() {
+	private void endStroke() {
 		// Le joueur suivant est celui juste après
 		curPlayer += 1;
+		
+		// Si tout le monde a joué, on a fini un tour
 		if (curPlayer == players.size()) {
 			curPlayer = 0;
-			
-			// Le tour est terminé pour les 2 joueurs
-			curTurn ++;
-			if (curTurn > TURNS_PER_ROUND) {
-				// Le round est terminé
-//				endRound();
-				// Le joueur qui débute le nouveau round n'est pas le même que celui
-				// du round précédent.
-				curPlayer = curRound % players.size();
-			}
+			endTurn();
 		}
 		setCurrentPlayer(curPlayer);
 	}
 	
+	/**
+	 * Termine le tour, c'est-à-dire que chaque joueur a joué
+	 * son coup.
+	 */
+	private void endTurn() {
+		curTurn ++;
+		if (curTurn == TURNS_PER_ROUND) {
+			// Le round est terminé
+			endRound();
+		}
+	}
+	
+	/**
+	 * Fin du round
+	 */
+	private void endRound() {
+		// Détermine le gagnant du round
+		// ...
+		
+		// Détermine la fin de partie
+		// ...
+		
+		// On passe au round suivant s'il n'y a pas de vainqueur
+		curRound ++;
+		
+		// Réinitialise l'arène
+		loadArena();
+		
+		// Le joueur qui débute le nouveau round n'est pas le même que celui
+		// du round précédent.
+		curPlayer = curRound % players.size();
+		
+		// On commence le premier tour de jeu
+		curTurn = 0;
+	}
+	
 	private void setCurrentPlayer(int playerIndex) {
 		curPlayer = playerIndex;
-		ui.setCurrentPlayer(players.get(playerIndex), curTurn, TURNS_PER_ROUND);
+		ui.setCurrentPlayer(players.get(playerIndex), curTurn, TURNS_PER_ROUND, curRound);
 	}
 
 	public Player getCurrentPlayer() {

@@ -179,7 +179,7 @@ public class ArenaUI extends UIOverlay {
 		next.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				screen.loadLevel();
+				screen.loadArena();
 				screen.changeState(GameStates.READY);
 			}
 		});
@@ -209,8 +209,8 @@ public class ArenaUI extends UIOverlay {
 		componentsGroups.add(group);
 	}
 	
-	public void setCurrentPlayer(Player player, int turn, int maxTurns) {
-		currentPlayer.setText(player.name + " (Coup " + (turn + 1) + "/" + maxTurns + ")");
+	public void setCurrentPlayer(Player player, int turn, int maxTurns, int round) {
+		currentPlayer.setText("Round " + (round + 1) + " - " + player.name + " (Coup " + (turn + 1) + "/" + maxTurns + ")");
 		currentPlayer.setStyle(Assets.ownerStyles.get(player.owner));
 	}
 }
