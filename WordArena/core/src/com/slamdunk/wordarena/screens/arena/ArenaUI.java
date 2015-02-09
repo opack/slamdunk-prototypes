@@ -92,6 +92,16 @@ public class ArenaUI extends UIOverlay {
 		currentPlayer.setPosition(50, WordArenaGame.SCREEN_HEIGHT - 25);
 		group.addActor(currentPlayer);
 		
+		TextButton center = new TextButton("CENTRER CAMERA", skin);
+		center.setPosition(0, 0);
+		center.addListener(new ChangeListener() {
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
+				screen.centerCamera();
+			}
+		});
+		group.addActor(center);
+		
 		TextButton pause = new TextButton("PAUSE", skin);
 		pause.setPosition(WordArenaGame.SCREEN_WIDTH - pause.getWidth(), WordArenaGame.SCREEN_HEIGHT - pause.getHeight());
 		pause.addListener(new ChangeListener() {

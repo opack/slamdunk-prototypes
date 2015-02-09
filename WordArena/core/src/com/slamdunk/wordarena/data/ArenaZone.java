@@ -1,11 +1,10 @@
 package com.slamdunk.wordarena.data;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -21,9 +20,20 @@ import com.slamdunk.wordarena.enums.CellOwners;
  */
 public class ArenaZone {
 	/**
+	 * Identifiant de la zone, correspondant à ce qui
+	 * est indiqué dans le fichier descriptif properties
+	 */
+	public String id;
+	
+	/**
 	 * Ensemble des bordures de la zone
 	 */
 	private List<ZoneEdge> edges;
+	
+	/**
+	 * Liste les cellules uniques : donc qu'une seule fois même si une cellule est sur 2 côtés
+	 */
+	private Collection<ArenaCell> cells;
 	
 	/**
 	 * Joueur qui possède la zone
@@ -44,6 +54,18 @@ public class ArenaZone {
 	public ArenaZone() {
 		edges = new ArrayList<ZoneEdge>();
 		lines = new ArrayList<Sprite>();
+	}
+	
+	public void setCells(Collection<ArenaCell> cells) {
+		this.cells = cells;
+		
+		// Affecte la zone à chaque cellule
+		for (ArenaCell cell : cells) {
+			cell.getData().zone = this;
+		}
+		
+		// Choisit l'owner de la zone
+		updateOwner();
 	}
 	
 	public void addEdge(ZoneEdge edge) {
@@ -100,12 +122,6 @@ public class ArenaZone {
 	 * des cellules
 	 */
 	public void updateOwner() {
-		// Liste les cellules uniques : donc qu'une seule fois même si une cellule est sur 2 côtés
-		Set<ArenaCell> cells = new HashSet<ArenaCell>();
-		for (ZoneEdge edge : edges) {
-			cells.add(edge.cell);
-		}
-		
 		// Compte le nombre de cellules occupées par chaque joueur
 		Map<CellOwners, Integer> occupations = new HashMap<CellOwners, Integer>();
 		for (CellOwners owner : CellOwners.values()) {
