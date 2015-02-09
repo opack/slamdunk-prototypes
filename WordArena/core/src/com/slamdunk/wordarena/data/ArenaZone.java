@@ -100,7 +100,7 @@ public class ArenaZone {
 	 * des cellules
 	 */
 	public void updateOwner() {
-		// Liste les cellules uniques : donc qu'une sSet<E>e fois même si une cellule est sur 2 côtés
+		// Liste les cellules uniques : donc qu'une seule fois même si une cellule est sur 2 côtés
 		Set<ArenaCell> cells = new HashSet<ArenaCell>();
 		for (ZoneEdge edge : edges) {
 			cells.add(edge.cell);
@@ -122,19 +122,21 @@ public class ArenaZone {
 		}
 		
 		// Détermine qui occupe le plus de cellules
-		CellOwners owner = CellOwners.NEUTRAL;
-		int maxOccupation = 0;
+		CellOwners newOwner = CellOwners.NEUTRAL;
+		int maxOccupation = -1;
 		int power;
 		for (Map.Entry<CellOwners, Integer> occupation : occupations.entrySet()) {
 			power = occupation.getValue();
-			if (power > maxOccupation) {
-				// TODO Faut-il dire qu'en cas d'égalité la zone repasse à NEUTRAL ?
+			if (power == maxOccupation) {
+				// En cas d'égalité la zone repasse à NEUTRAL
+				newOwner = CellOwners.NEUTRAL;
+			} else 	if (power > maxOccupation) {
 				maxOccupation = power;
-				owner = occupation.getKey();
+				newOwner = occupation.getKey();
 			}
 		}
 		
 		// Change le propriétaire de la zone
-		setOwner(owner);
+		setOwner(newOwner);
 	}
 }

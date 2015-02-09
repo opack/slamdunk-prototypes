@@ -11,6 +11,7 @@ import com.slamdunk.wordarena.enums.ReturnCodes;
 
 public class ArenaScreen extends SlamScreen {
 	public static final String NAME = "ARENA";
+	private static final int TURNS_PER_ROUND = 10;
 	
 	private ArenaOverlay arena;
 	private ArenaUI ui;
@@ -20,6 +21,8 @@ public class ArenaScreen extends SlamScreen {
 	
 	private List<Player> players;
 	private int curPlayer;
+	private int curTurn;
+	private int curRound;
 	
 	public ArenaScreen(SlamGame game) {
 		super(game);
@@ -52,11 +55,11 @@ public class ArenaScreen extends SlamScreen {
 	public void prepareGame(List<Player> players) {
 		this.players = players;
 		setCurrentPlayer(0);
-		loadNextLevel();
+		loadLevel();
 	}
 
-	public void loadNextLevel() {
-		arena.buildArena("arenas/2.properties");
+	public void loadLevel() {
+		arena.buildArena("arenas/dbg.properties");
 		arena.setVisible(false);
 		wordSelectionHandler.reset();
 		changeState(GameStates.READY);
@@ -112,12 +115,26 @@ public class ArenaScreen extends SlamScreen {
 	 */
 	private void endTurn() {
 		// Le joueur suivant est celui juste après
-		setCurrentPlayer((curPlayer + 1) % players.size());
+		curPlayer += 1;
+		if (curPlayer == players.size()) {
+			curPlayer = 0;
+			
+			// Le tour est terminé pour les 2 joueurs
+			curTurn ++;
+			if (curTurn > TURNS_PER_ROUND) {
+				// Le round est terminé
+//				endRound();
+				// Le joueur qui débute le nouveau round n'est pas le même que celui
+				// du round précédent.
+				curPlayer = curRound % players.size();
+			}
+		}
+		setCurrentPlayer(curPlayer);
 	}
 	
 	private void setCurrentPlayer(int playerIndex) {
 		curPlayer = playerIndex;
-		ui.setCurrentPlayer(players.get(playerIndex));
+		ui.setCurrentPlayer(players.get(playerIndex), curTurn, TURNS_PER_ROUND);
 	}
 
 	public Player getCurrentPlayer() {

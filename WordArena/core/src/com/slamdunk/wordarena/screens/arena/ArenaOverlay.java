@@ -50,9 +50,6 @@ public class ArenaOverlay extends WorldOverlay {
 				getWorld().addActor(data.cells[x][y]);
 			}
 		}
-		
-		// Ajoute le listener permettant de déplacer l'arène
-		moveCameraListener.computeMoveBounds(getStage().getCamera(), getWorld(), 20);
 	}
 	
 	@Override

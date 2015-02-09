@@ -167,7 +167,7 @@ public class ArenaUI extends UIOverlay {
 		next.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				screen.loadNextLevel();
+				screen.loadLevel();
 				screen.changeState(GameStates.READY);
 			}
 		});
@@ -197,8 +197,8 @@ public class ArenaUI extends UIOverlay {
 		componentsGroups.add(group);
 	}
 	
-	public void setCurrentPlayer(Player player) {
-		currentPlayer.setText(player.name);
+	public void setCurrentPlayer(Player player, int turn, int maxTurns) {
+		currentPlayer.setText(player.name + " (Coup " + (turn + 1) + "/" + maxTurns + ")");
 		currentPlayer.setStyle(Assets.ownerStyles.get(player.owner));
 	}
 }
