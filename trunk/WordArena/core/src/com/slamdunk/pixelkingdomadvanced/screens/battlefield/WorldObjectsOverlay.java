@@ -8,7 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.slamdunk.pixelkingdomadvanced.screens.MoveCameraDragListener;
 import com.slamdunk.pixelkingdomadvanced.units.Factions;
 import com.slamdunk.pixelkingdomadvanced.units.SimpleUnit;
 import com.slamdunk.pixelkingdomadvanced.units.UnitFactory;
@@ -17,6 +16,7 @@ import com.slamdunk.pixelkingdomadvanced.units.Units;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
 import com.slamdunk.toolkit.svg.SVGParse;
 import com.slamdunk.toolkit.svg.elements.SVGRootElement;
+import com.slamdunk.toolkit.ui.MoveCameraDragListener;
 import com.slamdunk.toolkit.world.path.ComplexPath;
 import com.slamdunk.toolkit.world.path.CursorMode;
 

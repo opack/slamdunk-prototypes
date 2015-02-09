@@ -1,13 +1,11 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
 [ ] Faire les dispose() dans Assets, les overlays...
-[ ] Implémenter le pinch to zoom
-[ ] Ne pas sélectionner de lettre lorsqu'on déplace l'arène
 [ ] Avoir un visuel différent par types de cellule
 [ ] Gérer la vie d'une partie :
-	- 1 grille de lettres par round
-	- 2 rounds gagnants. Le premier joueur a jouer change à chaque round
-	- 1 round = 5 coups par joueur
+	- 1 partie = 2 rounds gagnants. Le premier joueur a jouer change à chaque round
+	- 1 round = 10 tours. Nouvelles lettres à chaque round.
+	- 1 tour = 1 coup par joueur
 	- Détection de la fin de partie (si un joueur n'a plus de zone, il perd)
 
 Ashley

@@ -2,7 +2,6 @@ package com.slamdunk.toolkit.settings;
 
 import com.badlogic.gdx.Gdx;
 
-// DBG TODO Supprimer : la classe CameraComponent et ses filles permettent une meilleure gestion
 /**
  * Contient les réglages de l'application. Ces réglages peuvent être définis
  * à l'aide d'une des méthodes setup().

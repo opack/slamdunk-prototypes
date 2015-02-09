@@ -2,9 +2,13 @@ package com.slamdunk.wordarena.screens.arena;
 
 import java.util.List;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.input.GestureDetector;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordSelectionHandler;
+import com.slamdunk.wordarena.actors.MyGestureHandler;
+import com.slamdunk.wordarena.actors.ZoomInputProcessor;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
 import com.slamdunk.wordarena.enums.ReturnCodes;
@@ -26,14 +30,19 @@ public class ArenaScreen extends SlamScreen {
 	
 	public ArenaScreen(SlamGame game) {
 		super(game);
+		wordSelectionHandler = new WordSelectionHandler(this);
 		
 		arena = new ArenaOverlay();
 		addOverlay(arena);
 		
 		ui = new ArenaUI();
 		addOverlay(ui);
-		
-		wordSelectionHandler = new WordSelectionHandler(this);
+
+		// Gestionnaires permettant de zoomer avec la souris ou un pinch.
+		// Ces gestionnaires sont insérés après ArenaUI.
+		OrthographicCamera camera = (OrthographicCamera)arena.getStage().getCamera();
+		getInputMultiplexer().addProcessor(1, new GestureDetector(new MyGestureHandler(camera)));
+		getInputMultiplexer().addProcessor(1, new ZoomInputProcessor(camera));
 	}
 
 	@Override
