@@ -39,20 +39,20 @@ public class ZoneBuilder {
 		
 		switch (border) {
 		case BOTTOM:
-			edge.p1.set(cellX, cellY);
-			edge.p2.set(cellX + cellWidth, cellY);
+			edge.p1.set(cellX + borderThickness, cellY + borderThickness);
+			edge.p2.set(cellX + cellWidth - borderThickness, cellY + borderThickness);
 			break;
 		case LEFT:
-			edge.p1.set(cellX, cellY);
-			edge.p2.set(cellX, cellY + cellHeight);
+			edge.p1.set(cellX + borderThickness, cellY + borderThickness);
+			edge.p2.set(cellX + borderThickness, cellY + cellHeight - borderThickness);
 			break;
 		case RIGHT:
-			edge.p1.set(cellX + cellWidth - borderThickness, cellY);
-			edge.p2.set(cellX + cellWidth - borderThickness, cellY + cellHeight);
+			edge.p1.set(cellX + cellWidth - borderThickness, cellY + borderThickness);
+			edge.p2.set(cellX + cellWidth - borderThickness, cellY + cellHeight - borderThickness);
 			break;
 		case TOP:
-			edge.p1.set(cellX, cellY + cellHeight - borderThickness);
-			edge.p2.set(cellX + cellWidth, cellY + cellHeight - borderThickness);
+			edge.p1.set(cellX + borderThickness, cellY + cellHeight - borderThickness);
+			edge.p2.set(cellX + cellWidth - borderThickness, cellY + cellHeight - borderThickness);
 			break;
 		}
 		return edge;

@@ -56,7 +56,7 @@ public class ArenaScreen extends SlamScreen {
 	}
 
 	public void loadNextLevel() {
-		arena.buildArena("arenas/1.properties");
+		arena.buildArena("arenas/2.properties");
 		arena.setVisible(false);
 		wordSelectionHandler.reset();
 		changeState(GameStates.READY);

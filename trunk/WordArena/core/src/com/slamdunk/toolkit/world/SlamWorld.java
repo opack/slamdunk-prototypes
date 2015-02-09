@@ -4,8 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.slamdunk.toolkit.ui.GroupEx;
 
 /**
  * Le monde du jeu. Ce monde est composé de plusieurs couches.
@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
  * de savoir si deux objets se touchent (même à travers plusieurs
  * couches)...
  */
-public class SlamWorld extends Group {
+public class SlamWorld extends GroupEx {
 	/**
 	 * Accès rapide aux différentes couches
 	 */
