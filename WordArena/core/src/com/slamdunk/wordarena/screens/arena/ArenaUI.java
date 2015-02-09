@@ -133,7 +133,8 @@ public class ArenaUI extends UIOverlay {
 		Group group = new Group();
 		group.setUserObject(GameStates.PAUSED);
 		
-		TextButton resume = new TextButton("RESUME", skin);
+		TextButton resume = new TextButton("REPRENDRE", skin);
+		resume.setPosition(WordArenaGame.SCREEN_WIDTH - resume.getWidth(), WordArenaGame.SCREEN_HEIGHT - resume.getHeight());
 		resume.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -143,7 +144,8 @@ public class ArenaUI extends UIOverlay {
 		});
 		group.addActor(resume);
 		
-		TextButton quit = new TextButton("QUIT", skin);
+		TextButton quit = new TextButton("QUITTER", skin);
+		quit.setPosition(0, WordArenaGame.SCREEN_HEIGHT - quit.getHeight());
 		quit.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
