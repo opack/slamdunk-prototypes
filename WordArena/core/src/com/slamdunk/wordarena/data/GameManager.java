@@ -45,6 +45,7 @@ public class GameManager {
 	private int nbWinningRoundsPerGame;
 	
 	private GameStates state;
+	private int nbZones;
 	
 	private WordSelectionHandler wordSelectionHandler;
 	
@@ -139,7 +140,7 @@ public class GameManager {
 			screen.getArena().setOwner(wordSelectionHandler.getSelectedCells(), players.get(curPlayer).owner);
 			// Le score du joueur est modifié
 			players.get(curPlayer).score += computeScore(wordSelectionHandler.getSelectedCells());
-			screen.getUI().updateScores();
+			screen.getUI().updateStats();
 			// Fin du tour de ce joueur
 			endStroke();
 			break;
@@ -188,25 +189,46 @@ public class GameManager {
 	 * @param newOwner
 	 */
 	public void zoneChangedOwner(Owners oldOwner, Owners newOwner) {
-		// Ajout des points uniquement pendant la partie, et pas pendant
-		// le chargement de l'arène par exemple
-		if (state != GameStates.RUNNING
-		|| oldOwner == newOwner) {
-			return;
+		// Récupère le joueur qui a prit la zone pour lui
+		// ajouter des points
+		Player overtaker = playersByOwner.get(newOwner);
+		if (overtaker != null) {
+			// Le joueur a une zone de plus
+			overtaker.nbZonesOwned++;
+			
+			// Ajout des points uniquement pendant la partie, et pas pendant
+			// le chargement de l'arène par exemple
+			if (state == GameStates.RUNNING
+			&& oldOwner != newOwner) {
+				// Si la zone appartenait à un adversaire, le joueur
+				// gagne plus de points
+				if (oldOwner != null
+				&& oldOwner != Owners.NEUTRAL) {
+					overtaker.score += SCORE_ZONE_STEALED;
+				} else {
+					overtaker.score += SCORE_ZONE_GAINED;
+				}
+			}
 		}
 		
-		// Récupère le joueur qui a prit la zone
-		Player player = playersByOwner.get(newOwner);
-		if (player != null) {
-			// Si la zone appartenait à un adversaire, le joueur
-			// gagne plus de points
-			if (oldOwner != Owners.NEUTRAL) {
-				player.score += SCORE_ZONE_STEALED;
-			} else {
-				player.score += SCORE_ZONE_GAINED;
+		// Récupère le joueur qui a perdu la zone pour voir
+		// s'il a perdu sa dernière zone, et donc le round.
+		Player loser = playersByOwner.get(oldOwner);
+		if (loser != null) {
+			// Ce joueur a perdu une zone
+			loser.nbZonesOwned--;
+			
+			// Si c'était sa dernière zone, il perd le round
+			if (loser.nbZonesOwned <= 0) {
+				System.err.println(loser.name + " perd le round car il n'a plus aucune zone !");
 			}
-			// Met à jour l'UI
-			screen.getUI().updateScores();
+		}
+		
+		// Met à jour l'UI si le jeu tourne. Sinon, on a sûrement
+		// été appelé pendant la création de l'arène. On ne met
+		// donc pas à jour l'UI.
+		if (state == GameStates.RUNNING) {
+			screen.getUI().updateStats();
 		}
 	}
 
@@ -246,18 +268,24 @@ public class GameManager {
 	}
 	
 	public void loadArena() {
-		screen.getArena().buildArena(arenaPlanFile, this);
-		screen.getArena().setVisible(false);
-		
-		wordSelectionHandler.reset();
-		
 		// Réinitialise les scores
 		for (Player player : players) {
 			player.score = 0;
+			player.nbZonesOwned = 0;
 		}
-		screen.getUI().updateScores();
-		 
 		
+		// Réinitialise le sélecteur de mots
+		wordSelectionHandler.reset();
+		
+		// Charge l'arène
+		screen.getArena().buildArena(arenaPlanFile, this);
+		screen.getArena().setVisible(false);
+		nbZones = screen.getArena().getData().zones.size();
+		
+		// Met à jour l'UI
+		screen.getUI().updateStats();
+		 
+		// Démarre le jeu
 		changeState(GameStates.READY);
 	}
 	
@@ -371,5 +399,9 @@ public class GameManager {
 		Player player = playersByOwner.get(winner);
 		player.nbRoundsWon++;
 		return player;
+	}
+
+	public int getNbZones() {
+		return nbZones;
 	}
 }

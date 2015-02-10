@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.toolkit.lang.KeyListMap;
 import com.slamdunk.toolkit.lang.TypedProperties;
+import com.slamdunk.toolkit.ui.MoveCameraDragListener;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
@@ -24,6 +25,7 @@ public class ArenaBuilder {
 	private static final String ZONE_NONE = "0";
 	private static final String CELL_SEPARATOR = " ";
 	
+	private MoveCameraDragListener moveCameraDragListener;
 	private GameManager gameManager;
 	private Skin skin;
 	
@@ -37,11 +39,12 @@ public class ArenaBuilder {
 	
 	private KeyListMap<String, ArenaCell> cellsByZone;
 	
-	public ArenaBuilder(GameManager gameManager) {
-		this(gameManager, Assets.skin);
+	public ArenaBuilder(MoveCameraDragListener moveCameraDragListener, GameManager gameManager) {
+		this(moveCameraDragListener, gameManager, Assets.skin);
 	}
 	
-	public ArenaBuilder(GameManager gameManager, Skin skin) {
+	public ArenaBuilder(MoveCameraDragListener moveCameraDragListener, GameManager gameManager, Skin skin) {
+		this.moveCameraDragListener = moveCameraDragListener;
 		this.gameManager = gameManager;
 		this.skin = skin;
 		arena = new ArenaData();
@@ -158,7 +161,7 @@ public class ArenaBuilder {
 				// contrairement au fichier properties
 				index = (arena.height - 1 - y) * arena.width + x;
 				
-				cell = new ArenaCell(skin, wordSelectionHandler);
+				cell = new ArenaCell(skin, wordSelectionHandler, moveCameraDragListener);
 				arena.cells[x][y] = cell;
 				
 				// Définition des données du modèle
