@@ -13,6 +13,7 @@ import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.Borders;
 import com.slamdunk.wordarena.enums.CellOwners;
+import com.slamdunk.wordarena.utils.MaxValueFinder;
 
 /**
  * Représente une zone.
@@ -192,35 +193,21 @@ public class ArenaZone {
 	 * des cellules
 	 */
 	public void updateOwner() {
+		MaxValueFinder<CellOwners> occupations = new MaxValueFinder<CellOwners>();
+		occupations.setValueIfDraw(CellOwners.NEUTRAL);
+		
 		// Compte le nombre de cellules occupées par chaque joueur
-		Map<CellOwners, Integer> occupations = new HashMap<CellOwners, Integer>();
-		for (CellOwners owner : CellOwners.values()) {
-			occupations.put(owner, 0);
-		}
 		CellData cellData;
 		for (ArenaCell cell : cells.values()) {
 			cellData = cell.getData();
-			// TODO DBG Faut-il dire qu'il faut également battre "NEUTRE" pour conquérir la zone ? Si oui, retirer ce test
 			if (cellData.owner != CellOwners.NEUTRAL) {
 				// Ajout de la puissance de la cellule à celle de ce joueur
-				occupations.put(cellData.owner, occupations.get(cellData.owner) + cellData.power);
+				occupations.addValue(cellData.owner, cellData.power);
 			}
 		}
 		
 		// Détermine qui occupe le plus de cellules
-		CellOwners newOwner = CellOwners.NEUTRAL;
-		int maxOccupation = -1;
-		int power;
-		for (Map.Entry<CellOwners, Integer> occupation : occupations.entrySet()) {
-			power = occupation.getValue();
-			if (power == maxOccupation) {
-				// En cas d'égalité la zone repasse à NEUTRAL
-				newOwner = CellOwners.NEUTRAL;
-			} else 	if (power > maxOccupation) {
-				maxOccupation = power;
-				newOwner = occupation.getKey();
-			}
-		}
+		CellOwners newOwner = occupations.getMaxValue();
 		
 		// Change le propriétaire de la zone
 		setOwner(newOwner);

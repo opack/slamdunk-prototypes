@@ -9,4 +9,5 @@ public class Player {
 	public String name;
 	public int score;
 	public CellOwners owner;
+	public int nbRoundsWon;
 }
