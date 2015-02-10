@@ -11,10 +11,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.data.ArenaZone;
+import com.slamdunk.wordarena.data.GameManager;
 import com.slamdunk.wordarena.enums.CellOwners;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.ReturnCodes;
-import com.slamdunk.wordarena.screens.arena.ArenaScreen;
 
 /**
  * Gère le mot actuellement sélectionné et détermine si une cellule
@@ -23,14 +23,14 @@ import com.slamdunk.wordarena.screens.arena.ArenaScreen;
 public class WordSelectionHandler {
 	private static final int MIN_WORD_LENGTH = 2;
 
-	private ArenaScreen arenaScreen;
+	private GameManager gameData;
 	private List<ArenaCell> selectedCells;
 	private final Set<String> dictionnary;
 	private final Set<String> alreadyPlayed;
 	private String lastValidatedWord;
 	
-	public WordSelectionHandler(ArenaScreen screen) {
-		this.arenaScreen = screen;
+	public WordSelectionHandler(GameManager gameData) {
+		this.gameData = gameData;
 		selectedCells = new ArrayList<ArenaCell>();
 		
 		dictionnary = new HashSet<String>();
@@ -89,17 +89,16 @@ public class WordSelectionHandler {
 		// contrôlée par le joueur
 		else {
 			ArenaZone zone = cell.getData().zone;
-			CellOwners player = arenaScreen.getCurrentPlayer().owner;
-			// La cellule est dans une zone du joueur
-			boolean isCellInZone = (zone != null && zone.getOwner() == player);
-			// La cellule est contrôlée par le joueur
-			boolean isCellOwnedByPlayer = cell.getData().owner == player;
-			// La cellule est neutre
-			boolean isCellOwnedByNeutral = cell.getData().owner == CellOwners.NEUTRAL;
-			if (!(
-				isCellOwnedByPlayer
-				|| (isCellInZone && isCellOwnedByNeutral)
-			)) {
+			CellOwners player = gameData.getCurrentPlayer().owner;
+			CellOwners cellOwner = cell.getData().owner;
+			// La cellule est-elle dans une zone du joueur ?
+			boolean isInPlayerZone = (zone != null && zone.getOwner() == player);
+
+			// Si la cellule n'appartient pas au joueur...
+			if (cellOwner != player
+			// ... et que ce n'est pas une cellule neutre dans une zone du joueur ...
+			&& (cellOwner != CellOwners.NEUTRAL || !isInPlayerZone)) {
+				// ... alors il est interdit de commencer un mot dessus
 				return false;
 			}
 		}

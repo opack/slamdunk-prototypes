@@ -41,8 +41,7 @@ public class ArenaOverlay extends WorldOverlay {
 	 * @param width Largeur de l'arène, en nombre de cellules
 	 * @param height Hauteur de l'arène, en nombre de cellules
 	 */
-	public void buildArena(String plan) {
-		WordSelectionHandler wordSelectionHandler = ((ArenaScreen)getScreen()).getWordSelectionHandler();
+	public void buildArena(String plan, WordSelectionHandler wordSelectionHandler) {
 		ArenaBuilder builder = new ArenaBuilder(wordSelectionHandler);
 		
 		TypedProperties arenaProperties = new TypedProperties(plan);

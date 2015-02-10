@@ -12,19 +12,21 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordArenaGame;
+import com.slamdunk.wordarena.data.GameManager;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
 
 public class ArenaUI extends UIOverlay {
 	private List<Group> componentsGroups;
-	private ArenaScreen screen;
+	private GameManager gameManager;
 	private Label currentPlayer;
 	
-	public ArenaUI() {
+	public ArenaUI(GameManager gameManager) {
+		this.gameManager = gameManager;
+		
 		// Par défaut, on travaillera dans un Stage qui prend tout l'écran
 		createStage(new FitViewport(WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT));
 		
@@ -45,12 +47,6 @@ public class ArenaUI extends UIOverlay {
 			group.setVisible(false);
 			stage.addActor(group);
 		}
-	}
-	
-	@Override
-	public void setScreen(SlamScreen screen) {
-		super.setScreen(screen);
-		this.screen = ((ArenaScreen)getScreen());
 	}
 
 	/**
@@ -73,7 +69,7 @@ public class ArenaUI extends UIOverlay {
 		play.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				screen.changeState(GameStates.RUNNING);
+				gameManager.changeState(GameStates.RUNNING);
 			}
 		});
 		group.addActor(play);
@@ -97,7 +93,7 @@ public class ArenaUI extends UIOverlay {
 		center.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				screen.centerCamera();
+				((ArenaScreen)getScreen()).centerCamera();
 			}
 		});
 		group.addActor(center);
@@ -108,7 +104,7 @@ public class ArenaUI extends UIOverlay {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 //				Assets.playSound(Assets.clickSound);
-				screen.changeState(GameStates.PAUSED);
+				gameManager.changeState(GameStates.PAUSED);
 			}
 		});
 		group.addActor(pause);
@@ -118,7 +114,7 @@ public class ArenaUI extends UIOverlay {
 		validate.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				screen.validateWord();
+				gameManager.validateWord();
 			}
 		});
 		group.addActor(validate);
@@ -128,7 +124,7 @@ public class ArenaUI extends UIOverlay {
 		cancel.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				screen.cancelWord();
+				gameManager.cancelWord();
 			}
 		});
 		group.addActor(cancel);
@@ -149,7 +145,7 @@ public class ArenaUI extends UIOverlay {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
 //				Assets.playSound(Assets.clickSound);
-				screen.changeState(GameStates.RUNNING);
+				gameManager.changeState(GameStates.RUNNING);
 			}
 		});
 		group.addActor(resume);
@@ -179,8 +175,8 @@ public class ArenaUI extends UIOverlay {
 		next.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				screen.loadArena();
-				screen.changeState(GameStates.READY);
+				gameManager.loadArena();
+				gameManager.changeState(GameStates.READY);
 			}
 		});
 		group.addActor(next);
@@ -210,7 +206,7 @@ public class ArenaUI extends UIOverlay {
 	}
 	
 	public void setCurrentPlayer(Player player, int turn, int maxTurns, int round) {
-		currentPlayer.setText("Round " + (round + 1) + " - " + player.name + " (Coup " + (turn + 1) + "/" + maxTurns + ")");
+		currentPlayer.setText("Round " + round + " - " + player.name + " (Coup " + turn + "/" + maxTurns + ")");
 		currentPlayer.setStyle(Assets.ownerStyles.get(player.owner));
 	}
 }

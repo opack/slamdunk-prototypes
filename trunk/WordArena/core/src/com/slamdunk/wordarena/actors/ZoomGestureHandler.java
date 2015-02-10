@@ -5,12 +5,12 @@ import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
-public class MyGestureHandler implements GestureListener {
+public class ZoomGestureHandler implements GestureListener {
 
 	public float initialScale = 1.0f;
 	public OrthographicCamera camera;
 
-	public MyGestureHandler(OrthographicCamera camera) {
+	public ZoomGestureHandler(OrthographicCamera camera) {
 		this.camera = camera;
 	}
 	
