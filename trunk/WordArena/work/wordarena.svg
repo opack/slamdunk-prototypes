@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="7.919596"
-     inkscape:cx="101.47596"
-     inkscape:cy="994.08884"
+     inkscape:zoom="1.979899"
+     inkscape:cx="476.62554"
+     inkscape:cy="976.84974"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -43,7 +43,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -880,5 +880,88 @@
        height="47.982246"
        x="52.401665"
        y="34.254692" />
+    <g
+       id="g4046"
+       inkscape:export-filename="D:\perso\dev\slamdunk-prototypes\WordArena\work\cells4.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <g
+         transform="translate(-1.418274,0)"
+         id="g4039">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3.99999976;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+           id="rect2985-60-6"
+           width="44"
+           height="44"
+           x="375.84744"
+           y="156.33908" />
+        <rect
+           style="fill:#7db1ff;fill-opacity:1;stroke:none"
+           id="rect2985-60-1-6"
+           width="47.999966"
+           height="48"
+           x="421.84744"
+           y="154.33908" />
+        <rect
+           style="fill:#ffb17d;fill-opacity:1;stroke:none"
+           id="rect2985-60-74-3"
+           width="47.999966"
+           height="48"
+           x="469.84741"
+           y="154.33908" />
+        <rect
+           style="fill:#b6e399;fill-opacity:1;stroke:none"
+           id="rect2985-60-0-4"
+           width="48"
+           height="48"
+           x="517.84735"
+           y="154.33908" />
+        <rect
+           style="fill:#d499e3;fill-opacity:1;stroke:none"
+           id="rect2985-60-9-71"
+           width="48"
+           height="48"
+           x="565.84735"
+           y="154.33908" />
+      </g>
+      <g
+         id="g4032">
+        <rect
+           style="fill:#ffe67d;fill-opacity:1;stroke:none"
+           id="rect2985-60-15-6-5"
+           width="48"
+           height="48"
+           x="372.42911"
+           y="202.33917" />
+        <rect
+           style="fill:#ffe67d;fill-opacity:1;stroke:none"
+           id="rect2985-60-1-2-8-70"
+           width="47.999966"
+           height="48"
+           x="420.42911"
+           y="202.33917" />
+        <rect
+           style="fill:#ffe67d;fill-opacity:1;stroke:none"
+           id="rect2985-60-74-7-5-3"
+           width="47.999966"
+           height="48"
+           x="468.42911"
+           y="202.33917" />
+        <rect
+           style="fill:#ffe67d;fill-opacity:1;stroke:none"
+           id="rect2985-60-0-6-7-8"
+           width="48"
+           height="48"
+           x="516.42914"
+           y="202.33917" />
+        <rect
+           style="fill:#ffe67d;fill-opacity:1;stroke:none"
+           id="rect2985-60-9-1-6-5"
+           width="48"
+           height="48"
+           x="564.42914"
+           y="202.33917" />
+      </g>
+    </g>
   </g>
 </svg>

@@ -55,7 +55,7 @@ public class Assets {
 	private static void loadCells() {
 		cells = new DoubleEntryArray<CellOwners, CellStates, TextureRegionDrawable>();
 		final TextureRegion[][] textures = splitSpriteSheet(
-			"textures/cells3.png",
+			"textures/cells4.png",
 			CellStates.values().length,
 			CellOwners.values().length);
 		TextureRegion region;

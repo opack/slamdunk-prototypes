@@ -1,8 +1,6 @@
 package com.slamdunk.wordarena.screens.arena;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
@@ -11,15 +9,13 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.MyGestureHandler;
 import com.slamdunk.wordarena.actors.ZoomInputProcessor;
-import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.data.Player;
-import com.slamdunk.wordarena.enums.CellOwners;
 import com.slamdunk.wordarena.enums.GameStates;
 import com.slamdunk.wordarena.enums.ReturnCodes;
 
 public class ArenaScreen extends SlamScreen {
 	public static final String NAME = "ARENA";
-	private static final int TURNS_PER_ROUND = 10;
+	private static final int TURNS_PER_ROUND = 5;
 	private static final int ROUNDS_TO_WIN = 2;
 	
 	private ArenaOverlay arena;
