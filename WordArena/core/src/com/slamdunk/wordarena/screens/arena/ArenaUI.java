@@ -3,13 +3,13 @@ package com.slamdunk.wordarena.screens.arena;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
@@ -24,6 +24,7 @@ public class ArenaUI extends UIOverlay {
 	private List<Group> componentsGroups;
 	private GameManager gameManager;
 	private Label currentPlayer;
+	private Label result;
 	private Label stats;
 	
 	public ArenaUI(GameManager gameManager) {
@@ -33,16 +34,15 @@ public class ArenaUI extends UIOverlay {
 		createStage(new FitViewport(WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT));
 		
 		// Par défaut, la skin par défaut sera utilisée
-		final Skin skin = new Skin(Gdx.files.internal(UIOverlay.DEFAULT_SKIN));
-		setSkin(skin);
+		setSkin(Assets.skin);
 
 		// Création des groupes de composants suivant l'état du jeu
 		componentsGroups = new ArrayList<Group>();
-		createReadyGroup(skin);
-		createRunningGroup(skin);
-		createPausedGroup(skin);
-		createLevelEndGroup(skin);
-		createGameOverGroup(skin);
+		createReadyGroup();
+		createRunningGroup();
+		createPausedGroup();
+		createLevelEndGroup();
+		createGameOverGroup();
 		
 		final Stage stage = getStage();
 		for (Group group : componentsGroups) {
@@ -63,11 +63,11 @@ public class ArenaUI extends UIOverlay {
 	/**
 	 * Crée les composants à afficher lorsque le jeu est à l'état "GAME_READY"
 	 */
-	public void createReadyGroup(Skin skin) {
+	public void createReadyGroup() {
 		Group group = new Group();
 		group.setUserObject(GameStates.READY);
 		
-		TextButton play = new TextButton("PLAY", skin);
+		TextButton play = new TextButton("PLAY", getSkin());
 		play.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -82,18 +82,28 @@ public class ArenaUI extends UIOverlay {
 	/**
 	 * Crée les composants à afficher lorsque le jeu est à l'état "GAME_RUNNING"
 	 */
-	public void createRunningGroup(Skin skin) {
+	public void createRunningGroup() {
+		final Skin skin = getSkin();
 		Group group = new Group();
 		group.setUserObject(GameStates.RUNNING);
 		
 		// Libellé indiquant le joueur courant
 		currentPlayer = new Label("", skin);
-		currentPlayer.setPosition(50, WordArenaGame.SCREEN_HEIGHT - 25);
+		currentPlayer.setAlignment(Align.center);
+		currentPlayer.setWidth(200);
+		currentPlayer.setPosition(300, 465);
 		group.addActor(currentPlayer);
+		
+		// Libellé servant de résultat d'action
+		result = new Label("", skin);
+		result.setAlignment(Align.center);
+		result.setWidth(200);
+		result.setPosition(300, 440);
+		group.addActor(result);
 		
 		// Libellé donnant les scores
 		stats = new Label("", skin);
-		stats.setPosition(700, 300);
+		stats.setPosition(680, 300);
 		group.addActor(stats);
 		
 		TextButton center = new TextButton("CENTRER CAMERA", skin);
@@ -143,7 +153,8 @@ public class ArenaUI extends UIOverlay {
 	/**
 	 * Crée les composants à afficher lorsque le jeu est à l'état "GAME_PAUSED"
 	 */
-	public void createPausedGroup(Skin skin) {
+	public void createPausedGroup() {
+		final Skin skin = getSkin();
 		Group group = new Group();
 		group.setUserObject(GameStates.PAUSED);
 		
@@ -175,11 +186,11 @@ public class ArenaUI extends UIOverlay {
 	/**
 	 * Crée les composants à afficher lorsque le jeu est à l'état "GAME_LEVEL_END"
 	 */
-	public void createLevelEndGroup(Skin skin) {
+	public void createLevelEndGroup() {
 		Group group = new Group();
 		group.setUserObject(GameStates.LEVEL_END);
 		
-		TextButton next = new TextButton("NEXT", skin);
+		TextButton next = new TextButton("NEXT", getSkin());
 		next.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
@@ -195,7 +206,8 @@ public class ArenaUI extends UIOverlay {
 	/**
 	 * Crée les composants à afficher lorsque le jeu est à l'état "GAME_OVER"
 	 */
-	public void createGameOverGroup(Skin skin) {
+	public void createGameOverGroup() {
+		final Skin skin = getSkin();
 		Group group = new Group();
 		group.setUserObject(GameStates.OVER);
 		
@@ -218,6 +230,10 @@ public class ArenaUI extends UIOverlay {
 		currentPlayer.setStyle(Assets.ownerStyles.get(player.owner));
 	}
 	
+	public void updateResult(String text) {
+		result.setText(text);
+	}
+	
 	public void updateStats() {
 		StringBuilder sb = new StringBuilder();
 		Player player;
@@ -228,7 +244,7 @@ public class ArenaUI extends UIOverlay {
 				sb.append("\n\tScore : ").append(player.score);
 				sb.append("\n\tZones : ").append(player.nbZonesOwned).append("/").append(gameManager.getNbZones());
 				sb.append("\n\tRounds : ").append(player.nbRoundsWon).append("/").append(gameManager.getNbWinningRoundsPerGame());
-				sb.append("\n\n");
+				sb.append("\n");
 			}
 		}
 		

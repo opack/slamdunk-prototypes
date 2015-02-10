@@ -135,7 +135,7 @@ public class GameManager {
 		String word = wordSelectionHandler.getLastValidatedWord();
 		switch (result) {
 		case OK:
-			System.out.println(word + " est valide ! C'est au joueur suivant de jouer.");
+			screen.getUI().updateResult(players.get(curPlayer).name + " a joué " + word);
 			// Toutes les cellules passent sous la domination du joueur
 			screen.getArena().setOwner(wordSelectionHandler.getSelectedCells(), players.get(curPlayer).owner);
 			// Le score du joueur est modifié
@@ -145,10 +145,10 @@ public class GameManager {
 			endStroke();
 			break;
 		case WORD_ALREADY_PLAYED:
-			System.out.println(word + " a déjà été joué pendant ce round. Merci de jouer un autre mot.");
+			screen.getUI().updateResult(word + " a déjà été joué pendant ce round");
 			break;
 		case WORD_UNKNOWN:
-			System.out.println(word + " n'existe pas dans le dictionnaire de WordArena. Merci de jouer un autre mot.");
+			screen.getUI().updateResult(word + " n'existe pas dans le dictionnaire de WordArena");
 			break;
 		}
 		cancelWord();
@@ -324,13 +324,13 @@ public class GameManager {
 		
 		if (winner == null) {
 			// Fin de round sur une égalité
-			System.out.println("Egalité parfaite ! Personne ne gagne ce round !");
+			screen.getUI().updateResult("Egalité parfaite ! Personne ne gagne ce round !");
 		} else if (winner.nbRoundsWon < nbWinningRoundsPerGame) {
 			// Fin de round sur une victoire
-			System.out.println(winner.name + " gagne le round !");
+			screen.getUI().updateResult(winner.name + " gagne le round !");
 		} else {
 			// Fin de partie
-			System.out.println("Game over ! " + winner.name + " gagne la partie !");
+			screen.getUI().updateResult(winner.name + " gagne la partie !");
 			changeState(GameStates.OVER);
 			return;
 		}
