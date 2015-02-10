@@ -90,11 +90,16 @@ public class WordSelectionHandler {
 		else {
 			ArenaZone zone = cell.getData().zone;
 			CellOwners player = arenaScreen.getCurrentPlayer().owner;
-			if (
-			// La cellule n'est pas dans une zone du joueur
-			(zone == null || zone.getOwner() != player)
-			// La cellule n'est pas contrôlée par le joueur
-			&& cell.getData().owner != player) {
+			// La cellule est dans une zone du joueur
+			boolean isCellInZone = (zone != null && zone.getOwner() == player);
+			// La cellule est contrôlée par le joueur
+			boolean isCellOwnedByPlayer = cell.getData().owner == player;
+			// La cellule est neutre
+			boolean isCellOwnedByNeutral = cell.getData().owner == CellOwners.NEUTRAL;
+			if (!(
+				isCellOwnedByPlayer
+				|| (isCellInZone && isCellOwnedByNeutral)
+			)) {
 				return false;
 			}
 		}
