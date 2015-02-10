@@ -12,12 +12,12 @@ import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
 import com.slamdunk.toolkit.ui.MoveCameraDragListener;
 import com.slamdunk.wordarena.WordArenaGame;
-import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.data.ArenaBuilder;
 import com.slamdunk.wordarena.data.ArenaData;
 import com.slamdunk.wordarena.data.ArenaZone;
-import com.slamdunk.wordarena.enums.CellOwners;
+import com.slamdunk.wordarena.data.GameManager;
+import com.slamdunk.wordarena.enums.Owners;
 
 public class ArenaOverlay extends WorldOverlay {
 	private ArenaData data;
@@ -41,8 +41,8 @@ public class ArenaOverlay extends WorldOverlay {
 	 * @param width Largeur de l'arène, en nombre de cellules
 	 * @param height Hauteur de l'arène, en nombre de cellules
 	 */
-	public void buildArena(String plan, WordSelectionHandler wordSelectionHandler) {
-		ArenaBuilder builder = new ArenaBuilder(wordSelectionHandler);
+	public void buildArena(String plan, GameManager gameManager) {
+		ArenaBuilder builder = new ArenaBuilder(gameManager);
 		
 		TypedProperties arenaProperties = new TypedProperties(plan);
 		builder.load(arenaProperties);
@@ -85,7 +85,7 @@ public class ArenaOverlay extends WorldOverlay {
 	 * @param cells
 	 * @param owner
 	 */
-	public void setOwner(List<ArenaCell> cells, CellOwners owner) {
+	public void setOwner(List<ArenaCell> cells, Owners owner) {
 		// Change le propriétaire des cellules et note les zones impactées
 		Set<ArenaZone> impactedZones = new HashSet<ArenaZone>();
 		ArenaZone zone;

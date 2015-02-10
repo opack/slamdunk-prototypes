@@ -1,7 +1,7 @@
 package com.slamdunk.wordarena.data;
 
 import com.slamdunk.toolkit.world.point.Point;
-import com.slamdunk.wordarena.enums.CellOwners;
+import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
@@ -34,7 +34,7 @@ public class CellData {
 	/**
 	 * Indique qui possède la cellule
 	 */
-	public CellOwners owner;
+	public Owners owner;
 	
 	/**
 	 * Indique la puissance de cette cellule
@@ -50,7 +50,7 @@ public class CellData {
 		letter = Letters.A;
 		state = CellStates.NORMAL;
 		position = new Point(0, 0);
-		owner = CellOwners.NEUTRAL;
+		owner = Owners.NEUTRAL;
 		power = 1;
 		zone = null;
 	}

@@ -12,7 +12,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.data.GameManager;
-import com.slamdunk.wordarena.enums.CellOwners;
+import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.ReturnCodes;
 
@@ -89,15 +89,15 @@ public class WordSelectionHandler {
 		// contrôlée par le joueur
 		else {
 			ArenaZone zone = cell.getData().zone;
-			CellOwners player = gameData.getCurrentPlayer().owner;
-			CellOwners cellOwner = cell.getData().owner;
+			Owners player = gameData.getCurrentPlayer().owner;
+			Owners cellOwner = cell.getData().owner;
 			// La cellule est-elle dans une zone du joueur ?
 			boolean isInPlayerZone = (zone != null && zone.getOwner() == player);
 
 			// Si la cellule n'appartient pas au joueur...
 			if (cellOwner != player
 			// ... et que ce n'est pas une cellule neutre dans une zone du joueur ...
-			&& (cellOwner != CellOwners.NEUTRAL || !isInPlayerZone)) {
+			&& (cellOwner != Owners.NEUTRAL || !isInPlayerZone)) {
 				// ... alors il est interdit de commencer un mot dessus
 				return false;
 			}

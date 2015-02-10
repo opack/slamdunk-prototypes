@@ -12,7 +12,7 @@ import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.Borders;
-import com.slamdunk.wordarena.enums.CellOwners;
+import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.utils.MaxValueFinder;
 
 /**
@@ -29,6 +29,8 @@ public class ArenaZone {
 	 */
 	public String id;
 	
+	private GameManager gameManager;
+	
 	/**
 	 * Ensemble des bordures de la zone
 	 */
@@ -43,7 +45,7 @@ public class ArenaZone {
 	 * Joueur qui possède la zone
 	 * @param edge
 	 */
-	private CellOwners owner;
+	private Owners owner;
 	
 	/**
 	 * Sprites dessinant la zone
@@ -57,8 +59,9 @@ public class ArenaZone {
 	
 	private static Point tmp = new Point(0, 0);
 	
-	public ArenaZone() {
-		borderThickness = Assets.edges.get(CellOwners.NEUTRAL).getHeight();
+	public ArenaZone(GameManager gameManager) {
+		this.gameManager = gameManager;
+		borderThickness = Assets.edges.get(Owners.NEUTRAL).getHeight();
 
 		cells = new HashMap<Point, ArenaCell>();
 		edges = new ArrayList<ZoneEdge>();
@@ -144,21 +147,27 @@ public class ArenaZone {
 		return edge;
 	}
 
-	public CellOwners getOwner() {
+	public Owners getOwner() {
 		return owner;
 	}
 
-	private void setOwner(CellOwners owner) {
+	private void setOwner(Owners newOwner) {
 		// Même owner ? Rien à faire
-		if (this.owner == owner) {
+		if (this.owner == newOwner) {
 			return;
 		}
+		
 		// Owner null ou aucun ? On considère que la zone est neutre
-		if (owner == null) {
-			owner = CellOwners.NEUTRAL;
+		if (newOwner == null) {
+			newOwner = Owners.NEUTRAL;
 		}
+		
+		// Avertit le game manager
+		gameManager.zoneChangedOwner(owner, newOwner);
+		
 		// Changement de l'owner
-		this.owner = owner;
+		this.owner = newOwner;
+		
 		// Demande la mise à jour des Sprites dessinant le contour de la zone
 		invalidate = true;
 	}
@@ -193,21 +202,21 @@ public class ArenaZone {
 	 * des cellules
 	 */
 	public void updateOwner() {
-		MaxValueFinder<CellOwners> occupations = new MaxValueFinder<CellOwners>();
-		occupations.setValueIfDraw(CellOwners.NEUTRAL);
+		MaxValueFinder<Owners> occupations = new MaxValueFinder<Owners>();
+		occupations.setValueIfDraw(Owners.NEUTRAL);
 		
 		// Compte le nombre de cellules occupées par chaque joueur
 		CellData cellData;
 		for (ArenaCell cell : cells.values()) {
 			cellData = cell.getData();
-			if (cellData.owner != CellOwners.NEUTRAL) {
+			if (cellData.owner != Owners.NEUTRAL) {
 				// Ajout de la puissance de la cellule à celle de ce joueur
 				occupations.addValue(cellData.owner, cellData.power);
 			}
 		}
 		
 		// Détermine qui occupe le plus de cellules
-		CellOwners newOwner = occupations.getMaxValue();
+		Owners newOwner = occupations.getMaxValue();
 		
 		// Change le propriétaire de la zone
 		setOwner(newOwner);

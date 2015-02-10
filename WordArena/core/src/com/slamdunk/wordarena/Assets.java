@@ -14,17 +14,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.settings.SlamSettings;
-import com.slamdunk.wordarena.enums.CellOwners;
+import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.CellStates;
 
 public class Assets {
 	public static Skin skin;
-	public static Map<CellOwners, LabelStyle> ownerStyles;
+	public static Map<Owners, LabelStyle> ownerStyles;
 	
 	public static Texture background;
 	public static TextureRegion backgroundRegion;
-	public static DoubleEntryArray<CellOwners, CellStates, TextureRegionDrawable> cells;
-	public static Map<CellOwners, Texture> edges;
+	public static DoubleEntryArray<Owners, CellStates, TextureRegionDrawable> cells;
+	public static Map<Owners, Texture> edges;
 	
 	public static void load () {
 		loadSkin();
@@ -36,8 +36,8 @@ public class Assets {
 	
 	private static void loadSkin() {
 		skin = new Skin(Gdx.files.internal("skins/wordarena/uiskin.json"));
-		ownerStyles = new HashMap<CellOwners, LabelStyle>();
-		for (CellOwners owner : CellOwners.values()) {
+		ownerStyles = new HashMap<Owners, LabelStyle>();
+		for (Owners owner : Owners.values()) {
 			ownerStyles.put(owner, skin.get(owner.name(), LabelStyle.class));
 		}
 	}
@@ -53,14 +53,14 @@ public class Assets {
 	}
 	
 	private static void loadCells() {
-		cells = new DoubleEntryArray<CellOwners, CellStates, TextureRegionDrawable>();
+		cells = new DoubleEntryArray<Owners, CellStates, TextureRegionDrawable>();
 		final TextureRegion[][] textures = splitSpriteSheet(
 			"textures/cells4.png",
 			CellStates.values().length,
-			CellOwners.values().length);
+			Owners.values().length);
 		TextureRegion region;
 		for (CellStates state : CellStates.values()) {
-			for (CellOwners owner : CellOwners.values()) {
+			for (Owners owner : Owners.values()) {
 				region = textures[state.ordinal()][owner.ordinal()];
 				cells.put(owner, state, new TextureRegionDrawable(region));
 			}
@@ -68,32 +68,32 @@ public class Assets {
 	}
 	
 	private static void loadEdges() {
-		edges = new HashMap<CellOwners, Texture>();
+		edges = new HashMap<Owners, Texture>();
 
 	    Texture neutral = new Texture(Gdx.files.internal("textures/edge_neutral.png"));
 	    neutral.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		neutral.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	    edges.put(CellOwners.NEUTRAL, neutral);
+	    edges.put(Owners.NEUTRAL, neutral);
 	    
 	    Texture player1 = new Texture(Gdx.files.internal("textures/edge_player1.png"));
 	    player1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 	    player1.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	    edges.put(CellOwners.PLAYER1, player1);
+	    edges.put(Owners.PLAYER1, player1);
 	    
 	    Texture player2 = new Texture(Gdx.files.internal("textures/edge_player2.png"));
 		player2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		player2.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	    edges.put(CellOwners.PLAYER2, player2);
+	    edges.put(Owners.PLAYER2, player2);
 	    
 	    Texture player3 = new Texture(Gdx.files.internal("textures/edge_player3.png"));
 		player3.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		player3.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	    edges.put(CellOwners.PLAYER3, player3);
+	    edges.put(Owners.PLAYER3, player3);
 	    
 	    Texture player4 = new Texture(Gdx.files.internal("textures/edge_player4.png"));
 		player4.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		player4.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	    edges.put(CellOwners.PLAYER4, player4);
+	    edges.put(Owners.PLAYER4, player4);
 	}
 	
 	private static TextureRegion[][] splitSpriteSheet(String file, int nbRows, int nbCols) {

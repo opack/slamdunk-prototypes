@@ -11,7 +11,7 @@ import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
-import com.slamdunk.wordarena.enums.CellOwners;
+import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
@@ -24,7 +24,7 @@ public class ArenaBuilder {
 	private static final String ZONE_NONE = "0";
 	private static final String CELL_SEPARATOR = " ";
 	
-	private WordSelectionHandler wordSelectionHandler;
+	private GameManager gameManager;
 	private Skin skin;
 	
 	private String[] types;
@@ -37,12 +37,12 @@ public class ArenaBuilder {
 	
 	private KeyListMap<String, ArenaCell> cellsByZone;
 	
-	public ArenaBuilder(WordSelectionHandler wordSelectionHandler) {
-		this(wordSelectionHandler, Assets.skin);
+	public ArenaBuilder(GameManager gameManager) {
+		this(gameManager, Assets.skin);
 	}
 	
-	public ArenaBuilder(WordSelectionHandler wordSelectionHandler, Skin skin) {
-		this.wordSelectionHandler = wordSelectionHandler;
+	public ArenaBuilder(GameManager gameManager, Skin skin) {
+		this.gameManager = gameManager;
 		this.skin = skin;
 		arena = new ArenaData();
 	}
@@ -134,7 +134,7 @@ public class ArenaBuilder {
 	private void buildZones() {
 		arena.zones = new ArrayList<ArenaZone>();
 		for (Map.Entry<String, List<ArenaCell>> entry : cellsByZone.entrySet()) {
-			ArenaZone zone = new ArenaZone();
+			ArenaZone zone = new ArenaZone(gameManager);
 			zone.id = entry.getKey();			
 			for (ArenaCell cell : entry.getValue()) {
 				zone.addCell(cell);
@@ -145,8 +145,10 @@ public class ArenaBuilder {
 	}
 
 	private void buildCells() {
+		final WordSelectionHandler wordSelectionHandler = gameManager.getWordSelectionHandler();
 		cellsByZone = new KeyListMap<String, ArenaCell>();
 		arena.cells = new ArenaCell[arena.width][arena.height];
+		
 		ArenaCell cell;
 		CellData data;
 		int index;
@@ -181,11 +183,11 @@ public class ArenaBuilder {
 		}
 	}
 
-	private CellOwners chooseOwner(CellTypes cellType, int ownerIndex) {
+	private Owners chooseOwner(CellTypes cellType, int ownerIndex) {
 		if (!cellType.canBeOwned()) {
-			return CellOwners.NEUTRAL;
+			return Owners.NEUTRAL;
 		}
-		return CellOwners.values()[ownerIndex];
+		return Owners.values()[ownerIndex];
 	}
 
 	private int choosePower(CellTypes cellType, int power) {

@@ -1,9 +1,9 @@
 package com.slamdunk.wordarena.enums;
 
 /**
- * Détaille à qui appartient une cellule 
+ * Détaille à qui appartient une cellule ou une zone
  */
-public enum CellOwners {
+public enum Owners {
 	/**
 	 * Cellule neutre
 	 */

@@ -6,7 +6,7 @@ import java.util.List;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.wordarena.data.Player;
-import com.slamdunk.wordarena.enums.CellOwners;
+import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
 
 public class WordArenaGame extends SlamGame {
@@ -38,12 +38,12 @@ public class WordArenaGame extends SlamGame {
 		Player p1 = new Player();
 		p1.name = "Abigail";
 		p1.score = 0;
-		p1.owner = CellOwners.PLAYER1;
+		p1.owner = Owners.PLAYER1;
 		
 		Player p2 = new Player();
 		p2.name = "Bob";
 		p2.score = 0;
-		p2.owner = CellOwners.PLAYER2;
+		p2.owner = Owners.PLAYER2;
 		
 		List<Player> players = new ArrayList<Player>();
 		players.add(p1);
