@@ -18,11 +18,13 @@ import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.data.GameManager;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
+import com.slamdunk.wordarena.enums.Owners;
 
 public class ArenaUI extends UIOverlay {
 	private List<Group> componentsGroups;
 	private GameManager gameManager;
 	private Label currentPlayer;
+	private Label scores;
 	
 	public ArenaUI(GameManager gameManager) {
 		this.gameManager = gameManager;
@@ -84,9 +86,15 @@ public class ArenaUI extends UIOverlay {
 		Group group = new Group();
 		group.setUserObject(GameStates.RUNNING);
 		
+		// Libellé indiquant le joueur courant
 		currentPlayer = new Label("", skin);
 		currentPlayer.setPosition(50, WordArenaGame.SCREEN_HEIGHT - 25);
 		group.addActor(currentPlayer);
+		
+		// Libellé donnant les scores
+		scores = new Label("", skin);
+		scores.setPosition(600, WordArenaGame.SCREEN_HEIGHT - 50);
+		group.addActor(scores);
 		
 		TextButton center = new TextButton("CENTRER CAMERA", skin);
 		center.setPosition(0, 0);
@@ -208,5 +216,20 @@ public class ArenaUI extends UIOverlay {
 	public void setCurrentPlayer(Player player, int turn, int maxTurns, int round) {
 		currentPlayer.setText("Round " + round + " - " + player.name + " (Coup " + turn + "/" + maxTurns + ")");
 		currentPlayer.setStyle(Assets.ownerStyles.get(player.owner));
+	}
+	
+	public void updateScores() {
+		StringBuilder sb = new StringBuilder();
+		Player player;
+		for (Owners owner : Owners.values()) {
+			player = gameManager.getPlayersByOwner().get(owner);
+			if (player != null) {
+				sb.append(player.name).append("Score : ").append(player.score);
+				sb.append(", Rounds : ").append(player.nbRoundsWon).append("/").append(gameManager.getNbWinningRoundsPerGame());
+				sb.append("\n");
+			}
+		}
+		
+		scores.setText(sb.toString());
 	}
 }

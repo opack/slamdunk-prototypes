@@ -9,7 +9,7 @@ import com.slamdunk.toolkit.ui.GroupEx;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.data.CellData;
-import com.slamdunk.wordarena.enums.CellOwners;
+import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.CellStates;
 
 /**
@@ -90,7 +90,7 @@ public class ArenaCell extends GroupEx {
 	 * Change le propriétaire de la cellule et met à jour l'image
 	 * @param owner
 	 */
-	public void setOwner(CellOwners owner) {
+	public void setOwner(Owners owner) {
 		data.owner = owner;
 		updateDisplay();		
 	}
