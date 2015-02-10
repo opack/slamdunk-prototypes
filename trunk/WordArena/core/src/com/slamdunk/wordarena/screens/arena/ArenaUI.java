@@ -24,7 +24,7 @@ public class ArenaUI extends UIOverlay {
 	private List<Group> componentsGroups;
 	private GameManager gameManager;
 	private Label currentPlayer;
-	private Label scores;
+	private Label stats;
 	
 	public ArenaUI(GameManager gameManager) {
 		this.gameManager = gameManager;
@@ -92,9 +92,9 @@ public class ArenaUI extends UIOverlay {
 		group.addActor(currentPlayer);
 		
 		// Libellé donnant les scores
-		scores = new Label("", skin);
-		scores.setPosition(600, WordArenaGame.SCREEN_HEIGHT - 50);
-		group.addActor(scores);
+		stats = new Label("", skin);
+		stats.setPosition(700, 300);
+		group.addActor(stats);
 		
 		TextButton center = new TextButton("CENTRER CAMERA", skin);
 		center.setPosition(0, 0);
@@ -218,18 +218,20 @@ public class ArenaUI extends UIOverlay {
 		currentPlayer.setStyle(Assets.ownerStyles.get(player.owner));
 	}
 	
-	public void updateScores() {
+	public void updateStats() {
 		StringBuilder sb = new StringBuilder();
 		Player player;
 		for (Owners owner : Owners.values()) {
 			player = gameManager.getPlayersByOwner().get(owner);
 			if (player != null) {
-				sb.append(player.name).append("Score : ").append(player.score);
-				sb.append(", Rounds : ").append(player.nbRoundsWon).append("/").append(gameManager.getNbWinningRoundsPerGame());
-				sb.append("\n");
+				sb.append("== ").append(player.name).append(" ==");
+				sb.append("\n\tScore : ").append(player.score);
+				sb.append("\n\tZones : ").append(player.nbZonesOwned).append("/").append(gameManager.getNbZones());
+				sb.append("\n\tRounds : ").append(player.nbRoundsWon).append("/").append(gameManager.getNbWinningRoundsPerGame());
+				sb.append("\n\n");
 			}
 		}
 		
-		scores.setText(sb.toString());
+		stats.setText(sb.toString());
 	}
 }

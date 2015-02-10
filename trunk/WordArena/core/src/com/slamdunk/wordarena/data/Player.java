@@ -10,4 +10,5 @@ public class Player {
 	public int score;
 	public Owners owner;
 	public int nbRoundsWon;
+	public int nbZonesOwned;
 }

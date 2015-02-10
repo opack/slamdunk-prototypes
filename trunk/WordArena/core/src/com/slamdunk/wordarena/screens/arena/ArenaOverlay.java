@@ -42,7 +42,7 @@ public class ArenaOverlay extends WorldOverlay {
 	 * @param height Hauteur de l'arène, en nombre de cellules
 	 */
 	public void buildArena(String plan, GameManager gameManager) {
-		ArenaBuilder builder = new ArenaBuilder(gameManager);
+		ArenaBuilder builder = new ArenaBuilder(moveCameraListener, gameManager);
 		
 		TypedProperties arenaProperties = new TypedProperties(plan);
 		builder.load(arenaProperties);
