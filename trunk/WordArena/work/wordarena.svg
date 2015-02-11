@@ -7,16 +7,102 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
+   width="800"
+   height="480"
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r"
    sodipodi:docname="wordarena.svg">
   <defs
-     id="defs4" />
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3908">
+      <stop
+         style="stop-color:#acb9ca;stop-opacity:1;"
+         offset="0"
+         id="stop3910" />
+      <stop
+         style="stop-color:#acb9ca;stop-opacity:0;"
+         offset="1"
+         id="stop3912" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3908"
+       id="linearGradient3914"
+       x1="572.73309"
+       y1="617.8609"
+       x2="572.73309"
+       y2="584.58337"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3908-7"
+       id="linearGradient3914-1"
+       x1="572.73309"
+       y1="617.8609"
+       x2="572.73309"
+       y2="584.58337"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3908-7">
+      <stop
+         style="stop-color:#acb9ca;stop-opacity:1;"
+         offset="0"
+         id="stop3910-8" />
+      <stop
+         style="stop-color:#acb9ca;stop-opacity:0;"
+         offset="1"
+         id="stop3912-9" />
+    </linearGradient>
+    <linearGradient
+       gradientTransform="matrix(1.0305556,0,0,1.0305556,-360.16559,-13.536261)"
+       y2="584.58337"
+       x2="572.73309"
+       y1="617.8609"
+       x1="572.73309"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3931"
+       xlink:href="#linearGradient3908-7"
+       inkscape:collect="always" />
+    <linearGradient
+       gradientTransform="matrix(1.0305556,0,0,1.0305556,-360.16559,-20.059454)"
+       y2="584.58337"
+       x2="572.73309"
+       y1="617.8609"
+       x1="572.73309"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3931-8"
+       xlink:href="#linearGradient3908-7-9"
+       inkscape:collect="always" />
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3908-7-9">
+      <stop
+         style="stop-color:#acb9ca;stop-opacity:1;"
+         offset="0"
+         id="stop3910-8-6" />
+      <stop
+         style="stop-color:#acb9ca;stop-opacity:0;"
+         offset="1"
+         id="stop3912-9-1" />
+    </linearGradient>
+    <linearGradient
+       y2="584.58337"
+       x2="572.73309"
+       y1="617.8609"
+       x1="572.73309"
+       gradientTransform="matrix(1.0305556,0,0,1.0305556,-12.953766,-13.536256)"
+       gradientUnits="userSpaceOnUse"
+       id="linearGradient3965"
+       xlink:href="#linearGradient3908-7-9"
+       inkscape:collect="always" />
+  </defs>
   <sodipodi:namedview
      id="base"
      pagecolor="#ffffff"
@@ -25,8 +111,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="476.62554"
-     inkscape:cy="976.84974"
+     inkscape:cx="396.45445"
+     inkscape:cy="409.46841"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -50,7 +136,8 @@
   <g
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(0,-572.36218)">
     <g
        id="g3773"
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\edge_neutral.png"
@@ -963,5 +1050,59 @@
            y="202.33917" />
       </g>
     </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot3107"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Arial;font-style:normal;font-weight:normal;font-size:18px;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;text-align:center;-inkscape-font-specification:Arial;font-stretch:normal;font-variant:normal"><flowRegion
+         id="flowRegion3109"><rect
+           id="rect3111"
+           width="254.55844"
+           height="48.48732"
+           x="114.14724"
+           y="6.2384601"
+           style="-inkscape-font-specification:Arial;font-family:Arial;font-weight:normal;font-style:normal;font-stretch:normal;font-variant:normal;font-size:18px" /></flowRegion><flowPara
+         id="flowPara3113"></flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="399.51221"
+       y="598.61804"
+       id="text3115"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3117"
+         x="399.51221"
+         y="598.61804"
+         style="font-size:18px">currentPlayer</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:32px;font-style:normal;font-weight:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="399.32031"
+       y="629.81531"
+       id="text3115-2"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3117-2"
+         x="399.32031"
+         y="629.81531"
+         style="font-size:32px">MOT_EN_COURS</tspan></text>
+    <rect
+       style="fill:url(#linearGradient3931);fill-opacity:1;stroke:#5d7696;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3105-1"
+       width="53"
+       height="53"
+       x="201.06497"
+       y="595.21375"
+       ry="7.729167" />
+    <rect
+       style="fill:url(#linearGradient3965);fill-opacity:1;stroke:#5d7696;stroke-width:3;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3105-1-8"
+       width="53"
+       height="53"
+       x="548.27679"
+       y="595.21375"
+       ry="7.729167"
+       inkscape:export-filename="D:\perso\dev\slamdunk-prototypes\WordArena\work\button_word.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
