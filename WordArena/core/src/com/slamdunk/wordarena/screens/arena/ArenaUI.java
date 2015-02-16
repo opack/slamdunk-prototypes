@@ -5,12 +5,14 @@ import java.util.List;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.wordarena.Assets;
@@ -19,8 +21,14 @@ import com.slamdunk.wordarena.data.GameManager;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
 import com.slamdunk.wordarena.enums.Owners;
+import com.uwsoft.editor.renderer.SceneLoader;
+import com.uwsoft.editor.renderer.resources.ResourceManager;
+import com.uwsoft.editor.renderer.script.SimpleButtonScript;
 
 public class ArenaUI extends UIOverlay {
+	private ResourceManager resourceManager;
+	private SceneLoader sceneLoader;
+	
 	private List<Group> componentsGroups;
 	private GameManager gameManager;
 	private Label currentPlayer;
@@ -49,6 +57,41 @@ public class ArenaUI extends UIOverlay {
 			group.setVisible(false);
 			stage.addActor(group);
 		}
+		
+		loadScene();
+	}
+	
+
+	/**
+	 * Charge les composants définis dans Overlap2D
+	 */
+	private void loadScene() {
+		resourceManager = new ResourceManager();
+		resourceManager.initAllResources();
+		sceneLoader = new SceneLoader(resourceManager);
+		sceneLoader.loadScene("MainScene");
+		getStage().addActor(sceneLoader.sceneActor);
+		
+		sceneLoader.sceneActor.setTouchable(Touchable.childrenOnly);
+		
+		SimpleButtonScript validateScript = new SimpleButtonScript();
+		validateScript.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				gameManager.validateWord();
+			}
+		});
+		sceneLoader.sceneActor.getCompositeById("validateWord").addScript(validateScript);
+		
+		SimpleButtonScript cancelScript = new SimpleButtonScript();
+		cancelScript.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				gameManager.cancelWord();
+			}
+		});
+		sceneLoader.sceneActor.getCompositeById("cancelWord").addScript(cancelScript);
+		
+		currentPlayer = sceneLoader.sceneActor.getLabelById("currentPlayer");
+		result = sceneLoader.sceneActor.getLabelById("currentWord");
 	}
 
 	/**
@@ -87,19 +130,19 @@ public class ArenaUI extends UIOverlay {
 		Group group = new Group();
 		group.setUserObject(GameStates.RUNNING);
 		
-		// Libellé indiquant le joueur courant
-		currentPlayer = new Label("", skin);
-		currentPlayer.setAlignment(Align.center);
-		currentPlayer.setWidth(200);
-		currentPlayer.setPosition(300, 465);
-		group.addActor(currentPlayer);
+//		// Libellé indiquant le joueur courant
+//		currentPlayer = new Label("", skin);
+//		currentPlayer.setAlignment(Align.center);
+//		currentPlayer.setWidth(200);
+//		currentPlayer.setPosition(300, 465);
+//		group.addActor(currentPlayer);
 		
-		// Libellé servant de résultat d'action
-		result = new Label("", skin);
-		result.setAlignment(Align.center);
-		result.setWidth(200);
-		result.setPosition(300, 440);
-		group.addActor(result);
+//		// Libellé servant de résultat d'action
+//		result = new Label("", skin);
+//		result.setAlignment(Align.center);
+//		result.setWidth(200);
+//		result.setPosition(300, 440);
+//		group.addActor(result);
 		
 		// Libellé donnant les scores
 		stats = new Label("", skin);
