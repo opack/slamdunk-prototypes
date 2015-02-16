@@ -18,12 +18,8 @@ import com.slamdunk.wordarena.data.ArenaData;
 import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.data.GameManager;
 import com.slamdunk.wordarena.enums.Owners;
-import com.uwsoft.editor.renderer.SceneLoader;
-import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class ArenaOverlay extends WorldOverlay {
-	private ResourceManager resourceManager;
-	private SceneLoader sceneLoader;
 	private ArenaData data;
 	private MoveCameraDragListener moveCameraListener;
 	
@@ -32,12 +28,6 @@ public class ArenaOverlay extends WorldOverlay {
 		
 		moveCameraListener = new MoveCameraDragListener(getStage().getCamera());
 		getStage().addListener(moveCameraListener);
-		
-		resourceManager = new ResourceManager();
-		resourceManager.initAllResources();
-		sceneLoader = new SceneLoader(resourceManager);
-		sceneLoader.loadScene("MainScene");
-		getStage().addActor(sceneLoader.sceneActor);
 	}
 	
 	public ArenaData getData() {
