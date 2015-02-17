@@ -90,6 +90,14 @@ public class ArenaUI extends UIOverlay {
 		});
 		sceneLoader.sceneActor.getCompositeById("cancelWord").addScript(cancelScript);
 		
+		SimpleButtonScript refreshZoneScript = new SimpleButtonScript();
+		refreshZoneScript.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				gameManager.refreshStartingZone();
+			}
+		});
+		sceneLoader.sceneActor.getCompositeById("refreshZone").addScript(refreshZoneScript);
+		
 		currentPlayer = sceneLoader.sceneActor.getLabelById("currentPlayer");
 		result = sceneLoader.sceneActor.getLabelById("currentWord");
 	}

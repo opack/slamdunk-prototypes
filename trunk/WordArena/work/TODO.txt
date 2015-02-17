@@ -3,7 +3,7 @@ WordArena
 [ ] Faire les dispose() dans Assets, les overlays...
 [ ] Avoir un visuel différent par types de cellule
 
-Ashley
+Ashley                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
 ¯¯¯¯¯¯
 Trouver un moyen de mixer UI et rendering normal : p-e avec un Stage superposé aux coordonnées du monde réel ? Mais alors on a 2 couches, donc pas un vrai mix... :s
 

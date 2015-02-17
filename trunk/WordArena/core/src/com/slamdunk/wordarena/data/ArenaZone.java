@@ -1,6 +1,7 @@
 package com.slamdunk.wordarena.data;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,6 +69,10 @@ public class ArenaZone {
 		lines = new ArrayList<Sprite>();
 		
 		tmp = new Point(0, 0);
+	}
+	
+	public Collection<ArenaCell> getCells() {
+		return cells.values();
 	}
 
 	public void addCell(ArenaCell cell) {

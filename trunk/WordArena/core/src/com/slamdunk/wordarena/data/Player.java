@@ -11,4 +11,5 @@ public class Player {
 	public Owners owner;
 	public int nbRoundsWon;
 	public int nbZonesOwned;
+	public int nbWordsPlayed;
 }

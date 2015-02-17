@@ -21,7 +21,7 @@ import com.slamdunk.wordarena.enums.Letters;
  * Construit une arène à partir d'un plan
  */
 public class ArenaBuilder {
-	private static final String LETTER_FROM_DECK = "-";
+	public static final String LETTER_FROM_DECK = "-";
 	private static final String ZONE_NONE = "0";
 	private static final String CELL_SEPARATOR = " ";
 	
@@ -170,13 +170,14 @@ public class ArenaBuilder {
 				data.state = CellStates.NORMAL;
 				
 				data.type = CellTypes.valueOf(types[index]);
-				data.letter = chooseLetter(data.type, letters[index]);
+				data.planLetter = letters[index];
+				data.letter = chooseLetter(data.type, letters[index], arena.letterDeck);
 				data.power = choosePower(data.type, powers[index]);
 				data.owner = chooseOwner(data.type, owners[index]);
 				
 				// Placement de la cellule dans le monde et mise à jour du display
 				cell.setPosition(x * cell.getWidth(), y * cell.getHeight());
-				arena.cells[x][y].updateDisplay();
+				cell.updateDisplay();
 				
 				// Regroupe les cellules par zone
 				if (!ZONE_NONE.equals(zones[index])) {
@@ -186,14 +187,14 @@ public class ArenaBuilder {
 		}
 	}
 
-	private Owners chooseOwner(CellTypes cellType, int ownerIndex) {
+	private static Owners chooseOwner(CellTypes cellType, int ownerIndex) {
 		if (!cellType.canBeOwned()) {
 			return Owners.NEUTRAL;
 		}
 		return Owners.values()[ownerIndex];
 	}
 
-	private int choosePower(CellTypes cellType, int power) {
+	private static int choosePower(CellTypes cellType, int power) {
 		if (!cellType.hasPower()) {
 			return 0;
 		}
@@ -206,7 +207,7 @@ public class ArenaBuilder {
 	 * @param letter
 	 * @return
 	 */
-	private Letters chooseLetter(CellTypes cellType, String letter) {
+	public static Letters chooseLetter(CellTypes cellType, String letter, Deck<Letters> letterDeck) {
 		if (!cellType.hasLetter()) {
 			return Letters.EMPTY;
 		}
@@ -214,7 +215,7 @@ public class ArenaBuilder {
 			return Letters.JOKER;
 		}
 		if (LETTER_FROM_DECK.equals(letter)) {
-			return arena.letterDeck.draw();
+			return letterDeck.draw();
 		}
 		return Letters.valueOf(letter);
 	}

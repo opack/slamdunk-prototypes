@@ -16,6 +16,7 @@ import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.data.ArenaBuilder;
 import com.slamdunk.wordarena.data.ArenaData;
 import com.slamdunk.wordarena.data.ArenaZone;
+import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.GameManager;
 import com.slamdunk.wordarena.enums.Owners;
 
@@ -110,5 +111,28 @@ public class ArenaOverlay extends WorldOverlay {
 	 */
 	public void setVisible(boolean visible) {
 		getWorld().setVisible(visible);
+	}
+	
+	/**
+	 * Si le joueur n'a pas encore joué, il peut demander de nouvelles
+	 * lettres dans sa zone de départ
+	 */
+	public void refreshStartingZone(Owners owner) {
+		// Recherche la zone de cet owner
+		for (ArenaZone zone : data.zones) {
+			if (zone.getOwner() == owner) {
+				// Tire de nouvelles lettres pour les cellules de cette zone
+				CellData cellData;
+				for (ArenaCell cell : zone.getCells()) {
+					cellData = cell.getData();
+					cellData.letter = ArenaBuilder.chooseLetter(cellData.type, cellData.planLetter, data.letterDeck);
+					cell.updateDisplay();
+				}
+				// Les lettres de la zone ont été changées. On suppose qu'il n'y a
+				// qu'une seule zone de départ. Inutile donc de continuer à traiter
+				// les autres zones.
+				break;
+			}
+		}
 	}
 }

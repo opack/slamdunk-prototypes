@@ -29,6 +29,8 @@ public class GameManager {
 	private static final int SCORE_ZONE_STEALED = 5;
 	private static final int SCORE_ZONE_GAINED = 3;
 	
+	private static final int MALUS_REFRESH_STARTING_ZONE = 5;
+	
 	private ArenaScreen screen;
 	private String arenaPlanFile;
 	
@@ -135,12 +137,16 @@ public class GameManager {
 		String word = wordSelectionHandler.getLastValidatedWord();
 		switch (result) {
 		case OK:
-			screen.getUI().updateResult(players.get(curPlayer).name + " a joué " + word);
+			Player player = getCurrentPlayer();
+			screen.getUI().updateResult(player.name + " a joué " + word);
 			// Toutes les cellules passent sous la domination du joueur
-			screen.getArena().setOwner(wordSelectionHandler.getSelectedCells(), players.get(curPlayer).owner);
+			screen.getArena().setOwner(wordSelectionHandler.getSelectedCells(), player.owner);
 			// Le score du joueur est modifié
-			players.get(curPlayer).score += computeScore(wordSelectionHandler.getSelectedCells());
+			player.score += computeScore(wordSelectionHandler.getSelectedCells());
 			screen.getUI().updateStats();
+			// Le joueur a joué un coup. C'est bon à savoir pour les stats
+			// et pour autoriser ou non le refresh de la zone de départ
+			player.nbWordsPlayed++;
 			// Fin du tour de ce joueur
 			endStroke();
 			break;
@@ -272,6 +278,7 @@ public class GameManager {
 		for (Player player : players) {
 			player.score = 0;
 			player.nbZonesOwned = 0;
+			player.nbWordsPlayed = 0;
 		}
 		
 		// Réinitialise le sélecteur de mots
@@ -403,5 +410,21 @@ public class GameManager {
 
 	public int getNbZones() {
 		return nbZones;
+	}
+
+	public void refreshStartingZone() {
+		// Au premier coup du round, on peut rafraîchir la zone de départ. Après on ne peut plus.
+		if (getCurrentPlayer().nbWordsPlayed != 0) {
+			return;
+		}
+		// Change les lettres de la zone de départ
+		screen.getArena().refreshStartingZone(getCurrentPlayer().owner);
+		// Affiche un message de confirmation
+		screen.getUI().updateResult(getCurrentPlayer().name + " a tiré de nouvelles lettres");
+		// Le score du joueur est modifié
+		getCurrentPlayer().score -= MALUS_REFRESH_STARTING_ZONE;
+		screen.getUI().updateStats();
+		// Fin du tour de ce joueur
+		endStroke();
 	}
 }
