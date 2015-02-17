@@ -16,7 +16,12 @@ public class CellData {
 	public CellTypes type;
 	
 	/**
-	 * La lettre contenue dans la cellule
+	 * Lettre initialement contenue dans la cellule, telle qu'indiquée dans le plan
+	 */
+	public String planLetter;
+	
+	/**
+	 * La lettre actuellement contenue dans la cellule
 	 */
 	public Letters letter;
 	

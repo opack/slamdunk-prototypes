@@ -1,6 +1,6 @@
 
 pack.png
-size: 256,64
+size: 512,64
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
@@ -18,16 +18,30 @@ buttoncancelwordpressed
   orig: 48, 48
   offset: 0, 0
   index: -1
-buttonvalidatewordnormal
+buttonrefreshzonenormal
   rotate: false
   xy: 102, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-buttonvalidatewordpressed
+buttonrefreshzonepressed
   rotate: false
   xy: 152, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+buttonvalidatewordnormal
+  rotate: false
+  xy: 202, 2
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+buttonvalidatewordpressed
+  rotate: false
+  xy: 252, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0

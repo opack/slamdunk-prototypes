@@ -36,7 +36,7 @@ public class WordArenaGame extends SlamGame {
 
 	private void launchGame() {
 		Player p1 = new Player();
-		p1.name = "Abigail";
+		p1.name = "Anne";
 		p1.score = 0;
 		p1.owner = Owners.PLAYER1;
 		
@@ -50,7 +50,7 @@ public class WordArenaGame extends SlamGame {
 		players.add(p2);
 		
 		ArenaScreen arena = (ArenaScreen)getScreen(ArenaScreen.NAME);
-		arena.prepareGame("arenas/2.properties", players);
+		arena.prepareGame("arenas/0.properties", players);
 		setScreen(ArenaScreen.NAME);
 	}
 }
