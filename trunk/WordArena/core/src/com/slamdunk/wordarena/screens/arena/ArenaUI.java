@@ -22,11 +22,9 @@ import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
 import com.slamdunk.wordarena.enums.Owners;
 import com.uwsoft.editor.renderer.SceneLoader;
-import com.uwsoft.editor.renderer.resources.ResourceManager;
 import com.uwsoft.editor.renderer.script.SimpleButtonScript;
 
 public class ArenaUI extends UIOverlay {
-	private ResourceManager resourceManager;
 	private SceneLoader sceneLoader;
 	
 	private List<Group> componentsGroups;
@@ -66,10 +64,8 @@ public class ArenaUI extends UIOverlay {
 	 * Charge les composants définis dans Overlap2D
 	 */
 	private void loadScene() {
-		resourceManager = new ResourceManager();
-		resourceManager.initAllResources();
-		sceneLoader = new SceneLoader(resourceManager);
-		sceneLoader.loadScene("MainScene");
+		sceneLoader = new SceneLoader(Assets.resourceManager);
+		sceneLoader.loadScene("Arena");
 		getStage().addActor(sceneLoader.sceneActor);
 		
 		sceneLoader.sceneActor.setTouchable(Touchable.childrenOnly);
@@ -98,6 +94,15 @@ public class ArenaUI extends UIOverlay {
 		});
 		sceneLoader.sceneActor.getCompositeById("refreshZone").addScript(refreshZoneScript);
 		
+		SimpleButtonScript resumeScript = new SimpleButtonScript();
+		resumeScript.addListener(new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+//				Assets.playSound(Assets.clickSound);
+				gameManager.changeState(GameStates.RUNNING);
+			}
+		});
+		sceneLoader.sceneActor.getCompositeById("resume").addScript(resumeScript);
+		
 		currentPlayer = sceneLoader.sceneActor.getLabelById("currentPlayer");
 		result = sceneLoader.sceneActor.getLabelById("currentWord");
 	}
@@ -106,6 +111,10 @@ public class ArenaUI extends UIOverlay {
 	 * Charge les composants à afficher lorsque le jeu est à l'état indiqué
 	 */
 	public void present(GameStates state) {
+		// DBG Mettre ce comportement dans un iScript qui check si le state a changé, et le cas échéant affiche la bonne couche
+		for (GameStates cur : GameStates.values()) {
+			sceneLoader.sceneActor.setLayerVisibilty(cur.name(), cur == state);
+		}
 		for (Group group : componentsGroups) {
 			group.setVisible(state.equals(group.getUserObject()));
 		}
