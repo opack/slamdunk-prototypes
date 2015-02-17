@@ -16,8 +16,11 @@ import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.CellStates;
+import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class Assets {
+	public static ResourceManager resourceManager;
+	
 	public static Skin skin;
 	public static Map<Owners, LabelStyle> ownerStyles;
 	
@@ -27,6 +30,7 @@ public class Assets {
 	public static Map<Owners, Texture> edges;
 	
 	public static void load () {
+		loadResourceManager();
 		loadSkin();
 		loadCells();
 		loadEdges();
@@ -34,6 +38,11 @@ public class Assets {
 		backgroundRegion = new TextureRegion(background, 0, 0, 320, 480);
 	}
 	
+	private static void loadResourceManager() {
+		resourceManager = new ResourceManager();
+		resourceManager.initAllResources();
+	}
+
 	private static void loadSkin() {
 		skin = new Skin(Gdx.files.internal("skins/wordarena/uiskin.json"));
 		ownerStyles = new HashMap<Owners, LabelStyle>();
