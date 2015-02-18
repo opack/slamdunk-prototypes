@@ -338,7 +338,7 @@ public class GameManager {
 		} else {
 			// Fin de partie
 			screen.getUI().updateResult(winner.name + " gagne la partie !");
-			changeState(GameStates.OVER);
+			changeState(GameStates.GAME_OVER);
 			return;
 		}
 		

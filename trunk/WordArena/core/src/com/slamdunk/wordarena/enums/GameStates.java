@@ -4,6 +4,5 @@ public enum GameStates {
 	READY,
 	RUNNING,
 	PAUSED,
-	LEVEL_END,
-	OVER;
+	GAME_OVER;
 }

@@ -6,8 +6,8 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordArenaGame;
+import com.slamdunk.wordarena.utils.Overlap2DUtils;
 import com.uwsoft.editor.renderer.SceneLoader;
-import com.uwsoft.editor.renderer.script.SimpleButtonScript;
 
 public class HomeUI extends UIOverlay {
 	private HomeScreen screen;
@@ -23,35 +23,29 @@ public class HomeUI extends UIOverlay {
 	}
 
 	private void loadScene() {
-		SceneLoader sceneLoader = new SceneLoader(Assets.resourceManager);
+		SceneLoader sceneLoader = new SceneLoader(Assets.overlap2dResourceManager);
 		sceneLoader.loadScene("Home");
 		getStage().addActor(sceneLoader.sceneActor);
 		
 		// Bouton Play !
-		SimpleButtonScript playScript = new SimpleButtonScript();
-		playScript.addListener(new ClickListener() {
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnPlay", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				screen.launchGame();
 			}
 		});
-		sceneLoader.sceneActor.getCompositeById("play").addScript(playScript);
 		
 		// Bouton Options
-		SimpleButtonScript optionsScript = new SimpleButtonScript();
-		optionsScript.addListener(new ClickListener() {
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnOptions", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				System.out.println("DBG Options");
 			}
 		});
-		sceneLoader.sceneActor.getCompositeById("options").addScript(optionsScript);
 		
 		// Bouton Quit
-		SimpleButtonScript quitScript = new SimpleButtonScript();
-		quitScript.addListener(new ClickListener() {
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnQuit", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				System.out.println("DBG Quit");
 			}
 		});
-		sceneLoader.sceneActor.getCompositeById("quit").addScript(quitScript);
 	}
 }
