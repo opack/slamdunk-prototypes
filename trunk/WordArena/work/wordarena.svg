@@ -389,6 +389,24 @@
        id="linearGradient4129"
        xlink:href="#linearGradient3908-7-0-4-5"
        inkscape:collect="always" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3908-7-0-4"
+       id="linearGradient4432"
+       gradientUnits="userSpaceOnUse"
+       x1="-212.40224"
+       y1="182.33258"
+       x2="-211.86183"
+       y2="131.69186" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3908-7-0-4-5"
+       id="linearGradient4434"
+       gradientUnits="userSpaceOnUse"
+       x1="-212.40224"
+       y1="182.33258"
+       x2="-211.86183"
+       y2="131.69186" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -1512,7 +1530,8 @@
        id="g4056"
        inkscape:export-filename="D:\perso\dev\slamdunk-prototypes\WordArena\work\button_refreshzone_normal.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       transform="translate(1.4285714,-4.2857143)">
       <g
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
@@ -1543,12 +1562,12 @@
         <path
            inkscape:connector-curvature="0"
            style="font-size:medium;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-indent:0;text-align:start;text-decoration:none;line-height:normal;letter-spacing:normal;word-spacing:normal;text-transform:none;direction:ltr;block-progression:tb;writing-mode:lr-tb;text-anchor:start;baseline-shift:baseline;color:#000000;fill:#5d7696;fill-opacity:1;stroke:none;stroke-width:10.8279295;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate;font-family:Sans;-inkscape-font-specification:Sans"
-           d="m 654.59375,-34.3125 c -7.01868,0 -12.78125,5.76258 -12.78125,12.78125 0,7.01868 5.76257,12.75 12.78125,12.75 4.0124,0 7.5707,-1.892972 9.90625,-4.8125 l -3.21875,-4.03125 c -1.33886,2.309114 -3.80324,3.84375 -6.6875,3.84375 -4.31648,0 -7.78125,-3.43352 -7.78125,-7.75 0,-4.31647 3.46477,-7.78125 7.78125,-7.78125 2.84183,0 5.30354,1.493245 6.65625,3.75 l 3.875,-3.09375 c -2.28913,-3.39708 -6.14826,-5.65625 -10.53125,-5.65625 z"
+           d="M 654.59375,-34.3125 C 647.57507,-34.3125 641.8125,-28.54992 641.8125,-21.53125 641.8125,-14.51257 647.57507,-8.78125 654.59375,-8.78125 658.60615,-8.78125 662.16445,-10.674222 664.5,-13.59375 L 661.28125,-17.625 C 659.94239,-15.315886 657.47801,-13.78125 654.59375,-13.78125 650.27727,-13.78125 646.8125,-17.21477 646.8125,-21.53125 646.8125,-25.84772 650.27727,-29.3125 654.59375,-29.3125 657.43558,-29.3125 659.89729,-27.819255 661.25,-25.5625 L 665.125,-28.65625 C 662.83587,-32.05333 658.97674,-34.3125 654.59375,-34.3125 z"
            transform="translate(0,572.36218)"
            id="path3140-8-5-9" />
         <path
            style="fill:#5d7696;fill-opacity:1;stroke:#5d7696;stroke-width:3;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
-           d="m 666.29385,549.30896 0.60712,-5.20131 -5.80841,4.59419 5.20129,0.60712 z"
+           d="M 666.29385,549.30896 666.90097,544.10765 661.09256,548.70184 666.29385,549.30896 z"
            id="rect4030"
            inkscape:connector-curvature="0" />
       </g>
@@ -1676,7 +1695,8 @@
        id="g4099"
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\button_pause_normal.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       transform="translate(0,-2.8571429)">
       <g
          inkscape:export-ydpi="90"
          inkscape:export-xdpi="90"
@@ -1700,7 +1720,7 @@
              sodipodi:cy="156.75119"
              sodipodi:cx="-212.13203"
              id="path3140-8-5-5"
-             style="fill:url(#linearGradient5400-7-9);fill-opacity:1;stroke:#5d7696;stroke-width:5.16822243;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+             style="fill:url(#linearGradient4432);fill-opacity:1;stroke:#5d7696;stroke-width:5.16822243;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
              sodipodi:type="arc" />
           <g
              transform="translate(-5.3841722,-65.507774)"
@@ -1787,16 +1807,17 @@
        id="g4426"
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\button_centercamera_normal.png"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90">
+       inkscape:export-ydpi="90"
+       transform="translate(-0.71428572,-10)">
       <path
          sodipodi:type="arc"
-         style="fill:url(#linearGradient4129);fill-opacity:1;stroke:#5d7696;stroke-width:5.16822243;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+         style="fill:url(#linearGradient4434);fill-opacity:1;stroke:#5d7696;stroke-width:5.16822243;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
          id="path3140-8-5-5-1"
          sodipodi:cx="-212.13203"
          sodipodi:cy="156.75119"
          sodipodi:rx="22.223356"
          sodipodi:ry="22.223356"
-         d="M -189.90868,156.75119 A 22.223356,22.223356 0 1 1 -189.90962,156.54626"
+         d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
          transform="matrix(0.96745063,0,0,0.96745063,969.12384,401.46063)"
          sodipodi:start="0"
          sodipodi:end="6.273964"

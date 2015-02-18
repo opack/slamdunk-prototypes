@@ -1,6 +1,6 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
-[ ] Faire les dispose() dans Assets, les overlays...
+[ ] Supprimer le code et les assets sans lien avec WordArena (les mettre dans un autre slamdunk-prototype)
 [ ] Avoir un visuel différent par types de cellule
 
 Ashley                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
