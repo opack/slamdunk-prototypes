@@ -19,13 +19,9 @@ import com.slamdunk.wordarena.enums.CellStates;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class Assets {
-	public static ResourceManager resourceManager;
-	
+	public static ResourceManager overlap2dResourceManager;
 	public static Skin skin;
 	public static Map<Owners, LabelStyle> ownerStyles;
-	
-	public static Texture background;
-	public static TextureRegion backgroundRegion;
 	public static DoubleEntryArray<Owners, CellStates, TextureRegionDrawable> cells;
 	public static Map<Owners, Texture> edges;
 	
@@ -34,13 +30,21 @@ public class Assets {
 		loadSkin();
 		loadCells();
 		loadEdges();
-		background = loadTexture("textures/background.png");
-		backgroundRegion = new TextureRegion(background, 0, 0, 320, 480);
+	}
+	
+	public static void dispose () {
+		disposeResourceManager();
+		disposeSkin();
+		disposeEdges();
 	}
 	
 	private static void loadResourceManager() {
-		resourceManager = new ResourceManager();
-		resourceManager.initAllResources();
+		overlap2dResourceManager = new ResourceManager();
+		overlap2dResourceManager.initAllResources();
+	}
+	
+	private static void disposeResourceManager() {
+		overlap2dResourceManager.dispose();
 	}
 
 	private static void loadSkin() {
@@ -49,6 +53,10 @@ public class Assets {
 		for (Owners owner : Owners.values()) {
 			ownerStyles.put(owner, skin.get(owner.name(), LabelStyle.class));
 		}
+	}
+	
+	private static void disposeSkin() {
+		skin.dispose();
 	}
 
 	public static Texture loadTexture (String file) {
@@ -103,6 +111,12 @@ public class Assets {
 		player4.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		player4.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 	    edges.put(Owners.PLAYER4, player4);
+	}
+	
+	private static void disposeEdges() {
+		for (Texture texture : edges.values()) {
+			texture.dispose();
+		}
 	}
 	
 	private static TextureRegion[][] splitSpriteSheet(String file, int nbRows, int nbCols) {

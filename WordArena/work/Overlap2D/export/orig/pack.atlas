@@ -25,6 +25,20 @@ buttoncancelwordpressed
   orig: 48, 48
   offset: 0, 0
   index: -1
+buttoncentercameranormal
+  rotate: false
+  xy: 862, 384
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+buttoncentercamerapressed
+  rotate: false
+  xy: 912, 434
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
 buttonlambdanormal
   rotate: false
   xy: 804, 426
@@ -44,77 +58,91 @@ buttonlambdapressed
   index: -1
 buttonletterborder
   rotate: false
-  xy: 862, 384
+  xy: 804, 268
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterneutral
   rotate: false
-  xy: 912, 434
+  xy: 912, 384
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterplayer1
   rotate: false
-  xy: 804, 268
+  xy: 962, 434
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterplayer2
   rotate: false
-  xy: 912, 384
+  xy: 804, 218
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterplayer3
   rotate: false
-  xy: 962, 434
+  xy: 962, 384
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterplayer4
   rotate: false
-  xy: 804, 218
+  xy: 804, 168
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterselected
   rotate: false
-  xy: 962, 384
-  size: 48, 48
-  orig: 48, 48
-  offset: 0, 0
-  index: -1
-buttonrefreshzonenormal
-  rotate: false
-  xy: 804, 168
-  size: 48, 48
-  orig: 48, 48
-  offset: 0, 0
-  index: -1
-buttonrefreshzonepressed
-  rotate: false
   xy: 804, 118
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-buttonvalidatewordnormal
+buttonpausenormal
   rotate: false
   xy: 804, 68
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
-buttonvalidatewordpressed
+buttonpausepressed
   rotate: false
   xy: 804, 18
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+buttonrefreshzonenormal
+  rotate: false
+  xy: 862, 334
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+buttonrefreshzonepressed
+  rotate: false
+  xy: 912, 334
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+buttonvalidatewordnormal
+  rotate: false
+  xy: 962, 334
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+buttonvalidatewordpressed
+  rotate: false
+  xy: 854, 284
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
