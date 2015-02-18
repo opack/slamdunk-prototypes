@@ -28,4 +28,10 @@ public class WordArenaGame extends SlamGame {
 		// Affiche le premier écran
 		setScreen(HomeScreen.NAME);
 	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+		Assets.dispose();
+	}
 }
