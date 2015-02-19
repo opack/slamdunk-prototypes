@@ -1,5 +1,6 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
+[ ] Ecrire un SimpleButtonScript qui tient compte de l'internationalisation pour le libellé du bouton
 [ ] Supprimer le code et les assets sans lien avec WordArena (les mettre dans un autre slamdunk-prototype)
 [ ] Avoir un visuel différent par types de cellule
 

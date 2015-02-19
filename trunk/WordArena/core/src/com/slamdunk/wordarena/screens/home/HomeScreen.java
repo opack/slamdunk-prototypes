@@ -42,7 +42,7 @@ public class HomeScreen extends SlamScreen {
 		players.add(p2);
 		
 		ArenaScreen arena = (ArenaScreen)getGame().getScreen(ArenaScreen.NAME);
-		arena.prepareGame("arenas/1.properties", players);
+		arena.prepareGame("arenas/3_diamond.properties", players);
 		getGame().setScreen(ArenaScreen.NAME);
 	}
 }
