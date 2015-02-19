@@ -43,13 +43,15 @@ public class ArenaOverlay extends WorldOverlay {
 	 * @param height Hauteur de l'arène, en nombre de cellules
 	 */
 	public void buildArena(String plan, GameManager gameManager) {
-		ArenaBuilder builder = new ArenaBuilder(moveCameraListener, gameManager);
-		
+		// Charge le plan
 		TypedProperties arenaProperties = new TypedProperties(plan);
-		builder.load(arenaProperties);
 		
-		// Crée l'arène
-		data = builder.build();
+		// Construit l'arène à partir du plan
+		ArenaBuilder builder = new ArenaBuilder(moveCameraListener, gameManager);
+		builder.load(arenaProperties);
+		data = builder.build();		
+		
+		// Ajoute l'arène dans le monde
 		for (int y = 0; y < data.height; y++) {
 			for (int x = 0; x < data.width; x++) {
 				// Ajout de la cellule à l'arène
@@ -111,6 +113,18 @@ public class ArenaOverlay extends WorldOverlay {
 	 */
 	public void setVisible(boolean visible) {
 		getWorld().setVisible(visible);
+	}
+	
+	/**
+	 * Affiche ou masque le lettres
+	 * @param visible
+	 */
+	public void showLetters(boolean show) {
+		for (int y = 0; y < data.height; y++) {
+			for (int x = 0; x < data.width; x++) {
+				data.cells[x][y].showLetter(show);
+			}
+		}
 	}
 	
 	/**

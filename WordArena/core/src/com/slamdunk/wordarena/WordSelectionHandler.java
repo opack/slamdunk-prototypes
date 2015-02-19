@@ -23,14 +23,14 @@ import com.slamdunk.wordarena.enums.ReturnCodes;
 public class WordSelectionHandler {
 	private static final int MIN_WORD_LENGTH = 2;
 
-	private GameManager gameData;
+	private GameManager gameManager;
 	private List<ArenaCell> selectedCells;
 	private final Set<String> dictionnary;
 	private final Set<String> alreadyPlayed;
 	private String lastValidatedWord;
 	
-	public WordSelectionHandler(GameManager gameData) {
-		this.gameData = gameData;
+	public WordSelectionHandler(GameManager gameManager) {
+		this.gameManager = gameManager;
 		selectedCells = new ArrayList<ArenaCell>();
 		
 		dictionnary = new HashSet<String>();
@@ -73,6 +73,7 @@ public class WordSelectionHandler {
 			// La cellule est déjà sélectionnée : on souhaite donc
 			// la désélectionner, ainsi que les suivantes
 			unselectCellsFrom(cell);
+			gameManager.setCurrentWord(getCurrentWord());
 			return false;
 		}
 		
@@ -89,7 +90,7 @@ public class WordSelectionHandler {
 		// contrôlée par le joueur
 		else {
 			ArenaZone zone = cell.getData().zone;
-			Owners player = gameData.getCurrentPlayer().owner;
+			Owners player = gameManager.getCurrentPlayer().owner;
 			Owners cellOwner = cell.getData().owner;
 			// La cellule est-elle dans une zone du joueur ?
 			boolean isInPlayerZone = (zone != null && zone.getOwner() == player);
@@ -106,6 +107,7 @@ public class WordSelectionHandler {
 		// Tout est bon, on sélectionne la cellule puis on l'ajoute au mot
 		cell.select();
 		selectedCells.add(cell);
+		gameManager.setCurrentWord(getCurrentWord());
 		return true;
 	}
 	
@@ -139,23 +141,24 @@ public class WordSelectionHandler {
 	 */
 	public ReturnCodes validate() {
 		// Reconstitue le mot à partir des cellules sélectionnées
-		StringBuilder wordLetters = new StringBuilder();
-		for (ArenaCell cell : selectedCells) {
-			wordLetters.append(cell.getData().letter.label);
-		}
-		lastValidatedWord = wordLetters.toString();
+		lastValidatedWord = getCurrentWord();
 		
 		// Vérifie si le mot est valide
-		if (!dictionnary.contains(lastValidatedWord)) {
-			return ReturnCodes.WORD_UNKNOWN;
-		}
-		if (alreadyPlayed.contains(lastValidatedWord)) {
-			return ReturnCodes.WORD_ALREADY_PLAYED;
-		}
-
+		ReturnCodes result = ReturnCodes.OK;
+//DBG		if (!dictionnary.contains(lastValidatedWord)) {
+//			result = ReturnCodes.WORD_UNKNOWN;
+//		}
+//		if (alreadyPlayed.contains(lastValidatedWord)) {
+//			result = ReturnCodes.WORD_ALREADY_PLAYED;
+//		}
 		// Le mot est valide. Ajout à la liste des mots joués.
-		alreadyPlayed.add(lastValidatedWord);
-		return ReturnCodes.OK;
+		if (result == ReturnCodes.OK) {
+			alreadyPlayed.add(lastValidatedWord);
+		}
+		
+		// Reset du mot courant
+		gameManager.setCurrentWord("");
+		return result;
 	}
 	
 	/**
@@ -167,6 +170,7 @@ public class WordSelectionHandler {
 			cell.unselect();
 		}
 		selectedCells.clear();
+		gameManager.setCurrentWord("");
 	}
 
 	public List<ArenaCell> getSelectedCells() {
@@ -180,5 +184,17 @@ public class WordSelectionHandler {
 	 */
 	public String getLastValidatedWord() {
 		return lastValidatedWord;
+	}
+	
+	/**
+	 * Retourne le mot actuellement sélectionné
+	 * @return
+	 */
+	public String getCurrentWord() {
+		StringBuilder word = new StringBuilder();
+		for (ArenaCell cell : selectedCells) {
+			word.append(cell.getData().letter.label);
+		}
+		return word.toString();
 	}
 }

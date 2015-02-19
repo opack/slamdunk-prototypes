@@ -9,7 +9,9 @@ import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.GameStates;
 import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.ReturnCodes;
+import com.slamdunk.wordarena.screens.arena.ArenaOverlay;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
+import com.slamdunk.wordarena.screens.arena.ArenaUI;
 import com.slamdunk.wordarena.utils.MaxValueFinder;
 
 /**
@@ -31,7 +33,8 @@ public class GameManager {
 	
 	private static final int MALUS_REFRESH_STARTING_ZONE = 5;
 	
-	private ArenaScreen screen;
+	private ArenaOverlay arena;
+	private ArenaUI ui;
 	private String arenaPlanFile;
 	
 	private List<Player> players;
@@ -51,8 +54,7 @@ public class GameManager {
 	
 	private WordSelectionHandler wordSelectionHandler;
 	
-	public GameManager(ArenaScreen screen) {
-		this.screen = screen;
+	public GameManager() {		
 		wordSelectionHandler = new WordSelectionHandler(this);
 		playersByOwner = new HashMap<Owners, Player>();
 		
@@ -86,7 +88,7 @@ public class GameManager {
 	
 	public void setCurrentPlayer(int playerIndex) {
 		curPlayer = playerIndex;
-		screen.getUI().setCurrentPlayer(getCurrentPlayer(), getCurrentTurn(), nbTurnsPerRound, getCurrentRound());
+		ui.setCurrentPlayer(getCurrentPlayer(), getCurrentTurn(), nbTurnsPerRound, getCurrentRound());
 	}
 
 	public Player getCurrentPlayer() {
@@ -111,7 +113,10 @@ public class GameManager {
 		return curRound + 1;
 	}
 	
-	public void prepareGame(String arenaPlanFile, List<Player> playersList) {
+	public void prepareGame(ArenaScreen screen, String arenaPlanFile, List<Player> playersList) {
+		arena = screen.getArena();
+		ui = screen.getUI();
+		
 		this.arenaPlanFile = arenaPlanFile;
 		
 		this.players = playersList;
@@ -119,12 +124,16 @@ public class GameManager {
 			playersByOwner.put(player.owner, player);
 		}
 		
-		loadArena();
-		
 		firstPlayer = 0;
 		setCurrentPlayer(0);
 		curTurn = 0;
 		curRound = 0;
+		
+		// Charge l'arène
+		loadArena();
+		
+		// Démarre le jeu
+		changeState(GameStates.READY);
 	}
 
 	/**
@@ -138,12 +147,12 @@ public class GameManager {
 		switch (result) {
 		case OK:
 			Player player = getCurrentPlayer();
-			screen.getUI().updateResult(player.name + " a joué " + word);
+			ui.setInfo(player.name + " a joué " + word);
 			// Toutes les cellules passent sous la domination du joueur
-			screen.getArena().setOwner(wordSelectionHandler.getSelectedCells(), player.owner);
+			arena.setOwner(wordSelectionHandler.getSelectedCells(), player.owner);
 			// Le score du joueur est modifié
 			player.score += computeScore(wordSelectionHandler.getSelectedCells());
-			screen.getUI().updateStats();
+			ui.updateStats();
 			// Le joueur a joué un coup. C'est bon à savoir pour les stats
 			// et pour autoriser ou non le refresh de la zone de départ
 			player.nbWordsPlayed++;
@@ -151,10 +160,10 @@ public class GameManager {
 			endStroke();
 			break;
 		case WORD_ALREADY_PLAYED:
-			screen.getUI().updateResult(word + " a déjà été joué pendant ce round");
+			ui.setInfo(word + " a déjà été joué pendant ce round");
 			break;
 		case WORD_UNKNOWN:
-			screen.getUI().updateResult(word + " n'existe pas dans le dictionnaire de WordArena");
+			ui.setInfo(word + " n'existe pas dans le dictionnaire de WordArena");
 			break;
 		}
 		cancelWord();
@@ -234,7 +243,7 @@ public class GameManager {
 		// été appelé pendant la création de l'arène. On ne met
 		// donc pas à jour l'UI.
 		if (state == GameStates.RUNNING) {
-			screen.getUI().updateStats();
+			ui.updateStats();
 		}
 	}
 
@@ -263,13 +272,13 @@ public class GameManager {
 			return;
 		}
 		state = newState;
-		screen.getUI().present(newState);
+		ui.present(newState);
 		
 		// Si on démarre la partie, alors on affiche l'arène
 		if (newState == GameStates.RUNNING) {
-			screen.getArena().setVisible(true);
+			arena.showLetters(true);
 		} else if (newState == GameStates.PAUSED) {
-			screen.getArena().setVisible(false);
+			arena.showLetters(false);
 		}
 	}
 	
@@ -285,15 +294,14 @@ public class GameManager {
 		wordSelectionHandler.reset();
 		
 		// Charge l'arène
-		screen.getArena().buildArena(arenaPlanFile, this);
-		screen.getArena().setVisible(false);
-		nbZones = screen.getArena().getData().zones.size();
+		arena.buildArena(arenaPlanFile, this);
+		arena.showLetters(false);
+		nbZones = arena.getData().zones.size();
 		
 		// Met à jour l'UI
-		screen.getUI().updateStats();
-		 
-		// Démarre le jeu
-		changeState(GameStates.READY);
+		ui.updateStats();
+		ui.setArenaName(arena.getData().name);
+		ui.setInfo("");
 	}
 	
 	/**
@@ -331,30 +339,41 @@ public class GameManager {
 		
 		if (winner == null) {
 			// Fin de round sur une égalité
-			screen.getUI().updateResult("Egalité parfaite ! Personne ne gagne ce round !");
+			ui.setWinner("Egalité parfaite ! Personne ne gagne ce round !");
 		} else if (winner.nbRoundsWon < nbWinningRoundsPerGame) {
 			// Fin de round sur une victoire
-			screen.getUI().updateResult(winner.name + " gagne le round !");
+			ui.setWinner(winner.name + " gagne le round !");
 		} else {
 			// Fin de partie
-			screen.getUI().updateResult(winner.name + " gagne la partie !");
+			ui.setWinner(winner.name + " gagne la partie !");
 			changeState(GameStates.GAME_OVER);
 			return;
 		}
+		// Fin de round
+		changeState(GameStates.ROUND_OVER);
 		
+		// Cache les lettres de l'arène
+		arena.showLetters(false);
+	}
+	
+	/**
+	 * Passe au round suivant
+	 */
+	public void nextRound() {
 		// On passe au round suivant s'il n'y a pas de vainqueur
 		curRound ++;
-		
-		// Réinitialise l'arène
-		loadArena();
+		// On commence le premier tour de jeu
+		curTurn = 0;
 		
 		// Le joueur qui débute le nouveau round n'est pas le même que celui
 		// du round précédent.
 		firstPlayer = (firstPlayer + 1) % players.size();
-		curPlayer = firstPlayer;
+		setCurrentPlayer(firstPlayer);
 		
-		// On commence le premier tour de jeu
-		curTurn = 0;
+		// Réinitialise l'arène
+		loadArena();
+		// Démarre le jeu
+		changeState(GameStates.RUNNING);
 	}
 	
 	/**
@@ -362,7 +381,7 @@ public class GameManager {
 	 * @return
 	 */
 	private Player computeRoundWinner() {
-		ArenaData arenaData = screen.getArena().getData();
+		ArenaData arenaData = arena.getData();
 		MaxValueFinder<Owners> maxValueFinder = new MaxValueFinder<Owners>();
 		maxValueFinder.setIgnoredValue(Owners.NEUTRAL);
 		
@@ -418,13 +437,22 @@ public class GameManager {
 			return;
 		}
 		// Change les lettres de la zone de départ
-		screen.getArena().refreshStartingZone(getCurrentPlayer().owner);
+		arena.refreshStartingZone(getCurrentPlayer().owner);
+		// Supprime le mot éventuellement sélectionné
+		wordSelectionHandler.cancel();
 		// Affiche un message de confirmation
-		screen.getUI().updateResult(getCurrentPlayer().name + " a tiré de nouvelles lettres");
+		ui.setInfo(getCurrentPlayer().name + " a tiré de nouvelles lettres");
 		// Le score du joueur est modifié
 		getCurrentPlayer().score -= MALUS_REFRESH_STARTING_ZONE;
-		screen.getUI().updateStats();
+		ui.updateStats();
 		// Fin du tour de ce joueur
 		endStroke();
+	}
+	
+	/**
+	 * Met à jour l'affichage du mot actuellement sélectionné
+	 */
+	public void setCurrentWord(String word) {
+		ui.setCurrentWord(word);
 	}
 }

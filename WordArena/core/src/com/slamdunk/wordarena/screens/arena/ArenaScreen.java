@@ -20,7 +20,8 @@ public class ArenaScreen extends SlamScreen {
 	
 	public ArenaScreen(SlamGame game) {
 		super(game);
-		gameManager = new GameManager(this);
+
+		gameManager = new GameManager();
 		
 		arena = new ArenaOverlay();
 		addOverlay(arena);
@@ -58,6 +59,6 @@ public class ArenaScreen extends SlamScreen {
 	}
 	
 	public void prepareGame(String arenaPlanFile, List<Player> players) {
-		gameManager.prepareGame(arenaPlanFile, players);
+		gameManager.prepareGame(this, arenaPlanFile, players);
 	}
 }

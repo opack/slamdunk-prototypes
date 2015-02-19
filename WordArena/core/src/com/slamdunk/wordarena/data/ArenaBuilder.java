@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.toolkit.lang.KeyListMap;
 import com.slamdunk.toolkit.lang.TypedProperties;
+import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.toolkit.ui.MoveCameraDragListener;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordSelectionHandler;
@@ -82,6 +83,9 @@ public class ArenaBuilder {
 		if (arena.width == 0 || arena.height == 0) {
 			return false;
 		}
+		
+		// Charge le nom de l'arène
+		arena.name = plan.getStringProperty("name." + SlamSettings.LANGUAGE.get(), "");
 		
 		// Charge les types de cellule
 		String[] types = plan.getStringArrayProperty("plan.types", CELL_SEPARATOR);

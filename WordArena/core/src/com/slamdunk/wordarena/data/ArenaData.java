@@ -12,4 +12,9 @@ public class ArenaData {
 	public ArenaCell[][] cells;
 	public List<ArenaZone> zones;
 	public Deck<Letters> letterDeck;
+	
+	/**
+	 * Nom de l'arène
+	 */
+	public String name;
 }

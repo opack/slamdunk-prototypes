@@ -21,7 +21,6 @@ public class ArenaUI extends UIOverlay {
 	
 	private GameManager gameManager;
 	private Label currentPlayer;
-	private Label result;
 	private Label stats;
 	
 	public ArenaUI(GameManager gameManager) {
@@ -43,11 +42,24 @@ public class ArenaUI extends UIOverlay {
 		getStage().addActor(sceneLoader.sceneActor);
 		
 		sceneLoader.sceneActor.setTouchable(Touchable.childrenOnly);
-		
-		initRunningLayer();
-		initResumeLayer();
+
 		initReadyLayer();
+		initRunningLayer();
+		initPausedLayer();
+		initRoundOverLayer();
 		initGameOverLayer();
+	}
+
+	/**
+	 * Initialise les composants à afficher lorsque le jeu est à l'état "READY"
+	 */
+	private void initReadyLayer() {
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnStart", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+//				Assets.playSound(Assets.clickSound);
+				gameManager.changeState(GameStates.RUNNING);
+			}
+		});
 	}
 	
 	/**
@@ -86,18 +98,47 @@ public class ArenaUI extends UIOverlay {
 		});
 		
 		currentPlayer = sceneLoader.sceneActor.getLabelById("lblCurrentPlayer");
-		result = sceneLoader.sceneActor.getLabelById("lblCurrentWord");
 		stats = sceneLoader.sceneActor.getLabelById("lblStats");
 	}
 	
 	/**
 	 * Initialise les composants à afficher lorsque le jeu est à l'état "PAUSED"
 	 */
-	private void initResumeLayer() {
+	private void initPausedLayer() {
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnResume", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 //				Assets.playSound(Assets.clickSound);
 				gameManager.changeState(GameStates.RUNNING);
+			}
+		});
+	}
+	
+	/**
+	 * Initialise les composants à afficher lorsque le jeu est à l'état "ROUND_OVER"
+	 */
+	private void initRoundOverLayer() {
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnNextRound", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+//				Assets.playSound(Assets.clickSound);
+				gameManager.nextRound();
+			}
+		});
+	}
+	
+	/**
+	 * Initialise les composants à afficher lorsque le jeu est à l'état "GAME_OVER"
+	 */
+	private void initGameOverLayer() {
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnRetry", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+//				Assets.playSound(Assets.clickSound);
+			}
+		});
+		
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnBackToHome", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+//				Assets.playSound(Assets.clickSound);
+				getScreen().getGame().setScreen(HomeScreen.NAME);
 			}
 		});
 	}
@@ -115,46 +156,28 @@ public class ArenaUI extends UIOverlay {
 			sceneLoader.sceneActor.setLayerLock(cur.name(), cur != state);
 		}
 	}
-
-	/**
-	 * Initialise les composants à afficher lorsque le jeu est à l'état "READY"
-	 */
-	private void initReadyLayer() {
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnStart", new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-//				Assets.playSound(Assets.clickSound);
-				gameManager.changeState(GameStates.RUNNING);
-			}
-		});
-	}
-
-	/**
-	 * Initialise les composants à afficher lorsque le jeu est à l'état "OVER"
-	 */
-	private void initGameOverLayer() {
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnRetry", new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-//				Assets.playSound(Assets.clickSound);
-			}
-		});
-		
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnBackToHome", new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-//				Assets.playSound(Assets.clickSound);
-				getScreen().getGame().setScreen(HomeScreen.NAME);
-			}
-		});
-	}
 	
 	public void setCurrentPlayer(Player player, int turn, int maxTurns, int round) {
 		currentPlayer.setText("Round " + round + " - " + player.name + " (Coup " + turn + "/" + maxTurns + ")");
 		currentPlayer.setStyle(Assets.ownerStyles.get(player.owner));
 	}
 	
-	public void updateResult(String text) {
-		result.setText(text);
+	public void setCurrentWord(String word) {
+		sceneLoader.sceneActor.getLabelById("lblCurrentWord").setText(word);
 	}
 	
+	public void setInfo(String info) {
+		sceneLoader.sceneActor.getLabelById("lblInfo").setText(info);
+	}
+
+	public void setArenaName(String arenaName) {
+		sceneLoader.sceneActor.getLabelById("lblArenaName").setText(arenaName);
+	}
+	
+	public void setWinner(String winner) {
+		sceneLoader.sceneActor.getLabelById("lblWinner").setText(winner);
+	}
+
 	public void updateStats() {
 		StringBuilder sb = new StringBuilder();
 		Player player;

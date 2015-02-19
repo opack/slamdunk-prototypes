@@ -59,6 +59,14 @@ public class ArenaCell extends GroupEx {
 		return false;
 	}
 	
+	/**
+	 * Affiche ou masque la lettre de la cellule
+	 * @param show
+	 */
+	public void showLetter(boolean show) {
+		letter.setVisible(show);
+	}
+	
 	@Override
 	public int hashCode() {
 		return data.position.hashCode();
