@@ -235,7 +235,7 @@ public class GameManager {
 			
 			// Si c'était sa dernière zone, il perd le round
 			if (loser.nbZonesOwned <= 0) {
-				System.err.println(loser.name + " perd le round car il n'a plus aucune zone !");
+				endRound();
 			}
 		}
 		
