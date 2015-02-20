@@ -415,9 +415,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="518.12148"
-     inkscape:cy="551.86151"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="751.5574"
+     inkscape:cy="421.22103"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1857,7 +1857,7 @@
          sodipodi:end="6.273964"
          sodipodi:start="0"
          transform="matrix(0.96745063,0,0,0.96745063,969.90213,462.82279)"
-         d="M -189.90868,156.75119 A 22.223356,22.223356 0 1 1 -189.90962,156.54626"
+         d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
          sodipodi:ry="22.223356"
          sodipodi:rx="22.223356"
          sodipodi:cy="156.75119"
@@ -1890,5 +1890,13 @@
            sodipodi:open="true" />
       </g>
     </g>
+    <path
+       style="fill:#ffffff;fill-opacity:1;stroke:#ff6600;stroke-width:5;stroke-linecap:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       d="M 2.53125 305.21875 L 2.53125 396.21875 L 734.53125 396.21875 L 734.53125 478.21875 L 797.53125 478.21875 L 797.53125 396.21875 L 797.53125 305.21875 L 734.53125 305.21875 L 2.53125 305.21875 z "
+       transform="translate(0,572.36218)"
+       id="rect3214-1"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\image_topmask.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
