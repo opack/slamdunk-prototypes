@@ -21,6 +21,13 @@ public class GameManager {
 	private static final int TURNS_PER_ROUND = 5;
 	private static final int WINNING_ROUNDS_PER_GAME = 2;
 	
+	/**
+	 * Nombre de rounds maximum. Si on arrive à ce dernier round, on fait tout pour
+	 * éviter une égalité : le gagnant est alors celui qui a le plus de zones, ou de
+	 * cellules, ou de score.
+	 */
+	private static final int MAX_NB_ROUNDS_PER_GAME = 3;
+	
 	private static final int BONUS1_MIN_LENGTH = 5;
 	private static final int BONUS1_POINTS = 2;
 	private static final int BONUS2_MIN_LENGTH = 8;
@@ -337,23 +344,75 @@ public class GameManager {
 		// Détermine le gagnant du round
 		Player winner = computeRoundWinner();
 		
-		if (winner == null) {
-			// Fin de round sur une égalité
-			ui.setWinner("Egalité parfaite ! Personne ne gagne ce round !");
-		} else if (winner.nbRoundsWon < nbWinningRoundsPerGame) {
-			// Fin de round sur une victoire
-			ui.setWinner(winner.name + " gagne le round !");
-		} else {
-			// Fin de partie
-			ui.setWinner(winner.name + " gagne la partie !");
-			changeState(GameStates.GAME_OVER);
+		// Teste si le jeu est fini
+		if (endGame(winner)) {
 			return;
 		}
+		
 		// Fin de round
+		if (winner == null) {
+			// Egalité
+			ui.setRoundWinner("Egalité ! Personne ne gagne ce round !");
+		} else {
+			// Victoire
+			ui.setRoundWinner(winner.name + " gagne le round !");
+		}
 		changeState(GameStates.ROUND_OVER);
 		
 		// Cache les lettres de l'arène
 		arena.showLetters(false);
+	}
+	
+	/**
+	 * Fin de la partie
+	 * @param roundWinner
+	 */
+	private boolean endGame(Player roundWinner) {
+		Player gameWinner = null;
+		
+		if (roundWinner != null
+		&& roundWinner.nbRoundsWon >= nbWinningRoundsPerGame) {
+			
+			// Fin de partie car le gagnant du round a gagné assez de rounds
+			gameWinner = roundWinner;
+			
+		} else if (curRound >= MAX_NB_ROUNDS_PER_GAME - 1) {
+			
+			// Fin de partie car on a joué le nombre max de rounds. Il faut
+			// donc déterminer le gagnant en comptant le nombre de rounds
+			// que chacun a gagné.
+			MaxValueFinder<Owners> maxValueFinder = new MaxValueFinder<Owners>();
+			for (Player player : players) {
+				maxValueFinder.addValue(player.owner, player.nbRoundsWon);
+			}
+			
+			Owners winnerOwner = maxValueFinder.getMaxValue();
+			if (winnerOwner != null) {
+				// L'un des deux joueurs a gagné plus de rounds que l'autre :
+				// il est déclaré vainqueur de la partie
+				gameWinner = playersByOwner.get(winnerOwner);
+			}
+			// else : si winnerOwner == null, c'est qu'on est dans le cas où
+			// on a fait 3 rounds et que les 2 joueurs ont gagné autant de
+			// rounds l'un que l'autre. On a donc une égalité.
+		} else {
+			// La partie n'est pas terminée
+			return false;
+		}
+
+		// Affichage du gagnant
+		if (gameWinner == null) {
+			ui.setGameWinner("Egalité parfaite ! Personne ne gagne cette partie !");
+		} else {
+			ui.setGameWinner(roundWinner.name + " gagne la partie !");
+		}
+		changeState(GameStates.GAME_OVER);
+		
+		// Cache les lettres de l'arène
+		arena.showLetters(false);
+		
+		// La partie est terminée
+		return true;
 	}
 	
 	/**
@@ -391,9 +450,13 @@ public class GameManager {
 		}
 		Owners winner = maxValueFinder.getMaxValue();
 		
-		// S'il y a égalité, le gagnant est celui occupant le plus de terrain,
-		// en tenant compte de la puissance de chaque cellule
-		if (winner == null) {
+		// Si on arrive à ce dernier round, on fait tout pour
+		// éviter une égalité : le gagnant est alors celui qui a le plus de zones, ou de
+		// cellules, ou de score.
+		if (winner == null
+		&& curRound == MAX_NB_ROUNDS_PER_GAME - 1) {
+			// S'il y a égalité, le gagnant est celui occupant le plus de terrain,
+			// en tenant compte de la puissance de chaque cellule
 			maxValueFinder.reset();
 			ArenaCell[][] cells = arenaData.cells;
 			CellData cellData;
@@ -404,16 +467,16 @@ public class GameManager {
 				}
 			}
 			winner = maxValueFinder.getMaxValue();
-		}
-		
-		// Si on entre ici, c'est qu'on a une égalité parfaite : même nombre de zones
-		// et même nombre de cases occupées. On départage les joueurs au score.
-		if (winner == null) {
-			maxValueFinder.reset();
-			for (Player player : players) {
-				maxValueFinder.addValue(player.owner, player.score);
+			
+			// Si on entre ici, c'est qu'on a une égalité parfaite : même nombre de zones
+			// et même nombre de cases occupées. On départage les joueurs au score.
+			if (winner == null) {
+				maxValueFinder.reset();
+				for (Player player : players) {
+					maxValueFinder.addValue(player.owner, player.score);
+				}
+				winner = maxValueFinder.getMaxValue();
 			}
-			winner = maxValueFinder.getMaxValue();
 		}
 		
 		// Toujours pas de gagnant ? On a une égalité parfaite (très improbable)

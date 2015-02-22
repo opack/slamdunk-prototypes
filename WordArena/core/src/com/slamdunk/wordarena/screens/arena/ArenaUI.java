@@ -174,8 +174,12 @@ public class ArenaUI extends UIOverlay {
 		sceneLoader.sceneActor.getLabelById("lblArenaName").setText(arenaName);
 	}
 	
-	public void setWinner(String winner) {
-		sceneLoader.sceneActor.getLabelById("lblWinner").setText(winner);
+	public void setRoundWinner(String winner) {
+		sceneLoader.sceneActor.getLabelById("lblRoundWinner").setText(winner);
+	}
+	
+	public void setGameWinner(String winner) {
+		sceneLoader.sceneActor.getLabelById("lblGameWinner").setText(winner);
 	}
 
 	public void updateStats() {
