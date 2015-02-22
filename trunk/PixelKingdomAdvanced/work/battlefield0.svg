@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1080"
+   height="1024"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.4 r9939"
+   sodipodi:docname="battlefield0.svg"
+   inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\android\assets\maps\battlefield0.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
+  <defs
+     id="defs4">
+    <inkscape:path-effect
+       effect="spiro"
+       id="path-effect3005"
+       is_visible="true" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.70737045"
+     inkscape:cx="222.59286"
+     inkscape:cy="426.37036"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     showborder="true"
+     inkscape:showpageshadow="false"
+     inkscape:window-width="1440"
+     inkscape:window-height="837"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Fond de carte"
+     inkscape:groupmode="layer"
+     id="map"
+     transform="translate(0,-28.36218)">
+    <rect
+       style="fill:#87aade;fill-opacity:1;fill-rule:nonzero;stroke:#5f8dd3;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect2985"
+       width="1070"
+       height="1014"
+       x="5"
+       y="33.362179" />
+    <path
+       style="fill:#2ca02c;stroke:none"
+       d="m 180,119.71429 c 0,0 -115.714286,80 -94.285714,347.14285 C 107.14286,734 182.85714,714 201.42857,668.28571 220,622.57143 238.57143,561.14286 265.71429,595.42857 c 27.14285,34.28572 27.14285,81.42857 5.71428,142.85714 C 250,799.71429 -18.571429,832.57143 165.71429,966.85714 350,1101.1429 910,735.42857 910,735.42857 c 0,0 178.5714,-90 115.7143,-472.85714 C 962.85714,-120.28571 180,119.71429 180,119.71429 z"
+       id="path2987"
+       inkscape:connector-curvature="0"
+       transform="translate(0,28.36218)" />
+    <path
+       style="fill:#decd87;stroke:none"
+       d="m 180,118.28571 c 0,0 368.57143,-92.857139 500,-71.428568 131.42857,21.428572 92.85714,144.285718 12.85714,174.285718 -80,30 -795.71428,197.14285 -512.85714,-102.85715 z"
+       id="path2989"
+       inkscape:connector-curvature="0"
+       transform="translate(0,28.36218)" />
+    <path
+       style="fill:#808080;stroke:none"
+       d="m 414.28571,379.50504 c -30.60437,21.14142 -35.41468,64.71746 5.71429,77.14285 26.5863,33.54637 72.68458,-25.74408 25.71429,-40 -14.41329,-9.61643 -9.53748,-40.28701 -31.42858,-37.14285 z"
+       id="path3033"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#808080;stroke:none"
+       d="m 627.14286,408.07647 c -12.19873,31.04512 41.2951,45.37949 63.39608,38.64626 38.04943,-19.10113 -9.81845,-46.03953 -33.89889,-41.1904 -10.59383,-5.05024 -21.67763,-9.49438 -29.49719,2.54414 z"
+       id="path3035"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#808080;stroke:none"
+       d="m 718.57143,466.64789 c -32.87819,-14.55065 -44.90188,26.52501 -60.2849,43.27713 20.30948,16.07247 71.53598,-5.24766 65.99918,-34.7057 -1.75441,-2.96082 -3.66829,-5.80468 -5.71428,-8.57143 z"
+       id="path3037"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#808080;stroke:none"
+       d="m 375.71429,660.93361 c -14.83689,33.63766 33.0983,81.70198 53.03299,34.7233 4.06949,-20.22196 -38.04894,-43.13593 -53.03299,-34.7233 z"
+       id="path3039"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#808080;stroke:none"
+       d="m 721.42857,633.79075 c -10.38683,0.1119 -11.16658,36.41827 7.46186,49.40466 4.25459,49.68424 64.91872,-12.44993 31.13373,-36.36019 -8.37621,-13.60629 -24.58253,-13.45711 -38.59559,-13.04447 z"
+       id="path3041"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:#808080;stroke:none"
+       d="m 895.71429,396.64789 c -10.77807,26.50775 44.35701,27.31108 61.04828,33.40292 47.31813,-15.71007 -11.77028,-67.79883 -40.0595,-38.62498 -7.11006,1.18227 -14.46582,1.82893 -20.98878,5.22206 z"
+       id="path3043"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;stroke:#c87137;stroke-width:32;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 285.56464,851.53027 C 369.70848,822.8648 537.27828,817.44685 581.02509,729.95324 599.61847,692.76647 606.69242,642.0837 637.57254,611.20358 682.80033,565.9758 716.16918,520.43574 754.90851,492.45393 861.817,415.23285 895.33606,353.90856 903.34558,199.82085"
+       id="path3809"
+       inkscape:connector-curvature="0"
+       transform="translate(0,28.36218)"
+       sodipodi:nodetypes="csssc" />
+    <path
+       style="fill:none;stroke:#c87137;stroke-width:32;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       d="M 241.74037,857.27346 C 240.74816,794.52753 342.02307,806.24086 338.80184,739.27287 349.99295,656.61579 334.46712,574.05253 319.26884,493.03818 299.80806,412.07529 367.81968,334.45932 450.43734,343.72874 565.10952,349.3908 695.53582,343.60454 786.4612,264.29736 800.5002,251.80015 845.74186,237.80967 856.69393,222.52829"
+       id="path3811"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccc" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="paths"
+     inkscape:label="Chemins"
+     style="display:inline">
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 242.34674,831.66761 249.55349,799.25385 318.07943,756.81328 337.87103,729.95324 343.52578,646.54574 329.38892,527.79609 313.83837,442.97491 318.07943,399.15063 347.76684,353.91267 378.86794,331.29369 415.62378,317.15682 443.89751,315.74314 535.78712,319.98419 627.67674,310.08839 679.98313,297.36521 742.18533,267.6778 798.73278,233.74933 857.40077,194.16611"
+       id="PATH north"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccccccccccccccccc"
+       end1name="castle1"
+       end2name="castle2" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 278.89599,855.063 310.88407,844.06711 343.87176,837.06971 387.85535,827.07344 438.83635,814.07828 485.81883,799.08388 528.8028,783.08984 561.79049,759.09879 577.78453,735.10774 592.77894,694.12302 603.77484,664.1342 616.76999,635.14502 642.7603,600.15806 675.748,566.17074 711.73458,529.18453 741.72339,501.19496 782.70811,472.20578 811.6973,445.21584 847.68388,405.23076 869.67568,364.24604 884.67008,323.26132 896.90816,277.9645 903.90555,199.50848"
+       id="PATH south"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccccccccccccccccccccccc"
+       end1name="castle1"
+       end2name="castle2" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="Objets">
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2.31106997"
+       id="CASTLE castle1"
+       width="125.68893"
+       height="125.68893"
+       x="196.29681"
+       y="784.7149"
+       faction="PLAYER" />
+    <rect
+       style="fill:none;stroke:#000000;stroke-width:2.31106997"
+       id="CASTLE castle2"
+       width="125.68893"
+       height="125.68893"
+       x="817.36737"
+       y="120.52689"
+       faction="ENEMY" />
+  </g>
+</svg>

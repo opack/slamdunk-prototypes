@@ -1,0 +1,11 @@
+{
+	widgets: [
+		{
+			class: Image,
+			name: background,
+			image-file: maps/world_map.png
+		}
+	],
+	values: {
+	}
+}
