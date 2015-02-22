@@ -1,0 +1,44 @@
+WordArena
+¯¯¯¯¯¯¯¯¯
+[ ] Gérer bouton back
+[ ] Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
+[ ] Ecrire un SimpleButtonScript qui tient compte de l'internationalisation pour le libellé du bouton
+[ ] Supprimer le code et les assets sans lien avec WordArena (les mettre dans un autre slamdunk-prototype), puis nettoyer le gradle (notamment ashley)
+[ ] Avoir un visuel différent par types de cellule
+
+Ashley                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+¯¯¯¯¯¯
+Trouver un moyen de mixer UI et rendering normal : p-e avec un Stage superposé aux coordonnées du monde réel ? Mais alors on a 2 couches, donc pas un vrai mix... :s
+
+GameParts
+¯¯¯¯¯¯¯¯¯
+[ ] Ajouter les composants :
+	[ ] UI
+	[ ] ShapeRendererPart
+	[ ] PoolPart : gère un pool d'instances d'un certain GameObject
+	[ ] Colliders
+	[ ] DragComponent (avec un payload), DropTargetComponent DragAndDropScript
+	[ ] Tween
+	[ ] Body et autres Box2d (https://github.com/libgdx/libgdx/wiki/box2d)
+	[ ] Lumière
+[ ] Configuration d'un Component (variables publiques) à partir d'un fichier JSON
+	-> Ajouter une méthode load(JSonValue) qui initialise le Component par réflexion
+	-> Ajouter une méthode JSonValue save() qui enregistre le Component par réflexion
+
+Champ de bataille
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+[ ] Gérer la fin de partie (affichage popup, retour à la carte du monde)
+[ ] Images des unités : 8 directions, pour plus de précision et de réalisme
+[ ] Générer une carte aléatoire à partir de paramètres (nombre d'ennemis, nombre de sorties du château, nombre d'avant-postes...)
+
+Combat
+¯¯¯¯¯¯
+[ ] Afficher des barres de vie pour les unités
+Monde
+¯¯¯¯¯
+
+Gestion des unités
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+[ ] Prévoir un countdown avant qu'une unité puisse être de nouveau invoquée
+[ ] Gérer la somme d'argent utilisée par le joueur pour invoquer des unités 
+[ ] Prévoir un nombre maximum d'unités de chaque type invocable (défini dans le properties de la mission)

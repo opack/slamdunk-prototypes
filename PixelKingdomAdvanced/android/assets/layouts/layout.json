@@ -1,0 +1,115 @@
+{
+	widgets: [
+		{
+			class: Window,
+			name: popup,
+			visible: false,
+			layout: layouts/popup.json
+		},
+		{
+			class: Label,
+			name: title,
+			text-key: label-title,
+			width-key: screen-width,
+			y: 475,
+			align: "center"
+		},
+		{
+			class: Table,
+			name: form,
+			fill-parent: true,
+			debug: false,
+			COMMENTED-defaults: {
+				comment: "Cette propriété correspond à la méthode Table.defaults(). A décommenter pour rendre active.",
+				width: 100,
+			},
+			COMMENTED-columnDefaults: {
+				comment: "Cette propriété correspond à la méthode Table.columnDefaults(). A décommenter pour rendre active.",
+				1: {
+					width: 200
+				}
+			},
+			rows: [
+				{
+					pad-tlbr: [0, 0, 10, 0],
+					cells: [
+						{
+							align: left,
+							widget: {
+								class: Label,
+								name: label-username,
+								text-key: label-username
+							}
+						},
+						{
+							expand-xy: [true, false],
+							fill-xy: [true, false],
+							widget: {
+								class: TextField,
+								name: txt-username,
+								text: "Entrez votre nom d'utilisateur"
+							}
+						}
+					]
+				},
+				{
+					pad-tlbr: [0, 0, 10, 0],
+					cells: [
+						{
+							align: left,
+							widget: {
+								class: Label,
+								name: label-password,
+								text-key: label-password
+							},
+						},
+						{
+							expand-xy: [true, false],
+							fill-xy: [true, false],
+							widget: {
+								class: TextField,
+								name: txt-password,
+								text-key: txt-password
+							}
+						}
+					]
+				},
+				{
+					cells: [
+						{
+							colspan: 2,
+							widget: {
+								class: TextButton,
+								name: connect,
+								text-key: btn-connect
+							},
+						}
+					]
+				}
+			]
+		}
+	],
+	values: {
+		label-title: {
+			fr: "Entrez vos identifiants",
+			en: "Input your credentials"
+		},
+		label-username: {
+			fr: "Utilisateur : ",
+			en: "Username : "
+		},
+		label-password: {
+			fr: "Mot de passe : ",
+			en: "Password : "
+		},
+		txt-password: {
+			fr: "Saisissez votre mot de passe",
+			en: "Input your password"
+		},
+		btn-connect: {
+			fr: "Connexion",
+			en: "Login"
+		},
+		screen-width: 480
+	}
+}
