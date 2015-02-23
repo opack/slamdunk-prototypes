@@ -139,9 +139,8 @@ public class GameManager {
 		// Charge l'arène
 		loadArena();
 		
-		// Affiche le bouton de rafraîchissement des lettres de la zone de départ.
-		// On ne peut rafraîchir la zone de départ qu'au premier coup du round.
-		ui.showRefreshStartingZoneButton(true);
+		// Pas de mot et affichage des boutons en conséquence
+		setCurrentWord("");
 		
 		// Démarre le jeu
 		changeState(GameStates.READY);
@@ -527,5 +526,21 @@ public class GameManager {
 		ui.setCurrentWord(word);
 		ui.showWordValidationButtons(!emptyWord);
 		ui.showRefreshStartingZoneButton(getCurrentPlayer().nbWordsPlayed == 0 && emptyWord);
+	}
+
+	public void requestBack() {
+		switch (state) {
+		case RUNNING:
+			changeState(GameStates.PAUSED);
+			break;
+		case PAUSED:
+			changeState(GameStates.RUNNING);
+			break;
+		case READY:
+		case GAME_OVER:
+		case ROUND_OVER:
+			// On ne fait rien dans ces cas-là : l'utilisateur doit choisir une action
+			break;
+		}
 	}
 }

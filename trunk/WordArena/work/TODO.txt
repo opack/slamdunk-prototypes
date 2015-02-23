@@ -1,6 +1,6 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
-[ ] Gérer bouton back
+[ ] A corriger : Lors du ArenaUI.present(), tous les composants deviennent visibles, même ceux qui ont été volontairement masqués. Ainsi par ex les boutons de validation et annulation de mot redeviennent visibles en début de tour alors qu'ils ont été masqués car aucun mot n'est saisi.
 [ ] Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
 [ ] Ecrire un SimpleButtonScript qui tient compte de l'internationalisation pour le libellé du bouton
 [ ] Supprimer le code et les assets sans lien avec WordArena (les mettre dans un autre slamdunk-prototype), puis nettoyer le gradle (notamment ashley)

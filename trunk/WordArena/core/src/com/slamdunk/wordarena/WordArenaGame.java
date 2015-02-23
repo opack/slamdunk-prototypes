@@ -1,5 +1,6 @@
 package com.slamdunk.wordarena;
 
+import com.badlogic.gdx.Gdx;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
@@ -14,6 +15,7 @@ public class WordArenaGame extends SlamGame {
 		super.create();
 		
 		setClearColor(1, 1, 1, 1);
+		Gdx.input.setCatchBackKey(true);
 		
 		// Initialise les réglages
 		SlamSettings.init("WordArena");

@@ -3,6 +3,8 @@ package com.slamdunk.wordarena.screens.home;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.data.Player;
@@ -25,6 +27,15 @@ public class HomeScreen extends SlamScreen {
 		ui = new HomeUI(this);
 		addOverlay(ui);
 	}
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO DBG Afficher une boîte de confirmation
+		if (keycode == Keys.BACK) {
+			Gdx.app.exit();
+		}
+	    return false;
+	 }
 
 	public void launchGame(String arenaFile) {
 		Player p1 = new Player();
