@@ -30,7 +30,7 @@ public class HomeUI extends UIOverlay {
 		// Bouton Play !
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnPlay", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				screen.launchGame();
+				screen.launchGame("3_diamond");
 			}
 		});
 		
@@ -47,5 +47,11 @@ public class HomeUI extends UIOverlay {
 				System.out.println("DBG Quit");
 			}
 		});
+		
+		// Boutons de lancemant des arènes
+		sceneLoader.sceneActor.getCompositeById("btnArena0").addScript(new GameLaunchScript(screen));
+		sceneLoader.sceneActor.getCompositeById("btnArena1").addScript(new GameLaunchScript(screen));
+		sceneLoader.sceneActor.getCompositeById("btnArena2").addScript(new GameLaunchScript(screen));
+		sceneLoader.sceneActor.getCompositeById("btnArena3").addScript(new GameLaunchScript(screen));
 	}
 }

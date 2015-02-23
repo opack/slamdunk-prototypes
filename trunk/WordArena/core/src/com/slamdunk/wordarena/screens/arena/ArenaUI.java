@@ -15,12 +15,18 @@ import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.screens.home.HomeScreen;
 import com.slamdunk.wordarena.utils.Overlap2DUtils;
 import com.uwsoft.editor.renderer.SceneLoader;
+import com.uwsoft.editor.renderer.actor.CompositeItem;
 
 public class ArenaUI extends UIOverlay {
 	private SceneLoader sceneLoader;
 	
 	private GameManager gameManager;
+	
+	private CompositeItem validateWord;
+	private CompositeItem cancelWord;
 	private Label currentPlayer;
+	private Label currentWord;
+	private Label info;
 	private Label stats;
 	
 	public ArenaUI(GameManager gameManager) {
@@ -66,13 +72,13 @@ public class ArenaUI extends UIOverlay {
 	 * Initialise les composants à afficher lorsque le jeu est à l'état "RUNNING"
 	 */
 	private void initRunningLayer() {
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnValidateWord", new ClickListener() {
+		validateWord = Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnValidateWord", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				gameManager.validateWord();
 			}
 		});
 		
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnCancelWord", new ClickListener() {
+		cancelWord = Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnCancelWord", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				gameManager.cancelWord();
 			}
@@ -99,6 +105,8 @@ public class ArenaUI extends UIOverlay {
 		
 		currentPlayer = sceneLoader.sceneActor.getLabelById("lblCurrentPlayer");
 		stats = sceneLoader.sceneActor.getLabelById("lblStats");
+		currentWord = sceneLoader.sceneActor.getLabelById("lblCurrentWord");
+		info = sceneLoader.sceneActor.getLabelById("lblInfo");
 	}
 	
 	/**
@@ -163,11 +171,11 @@ public class ArenaUI extends UIOverlay {
 	}
 	
 	public void setCurrentWord(String word) {
-		sceneLoader.sceneActor.getLabelById("lblCurrentWord").setText(word);
+		currentWord.setText(word);
 	}
 	
-	public void setInfo(String info) {
-		sceneLoader.sceneActor.getLabelById("lblInfo").setText(info);
+	public void setInfo(String message) {
+		info.setText(message);
 	}
 
 	public void setArenaName(String arenaName) {
@@ -180,6 +188,15 @@ public class ArenaUI extends UIOverlay {
 	
 	public void setGameWinner(String winner) {
 		sceneLoader.sceneActor.getLabelById("lblGameWinner").setText(winner);
+	}
+	
+	public void showRefreshStartingZoneButton(boolean show) {
+		sceneLoader.sceneActor.getCompositeById("btnRefreshZone").setVisible(show);
+	}
+	
+	public void showWordValidationButtons(boolean show) {
+		validateWord.setVisible(show);
+		cancelWord.setVisible(show);
 	}
 
 	public void updateStats() {

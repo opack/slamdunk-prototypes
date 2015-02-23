@@ -1,47 +1,47 @@
 
 pack.png
-size: 2048,512
+size: 512,1024
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 bkgndhome
   rotate: false
-  xy: 2, 2
-  size: 800, 480
-  orig: 800, 480
+  xy: 2, 216
+  size: 480, 800
+  orig: 480, 800
   offset: 0, 0
   index: -1
 buttoncancelwordnormal
   rotate: false
-  xy: 804, 196
+  xy: 60, 68
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttoncancelwordpressed
   rotate: false
-  xy: 862, 254
+  xy: 60, 18
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttoncentercameranormal
   rotate: false
-  xy: 1606, 376
+  xy: 110, 68
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttoncentercamerapressed
   rotate: false
-  xy: 1664, 434
+  xy: 110, 18
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonlambdanormal
   rotate: false
-  xy: 804, 246
+  xy: 2, 60
   size: 56, 56
   split: 10, 11, 10, 11
   pad: 10, 12, 10, 11
@@ -50,107 +50,100 @@ buttonlambdanormal
   index: -1
 buttonlambdapressed
   rotate: false
-  xy: 1606, 426
+  xy: 2, 2
   size: 56, 56
   split: 10, 10, 10, 10
   orig: 56, 56
   offset: 0, 0
   index: -1
-buttonletterborder
-  rotate: false
-  xy: 804, 146
-  size: 48, 48
-  orig: 48, 48
-  offset: 0, 0
-  index: -1
 buttonletterneutral
   rotate: false
-  xy: 912, 254
+  xy: 160, 68
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterplayer1
   rotate: false
-  xy: 1606, 326
+  xy: 160, 18
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterplayer2
   rotate: false
-  xy: 1714, 434
+  xy: 210, 68
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterplayer3
   rotate: false
-  xy: 804, 96
+  xy: 210, 18
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterplayer4
   rotate: false
-  xy: 962, 254
+  xy: 260, 68
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonletterselected
   rotate: false
-  xy: 1764, 434
+  xy: 260, 18
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonpausenormal
   rotate: false
-  xy: 804, 46
+  xy: 310, 68
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonpausepressed
   rotate: false
-  xy: 1012, 254
+  xy: 310, 18
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonrefreshzonenormal
   rotate: false
-  xy: 1814, 434
+  xy: 360, 68
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonrefreshzonepressed
   rotate: false
-  xy: 1062, 254
+  xy: 360, 18
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonvalidatewordnormal
   rotate: false
-  xy: 1864, 434
+  xy: 410, 68
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 buttonvalidatewordpressed
   rotate: false
-  xy: 1112, 254
+  xy: 410, 18
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 imagetopmask
   rotate: false
-  xy: 804, 304
-  size: 800, 178
-  orig: 800, 178
+  xy: 2, 118
+  size: 480, 96
+  orig: 480, 96
   offset: 0, 0
   index: -1
