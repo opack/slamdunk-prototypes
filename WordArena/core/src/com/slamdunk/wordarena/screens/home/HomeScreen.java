@@ -26,7 +26,7 @@ public class HomeScreen extends SlamScreen {
 		addOverlay(ui);
 	}
 
-	public void launchGame() {
+	public void launchGame(String arenaFile) {
 		Player p1 = new Player();
 		p1.name = "Anne";
 		p1.score = 0;
@@ -42,7 +42,7 @@ public class HomeScreen extends SlamScreen {
 		players.add(p2);
 		
 		ArenaScreen arena = (ArenaScreen)getGame().getScreen(ArenaScreen.NAME);
-		arena.prepareGame("arenas/2_trench_warfare.properties", players);
+		arena.prepareGame("arenas/" + arenaFile + ".properties", players);
 		getGame().setScreen(ArenaScreen.NAME);
 	}
 }

@@ -139,6 +139,10 @@ public class GameManager {
 		// Charge l'arène
 		loadArena();
 		
+		// Affiche le bouton de rafraîchissement des lettres de la zone de départ.
+		// On ne peut rafraîchir la zone de départ qu'au premier coup du round.
+		ui.showRefreshStartingZoneButton(true);
+		
 		// Démarre le jeu
 		changeState(GameStates.READY);
 	}
@@ -322,7 +326,13 @@ public class GameManager {
 		if (curPlayer == firstPlayer) {
 			endTurn();
 		}
+		
+		// Affiche le prochain joueur à jouer
 		setCurrentPlayer(curPlayer);
+		
+		// Affiche le bouton de rafraîchissement des lettres de la zone de départ.
+		// On ne peut rafraîchir la zone de départ qu'au premier coup du round.
+		ui.showRefreshStartingZoneButton(getCurrentPlayer().nbWordsPlayed == 0);
 	}
 	
 	/**
@@ -495,10 +505,6 @@ public class GameManager {
 	}
 
 	public void refreshStartingZone() {
-		// Au premier coup du round, on peut rafraîchir la zone de départ. Après on ne peut plus.
-		if (getCurrentPlayer().nbWordsPlayed != 0) {
-			return;
-		}
 		// Change les lettres de la zone de départ
 		arena.refreshStartingZone(getCurrentPlayer().owner);
 		// Supprime le mot éventuellement sélectionné
@@ -516,6 +522,10 @@ public class GameManager {
 	 * Met à jour l'affichage du mot actuellement sélectionné
 	 */
 	public void setCurrentWord(String word) {
+		boolean emptyWord = word.isEmpty();
+		
 		ui.setCurrentWord(word);
+		ui.showWordValidationButtons(!emptyWord);
+		ui.showRefreshStartingZoneButton(getCurrentPlayer().nbWordsPlayed == 0 && emptyWord);
 	}
 }
