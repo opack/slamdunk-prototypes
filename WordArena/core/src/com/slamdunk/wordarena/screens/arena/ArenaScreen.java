@@ -2,6 +2,7 @@ package com.slamdunk.wordarena.screens.arena;
 
 import java.util.List;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.slamdunk.toolkit.screen.SlamGame;
@@ -61,4 +62,13 @@ public class ArenaScreen extends SlamScreen {
 	public void prepareGame(String arenaPlanFile, List<Player> players) {
 		gameManager.prepareGame(this, arenaPlanFile, players);
 	}
+	
+	@Override
+	public boolean keyDown(int keycode) {
+		// Au cours d'une partie, appuyer sur back met le jeu en pause
+		if (keycode == Keys.BACK) {
+			gameManager.requestBack();
+		}
+	    return false;
+	 }
 }
