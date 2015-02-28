@@ -1,18 +1,20 @@
 package com.slamdunk.wordarena.screens.home;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordArenaGame;
+import com.slamdunk.wordarena.enums.GameTypes;
 import com.slamdunk.wordarena.utils.Overlap2DUtils;
 import com.uwsoft.editor.renderer.SceneLoader;
 
 public class HomeUI extends UIOverlay {
 	private HomeScreen screen;
+	private Table gamesTable;
 	
 	public HomeUI(HomeScreen screen) {
 		this.screen = screen;
@@ -24,7 +26,7 @@ public class HomeUI extends UIOverlay {
 		loadScene();
 		
 		// Charge la liste des parties en cours
-		loadCurrentGames();
+		initCurrentGames();
 	}
 
 	private void loadScene() {
@@ -60,11 +62,23 @@ public class HomeUI extends UIOverlay {
 		sceneLoader.sceneActor.getCompositeById("btnArena3").addScript(new GameLaunchScript(screen));
 	}
 	
-	private void loadCurrentGames() {
+	private void initCurrentGames() {
 		// Créer une table
-		// ...
+		gamesTable = new Table();
 		
-		// Créer la ligne de boutons pour changer le type de partie
+		// Charge les parties en cours
+		loadCurrentGames(GameTypes.CAREER);
+		
+		// Placer la table dans un ScrollPane pour permettre le scroll
+		ScrollPane scrollPane = new ScrollPane(gamesTable, Assets.skin);
+		scrollPane.setFlickScroll(false);
+		
+		// Ajouter le ScrollPane au Stage
+		getStage().addActor(scrollPane);
+	}
+	
+	private void loadCurrentGames(GameTypes gameType) {
+		// Vider la table mais conserver les Group de ligne pour les réutiliser
 		// ...
 		
 		// Charger les parties en cours pour le premier type
@@ -72,12 +86,5 @@ public class HomeUI extends UIOverlay {
 		
 		// Ajouter ces parties à la table (1 partie par ligne, 1 ligne d'en-tête par type de partie)
 		// ...
-		
-		// Placer la table dans un ScrollPane pour permettre le scroll
-		ScrollPane scrollPane = new ScrollPane(list, Assets.skin);
-		scrollPane.setFlickScroll(false);
-		
-		// Ajouter le ScrollPane au Stage
-		getStage().addActor(scrollPane);
 	}
 }
