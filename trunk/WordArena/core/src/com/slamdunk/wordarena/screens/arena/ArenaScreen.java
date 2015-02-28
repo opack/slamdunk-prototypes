@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
+import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.actors.ZoomGestureHandler;
 import com.slamdunk.wordarena.actors.ZoomInputProcessor;
-import com.slamdunk.wordarena.data.GameManager;
 import com.slamdunk.wordarena.data.Player;
 
 public class ArenaScreen extends SlamScreen {

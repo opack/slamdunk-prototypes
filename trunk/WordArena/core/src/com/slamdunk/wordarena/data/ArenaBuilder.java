@@ -11,6 +11,7 @@ import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.toolkit.ui.MoveCameraDragListener;
 import com.slamdunk.wordarena.Assets;
+import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.Owners;
