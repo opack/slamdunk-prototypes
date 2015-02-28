@@ -22,6 +22,12 @@ public class WordArenaGame extends SlamGame {
 		
 		// Charge les ressources
 		Assets.load();
+
+		// Connecte l'utilisateur
+		if (!UserManager.getInstance().logIn()) {
+			// TODO DBG Faire une boîte de saisie d'identifiants
+			System.err.println("Connexion échouée. Veuillez saisir vos identifiants ou créer un compte.");
+		}
 		
 		// Crée les écrans
 		addScreen(new HomeScreen(this));

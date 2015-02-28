@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.slamdunk.toolkit.graphics.SpriteBatchUtils;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.Assets;
+import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.Borders;
 import com.slamdunk.wordarena.enums.Owners;

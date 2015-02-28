@@ -55,6 +55,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	PLAYER2: { font: default-font, fontColor: player2 },
 	PLAYER3: { font: default-font, fontColor: player3 },
 	PLAYER4: { font: default-font, fontColor: player4 },
+	opponent-turn: { font: default-font, fontColor: neutral },
+	user-turn: { font: default-font, fontColor: white },
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: { selection: selection, background: textfield, font: default-font, fontColor: white, cursor: cursor }

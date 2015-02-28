@@ -1,11 +1,14 @@
-package com.slamdunk.wordarena.data;
+package com.slamdunk.wordarena;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.data.ArenaData;
+import com.slamdunk.wordarena.data.ArenaZone;
+import com.slamdunk.wordarena.data.CellData;
+import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
 import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.ReturnCodes;

@@ -39,7 +39,7 @@ public class HomeScreen extends SlamScreen {
 
 	public void launchGame(String arenaFile) {
 		Player p1 = new Player();
-		p1.name = "Anne";
+		p1.name = "Alan";
 		p1.score = 0;
 		p1.owner = Owners.PLAYER1;
 		

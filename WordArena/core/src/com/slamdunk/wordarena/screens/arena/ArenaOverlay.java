@@ -11,13 +11,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
 import com.slamdunk.toolkit.ui.MoveCameraDragListener;
+import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.data.ArenaBuilder;
 import com.slamdunk.wordarena.data.ArenaData;
 import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.data.CellData;
-import com.slamdunk.wordarena.data.GameManager;
 import com.slamdunk.wordarena.enums.Owners;
 
 public class ArenaOverlay extends WorldOverlay {
