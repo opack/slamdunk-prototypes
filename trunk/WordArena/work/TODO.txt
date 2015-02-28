@@ -1,7 +1,7 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
-[ ] A corriger : Lors du ArenaUI.present(), tous les composants deviennent visibles, même ceux qui ont été volontairement masqués. Ainsi par ex les boutons de validation et annulation de mot redeviennent visibles en début de tour alors qu'ils ont été masqués car aucun mot n'est saisi.
-[ ] Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
-[ ] Ecrire un SimpleButtonScript qui tient compte de l'internationalisation pour le libellé du bouton
-[ ] Supprimer le code et les assets sans lien avec WordArena (les mettre dans un autre slamdunk-prototype), puis nettoyer le gradle (notamment ashley)
-[ ] Avoir un visuel différent par types de cellule
+[ ] DEV : Pour la liste des parties, créer un Group pour 1 partie en cours : image (avec état ?) de l'arène, libellé avec nom des joueurs, temps restant pour le tour
+[ ] FIX : Lors du ArenaUI.present(), tous les composants deviennent visibles, même ceux qui ont été volontairement masqués. Ainsi par ex les boutons de validation et annulation de mot redeviennent visibles en début de tour alors qu'ils ont été masqués car aucun mot n'est saisi.
+[ ] ADD : Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
+[ ] ADD : Ecrire un SimpleButtonScript qui tient compte de l'internationalisation pour le libellé du bouton
+[ ] ADD : Avoir un visuel différent par types de cellule
