@@ -1,10 +1,12 @@
 package com.slamdunk.wordarena;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.Texture.TextureWrap;
@@ -12,13 +14,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.I18NBundle;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.settings.SlamSettings;
-import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.CellStates;
+import com.slamdunk.wordarena.enums.Owners;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class Assets {
+	public static I18NBundle i18nBundle;
 	public static ResourceManager overlap2dResourceManager;
 	public static Skin skin;
 	public static Map<Owners, LabelStyle> ownerStyles;
@@ -26,6 +30,7 @@ public class Assets {
 	public static Map<Owners, Texture> edges;
 	
 	public static void load () {
+		loadI18N();
 		loadResourceManager();
 		loadSkin();
 		loadCells();
@@ -36,6 +41,12 @@ public class Assets {
 		disposeResourceManager();
 		disposeSkin();
 		disposeEdges();
+	}
+	
+	public static void loadI18N() {
+		FileHandle baseFileHandle = Gdx.files.internal("i18n/WordArena");
+		Locale locale = new Locale(SlamSettings.LANGUAGE.get());
+		i18nBundle = I18NBundle.createBundle(baseFileHandle, locale);
 	}
 	
 	private static void loadResourceManager() {

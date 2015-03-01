@@ -166,7 +166,7 @@ public class ArenaUI extends UIOverlay {
 	}
 	
 	public void setCurrentPlayer(Player player, int turn, int maxTurns, int round) {
-		currentPlayer.setText("Round " + round + " - " + player.name + " (Coup " + turn + "/" + maxTurns + ")");
+		currentPlayer.setText(Assets.i18nBundle.format("ui.arena.currentTurn", player.name, round, turn, maxTurns));
 		currentPlayer.setStyle(Assets.ownerStyles.get(player.owner));
 	}
 	
@@ -183,11 +183,11 @@ public class ArenaUI extends UIOverlay {
 	}
 	
 	public void setRoundWinner(String winner) {
-		sceneLoader.sceneActor.getLabelById("lblRoundWinner").setText(winner);
+		sceneLoader.sceneActor.getLabelById("lblRoundWinner").setText(Assets.i18nBundle.format("ui.arena.roundWinner", winner));
 	}
 	
 	public void setGameWinner(String winner) {
-		sceneLoader.sceneActor.getLabelById("lblGameWinner").setText(winner);
+		sceneLoader.sceneActor.getLabelById("lblGameWinner").setText(Assets.i18nBundle.format("ui.arena.gameWinner", winner));
 	}
 	
 	public void showRefreshStartingZoneButton(boolean show) {

@@ -241,7 +241,8 @@ public class HomeUI extends UIOverlay {
 	 * @param status
 	 */
 	private void createHeaderRow(GameStatus status) {
-		gamesTable.add(new Label(status.name(), Assets.skin, GAME_LABEL_STYLE_STATUS_HEADER));
+		final String header = Assets.i18nBundle.get("ui.home.games.header." + status.name());
+		gamesTable.add(new Label(header, Assets.skin, GAME_LABEL_STYLE_STATUS_HEADER));
 		
 		// Fin de la ligne
 		gamesTable.row();

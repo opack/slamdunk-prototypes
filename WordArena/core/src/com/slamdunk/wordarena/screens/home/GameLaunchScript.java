@@ -3,9 +3,8 @@ package com.slamdunk.wordarena.screens.home;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
-import com.uwsoft.editor.renderer.script.SimpleButtonScript;
 
-public class GameLaunchScript extends SimpleButtonScript {
+public class GameLaunchScript extends SimpleButtonI18NScript {
 	private HomeScreen screen;
 	
 	public GameLaunchScript(HomeScreen screen) {
