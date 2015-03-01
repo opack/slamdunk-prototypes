@@ -104,7 +104,6 @@ public class ArenaUI extends UIOverlay {
 		});
 		
 		currentPlayer = sceneLoader.sceneActor.getLabelById("lblCurrentPlayer");
-		stats = sceneLoader.sceneActor.getLabelById("lblStats");
 		currentWord = sceneLoader.sceneActor.getLabelById("lblCurrentWord");
 		info = sceneLoader.sceneActor.getLabelById("lblInfo");
 	}
@@ -119,6 +118,15 @@ public class ArenaUI extends UIOverlay {
 				gameManager.changeState(GameStates.RUNNING);
 			}
 		});
+		
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnBackToHome2", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+//				Assets.playSound(Assets.clickSound);
+				getScreen().getGame().setScreen(HomeScreen.NAME);
+			}
+		});
+		
+		stats = sceneLoader.sceneActor.getLabelById("lblStats");
 	}
 	
 	/**
@@ -143,7 +151,7 @@ public class ArenaUI extends UIOverlay {
 			}
 		});
 		
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnBackToHome", new ClickListener() {
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnBackToHome1", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 //				Assets.playSound(Assets.clickSound);
 				getScreen().getGame().setScreen(HomeScreen.NAME);
