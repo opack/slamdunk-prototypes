@@ -1,6 +1,5 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
-[ ] FIX : Lors du ArenaUI.present(), tous les composants deviennent visibles, même ceux qui ont été volontairement masqués. Ainsi par ex les boutons de validation et annulation de mot redeviennent visibles en début de tour alors qu'ils ont été masqués car aucun mot n'est saisi.
 [ ] ADD : Sur l'écran de jeu, afficher la possession en zones (carrés remplis par la couleur du joueur)
 [ ] ADD : Sur l'écran de pause, afficher les stats (score, zones, rounds) dans un tableau
 [ ] ADD : Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
