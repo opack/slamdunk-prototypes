@@ -284,17 +284,17 @@ public class GameManager {
 			return;
 		}
 		
-		// Si on démarre la partie, alors on affiche l'arène
-		if (newState == GameStates.RUNNING) {
-			arena.showLetters(true);
-		} else if (newState == GameStates.PAUSED) {
-			arena.showLetters(false);
-			ui.updateStats();
-		}
-		
 		// Mise à jour de l'UI
 		state = newState;
 		ui.present(newState);
+		arena.showLetters(newState == GameStates.RUNNING);
+		
+		if (newState == GameStates.RUNNING) {
+			// Re-masque ou ré-affiche les boutons en fonction de l'état de la partie
+			setCurrentWord(wordSelectionHandler.getCurrentWord());
+		} else if (newState == GameStates.PAUSED) {
+			ui.updateStats();
+		}
 	}
 	
 	public void loadArena() {
