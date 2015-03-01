@@ -8,16 +8,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.toolkit.lang.KeyListMap;
 import com.slamdunk.toolkit.lang.TypedProperties;
-import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.toolkit.ui.MoveCameraDragListener;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
-import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
+import com.slamdunk.wordarena.enums.Owners;
 
 /**
  * Construit une arène à partir d'un plan
@@ -86,7 +85,7 @@ public class ArenaBuilder {
 		}
 		
 		// Charge le nom de l'arène
-		arena.name = plan.getStringProperty("name." + SlamSettings.LANGUAGE.get(), "");
+		arena.name = Assets.i18nBundle.get("arena." + plan.getIntegerProperty("index", -1));
 		
 		// Charge les types de cellule
 		String[] types = plan.getStringArrayProperty("plan.types", CELL_SEPARATOR);

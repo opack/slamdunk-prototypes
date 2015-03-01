@@ -4,9 +4,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.slamdunk.wordarena.enums.GameTypes;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
-import com.uwsoft.editor.renderer.script.SimpleButtonScript;
 
-public class ChangeCurrentGamesScript extends SimpleButtonScript {
+public class ChangeCurrentGamesScript extends SimpleButtonI18NScript {
 	private HomeUI ui;
 	
 	public ChangeCurrentGamesScript(HomeUI ui) {

@@ -160,7 +160,7 @@ public class GameManager {
 		switch (result) {
 		case OK:
 			Player player = getCurrentPlayer();
-			ui.setInfo(player.name + " a joué " + word);
+			ui.setInfo(Assets.i18nBundle.format("ui.arena.wordPlayed", player.name, word));
 			// Toutes les cellules passent sous la domination du joueur
 			arena.setOwner(wordSelectionHandler.getSelectedCells(), player.owner);
 			// Le score du joueur est modifié
@@ -173,10 +173,10 @@ public class GameManager {
 			endStroke();
 			break;
 		case WORD_ALREADY_PLAYED:
-			ui.setInfo(word + " a déjà été joué pendant ce round");
+			ui.setInfo(Assets.i18nBundle.format("ui.arena.alreadyPlayed", word));
 			break;
 		case WORD_UNKNOWN:
-			ui.setInfo(word + " n'existe pas dans le dictionnaire de WordArena");
+			ui.setInfo(Assets.i18nBundle.format("ui.arena.unknownWord", word));
 			break;
 		}
 		cancelWord();
@@ -512,7 +512,7 @@ public class GameManager {
 		// Supprime le mot éventuellement sélectionné
 		wordSelectionHandler.cancel();
 		// Affiche un message de confirmation
-		ui.setInfo(getCurrentPlayer().name + " a tiré de nouvelles lettres");
+		ui.setInfo(Assets.i18nBundle.format("ui.arena.redrewLetters", getCurrentPlayer().name));
 		// Le score du joueur est modifié
 		getCurrentPlayer().score -= MALUS_REFRESH_STARTING_ZONE;
 		ui.updateStats();
