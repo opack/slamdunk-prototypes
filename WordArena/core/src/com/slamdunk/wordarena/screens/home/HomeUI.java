@@ -60,7 +60,7 @@ public class HomeUI extends UIOverlay {
 		// Bouton Play !
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnPlay", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				screen.launchGame("3_diamond");
+				screen.launchGame("4_battlefield");
 			}
 		});
 		
