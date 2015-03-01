@@ -36,8 +36,19 @@ public class ArenaUI extends UIOverlay {
 		createStage(new FitViewport(WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT));
 		
 		loadScene();
+		
+		createZoneSquares();
 	}
 	
+
+	/**
+	 * Crée les carrés indiquant la possession des joueurs en terme
+	 * de zones
+	 */
+	private void createZoneSquares() {
+		// TODO Auto-generated method stub
+	}
+
 
 	/**
 	 * Charge les composants définis dans Overlap2D
@@ -222,5 +233,13 @@ public class ArenaUI extends UIOverlay {
 		}
 		
 		stats.setText(sb.toString());
+	}
+	
+	/**
+	 * Met à jour les carrés de possession de zone en fonction des
+	 * zones possédées par chaque joueur.
+	 */
+	public void updateZoneSquares() {
+		// TODO DBG Afficher l'image couleur des joueurs dans autant de carrés que de zones possédées
 	}
 }
