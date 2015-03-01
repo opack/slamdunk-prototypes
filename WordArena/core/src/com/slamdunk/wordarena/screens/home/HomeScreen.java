@@ -30,12 +30,19 @@ public class HomeScreen extends SlamScreen {
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		// TODO DBG Afficher une boîte de confirmation
 		if (keycode == Keys.BACK) {
-			Gdx.app.exit();
+			promptExit();
 		}
 	    return false;
 	 }
+
+	/**
+	 * Propose à l'utilisateur de quitter le jeu
+	 */
+	public void promptExit() {
+		// TODO DBG Afficher une boîte de confirmation
+		Gdx.app.exit();
+	}
 
 	public void launchGame(String arenaFile) {
 		Player p1 = new Player();
