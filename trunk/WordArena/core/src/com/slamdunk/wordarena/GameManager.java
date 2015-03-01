@@ -165,7 +165,6 @@ public class GameManager {
 			arena.setOwner(wordSelectionHandler.getSelectedCells(), player.owner);
 			// Le score du joueur est modifié
 			player.score += computeScore(wordSelectionHandler.getSelectedCells());
-			ui.updateStats();
 			// Le joueur a joué un coup. C'est bon à savoir pour les stats
 			// et pour autoriser ou non le refresh de la zone de départ
 			player.nbWordsPlayed++;
@@ -256,7 +255,7 @@ public class GameManager {
 		// été appelé pendant la création de l'arène. On ne met
 		// donc pas à jour l'UI.
 		if (state == GameStates.RUNNING) {
-			ui.updateStats();
+//			ui.updateStats();
 		}
 	}
 
@@ -284,15 +283,18 @@ public class GameManager {
 		if (newState == state) {
 			return;
 		}
-		state = newState;
-		ui.present(newState);
 		
 		// Si on démarre la partie, alors on affiche l'arène
 		if (newState == GameStates.RUNNING) {
 			arena.showLetters(true);
 		} else if (newState == GameStates.PAUSED) {
 			arena.showLetters(false);
+			ui.updateStats();
 		}
+		
+		// Mise à jour de l'UI
+		state = newState;
+		ui.present(newState);
 	}
 	
 	public void loadArena() {
@@ -312,7 +314,6 @@ public class GameManager {
 		nbZones = arena.getData().zones.size();
 		
 		// Met à jour l'UI
-		ui.updateStats();
 		ui.setArenaName(arena.getData().name);
 		ui.setInfo("");
 	}
@@ -515,7 +516,6 @@ public class GameManager {
 		ui.setInfo(Assets.i18nBundle.format("ui.arena.redrewLetters", getCurrentPlayer().name));
 		// Le score du joueur est modifié
 		getCurrentPlayer().score -= MALUS_REFRESH_STARTING_ZONE;
-		ui.updateStats();
 		// Fin du tour de ce joueur
 		endStroke();
 	}
