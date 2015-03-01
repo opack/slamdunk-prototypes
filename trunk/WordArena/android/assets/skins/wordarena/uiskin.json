@@ -1,5 +1,8 @@
 {
-com.badlogic.gdx.graphics.g2d.BitmapFont: { default-font: { file: arial_18.fnt } },
+com.badlogic.gdx.graphics.g2d.BitmapFont: {
+	default-font: { file: arial_18.fnt },
+	bold: { file: arial_bold_18.fnt }
+},
 com.badlogic.gdx.graphics.Color: {
 	green: { a: 1, r: 0, g: 1, b: 0 },
 	white: { a: 1, r: 1, g: 1, b: 1 },
@@ -55,8 +58,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	PLAYER2: { font: default-font, fontColor: player2 },
 	PLAYER3: { font: default-font, fontColor: player3 },
 	PLAYER4: { font: default-font, fontColor: player4 },
-	opponent-turn: { font: default-font, fontColor: neutral },
-	user-turn: { font: default-font, fontColor: white },
+	games-status-header: { font: bold, fontColor: black },
+	games-user-turn: { font: default-font, fontColor: white },
+	games-opponent-turn: { font: default-font, fontColor: neutral },
+	games-game-over: { font: default-font, fontColor: black },
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: { selection: selection, background: textfield, font: default-font, fontColor: white, cursor: cursor }

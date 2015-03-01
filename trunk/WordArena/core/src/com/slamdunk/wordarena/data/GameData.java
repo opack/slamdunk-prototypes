@@ -20,4 +20,9 @@ public class GameData {
 	 * Indique le joueur dont c'est le tour
 	 */
 	public int currentPlayer;
+	
+	/**
+	 * Indique si la partie est terminée
+	 */
+	public boolean gameOver;
 }
