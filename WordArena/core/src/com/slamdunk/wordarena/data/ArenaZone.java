@@ -174,6 +174,11 @@ public class ArenaZone {
 		// Changement de l'owner
 		this.owner = newOwner;
 		
+		// Change l'image des cellules de la zone
+		for (ArenaCell cell : cells.values()) {
+			cell.updateDisplay();
+		}
+		
 		// Demande la mise à jour des Sprites dessinant le contour de la zone
 		invalidate = true;
 	}
