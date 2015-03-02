@@ -15,7 +15,7 @@
    height="800"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.4 r9939"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="wordarena.svg">
   <defs
      id="defs4">
@@ -440,15 +440,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.9899495"
-     inkscape:cx="271.45438"
-     inkscape:cy="240.33191"
+     inkscape:cx="643.3164"
+     inkscape:cy="765.61123"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1440"
      inkscape:window-height="837"
      inkscape:window-x="-8"
-     inkscape:window-y="116"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      showguides="true"
      inkscape:guide-bbox="true" />
@@ -460,7 +460,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -1444,7 +1444,7 @@
          sodipodi:end="6.273964"
          sodipodi:start="0"
          transform="matrix(0.96745063,0,0,0.96745063,434.22727,469.68971)"
-         d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
+         d="m -189.90868,156.75119 a 22.223356,22.223356 0 0 1 -22.17212,22.2233 22.223356,22.223356 0 0 1 -22.27435,-22.12084 22.223356,22.223356 0 0 1 22.06942,-22.32528 22.223356,22.223356 0 0 1 22.37611,22.01789"
          sodipodi:ry="22.223356"
          sodipodi:rx="22.223356"
          sodipodi:cy="156.75119"
@@ -1472,7 +1472,7 @@
          sodipodi:end="6.273964"
          sodipodi:start="0"
          transform="matrix(0.96745063,0,0,0.96745063,783.32131,469.68971)"
-         d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
+         d="m -189.90868,156.75119 a 22.223356,22.223356 0 0 1 -22.17212,22.2233 22.223356,22.223356 0 0 1 -22.27435,-22.12084 22.223356,22.223356 0 0 1 22.06942,-22.32528 22.223356,22.223356 0 0 1 22.37611,22.01789"
          sodipodi:ry="22.223356"
          sodipodi:rx="22.223356"
          sodipodi:cy="156.75119"
@@ -1502,7 +1502,7 @@
          sodipodi:end="6.273964"
          sodipodi:start="0"
          transform="matrix(0.96745063,0,0,0.96745063,782.02437,404.72824)"
-         d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
+         d="m -189.90868,156.75119 a 22.223356,22.223356 0 0 1 -22.17212,22.2233 22.223356,22.223356 0 0 1 -22.27435,-22.12084 22.223356,22.223356 0 0 1 22.06942,-22.32528 22.223356,22.223356 0 0 1 22.37611,22.01789"
          sodipodi:ry="22.223356"
          sodipodi:rx="22.223356"
          sodipodi:cy="156.75119"
@@ -1532,7 +1532,7 @@
          sodipodi:end="6.273964"
          sodipodi:start="0"
          transform="matrix(0.96745063,0,0,0.96745063,438.57251,412.80946)"
-         d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
+         d="m -189.90868,156.75119 a 22.223356,22.223356 0 0 1 -22.17212,22.2233 22.223356,22.223356 0 0 1 -22.27435,-22.12084 22.223356,22.223356 0 0 1 22.06942,-22.32528 22.223356,22.223356 0 0 1 22.37611,22.01789"
          sodipodi:ry="22.223356"
          sodipodi:rx="22.223356"
          sodipodi:cy="156.75119"
@@ -1570,7 +1570,7 @@
            sodipodi:cy="156.75119"
            sodipodi:rx="22.223356"
            sodipodi:ry="22.223356"
-           d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
+           d="m -189.90868,156.75119 a 22.223356,22.223356 0 0 1 -22.17212,22.2233 22.223356,22.223356 0 0 1 -22.27435,-22.12084 22.223356,22.223356 0 0 1 22.06942,-22.32528 22.223356,22.223356 0 0 1 22.37611,22.01789"
            transform="matrix(0.96745063,0,0,0.96745063,782.02437,404.72824)"
            sodipodi:start="0"
            sodipodi:end="6.273964"
@@ -1622,7 +1622,7 @@
          sodipodi:end="6.273964"
          sodipodi:start="0"
          transform="matrix(0.96745063,0,0,0.96745063,860.58441,460.53457)"
-         d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
+         d="m -189.90868,156.75119 a 22.223356,22.223356 0 0 1 -22.17212,22.2233 22.223356,22.223356 0 0 1 -22.27435,-22.12084 22.223356,22.223356 0 0 1 22.06942,-22.32528 22.223356,22.223356 0 0 1 22.37611,22.01789"
          sodipodi:ry="22.223356"
          sodipodi:rx="22.223356"
          sodipodi:cy="156.75119"
@@ -1739,7 +1739,7 @@
              sodipodi:end="6.273964"
              sodipodi:start="0"
              transform="matrix(0.96745063,0,0,0.96745063,782.02437,404.72824)"
-             d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
+             d="m -189.90868,156.75119 a 22.223356,22.223356 0 0 1 -22.17212,22.2233 22.223356,22.223356 0 0 1 -22.27435,-22.12084 22.223356,22.223356 0 0 1 22.06942,-22.32528 22.223356,22.223356 0 0 1 22.37611,22.01789"
              sodipodi:ry="22.223356"
              sodipodi:rx="22.223356"
              sodipodi:cy="156.75119"
@@ -1798,7 +1798,7 @@
            sodipodi:cy="156.75119"
            sodipodi:rx="22.223356"
            sodipodi:ry="22.223356"
-           d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
+           d="m -189.90868,156.75119 a 22.223356,22.223356 0 0 1 -22.17212,22.2233 22.223356,22.223356 0 0 1 -22.27435,-22.12084 22.223356,22.223356 0 0 1 22.06942,-22.32528 22.223356,22.223356 0 0 1 22.37611,22.01789"
            transform="matrix(0.96745063,0,0,0.96745063,860.58441,460.53457)"
            sodipodi:start="0"
            sodipodi:end="6.273964"
@@ -1842,7 +1842,7 @@
          sodipodi:cy="156.75119"
          sodipodi:rx="22.223356"
          sodipodi:ry="22.223356"
-         d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
+         d="m -189.90868,156.75119 a 22.223356,22.223356 0 0 1 -22.17212,22.2233 22.223356,22.223356 0 0 1 -22.27435,-22.12084 22.223356,22.223356 0 0 1 22.06942,-22.32528 22.223356,22.223356 0 0 1 22.37611,22.01789"
          transform="matrix(0.96745063,0,0,0.96745063,969.12384,401.46063)"
          sodipodi:start="0"
          sodipodi:end="6.273964"
@@ -1865,7 +1865,7 @@
            sodipodi:cy="40.204834"
            sodipodi:rx="1.3889598"
            sodipodi:ry="1.3889598"
-           d="M 765.06431,40.204834 C 765.06431,40.971935 764.44246,41.593794 763.67535,41.593794 762.90825,41.593794 762.28639,40.971935 762.28639,40.204834 762.28639,39.437733 762.90825,38.815874 763.67535,38.815874 764.43746,38.815874 765.05723,39.429954 765.06425,40.192026"
+           d="m 765.06431,40.204834 a 1.3889598,1.3889598 0 0 1 -1.38575,1.388956 1.3889598,1.3889598 0 0 1 -1.39215,-1.382552 1.3889598,1.3889598 0 0 1 1.37934,-1.395331 1.3889598,1.3889598 0 0 1 1.3985,1.376119"
            transform="matrix(1.0799449,0,0,1.0799449,-101.83668,619.25567)"
            sodipodi:start="0"
            sodipodi:end="6.273964"
@@ -1882,7 +1882,7 @@
          sodipodi:end="6.273964"
          sodipodi:start="0"
          transform="matrix(0.96745063,0,0,0.96745063,969.90213,462.82279)"
-         d="M -189.90868,156.75119 C -189.90868,169.02481 -199.85841,178.97455 -212.13203,178.97455 -224.40566,178.97455 -234.35539,169.02481 -234.35539,156.75119 -234.35539,144.47757 -224.40566,134.52783 -212.13203,134.52783 -199.93837,134.52783 -190.02206,144.35312 -189.90962,156.54626"
+         d="m -189.90868,156.75119 a 22.223356,22.223356 0 0 1 -22.17212,22.2233 22.223356,22.223356 0 0 1 -22.27435,-22.12084 22.223356,22.223356 0 0 1 22.06942,-22.32528 22.223356,22.223356 0 0 1 22.37611,22.01789"
          sodipodi:ry="22.223356"
          sodipodi:rx="22.223356"
          sodipodi:cy="156.75119"
@@ -1908,7 +1908,7 @@
            sodipodi:cy="40.204834"
            sodipodi:rx="1.3889598"
            sodipodi:ry="1.3889598"
-           d="M 765.06431,40.204834 C 765.06431,40.971935 764.44246,41.593794 763.67535,41.593794 762.90825,41.593794 762.28639,40.971935 762.28639,40.204834 762.28639,39.437733 762.90825,38.815874 763.67535,38.815874 764.43746,38.815874 765.05723,39.429954 765.06425,40.192026"
+           d="m 765.06431,40.204834 a 1.3889598,1.3889598 0 0 1 -1.38575,1.388956 1.3889598,1.3889598 0 0 1 -1.39215,-1.382552 1.3889598,1.3889598 0 0 1 1.37934,-1.395331 1.3889598,1.3889598 0 0 1 1.3985,1.376119"
            transform="matrix(1.0799449,0,0,1.0799449,-101.83668,619.25567)"
            sodipodi:start="0"
            sodipodi:end="6.273964"
@@ -1924,5 +1924,193 @@
        inkscape:export-ydpi="90"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="ccccc" />
+    <rect
+       style="fill:#7db1ff;fill-opacity:1;stroke:none"
+       id="rect2985-60-1-6-6"
+       width="47.999966"
+       height="48"
+       x="711.80249"
+       y="43.184139"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_blue_owned_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.33000004;fill:#7db1ff;fill-opacity:1;stroke:none"
+       id="rect2985-60-1-2-8-70-9"
+       width="47.999966"
+       height="48"
+       x="711.80249"
+       y="139.18434"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_blue_zone_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffe67d;fill-opacity:1;stroke:none"
+       id="rect2985-60-1-6-6-8"
+       width="47.999966"
+       height="48"
+       x="711.80249"
+       y="91.184235"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\button_letter_player1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffe67d;fill-opacity:1;stroke:none"
+       id="rect2985-60-1-2-8-70-9-5"
+       width="47.999966"
+       height="48"
+       x="711.80249"
+       y="187.18443" />
+    <rect
+       style="fill:#ffb17d;fill-opacity:1;stroke:none"
+       id="rect2985-60-74-3-7"
+       width="47.999966"
+       height="48"
+       x="764.80243"
+       y="43.184139"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_orange_owned_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.33000004;fill:#ffb17d;fill-opacity:1;stroke:none"
+       id="rect2985-60-74-7-5-3-4"
+       width="47.999966"
+       height="48"
+       x="764.80243"
+       y="139.18434"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_orange_zone_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffe67d;fill-opacity:1;stroke:none"
+       id="rect2985-60-74-3-7-5"
+       width="47.999966"
+       height="48"
+       x="764.80243"
+       y="91.184235"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\button_letter_player2.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffe67d;fill-opacity:1;stroke:none"
+       id="rect2985-60-74-7-5-3-4-7"
+       width="47.999966"
+       height="48"
+       x="764.80243"
+       y="187.18443" />
+    <rect
+       style="fill:#b6e399;fill-opacity:1;stroke:none"
+       id="rect2985-60-0-4-4"
+       width="48"
+       height="48"
+       x="817.80243"
+       y="43.184139"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_green_owned_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.33000004;fill:#b6e399;fill-opacity:1;stroke:none"
+       id="rect2985-60-0-6-7-8-4"
+       width="48"
+       height="48"
+       x="817.80243"
+       y="139.18434"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_green_zone_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffe67d;fill-opacity:1;stroke:none"
+       id="rect2985-60-0-4-4-4"
+       width="48"
+       height="48"
+       x="817.80243"
+       y="91.184235"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\button_letter_player3.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffe67d;fill-opacity:1;stroke:none"
+       id="rect2985-60-0-6-7-8-4-6"
+       width="48"
+       height="48"
+       x="817.80243"
+       y="187.18443" />
+    <rect
+       style="fill:#d499e3;fill-opacity:1;stroke:none"
+       id="rect2985-60-9-71-8"
+       width="48"
+       height="48"
+       x="870.80243"
+       y="43.184139"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_purple_owned_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="opacity:0.33000004;fill:#d499e3;fill-opacity:1;stroke:none"
+       id="rect2985-60-9-1-6-5-0"
+       width="48"
+       height="48"
+       x="870.80243"
+       y="139.18434"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_purple_zone_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffe67d;fill-opacity:1;stroke:none"
+       id="rect2985-60-9-71-8-3"
+       width="48"
+       height="48"
+       x="870.80243"
+       y="91.184235"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\button_letter_player4.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffe67d;fill-opacity:1;stroke:none"
+       id="rect2985-60-9-1-6-5-0-1"
+       width="48"
+       height="48"
+       x="870.80243"
+       y="187.18443" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3.99999976;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2985-60-6-2"
+       width="44"
+       height="44"
+       x="660.80249"
+       y="45.184128"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_owned_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffe67d;fill-opacity:1;stroke:none"
+       id="rect2985-60-15-6-5-1"
+       width="48"
+       height="48"
+       x="658.80249"
+       y="91.184242"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_owned_selected.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3.99999976;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       id="rect2985-60-6-2-3"
+       width="44"
+       height="44"
+       x="660.80249"
+       y="141.18434"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_zone_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#ffe67d;fill-opacity:1;stroke:none"
+       id="rect2985-60-15-6-5-1-7"
+       width="48"
+       height="48"
+       x="658.80249"
+       y="187.18445"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_zone_selected.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
