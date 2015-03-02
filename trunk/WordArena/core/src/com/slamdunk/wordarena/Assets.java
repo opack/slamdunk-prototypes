@@ -8,39 +8,53 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.Texture.TextureWrap;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
-import com.slamdunk.toolkit.lang.DoubleEntryArray;
+import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.settings.SlamSettings;
+import com.slamdunk.wordarena.data.CellPack;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.Owners;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class Assets {
+	private static final String CELL_PACK_PREFIX = "cellpack";
+	
+	public static TypedProperties appProperties;
 	public static I18NBundle i18nBundle;
 	public static ResourceManager overlap2dResourceManager;
 	public static Skin skin;
+	public static TextureAtlas atlas;
 	public static Map<Owners, LabelStyle> ownerStyles;
-	public static DoubleEntryArray<Owners, CellStates, TextureRegionDrawable> cells;
-	public static Map<Owners, Texture> edges;
+	public static Map<String, CellPack> cellPacks;
 	
 	public static void load () {
+		loadAppProperties();
 		loadI18N();
-		loadResourceManager();
+		loadOverlapResources();
 		loadSkin();
-		loadCells();
-		loadEdges();
+		loadAtlas();
 	}
 	
 	public static void dispose () {
-		disposeResourceManager();
+		disposeOverlapResources();
 		disposeSkin();
-		disposeEdges();
+		disposeAtlas();
+	}
+	
+	private static void loadAppProperties() {
+		appProperties = new TypedProperties("wordarena.properties");
+	}
+	
+	public static void loadAtlas() {
+		atlas = new TextureAtlas("textures/wordarena.txt");
+		
+		// Charge les cell-packs
+		loadCellPacks();
 	}
 	
 	public static void loadI18N() {
@@ -49,12 +63,12 @@ public class Assets {
 		i18nBundle = I18NBundle.createBundle(baseFileHandle, locale);
 	}
 	
-	private static void loadResourceManager() {
+	private static void loadOverlapResources() {
 		overlap2dResourceManager = new ResourceManager();
 		overlap2dResourceManager.initAllResources();
 	}
 	
-	private static void disposeResourceManager() {
+	private static void disposeOverlapResources() {
 		overlap2dResourceManager.dispose();
 	}
 
@@ -80,61 +94,66 @@ public class Assets {
 		}
 	}
 	
-	private static void loadCells() {
-		cells = new DoubleEntryArray<Owners, CellStates, TextureRegionDrawable>();
-		final TextureRegion[][] textures = splitSpriteSheet(
-			"textures/cells4.png",
-			CellStates.values().length,
-			Owners.values().length);
-		TextureRegion region;
-		for (CellStates state : CellStates.values()) {
-			for (Owners owner : Owners.values()) {
-				region = textures[state.ordinal()][owner.ordinal()];
-				cells.put(owner, state, new TextureRegionDrawable(region));
-			}
+	private static void loadCellPacks() {
+		// Charge la liste des cell-packs
+		final String[] packList = appProperties.getStringArrayProperty("cellpacks", ",");
+		
+		// Charge les cellules et les bords
+		cellPacks = new HashMap<String, CellPack>();
+		
+		CellPack pack;
+		for (String packName : packList) {
+			// Crée le pack
+			pack = new CellPack();
+			pack.name = packName;
+			
+			// Charge les images des cellules
+			putCellPackImage(pack, CellStates.OWNED, Boolean.FALSE);
+			putCellPackImage(pack, CellStates.OWNED, Boolean.TRUE);
+			putCellPackImage(pack, CellStates.CONTROLED, Boolean.FALSE);
+			putCellPackImage(pack, CellStates.CONTROLED, Boolean.TRUE);
+			
+			// Charge l'image de la bordure
+			final TextureRegion region = atlas.findRegion(formatCellPackEdgeRegionName(pack.name));
+			pack.edge = region.getTexture();
+			
+			// Enregistre le pack
+			cellPacks.put(packName, pack);
 		}
 	}
 	
-	private static void loadEdges() {
-		edges = new HashMap<Owners, Texture>();
+	private static void putCellPackImage(final CellPack pack, final CellStates state, Boolean selected) {
+		final TextureRegion region = atlas.findRegion(formatCellPackCellRegionName(pack.name, state, selected));
+		pack.cell.put(state, selected, new TextureRegionDrawable(region));
+	}
 
-	    Texture neutral = new Texture(Gdx.files.internal("textures/edge_neutral.png"));
-	    neutral.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		neutral.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	    edges.put(Owners.NEUTRAL, neutral);
-	    
-	    Texture player1 = new Texture(Gdx.files.internal("textures/edge_player1.png"));
-	    player1.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-	    player1.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	    edges.put(Owners.PLAYER1, player1);
-	    
-	    Texture player2 = new Texture(Gdx.files.internal("textures/edge_player2.png"));
-		player2.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		player2.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	    edges.put(Owners.PLAYER2, player2);
-	    
-	    Texture player3 = new Texture(Gdx.files.internal("textures/edge_player3.png"));
-		player3.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		player3.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	    edges.put(Owners.PLAYER3, player3);
-	    
-	    Texture player4 = new Texture(Gdx.files.internal("textures/edge_player4.png"));
-		player4.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		player4.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	    edges.put(Owners.PLAYER4, player4);
+	/**
+	 * Retourne le nom d'une région d'une cellule en fonction du nom du pack et de l'état de la
+	 * cellule pour lequel on souhaite récupérer l'image du pack dans l'atlas
+	 * @param pack
+	 * @param state
+	 * @param selected
+	 * @return
+	 */
+	private static String formatCellPackCellRegionName(String pack, CellStates state, boolean selected) {
+		return CELL_PACK_PREFIX + "_"
+			+ pack + "_"
+			+ state.name().toLowerCase() + "_"
+			+ (selected ? "selected" : "normal");
 	}
 	
-	private static void disposeEdges() {
-		for (Texture texture : edges.values()) {
-			texture.dispose();
-		}
+	/**
+	 * Retourne le nom d'une région d'une bordure en fonction du nom du pack
+	 * @param pack
+	 * @param state
+	 * @param selected
+	 * @return
+	 */
+	private static String formatCellPackEdgeRegionName(String pack) {
+		return CELL_PACK_PREFIX + "_" + pack + "_edge";
 	}
 	
-	private static TextureRegion[][] splitSpriteSheet(String file, int nbRows, int nbCols) {
-		Texture spriteSheet = new Texture(Gdx.files.internal(file));
-		return TextureRegion.split(
-				spriteSheet,
-				spriteSheet.getWidth() / nbCols,
-				spriteSheet.getHeight() / nbRows);
+	private static void disposeAtlas() {
+		atlas.dispose();
 	}
 }

@@ -26,9 +26,14 @@ public class CellData {
 	public Letters letter;
 	
 	/**
-	 * L'état dans lequel se trouve la cellule
+	 * Indique dans quel état se trouve la cellule (contrôle, dans une zone de contrôle ou neutre)
 	 */
 	public CellStates state;
+	
+	/**
+	 * Indique si la cellule est actuellement sélectionnée dans un mot
+	 */
+	public boolean selected;
 	
 	/**
 	 * La position à laquelle se trouve la cellule
@@ -53,7 +58,8 @@ public class CellData {
 	
 	public CellData() {
 		letter = Letters.A;
-		state = CellStates.NORMAL;
+		state = CellStates.NEUTRAL;
+		selected = false;
 		position = new Point(0, 0);
 		owner = Owners.NEUTRAL;
 		power = 1;

@@ -1,0 +1,179 @@
+wordarena.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+cellpack_blue_edge
+  rotate: false
+  xy: 20, 6
+  size: 16, 2
+  orig: 16, 2
+  offset: 0, 0
+  index: -1
+cellpack_blue_owned_normal
+  rotate: false
+  xy: 2, 210
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_blue_owned_selected
+  rotate: false
+  xy: 2, 260
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_blue_zone_normal
+  rotate: false
+  xy: 2, 160
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_blue_zone_selected
+  rotate: false
+  xy: 2, 260
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_green_edge
+  rotate: false
+  xy: 38, 2
+  size: 16, 2
+  orig: 16, 2
+  offset: 0, 0
+  index: -1
+cellpack_green_owned_normal
+  rotate: false
+  xy: 2, 360
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_green_owned_selected
+  rotate: false
+  xy: 2, 260
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_green_zone_normal
+  rotate: false
+  xy: 2, 460
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_green_zone_selected
+  rotate: false
+  xy: 2, 260
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_neutral_edge
+  rotate: false
+  xy: 2, 6
+  size: 16, 2
+  orig: 16, 2
+  offset: 0, 0
+  index: -1
+cellpack_neutral_owned_normal
+  rotate: false
+  xy: 2, 310
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_neutral_owned_selected
+  rotate: false
+  xy: 2, 260
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_neutral_zone_normal
+  rotate: false
+  xy: 2, 310
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_neutral_zone_selected
+  rotate: false
+  xy: 2, 260
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_orange_edge
+  rotate: false
+  xy: 20, 2
+  size: 16, 2
+  orig: 16, 2
+  offset: 0, 0
+  index: -1
+cellpack_orange_owned_normal
+  rotate: false
+  xy: 2, 10
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_orange_owned_selected
+  rotate: false
+  xy: 2, 260
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_orange_zone_normal
+  rotate: false
+  xy: 2, 60
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_orange_zone_selected
+  rotate: false
+  xy: 2, 260
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_purple_edge
+  rotate: false
+  xy: 2, 2
+  size: 16, 2
+  orig: 16, 2
+  offset: 0, 0
+  index: -1
+cellpack_purple_owned_normal
+  rotate: false
+  xy: 2, 110
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_purple_owned_selected
+  rotate: false
+  xy: 2, 260
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_purple_zone_normal
+  rotate: false
+  xy: 2, 410
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+cellpack_purple_zone_selected
+  rotate: false
+  xy: 2, 260
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1

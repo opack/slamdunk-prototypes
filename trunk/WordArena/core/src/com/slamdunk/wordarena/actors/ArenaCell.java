@@ -32,7 +32,8 @@ public class ArenaCell extends GroupEx {
 		data = new CellData();
 		
 		// Crée les acteurs
-		background = new Image(Assets.cells.get(data.owner, data.state));
+		// DBG TODO Récupérer le cellPack du joueur en fonction de l'owner de la cellule
+		background = new Image(Assets.cellPacks.get(data.owner, data.state));
 		background.setTouchable(Touchable.disabled);
 		addActor(background);
 		letter = new Label("?", skin);
@@ -81,11 +82,11 @@ public class ArenaCell extends GroupEx {
 		&& data.zone != null
 		&& data.zone.getOwner() != Owners.NEUTRAL
 		&& data.state == CellStates.NORMAL) {
-			background.setDrawable(Assets.cells.get(data.zone.getOwner(), data.state));
+			background.setDrawable(Assets.cellsByPack.get(data.zone.getOwner(), data.state));
 			background.setColor(1, 1, 1, 0.3f);
 		} else {
 			// La cellule appartient à un joueur
-			background.setDrawable(Assets.cells.get(data.owner, data.state));
+			background.setDrawable(Assets.cellsByPack.get(data.owner, data.state));
 			background.setColor(1, 1, 1, 1);
 		}
 	}
@@ -95,7 +96,7 @@ public class ArenaCell extends GroupEx {
 	 * (qui passe à SELECTED) et l'image de la lettre
 	 */
 	public void select() {
-		data.state = CellStates.SELECTED;
+		data.selected = true;
 		updateDisplay();
 	}
 	
@@ -104,7 +105,7 @@ public class ArenaCell extends GroupEx {
 	 * (qui passe à NORMAL) et l'image de la lettre
 	 */
 	public void unselect() {
-		data.state = CellStates.NORMAL;
+		data.selected = false;
 		updateDisplay();
 	}
 

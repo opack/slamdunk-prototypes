@@ -12,4 +12,5 @@ public class Player {
 	public int nbRoundsWon;
 	public int nbZonesOwned;
 	public int nbWordsPlayed;
+	public String cellPack;
 }
