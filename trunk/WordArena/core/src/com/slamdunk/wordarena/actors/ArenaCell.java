@@ -74,7 +74,20 @@ public class ArenaCell extends GroupEx {
 	
 	public void updateDisplay() {
 		letter.setText(data.letter.label);
-		background.setDrawable(Assets.cells.get(data.owner, data.state));
+		
+		// Si la cellule est neutre et dans une zone possédée, alors on la colore
+		// légèrement. Ceci n'est pas effectué lors de la sélection des mots.
+		if (data.owner == Owners.NEUTRAL
+		&& data.zone != null
+		&& data.zone.getOwner() != Owners.NEUTRAL
+		&& data.state == CellStates.NORMAL) {
+			background.setDrawable(Assets.cells.get(data.zone.getOwner(), data.state));
+			background.setColor(1, 1, 1, 0.3f);
+		} else {
+			// La cellule appartient à un joueur
+			background.setDrawable(Assets.cells.get(data.owner, data.state));
+			background.setColor(1, 1, 1, 1);
+		}
 	}
 
 	/**

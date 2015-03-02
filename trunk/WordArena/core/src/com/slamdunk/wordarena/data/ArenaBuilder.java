@@ -23,7 +23,7 @@ import com.slamdunk.wordarena.enums.Owners;
  */
 public class ArenaBuilder {
 	public static final String LETTER_FROM_DECK = "-";
-	private static final String ZONE_NONE = "0";
+	private static final String ZONE_NONE = "-";
 	private static final String CELL_SEPARATOR = " ";
 	
 	private MoveCameraDragListener moveCameraDragListener;
