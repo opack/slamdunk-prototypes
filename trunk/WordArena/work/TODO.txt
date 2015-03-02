@@ -14,4 +14,3 @@ WordArena
 	Ce concept permet de créer des cartes plus riches que celles avec de simples vides.
 	Ainsi, on peut avoir un fond de carte représentant des bâtiments, et les murs interdisent de passer par ailleurs que la porte pour tenter de le conquérir.
 [ ] ADD : Faire un éditeur d'arènes
-[ ] ADD : Réfléchir à un autre moyen de stocker les cartes car lorsqu'on a plus de 9 zones, le fichier devient illisible

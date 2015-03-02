@@ -165,6 +165,8 @@ public class GameManager {
 			arena.setOwner(wordSelectionHandler.getSelectedCells(), player.owner);
 			// Le score du joueur est modifié
 			player.score += computeScore(wordSelectionHandler.getSelectedCells());
+			// Raz du mot sélectionné
+			cancelWord();
 			// Le joueur a joué un coup. C'est bon à savoir pour les stats
 			// et pour autoriser ou non le refresh de la zone de départ
 			player.nbWordsPlayed++;
@@ -178,7 +180,6 @@ public class GameManager {
 			ui.setInfo(Assets.i18nBundle.format("ui.arena.unknownWord", word));
 			break;
 		}
-		cancelWord();
 	}
 
 	/**
