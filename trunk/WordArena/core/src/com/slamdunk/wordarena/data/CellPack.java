@@ -1,6 +1,7 @@
 package com.slamdunk.wordarena.data;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.wordarena.enums.CellStates;
@@ -22,5 +23,15 @@ public class CellPack {
 	/**
 	 * Image de la bordure
 	 */
-	public Texture edge;
+	public TextureRegion edge;
+	
+	/**
+	 * Style du libellé à appliquer pour les écritures liées au joueur qui
+	 * utilise ce pack
+	 */
+	public LabelStyle labelStyle;
+	
+	public CellPack() {
+		cell = new DoubleEntryArray<CellStates, Boolean, TextureRegionDrawable>();
+	}
 }

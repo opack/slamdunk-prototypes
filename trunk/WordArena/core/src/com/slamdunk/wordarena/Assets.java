@@ -16,20 +16,21 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.settings.SlamSettings;
+import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.CellPack;
+import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.CellStates;
-import com.slamdunk.wordarena.enums.Owners;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
 public class Assets {
 	private static final String CELL_PACK_PREFIX = "cellpack";
+	public static final String CELL_PACK_NEUTRAL = "neutral";
 	
 	public static TypedProperties appProperties;
 	public static I18NBundle i18nBundle;
 	public static ResourceManager overlap2dResourceManager;
 	public static Skin skin;
 	public static TextureAtlas atlas;
-	public static Map<Owners, LabelStyle> ownerStyles;
 	public static Map<String, CellPack> cellPacks;
 	
 	public static void load () {
@@ -41,9 +42,9 @@ public class Assets {
 	}
 	
 	public static void dispose () {
-		disposeOverlapResources();
-		disposeSkin();
 		disposeAtlas();
+		disposeSkin();
+		disposeOverlapResources();
 	}
 	
 	private static void loadAppProperties() {
@@ -74,10 +75,6 @@ public class Assets {
 
 	private static void loadSkin() {
 		skin = new Skin(Gdx.files.internal("skins/wordarena/uiskin.json"));
-		ownerStyles = new HashMap<Owners, LabelStyle>();
-		for (Owners owner : Owners.values()) {
-			ownerStyles.put(owner, skin.get(owner.name(), LabelStyle.class));
-		}
 	}
 	
 	private static void disposeSkin() {
@@ -114,8 +111,12 @@ public class Assets {
 			putCellPackImage(pack, CellStates.CONTROLED, Boolean.TRUE);
 			
 			// Charge l'image de la bordure
-			final TextureRegion region = atlas.findRegion(formatCellPackEdgeRegionName(pack.name));
-			pack.edge = region.getTexture();
+			pack.edge = atlas.findRegion(formatCellPackEdgeRegionName(pack.name));
+//			pack.edge.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+//			pack.edge.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+			
+			// Charge le style de label
+			pack.labelStyle = skin.get(CELL_PACK_PREFIX + "_" + packName, LabelStyle.class);
 			
 			// Enregistre le pack
 			cellPacks.put(packName, pack);
@@ -123,7 +124,8 @@ public class Assets {
 	}
 	
 	private static void putCellPackImage(final CellPack pack, final CellStates state, Boolean selected) {
-		final TextureRegion region = atlas.findRegion(formatCellPackCellRegionName(pack.name, state, selected));
+		final String regionName = formatCellPackCellRegionName(pack.name, state, selected);
+		final TextureRegion region = atlas.findRegion(regionName);
 		pack.cell.put(state, selected, new TextureRegionDrawable(region));
 	}
 
@@ -155,5 +157,45 @@ public class Assets {
 	
 	private static void disposeAtlas() {
 		atlas.dispose();
+	}
+
+	/**
+	 * Retourne l'image de cellule pour le pack et l'état de la cellule indiqués.
+	 * @param data
+	 * @param selected
+	 * @return
+	 */
+	public static TextureRegionDrawable getCellImage(CellData data) {
+		return cellPacks.get(data.owner.cellPack).cell.get(data.state, data.selected);
+	}
+	
+	/**
+	 * Retourne l'image de bordure pour le pack indiqué.
+	 * @param pack
+	 * @return
+	 */
+	public static TextureRegion getEdgeImage(String pack) {
+		final String cellPack = pack != null ? pack : CELL_PACK_NEUTRAL;
+		return cellPacks.get(cellPack).edge;
+	}
+	
+	/**
+	 * Retourne l'image de bordure pour le pack indiqué.
+	 * @param owner
+	 * @return
+	 */
+	public static TextureRegion getEdgeImage(Player owner) {
+		final String cellPack = owner != null ? owner.cellPack : CELL_PACK_NEUTRAL;
+		return cellPacks.get(cellPack).edge;
+	}
+	
+	/**
+	 * Retourne le LabelStyle pour le pack indiqué.
+	 * @param pack
+	 * @return
+	 */
+	public static LabelStyle getLabelStyle(String pack) {
+		final String cellPack = pack != null ? pack : CELL_PACK_NEUTRAL;
+		return cellPacks.get(cellPack).labelStyle;
 	}
 }

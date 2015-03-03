@@ -1,10 +1,10 @@
 package com.slamdunk.toolkit.graphics;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -77,12 +77,19 @@ public class SpriteBatchUtils {
      * @param p2
      * @return
      */
-    public static Sprite createSpritedLine(final Texture texture, final Vector2 p1, final Vector2 p2) {
+    public static Sprite createSpritedLine(final TextureRegion texture, final Vector2 p1, final Vector2 p2) {
 		int length = (int) p1.dst(p2);
-		int height = texture.getHeight();
+		int width = texture.getRegionWidth();
+		int height = texture.getRegionHeight();
 		
-		final Sprite sprite = new Sprite(texture, 0, 0, length, height);
-		sprite.setOrigin(0, height / 2);
+		final Sprite sprite;
+		if (height > width) {
+			sprite = new Sprite(texture, 0, 0, length, height);
+			sprite.setOrigin(0, height / 2);
+		} else {
+			sprite = new Sprite(texture, 0, 0, width, length);
+			sprite.setOrigin(width / 2, 0);
+		}
 		sprite.setPosition(p1.x, p1.y);
 		float degrees = (float)Math.toDegrees(Math.atan2(p2.y - p1.y, p2.x - p1.x));
 		sprite.setRotation(degrees);

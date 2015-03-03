@@ -8,11 +8,11 @@ com.badlogic.gdx.graphics.Color: {
 	white: { a: 1, r: 1, g: 1, b: 1 },
 	red: { a: 1, r: 1, g: 0, b: 0 },
 	black: { a: 1, r: 0, g: 0, b: 0 },
-	neutral: { a: 1, r: 0.67, g: 0.62, b: 0.58 },
-	player1: { a: 1, r: 0.16, g: 0.50, b: 1.00 },
-	player2: { a: 1, r: 1.00, g: 0.40, b: 0.00 },
-	player3: { a: 1, r: 0.35, g: 0.63, b: 0.17 },
-	player4: { a: 1, r: 0.67, g: 0.22, b: 0.78 }
+	cellpack_neutral: { a: 1, r: 0.67, g: 0.62, b: 0.58 },
+	cellpack_blue: { a: 1, r: 0.16, g: 0.50, b: 1.00 },
+	cellpack_orange: { a: 1, r: 1.00, g: 0.40, b: 0.00 },
+	cellpack_green: { a: 1, r: 0.35, g: 0.63, b: 0.17 },
+	cellpack_purple: { a: 1, r: 0.67, g: 0.22, b: 0.78 }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dialogDim: { name: white, color: { r: 0, g: 0, b: 0, a: 0.45 } }
@@ -53,14 +53,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: { font: default-font, fontColor: black },
-	NEUTRAL: { font: default-font, fontColor: neutral },
-	PLAYER1: { font: default-font, fontColor: player1 },
-	PLAYER2: { font: default-font, fontColor: player2 },
-	PLAYER3: { font: default-font, fontColor: player3 },
-	PLAYER4: { font: default-font, fontColor: player4 },
+	cellpack_neutral: { font: default-font, fontColor: cellpack_neutral },
+	cellpack_blue: { font: default-font, fontColor: cellpack_blue },
+	cellpack_orange: { font: default-font, fontColor: cellpack_orange },
+	cellpack_green: { font: default-font, fontColor: cellpack_green },
+	cellpack_purple: { font: default-font, fontColor: cellpack_purple },
 	games-status-header: { font: bold, fontColor: black },
 	games-user-turn: { font: default-font, fontColor: white },
-	games-opponent-turn: { font: default-font, fontColor: neutral },
+	games-opponent-turn: { font: default-font, fontColor: cellpack_neutral },
 	games-game-over: { font: default-font, fontColor: black },
 },
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {

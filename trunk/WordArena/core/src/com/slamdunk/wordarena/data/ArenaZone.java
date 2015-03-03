@@ -14,7 +14,6 @@ import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.Borders;
-import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.utils.MaxValueFinder;
 
 /**
@@ -47,7 +46,7 @@ public class ArenaZone {
 	 * Joueur qui possède la zone
 	 * @param edge
 	 */
-	private Owners owner;
+	private Player owner;
 	
 	/**
 	 * Sprites dessinant la zone
@@ -63,11 +62,12 @@ public class ArenaZone {
 	
 	public ArenaZone(GameManager gameManager) {
 		this.gameManager = gameManager;
-		borderThickness = Assets.edges.get(Owners.NEUTRAL).getHeight();
+		borderThickness = Assets.getEdgeImage(Assets.CELL_PACK_NEUTRAL).getRegionHeight();
 
 		cells = new HashMap<Point, ArenaCell>();
 		edges = new ArrayList<ZoneEdge>();
 		lines = new ArrayList<Sprite>();
+		owner = Player.NEUTRAL;
 		
 		tmp = new Point(0, 0);
 	}
@@ -153,26 +153,21 @@ public class ArenaZone {
 		return edge;
 	}
 
-	public Owners getOwner() {
+	public Player getOwner() {
 		return owner;
 	}
 
-	private void setOwner(Owners newOwner) {
+	private void setOwner(Player newOwner) {
 		// Même owner ? Rien à faire
-		if (this.owner == newOwner) {
+		if (owner.equals(newOwner)) {
 			return;
-		}
-		
-		// Owner null ou aucun ? On considère que la zone est neutre
-		if (newOwner == null) {
-			newOwner = Owners.NEUTRAL;
 		}
 		
 		// Avertit le game manager
 		gameManager.zoneChangedOwner(owner, newOwner);
 		
 		// Changement de l'owner
-		this.owner = newOwner;
+		owner = newOwner;
 		
 		// Change l'image des cellules de la zone
 		for (ArenaCell cell : cells.values()) {
@@ -186,7 +181,7 @@ public class ArenaZone {
 	private void prepareLines() {
 		lines.clear();
 		for (ZoneEdge edge : edges) {
-			lines.add(SpriteBatchUtils.createSpritedLine(Assets.edges.get(owner), edge.p1, edge.p2));
+			lines.add(SpriteBatchUtils.createSpritedLine(Assets.getEdgeImage(owner), edge.p1, edge.p2));
 		}
 		invalidate = false;
 	}
@@ -213,21 +208,20 @@ public class ArenaZone {
 	 * des cellules
 	 */
 	public void updateOwner() {
-		MaxValueFinder<Owners> occupations = new MaxValueFinder<Owners>();
-		occupations.setValueIfDraw(Owners.NEUTRAL);
+		MaxValueFinder<Player> occupations = new MaxValueFinder<Player>();
+		occupations.setIgnoredValue(Player.NEUTRAL);
+		occupations.setValueIfDraw(Player.NEUTRAL);
 		
 		// Compte le nombre de cellules occupées par chaque joueur
 		CellData cellData;
 		for (ArenaCell cell : cells.values()) {
 			cellData = cell.getData();
-			if (cellData.owner != Owners.NEUTRAL) {
-				// Ajout de la puissance de la cellule à celle de ce joueur
-				occupations.addValue(cellData.owner, cellData.power);
-			}
+			// Ajout de la puissance de la cellule à celle de ce joueur
+			occupations.addValue(cellData.owner, cellData.power);
 		}
 		
 		// Détermine qui occupe le plus de cellules
-		Owners newOwner = occupations.getMaxValue();
+		Player newOwner = occupations.getMaxValue();
 		
 		// Change le propriétaire de la zone
 		setOwner(newOwner);

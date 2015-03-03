@@ -38,7 +38,7 @@
         <key>dataFormat</key>
         <string>libgdx</string>
         <key>textureFileName</key>
-        <filename>wordarena.png</filename>
+        <filename>../../android/assets/textures/wordarena.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>pvrCompressionQuality</key>
@@ -145,7 +145,7 @@
             <key>data</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename>wordarena.txt</filename>
+                <filename>../../android/assets/textures/wordarena.txt</filename>
             </struct>
         </map>
         <key>multiPack</key>

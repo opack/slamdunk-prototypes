@@ -10,8 +10,7 @@ import com.slamdunk.toolkit.ui.MoveCameraDragListener;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.data.CellData;
-import com.slamdunk.wordarena.enums.Owners;
-import com.slamdunk.wordarena.enums.CellStates;
+import com.slamdunk.wordarena.data.Player;
 
 /**
  * Une cellule de l'arène. Une cellule contient bien sûr une lettre
@@ -33,7 +32,7 @@ public class ArenaCell extends GroupEx {
 		
 		// Crée les acteurs
 		// DBG TODO Récupérer le cellPack du joueur en fonction de l'owner de la cellule
-		background = new Image(Assets.cellPacks.get(data.owner, data.state));
+		background = new Image(Assets.getCellImage(data));
 		background.setTouchable(Touchable.disabled);
 		addActor(background);
 		letter = new Label("?", skin);
@@ -75,20 +74,7 @@ public class ArenaCell extends GroupEx {
 	
 	public void updateDisplay() {
 		letter.setText(data.letter.label);
-		
-		// Si la cellule est neutre et dans une zone possédée, alors on la colore
-		// légèrement. Ceci n'est pas effectué lors de la sélection des mots.
-		if (data.owner == Owners.NEUTRAL
-		&& data.zone != null
-		&& data.zone.getOwner() != Owners.NEUTRAL
-		&& data.state == CellStates.NORMAL) {
-			background.setDrawable(Assets.cellsByPack.get(data.zone.getOwner(), data.state));
-			background.setColor(1, 1, 1, 0.3f);
-		} else {
-			// La cellule appartient à un joueur
-			background.setDrawable(Assets.cellsByPack.get(data.owner, data.state));
-			background.setColor(1, 1, 1, 1);
-		}
+		background.setDrawable(Assets.getCellImage(data));
 	}
 
 	/**
@@ -113,7 +99,7 @@ public class ArenaCell extends GroupEx {
 	 * Change le propriétaire de la cellule et met à jour l'image
 	 * @param owner
 	 */
-	public void setOwner(Owners owner) {
+	public void setOwner(Player owner) {
 		data.owner = owner;
 		updateDisplay();		
 	}

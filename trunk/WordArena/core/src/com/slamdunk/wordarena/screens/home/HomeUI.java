@@ -18,7 +18,6 @@ import com.slamdunk.wordarena.data.GameData;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStatus;
 import com.slamdunk.wordarena.enums.GameTypes;
-import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.utils.Overlap2DUtils;
 import com.uwsoft.editor.renderer.SceneLoader;
 
@@ -142,20 +141,24 @@ public class HomeUI extends UIOverlay {
 		// TODO DBG Triche en attendant le chargement de vraies parties
 		List<GameData> fetched = new ArrayList<GameData>();
 		Player p1 = new Player();
+		p1.uid = 1;
 		p1.name = "Alan";
-		p1.owner = Owners.PLAYER1;
+		p1.cellPack = "blue";
 		
 		Player p2 = new Player();
+		p2.uid = 2;
 		p2.name = "Bob";
-		p2.owner = Owners.PLAYER2;
+		p2.cellPack = "orange";
 		
 		Player p3 = new Player();
+		p3.uid = 3;
 		p3.name = "Charles";
-		p3.owner = Owners.PLAYER3;
+		p3.cellPack = "green";
 		
 		Player p4 = new Player();
+		p4.uid = 4;
 		p4.name = "Dave";
-		p4.owner = Owners.PLAYER4;
+		p4.cellPack = "purple";
 		
 		GameData game1 = new GameData();
 		game1.gameType = GameTypes.DUEL;

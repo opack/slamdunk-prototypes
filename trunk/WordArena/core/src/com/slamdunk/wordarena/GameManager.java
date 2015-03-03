@@ -1,8 +1,6 @@
 package com.slamdunk.wordarena;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.data.ArenaData;
@@ -10,7 +8,6 @@ import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
-import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.enums.ReturnCodes;
 import com.slamdunk.wordarena.screens.arena.ArenaOverlay;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
@@ -48,7 +45,6 @@ public class GameManager {
 	private String arenaPlanFile;
 	
 	private List<Player> players;
-	private Map<Owners, Player>playersByOwner;
 	
 	private int firstPlayer;
 	private int curPlayer;
@@ -66,16 +62,14 @@ public class GameManager {
 	
 	public GameManager() {		
 		wordSelectionHandler = new WordSelectionHandler(this);
-		playersByOwner = new HashMap<Owners, Player>();
-		
 		nbTurnsPerRound = TURNS_PER_ROUND;
 		nbWinningRoundsPerGame = WINNING_ROUNDS_PER_GAME;
 	}
 	
-	public Map<Owners, Player> getPlayersByOwner() {
-		return playersByOwner;
+	public List<Player> getPlayers() {
+		return players;
 	}
-	
+
 	public int getNbTurnsPerRound() {
 		return nbTurnsPerRound;
 	}
@@ -128,11 +122,7 @@ public class GameManager {
 		ui = screen.getUI();
 		
 		this.arenaPlanFile = arenaPlanFile;
-		
 		this.players = playersList;
-		for (Player player : playersList) {
-			playersByOwner.put(player.owner, player);
-		}
 		
 		firstPlayer = 0;
 		setCurrentPlayer(0);
@@ -162,7 +152,7 @@ public class GameManager {
 			Player player = getCurrentPlayer();
 			ui.setInfo(Assets.i18nBundle.format("ui.arena.wordPlayed", player.name, word));
 			// Toutes les cellules passent sous la domination du joueur
-			arena.setOwner(wordSelectionHandler.getSelectedCells(), player.owner);
+			arena.setOwner(wordSelectionHandler.getSelectedCells(), player);
 			// Le score du joueur est modifié
 			player.score += computeScore(wordSelectionHandler.getSelectedCells());
 			// Raz du mot sélectionné
@@ -216,13 +206,10 @@ public class GameManager {
 	 * @param oldOwner
 	 * @param newOwner
 	 */
-	public void zoneChangedOwner(Owners oldOwner, Owners newOwner) {
-		// Récupère le joueur qui a prit la zone pour lui
-		// ajouter des points
-		Player overtaker = playersByOwner.get(newOwner);
-		if (overtaker != null) {
+	public void zoneChangedOwner(Player oldOwner, Player newOwner) {
+		if (!Player.NEUTRAL.equals(newOwner)) {
 			// Le joueur a une zone de plus
-			overtaker.nbZonesOwned++;
+			newOwner.nbZonesOwned++;
 			
 			// Ajout des points uniquement pendant la partie, et pas pendant
 			// le chargement de l'arène par exemple
@@ -230,24 +217,22 @@ public class GameManager {
 			&& oldOwner != newOwner) {
 				// Si la zone appartenait à un adversaire, le joueur
 				// gagne plus de points
-				if (oldOwner != null
-				&& oldOwner != Owners.NEUTRAL) {
-					overtaker.score += SCORE_ZONE_STEALED;
+				if (oldOwner != null) {
+					newOwner.score += SCORE_ZONE_STEALED;
 				} else {
-					overtaker.score += SCORE_ZONE_GAINED;
+					newOwner.score += SCORE_ZONE_GAINED;
 				}
 			}
 		}
 		
-		// Récupère le joueur qui a perdu la zone pour voir
-		// s'il a perdu sa dernière zone, et donc le round.
-		Player loser = playersByOwner.get(oldOwner);
-		if (loser != null) {
+		// Regarde si le joueur qui a perdu la zone a perdu sa
+		// dernière zone, et donc le round.
+		if (!Player.NEUTRAL.equals(oldOwner)) {
 			// Ce joueur a perdu une zone
-			loser.nbZonesOwned--;
+			oldOwner.nbZonesOwned--;
 			
 			// Si c'était sa dernière zone, il perd le round
-			if (loser.nbZonesOwned <= 0) {
+			if (oldOwner.nbZonesOwned <= 0) {
 				endRound();
 			}
 		}
@@ -395,18 +380,14 @@ public class GameManager {
 			// Fin de partie car on a joué le nombre max de rounds. Il faut
 			// donc déterminer le gagnant en comptant le nombre de rounds
 			// que chacun a gagné.
-			MaxValueFinder<Owners> maxValueFinder = new MaxValueFinder<Owners>();
+			MaxValueFinder<Player> maxValueFinder = new MaxValueFinder<Player>();
 			for (Player player : players) {
-				maxValueFinder.addValue(player.owner, player.nbRoundsWon);
+				maxValueFinder.addValue(player, player.nbRoundsWon);
 			}
-			
-			Owners winnerOwner = maxValueFinder.getMaxValue();
-			if (winnerOwner != null) {
-				// L'un des deux joueurs a gagné plus de rounds que l'autre :
-				// il est déclaré vainqueur de la partie
-				gameWinner = playersByOwner.get(winnerOwner);
-			}
-			// else : si winnerOwner == null, c'est qu'on est dans le cas où
+			// L'un des deux joueurs a gagné plus de rounds que l'autre :
+			// il est déclaré vainqueur de la partie
+			gameWinner = maxValueFinder.getMaxValue();
+			// Si gameWinner == null, c'est qu'on est dans le cas où
 			// on a fait 3 rounds et que les 2 joueurs ont gagné autant de
 			// rounds l'un que l'autre. On a donc une égalité.
 		} else {
@@ -455,14 +436,14 @@ public class GameManager {
 	 */
 	private Player computeRoundWinner() {
 		ArenaData arenaData = arena.getData();
-		MaxValueFinder<Owners> maxValueFinder = new MaxValueFinder<Owners>();
-		maxValueFinder.setIgnoredValue(Owners.NEUTRAL);
+		MaxValueFinder<Player> maxValueFinder = new MaxValueFinder<Player>();
+		maxValueFinder.setIgnoredValue(Player.NEUTRAL);
 		
-		// Recherche l'owner ayant le plus de zones
+		// Recherche le joueur ayant le plus de zones
 		for (ArenaZone zone : arenaData.zones) {
 			maxValueFinder.addValue(zone.getOwner());
 		}
-		Owners winner = maxValueFinder.getMaxValue();
+		Player winner = maxValueFinder.getMaxValue();
 		
 		// Si on arrive à ce dernier round, on fait tout pour
 		// éviter une égalité : le gagnant est alors celui qui a le plus de zones, ou de
@@ -487,7 +468,7 @@ public class GameManager {
 			if (winner == null) {
 				maxValueFinder.reset();
 				for (Player player : players) {
-					maxValueFinder.addValue(player.owner, player.score);
+					maxValueFinder.addValue(player, player.score);
 				}
 				winner = maxValueFinder.getMaxValue();
 			}
@@ -498,10 +479,9 @@ public class GameManager {
 			return null;
 		}
 		
-		// Récupère le joueur gagnant et lui ajoute 1 round
-		Player player = playersByOwner.get(winner);
-		player.nbRoundsWon++;
-		return player;
+		// Ajoute 1 round au joueur gagnant
+		winner.nbRoundsWon++;
+		return winner;
 	}
 
 	public int getNbZones() {
@@ -510,7 +490,7 @@ public class GameManager {
 
 	public void refreshStartingZone() {
 		// Change les lettres de la zone de départ
-		arena.refreshStartingZone(getCurrentPlayer().owner);
+		arena.refreshStartingZone(getCurrentPlayer());
 		// Supprime le mot éventuellement sélectionné
 		wordSelectionHandler.cancel();
 		// Affiche un message de confirmation
