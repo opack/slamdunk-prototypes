@@ -18,7 +18,7 @@ import com.slamdunk.wordarena.data.ArenaBuilder;
 import com.slamdunk.wordarena.data.ArenaData;
 import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.data.CellData;
-import com.slamdunk.wordarena.enums.Owners;
+import com.slamdunk.wordarena.data.Player;
 
 public class ArenaOverlay extends WorldOverlay {
 	private ArenaData data;
@@ -88,7 +88,7 @@ public class ArenaOverlay extends WorldOverlay {
 	 * @param cells
 	 * @param owner
 	 */
-	public void setOwner(List<ArenaCell> cells, Owners owner) {
+	public void setOwner(List<ArenaCell> cells, Player owner) {
 		// Change le propriétaire des cellules et note les zones impactées
 		Set<ArenaZone> impactedZones = new HashSet<ArenaZone>();
 		ArenaZone zone;
@@ -131,10 +131,10 @@ public class ArenaOverlay extends WorldOverlay {
 	 * Si le joueur n'a pas encore joué, il peut demander de nouvelles
 	 * lettres dans sa zone de départ
 	 */
-	public void refreshStartingZone(Owners owner) {
+	public void refreshStartingZone(Player owner) {
 		// Recherche la zone de cet owner
 		for (ArenaZone zone : data.zones) {
-			if (zone.getOwner() == owner) {
+			if (owner.equals(zone.getOwner())) {
 				// Tire de nouvelles lettres pour les cellules de cette zone
 				CellData cellData;
 				for (ArenaCell cell : zone.getCells()) {

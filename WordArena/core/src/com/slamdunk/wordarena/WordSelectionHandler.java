@@ -11,8 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.data.ArenaZone;
-import com.slamdunk.wordarena.enums.Owners;
-import com.slamdunk.wordarena.enums.CellStates;
+import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.ReturnCodes;
 
 /**
@@ -67,7 +66,7 @@ public class WordSelectionHandler {
 	 */
 	public boolean selectCell(ArenaCell cell) {
 		// Vérifie que la cellule n'est pas déjà sélectionnée
-		if (cell.getData().state == CellStates.SELECTED
+		if (cell.getData().selected
 		|| selectedCells.contains(cell)) {
 			// La cellule est déjà sélectionnée : on souhaite donc
 			// la désélectionner, ainsi que les suivantes
@@ -89,15 +88,15 @@ public class WordSelectionHandler {
 		// contrôlée par le joueur
 		else {
 			ArenaZone zone = cell.getData().zone;
-			Owners player = gameManager.getCurrentPlayer().owner;
-			Owners cellOwner = cell.getData().owner;
+			Player player = gameManager.getCurrentPlayer();
+			Player cellOwner = cell.getData().owner;
 			// La cellule est-elle dans une zone du joueur ?
-			boolean isInPlayerZone = (zone != null && zone.getOwner() == player);
+			boolean isInPlayerZone = (zone != null && player.equals(zone.getOwner()));
 
 			// Si la cellule n'appartient pas au joueur...
-			if (cellOwner != player
+			if (!player.equals(cellOwner)
 			// ... et que ce n'est pas une cellule neutre dans une zone du joueur ...
-			&& (cellOwner != Owners.NEUTRAL || !isInPlayerZone)) {
+			&& (!Player.NEUTRAL.equals(cellOwner) || !isInPlayerZone)) {
 				// ... alors il est interdit de commencer un mot dessus
 				return false;
 			}

@@ -11,7 +11,6 @@ import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
-import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.screens.home.HomeScreen;
 import com.slamdunk.wordarena.utils.Overlap2DUtils;
 import com.uwsoft.editor.renderer.SceneLoader;
@@ -186,7 +185,7 @@ public class ArenaUI extends UIOverlay {
 	
 	public void setCurrentPlayer(Player player, int turn, int maxTurns, int round) {
 		currentPlayer.setText(Assets.i18nBundle.format("ui.arena.currentTurn", player.name, round, turn, maxTurns));
-		currentPlayer.setStyle(Assets.ownerStyles.get(player.owner));
+		currentPlayer.setStyle(Assets.getLabelStyle(player.cellPack));
 	}
 	
 	public void setCurrentWord(String word) {
@@ -220,16 +219,12 @@ public class ArenaUI extends UIOverlay {
 
 	public void updateStats() {
 		StringBuilder sb = new StringBuilder();
-		Player player;
-		for (Owners owner : Owners.values()) {
-			player = gameManager.getPlayersByOwner().get(owner);
-			if (player != null) {
-				sb.append("== ").append(player.name).append(" ==");
-				sb.append("\n\tScore : ").append(player.score);
-				sb.append("\n\tZones : ").append(player.nbZonesOwned).append("/").append(gameManager.getNbZones());
-				sb.append("\n\tRounds : ").append(player.nbRoundsWon).append("/").append(gameManager.getNbWinningRoundsPerGame());
-				sb.append("\n");
-			}
+		for (Player player : gameManager.getPlayers()) {
+			sb.append("== ").append(player.name).append(" ==");
+			sb.append("\n\tScore : ").append(player.score);
+			sb.append("\n\tZones : ").append(player.nbZonesOwned).append("/").append(gameManager.getNbZones());
+			sb.append("\n\tRounds : ").append(player.nbRoundsWon).append("/").append(gameManager.getNbWinningRoundsPerGame());
+			sb.append("\n");
 		}
 		
 		stats.setText(sb.toString());

@@ -16,7 +16,6 @@ import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
-import com.slamdunk.wordarena.enums.Owners;
 
 /**
  * Construit une arène à partir d'un plan
@@ -28,6 +27,7 @@ public class ArenaBuilder {
 	
 	private MoveCameraDragListener moveCameraDragListener;
 	private GameManager gameManager;
+	private List<Player> players;
 	private Skin skin;
 	
 	private String[] types;
@@ -47,6 +47,7 @@ public class ArenaBuilder {
 	public ArenaBuilder(MoveCameraDragListener moveCameraDragListener, GameManager gameManager, Skin skin) {
 		this.moveCameraDragListener = moveCameraDragListener;
 		this.gameManager = gameManager;
+		this.players = gameManager.getPlayers();
 		this.skin = skin;
 		arena = new ArenaData();
 	}
@@ -171,7 +172,7 @@ public class ArenaBuilder {
 				// Définition des données du modèle
 				data = cell.getData();
 				data.position.setXY(x, y);
-				data.state = CellStates.NORMAL;
+				data.state = CellStates.OWNED;
 				
 				data.type = CellTypes.valueOf(types[index]);
 				data.planLetter = letters[index];
@@ -191,11 +192,13 @@ public class ArenaBuilder {
 		}
 	}
 
-	private static Owners chooseOwner(CellTypes cellType, int ownerIndex) {
-		if (!cellType.canBeOwned()) {
-			return Owners.NEUTRAL;
+	private Player chooseOwner(CellTypes cellType, int ownerIndex) {
+		if (!cellType.canBeOwned()
+		|| ownerIndex == 0) {
+			return Player.NEUTRAL;
 		}
-		return Owners.values()[ownerIndex];
+		// Dans le plan, l'owner comence à 1
+		return players.get(ownerIndex - 1);
 	}
 
 	private static int choosePower(CellTypes cellType, int power) {

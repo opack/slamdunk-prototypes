@@ -8,7 +8,6 @@ import com.badlogic.gdx.Input.Keys;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.data.Player;
-import com.slamdunk.wordarena.enums.Owners;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
 
 public class HomeScreen extends SlamScreen {
@@ -46,14 +45,16 @@ public class HomeScreen extends SlamScreen {
 
 	public void launchGame(String arenaFile) {
 		Player p1 = new Player();
+		p1.uid = 1;
 		p1.name = "Alan";
 		p1.score = 0;
-		p1.owner = Owners.PLAYER1;
+		p1.cellPack = "blue";
 		
 		Player p2 = new Player();
+		p2.uid = 2;
 		p2.name = "Bob";
 		p2.score = 0;
-		p2.owner = Owners.PLAYER2;
+		p2.cellPack = "orange";
 		
 		List<Player> players = new ArrayList<Player>();
 		players.add(p1);

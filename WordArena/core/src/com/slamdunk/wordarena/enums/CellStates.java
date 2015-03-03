@@ -5,11 +5,6 @@ package com.slamdunk.wordarena.enums;
  */
 public enum CellStates {
 	/**
-	 * La cellule est encore neutre, personne ne la possède
-	 */
-	NEUTRAL,
-	
-	/**
 	 * La cellule est possédée par un joueur
 	 */
 	OWNED,
