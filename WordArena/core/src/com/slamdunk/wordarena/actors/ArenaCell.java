@@ -31,7 +31,6 @@ public class ArenaCell extends GroupEx {
 		data = new CellData();
 		
 		// Crée les acteurs
-		// DBG TODO Récupérer le cellPack du joueur en fonction de l'owner de la cellule
 		background = new Image(Assets.getCellImage(data));
 		background.setTouchable(Touchable.disabled);
 		addActor(background);

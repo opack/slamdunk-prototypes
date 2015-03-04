@@ -154,9 +154,6 @@ public class WordSelectionHandler {
 		if (result == ReturnCodes.OK) {
 			alreadyPlayed.add(lastValidatedWord);
 		}
-		
-		// Reset du mot courant
-		gameManager.setCurrentWord("");
 		return result;
 	}
 	

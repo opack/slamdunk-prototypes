@@ -138,7 +138,7 @@ public class HomeUI extends UIOverlay {
 	}
 
 	private void fetchGames() {
-		// TODO DBG Triche en attendant le chargement de vraies parties
+		// TODO DBG DEB Triche en attendant le chargement de vraies parties
 		List<GameData> fetched = new ArrayList<GameData>();
 		Player p1 = new Player();
 		p1.uid = 1;

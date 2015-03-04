@@ -19,6 +19,7 @@ import com.slamdunk.wordarena.data.ArenaData;
 import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.Player;
+import com.slamdunk.wordarena.enums.CellStates;
 
 public class ArenaOverlay extends WorldOverlay {
 	private ArenaData data;
@@ -94,6 +95,7 @@ public class ArenaOverlay extends WorldOverlay {
 		ArenaZone zone;
 		for (ArenaCell cell : cells) {
 			cell.setOwner(owner);
+			cell.getData().state = CellStates.OWNED;
 			
 			zone = cell.getData().zone;
 			if (zone != null) {
