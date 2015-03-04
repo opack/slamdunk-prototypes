@@ -8,6 +8,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
+import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -18,7 +20,6 @@ import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.CellPack;
-import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 
@@ -32,6 +33,7 @@ public class Assets {
 	public static Skin skin;
 	public static TextureAtlas atlas;
 	public static Map<String, CellPack> cellPacks;
+	public static Texture edge;
 	
 	public static void load () {
 		loadAppProperties();
@@ -39,9 +41,11 @@ public class Assets {
 		loadOverlapResources();
 		loadSkin();
 		loadAtlas();
+		loadTextures();
 	}
 	
 	public static void dispose () {
+		disposeTextures();
 		disposeAtlas();
 		disposeSkin();
 		disposeOverlapResources();
@@ -49,6 +53,16 @@ public class Assets {
 	
 	private static void loadAppProperties() {
 		appProperties = new TypedProperties("wordarena.properties");
+	}
+	
+	public static void loadTextures() {
+		edge = new Texture("textures/zone_edge.png");
+		edge.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		edge.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+	}
+	
+	public static void disposeTextures() {
+		edge.dispose();
 	}
 	
 	public static void loadAtlas() {
@@ -110,11 +124,6 @@ public class Assets {
 			putCellPackImage(pack, CellStates.CONTROLED, Boolean.FALSE);
 			putCellPackImage(pack, CellStates.CONTROLED, Boolean.TRUE);
 			
-			// Charge l'image de la bordure
-			pack.edge = atlas.findRegion(formatCellPackEdgeRegionName(pack.name));
-//			pack.edge.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-//			pack.edge.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-			
 			// Charge le style de label
 			pack.labelStyle = skin.get(CELL_PACK_PREFIX + "_" + packName, LabelStyle.class);
 			
@@ -144,17 +153,6 @@ public class Assets {
 			+ (selected ? "selected" : "normal");
 	}
 	
-	/**
-	 * Retourne le nom d'une région d'une bordure en fonction du nom du pack
-	 * @param pack
-	 * @param state
-	 * @param selected
-	 * @return
-	 */
-	private static String formatCellPackEdgeRegionName(String pack) {
-		return CELL_PACK_PREFIX + "_" + pack + "_edge";
-	}
-	
 	private static void disposeAtlas() {
 		atlas.dispose();
 	}
@@ -167,26 +165,6 @@ public class Assets {
 	 */
 	public static TextureRegionDrawable getCellImage(CellData data) {
 		return cellPacks.get(data.owner.cellPack).cell.get(data.state, data.selected);
-	}
-	
-	/**
-	 * Retourne l'image de bordure pour le pack indiqué.
-	 * @param pack
-	 * @return
-	 */
-	public static TextureRegion getEdgeImage(String pack) {
-		final String cellPack = pack != null ? pack : CELL_PACK_NEUTRAL;
-		return cellPacks.get(cellPack).edge;
-	}
-	
-	/**
-	 * Retourne l'image de bordure pour le pack indiqué.
-	 * @param owner
-	 * @return
-	 */
-	public static TextureRegion getEdgeImage(Player owner) {
-		final String cellPack = owner != null ? owner.cellPack : CELL_PACK_NEUTRAL;
-		return cellPacks.get(cellPack).edge;
 	}
 	
 	/**

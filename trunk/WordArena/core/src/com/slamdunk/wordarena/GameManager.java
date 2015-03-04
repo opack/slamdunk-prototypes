@@ -165,9 +165,13 @@ public class GameManager {
 			break;
 		case WORD_ALREADY_PLAYED:
 			ui.setInfo(Assets.i18nBundle.format("ui.arena.alreadyPlayed", word));
+			// Les boutons de validation doivent rester affichés
+			ui.showWordValidationButtons(true);
 			break;
 		case WORD_UNKNOWN:
 			ui.setInfo(Assets.i18nBundle.format("ui.arena.unknownWord", word));
+			// Les boutons de validation doivent rester affichés
+			ui.showWordValidationButtons(true);
 			break;
 		}
 	}

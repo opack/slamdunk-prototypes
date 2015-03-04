@@ -14,6 +14,7 @@ import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.Borders;
+import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.utils.MaxValueFinder;
 
 /**
@@ -62,7 +63,7 @@ public class ArenaZone {
 	
 	public ArenaZone(GameManager gameManager) {
 		this.gameManager = gameManager;
-		borderThickness = Assets.getEdgeImage(Assets.CELL_PACK_NEUTRAL).getRegionHeight();
+		borderThickness = Assets.edge.getHeight();
 
 		cells = new HashMap<Point, ArenaCell>();
 		edges = new ArrayList<ZoneEdge>();
@@ -163,14 +164,27 @@ public class ArenaZone {
 			return;
 		}
 		
-		// Avertit le game manager
+		// Avertit le game manager pour la mise à jour du score
 		gameManager.zoneChangedOwner(owner, newOwner);
 		
 		// Changement de l'owner
 		owner = newOwner;
 		
 		// Change l'image des cellules de la zone
+		CellData data;
 		for (ArenaCell cell : cells.values()) {
+			data = cell.getData();
+			
+			// Une cellule passe sous le contrôle du joueur si elle est dans la zone et :
+			//    - soit neutre
+			//    - soit sous le simple contrôle d'un adversaire
+			if (Player.NEUTRAL.equals(data.owner)
+			|| data.state != CellStates.OWNED) {
+				data.owner = newOwner;
+				data.state = CellStates.CONTROLED;
+			}
+			
+			// Met à jour l'image
 			cell.updateDisplay();
 		}
 		
@@ -181,7 +195,7 @@ public class ArenaZone {
 	private void prepareLines() {
 		lines.clear();
 		for (ZoneEdge edge : edges) {
-			lines.add(SpriteBatchUtils.createSpritedLine(Assets.getEdgeImage(owner), edge.p1, edge.p2));
+			lines.add(SpriteBatchUtils.createSpritedLine(Assets.edge, edge.p1, edge.p2));
 		}
 		invalidate = false;
 	}
@@ -217,7 +231,9 @@ public class ArenaZone {
 		for (ArenaCell cell : cells.values()) {
 			cellData = cell.getData();
 			// Ajout de la puissance de la cellule à celle de ce joueur
-			occupations.addValue(cellData.owner, cellData.power);
+			if (cellData.state == CellStates.OWNED) {
+				occupations.addValue(cellData.owner, cellData.power);
+			}
 		}
 		
 		// Détermine qui occupe le plus de cellules
