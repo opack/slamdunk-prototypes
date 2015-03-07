@@ -82,6 +82,7 @@ public class HomeUI extends UIOverlay {
 		sceneLoader.sceneActor.getCompositeById("btnArena1").addScript(new GameLaunchScript(screen));
 		sceneLoader.sceneActor.getCompositeById("btnArena2").addScript(new GameLaunchScript(screen));
 		sceneLoader.sceneActor.getCompositeById("btnArena3").addScript(new GameLaunchScript(screen));
+		sceneLoader.sceneActor.getCompositeById("btnArena4").addScript(new GameLaunchScript(screen));
 		
 		// Boutons d'affichage des parties en cours
 		sceneLoader.sceneActor.getCompositeById("btnGamesCareer").addScript(new ChangeCurrentGamesScript(this));
