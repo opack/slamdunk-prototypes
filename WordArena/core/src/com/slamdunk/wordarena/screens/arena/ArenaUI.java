@@ -107,12 +107,6 @@ public class ArenaUI extends UIOverlay {
 			}
 		});
 		
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnCenterCamera", new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				((ArenaScreen)getScreen()).centerCamera();
-			}
-		});
-		
 		currentPlayer = sceneLoader.sceneActor.getLabelById("lblCurrentPlayer");
 		currentWord = sceneLoader.sceneActor.getLabelById("lblCurrentWord");
 		info = sceneLoader.sceneActor.getLabelById("lblInfo");

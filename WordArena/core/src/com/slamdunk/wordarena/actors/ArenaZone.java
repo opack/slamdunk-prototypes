@@ -6,10 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.slamdunk.toolkit.graphics.SpriteBatchUtils;
-import com.slamdunk.toolkit.ui.GroupEx;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
@@ -26,7 +24,7 @@ import com.slamdunk.wordarena.utils.MaxValueFinder;
  * Une zone pointe les bordures des cellules afin de changer d'un coup
  * toutes les couleurs.
  */
-public class ArenaZone extends GroupEx {
+public class ArenaZone extends Group {
 	private final float borderThickness;
 	
 	private ZoneData data;
@@ -48,8 +46,6 @@ public class ArenaZone extends GroupEx {
 		cells = new HashMap<Point, ArenaCell>();
 		
 		tmp = new Point(0, 0);
-		
-		setTouchable(Touchable.disabled);
 	}
 	
 	public Collection<ArenaCell> getCells() {
@@ -80,12 +76,9 @@ public class ArenaZone extends GroupEx {
 		
 		// Crée les lignes pour dessiner ces côtés
 		clear();
-		Sprite sprite;
 		for (ZoneEdge edge : edges) {
-			sprite = SpriteBatchUtils.createSpritedLine(Assets.edge, edge.p1, edge.p2);
-			addActor(new SpritedActor(sprite));
+			addActor(new SpritedActor(SpriteBatchUtils.createSpritedLine(Assets.edge, edge.p1, edge.p2)));
 		}
-		updateBounds();
 		
 		// Choisit l'owner de la zone
 		updateOwner();

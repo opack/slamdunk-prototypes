@@ -4,15 +4,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
 import com.slamdunk.toolkit.ui.GroupEx;
-import com.slamdunk.toolkit.ui.MoveCameraDragListener;
-import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.actors.ArenaCell;
@@ -25,13 +20,9 @@ import com.slamdunk.wordarena.enums.CellStates;
 
 public class ArenaOverlay extends WorldOverlay {
 	private ArenaData data;
-	private MoveCameraDragListener moveCameraListener;
 	
 	public ArenaOverlay() {
 		createStage(new FitViewport(WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT));
-		
-		moveCameraListener = new MoveCameraDragListener(getStage().getCamera());
-		getStage().addListener(moveCameraListener);
 	}
 	
 	public ArenaData getData() {
@@ -53,7 +44,7 @@ public class ArenaOverlay extends WorldOverlay {
 		TypedProperties arenaProperties = new TypedProperties(plan);
 		
 		// Construit l'arène à partir du plan
-		ArenaBuilder builder = new ArenaBuilder(moveCameraListener, gameManager);
+		ArenaBuilder builder = new ArenaBuilder(gameManager);
 		builder.load(arenaProperties);
 		data = builder.build();		
 		
@@ -71,31 +62,10 @@ public class ArenaOverlay extends WorldOverlay {
 			arenaGroup.addActor(zone);
 		}
 		
-		// Crée un ScrollPane pour permettre le déplacement propre de l'arène
-		ScrollPane scrollPane = new ScrollPane(arenaGroup, Assets.skin);
-		scrollPane.setupOverscroll(15, 30, 200);
-		scrollPane.setPosition(5, 5);
-		scrollPane.setSize(WordArenaGame.SCREEN_WIDTH, 600);
-		scrollPane.getStyle().background = null; // DBG Triche pour avoir un background transparent. Faire une vraie skin à la place
-		// Place l'arène au centre de l'écran
-		scrollPane.scrollTo(
-				arenaGroup.getX(), arenaGroup.getY(),
-				arenaGroup.getWidth(), arenaGroup.getHeight(), 
-				true, true);
-		getWorld().addActor(scrollPane);
-		
-		// Place la caméra au centre de l'arène
-		//DBGcenterCamera();
-	}
-	
-	/**
-	 * Place la caméra au centre de l'arène 
-	 */
-	public void centerCamera() {
-		Actor arena = getWorld();
-		Camera camera = getStage().getCamera();
-		camera.position.x = arena.getX() + arena.getWidth() / 2;
-		camera.position.y = arena.getY() + arena.getHeight() / 2;
+		// Centre l'arène dans la zone d'affichage
+		arenaGroup.setX(Math.max(0, (int)((WordArenaGame.SCREEN_WIDTH - arenaGroup.getWidth()) / 2)));
+		arenaGroup.setY(Math.max(0, (int)((672 - arenaGroup.getHeight()) / 2)));
+		getWorld().addActor(arenaGroup);
 	}
 
 	/**

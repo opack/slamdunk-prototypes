@@ -55,10 +55,6 @@ public class ArenaScreen extends SlamScreen {
 		return ui;
 	}
 
-	public void centerCamera() {
-		arena.centerCamera();
-	}
-	
 	public void prepareGame(String arenaPlanFile, List<Player> players) {
 		gameManager.prepareGame(this, arenaPlanFile, players);
 	}
