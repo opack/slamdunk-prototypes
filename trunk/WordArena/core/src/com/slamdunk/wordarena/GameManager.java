@@ -3,8 +3,8 @@ package com.slamdunk.wordarena;
 import java.util.List;
 
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.data.ArenaData;
-import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStates;
@@ -445,7 +445,7 @@ public class GameManager {
 		
 		// Recherche le joueur ayant le plus de zones
 		for (ArenaZone zone : arenaData.zones) {
-			maxValueFinder.addValue(zone.getOwner());
+			maxValueFinder.addValue(zone.getData().owner);
 		}
 		Player winner = maxValueFinder.getMaxValue();
 		

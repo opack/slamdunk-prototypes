@@ -1,6 +1,7 @@
 package com.slamdunk.wordarena.data;
 
 import com.slamdunk.toolkit.world.point.Point;
+import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;

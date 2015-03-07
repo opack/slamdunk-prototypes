@@ -13,6 +13,7 @@ import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
@@ -142,8 +143,7 @@ public class ArenaBuilder {
 	private void buildZones() {
 		arena.zones = new ArrayList<ArenaZone>();
 		for (Map.Entry<String, List<ArenaCell>> entry : cellsByZone.entrySet()) {
-			ArenaZone zone = new ArenaZone(gameManager);
-			zone.id = entry.getKey();			
+			ArenaZone zone = new ArenaZone(gameManager, entry.getKey());
 			for (ArenaCell cell : entry.getValue()) {
 				zone.addCell(cell);
 			}

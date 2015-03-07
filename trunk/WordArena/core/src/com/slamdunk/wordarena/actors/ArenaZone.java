@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.data;
+package com.slamdunk.wordarena.actors;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -6,13 +6,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.slamdunk.toolkit.graphics.SpriteBatchUtils;
+import com.slamdunk.toolkit.ui.GroupEx;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
-import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.data.CellData;
+import com.slamdunk.wordarena.data.Player;
+import com.slamdunk.wordarena.data.ZoneData;
+import com.slamdunk.wordarena.data.ZoneEdge;
 import com.slamdunk.wordarena.enums.Borders;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.utils.MaxValueFinder;
@@ -22,55 +26,30 @@ import com.slamdunk.wordarena.utils.MaxValueFinder;
  * Une zone pointe les bordures des cellules afin de changer d'un coup
  * toutes les couleurs.
  */
-public class ArenaZone {
+public class ArenaZone extends GroupEx {
 	private final float borderThickness;
 	
-	/**
-	 * Identifiant de la zone, correspondant à ce qui
-	 * est indiqué dans le fichier descriptif properties
-	 */
-	public String id;
+	private ZoneData data;
 	
 	private GameManager gameManager;
-	
-	/**
-	 * Ensemble des bordures de la zone
-	 */
-	private List<ZoneEdge> edges;
 	
 	/**
 	 * Cellules uniques de la zone, rangées par position
 	 */
 	private Map<Point, ArenaCell> cells;
 	
-	/**
-	 * Joueur qui possède la zone
-	 * @param edge
-	 */
-	private Player owner;
-	
-	/**
-	 * Sprites dessinant la zone
-	 */
-	private List<Sprite> lines;
-	
-	/**
-	 * Indique si la zone a changé, et donc qu'il faut redessiner le contour
-	 */
-	private boolean invalidate;
-	
 	private static Point tmp = new Point(0, 0);
 	
-	public ArenaZone(GameManager gameManager) {
+	public ArenaZone(GameManager gameManager, String id) {
 		this.gameManager = gameManager;
 		borderThickness = Assets.edge.getHeight();
 
+		data = new ZoneData(id);
 		cells = new HashMap<Point, ArenaCell>();
-		edges = new ArrayList<ZoneEdge>();
-		lines = new ArrayList<Sprite>();
-		owner = Player.NEUTRAL;
 		
 		tmp = new Point(0, 0);
+		
+		setTouchable(Touchable.disabled);
 	}
 	
 	public Collection<ArenaCell> getCells() {
@@ -86,18 +65,27 @@ public class ArenaZone {
 	}
 	
 	public void update() {
-		edges.clear();
-		invalidate = true;
+		// Met à jour la liste des côtés
+		final List<ZoneEdge> edges = new ArrayList<ZoneEdge>();
 		for (ArenaCell cell : cells.values()) {
 			// Affecte la zone à chaque cellule
 			cell.getData().zone = this;
 		
 			// Ajoute les côtés uniques dans la liste
-			checkEdge(cell, Borders.LEFT, -1, 0);
-			checkEdge(cell, Borders.TOP, 0, +1);
-			checkEdge(cell, Borders.RIGHT, +1, 0);
-			checkEdge(cell, Borders.BOTTOM, 0, -1);
+			checkEdge(cell, Borders.LEFT, -1, 0, edges);
+			checkEdge(cell, Borders.TOP, 0, +1, edges);
+			checkEdge(cell, Borders.RIGHT, +1, 0, edges);
+			checkEdge(cell, Borders.BOTTOM, 0, -1, edges);
 		}
+		
+		// Crée les lignes pour dessiner ces côtés
+		clear();
+		Sprite sprite;
+		for (ZoneEdge edge : edges) {
+			sprite = SpriteBatchUtils.createSpritedLine(Assets.edge, edge.p1, edge.p2);
+			addActor(new SpritedActor(sprite));
+		}
+		updateBounds();
 		
 		// Choisit l'owner de la zone
 		updateOwner();
@@ -113,7 +101,7 @@ public class ArenaZone {
 	 * @param offsetY
 	 * @param edges
 	 */
-	private void checkEdge(ArenaCell cell, Borders border, int offsetX, int offsetY) {
+	private void checkEdge(ArenaCell cell, Borders border, int offsetX, int offsetY, List<ZoneEdge> edges) {
 		tmp.setX(cell.getData().position.getX() + offsetX);
 		tmp.setY(cell.getData().position.getY() + offsetY);
 		// S'il n'y a pas de voisin de ce côté, alors c'est qu'on est à la limite de la zone
@@ -154,21 +142,21 @@ public class ArenaZone {
 		return edge;
 	}
 
-	public Player getOwner() {
-		return owner;
+	public ZoneData getData() {
+		return data;
 	}
 
 	private void setOwner(Player newOwner) {
 		// Même owner ? Rien à faire
-		if (owner.equals(newOwner)) {
+		if (data.owner.equals(newOwner)) {
 			return;
 		}
 		
 		// Avertit le game manager pour la mise à jour du score
-		gameManager.zoneChangedOwner(owner, newOwner);
+		gameManager.zoneChangedOwner(data.owner, newOwner);
 		
 		// Changement de l'owner
-		owner = newOwner;
+		data.owner = newOwner;
 		
 		// Change l'image des cellules de la zone
 		CellData data;
@@ -187,36 +175,8 @@ public class ArenaZone {
 			// Met à jour l'image
 			cell.updateDisplay();
 		}
-		
-		// Demande la mise à jour des Sprites dessinant le contour de la zone
-		invalidate = true;
 	}
 	
-	private void prepareLines() {
-		lines.clear();
-		for (ZoneEdge edge : edges) {
-			lines.add(SpriteBatchUtils.createSpritedLine(Assets.edge, edge.p1, edge.p2));
-		}
-		invalidate = false;
-	}
-	
-	public void draw(Batch batch) {
-		boolean openedHere = false;
-		if (!batch.isDrawing()) {
-			openedHere = true;
-			batch.begin();
-		}
-		if (invalidate) {
-			prepareLines();
-		}
-		for (Sprite line : lines) {
-			line.draw(batch);
-		}
-		if (openedHere) {
-			batch.end();
-		}
-	}
-
 	/**
 	 * Détermine le propriétaire de la zone en fonction du propriétaire
 	 * des cellules

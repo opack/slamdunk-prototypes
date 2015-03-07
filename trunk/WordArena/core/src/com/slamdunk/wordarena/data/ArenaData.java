@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.enums.Letters;
 
 public class ArenaData {
