@@ -88,8 +88,14 @@ public class GroupEx extends Group  {
                 maxY = curMaxY;
             }
         }
-
+        
         setBounds(minX, minY, maxX - minX, maxY - minY);
         isSizeValid = true;
+        
+        // Décale la position de tous les enfants pour qu'ils restent à la même position absolue
+        for (int cur = 0; cur < count; cur++) {
+            child = children[cur];
+            child.moveBy(-minX, -minY);
+        }
     }
 }

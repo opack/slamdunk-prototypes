@@ -5,18 +5,20 @@ import java.util.List;
 import java.util.Set;
 
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
+import com.slamdunk.toolkit.ui.GroupEx;
 import com.slamdunk.toolkit.ui.MoveCameraDragListener;
+import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.data.ArenaBuilder;
 import com.slamdunk.wordarena.data.ArenaData;
-import com.slamdunk.wordarena.data.ArenaZone;
 import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.CellStates;
@@ -44,6 +46,9 @@ public class ArenaOverlay extends WorldOverlay {
 	 * @param height Hauteur de l'arène, en nombre de cellules
 	 */
 	public void buildArena(String plan, GameManager gameManager) {
+		// Vide l'arène actuelle
+		getWorld().clear();
+		
 		// Charge le plan
 		TypedProperties arenaProperties = new TypedProperties(plan);
 		
@@ -52,16 +57,35 @@ public class ArenaOverlay extends WorldOverlay {
 		builder.load(arenaProperties);
 		data = builder.build();		
 		
-		// Ajoute l'arène dans le monde
+		// Ajoute les cellules de l'arène
+		GroupEx arenaGroup = new GroupEx();
 		for (int y = 0; y < data.height; y++) {
 			for (int x = 0; x < data.width; x++) {
 				// Ajout de la cellule à l'arène
-				getWorld().addActor(data.cells[x][y]);
+				arenaGroup.addActor(data.cells[x][y]);
 			}
 		}
 		
+		// Ajoute les zones
+		for (ArenaZone zone : data.zones) {
+			arenaGroup.addActor(zone);
+		}
+		
+		// Crée un ScrollPane pour permettre le déplacement propre de l'arène
+		ScrollPane scrollPane = new ScrollPane(arenaGroup, Assets.skin);
+		scrollPane.setupOverscroll(15, 30, 200);
+		scrollPane.setPosition(5, 5);
+		scrollPane.setSize(WordArenaGame.SCREEN_WIDTH, 600);
+		scrollPane.getStyle().background = null; // DBG Triche pour avoir un background transparent. Faire une vraie skin à la place
+		// Place l'arène au centre de l'écran
+		scrollPane.scrollTo(
+				arenaGroup.getX(), arenaGroup.getY(),
+				arenaGroup.getWidth(), arenaGroup.getHeight(), 
+				true, true);
+		getWorld().addActor(scrollPane);
+		
 		// Place la caméra au centre de l'arène
-		centerCamera();
+		//DBGcenterCamera();
 	}
 	
 	/**
@@ -72,15 +96,6 @@ public class ArenaOverlay extends WorldOverlay {
 		Camera camera = getStage().getCamera();
 		camera.position.x = arena.getX() + arena.getWidth() / 2;
 		camera.position.y = arena.getY() + arena.getHeight() / 2;
-	}
-
-	@Override
-	public void draw() {
-		super.draw();
-		Batch batch = getStage().getBatch();
-		for (ArenaZone zone : data.zones) {
-			zone.draw(batch);
-		}
 	}
 
 	/**
@@ -136,7 +151,7 @@ public class ArenaOverlay extends WorldOverlay {
 	public void refreshStartingZone(Player owner) {
 		// Recherche la zone de cet owner
 		for (ArenaZone zone : data.zones) {
-			if (owner.equals(zone.getOwner())) {
+			if (owner.equals(zone.getData().owner)) {
 				// Tire de nouvelles lettres pour les cellules de cette zone
 				CellData cellData;
 				for (ArenaCell cell : zone.getCells()) {

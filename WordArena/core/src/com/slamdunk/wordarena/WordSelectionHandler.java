@@ -10,7 +10,7 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.slamdunk.wordarena.actors.ArenaCell;
-import com.slamdunk.wordarena.data.ArenaZone;
+import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.ReturnCodes;
 
@@ -91,7 +91,7 @@ public class WordSelectionHandler {
 			Player player = gameManager.getCurrentPlayer();
 			Player cellOwner = cell.getData().owner;
 			// La cellule est-elle dans une zone du joueur ?
-			boolean isInPlayerZone = (zone != null && player.equals(zone.getOwner()));
+			boolean isInPlayerZone = (zone != null && player.equals(zone.getData().owner));
 
 			// Si la cellule n'appartient pas au joueur...
 			if (!player.equals(cellOwner)
