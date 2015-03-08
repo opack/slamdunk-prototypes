@@ -29,8 +29,15 @@ public enum Letters implements Deckable {
 	X(1, "X"),
 	Y(1, "Y"),
 	Z(1, "Z"),
+	/**
+	 * Valeur pour une cellule qui ne contient pas de lettre
+	 */
 	EMPTY(0, ""),
-	JOKER(0, "?");
+	JOKER(0, "?"),
+	/**
+	 * Valeur pour une lettre qui doit être piochée dans le tas de lettres
+	 */
+	FROM_DECK(0, "-");
 	
 	public int representation;
 	public String label;

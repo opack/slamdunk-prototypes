@@ -17,6 +17,7 @@ import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.actors.ArenaZone;
+import com.slamdunk.wordarena.actors.CellSelectionListener;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
@@ -25,7 +26,6 @@ import com.slamdunk.wordarena.enums.Letters;
  * Construit une arène à partir d'un plan
  */
 public class ArenaBuilder {
-	public static final String LETTER_FROM_DECK = "-";
 	private static final String ZONE_NONE = "-";
 	private static final String CELL_SEPARATOR = " ";
 	
@@ -263,7 +263,8 @@ public class ArenaBuilder {
 				// contrairement au fichier properties
 				index = (arena.height - 1 - y) * arena.width + x;
 				
-				cell = new ArenaCell(skin, wordSelectionHandler);
+				cell = new ArenaCell(skin);
+				cell.addListener(new CellSelectionListener(cell, wordSelectionHandler));
 				arena.cells[x][y] = cell;
 				
 				// Définition des données du modèle
@@ -318,7 +319,7 @@ public class ArenaBuilder {
 		if (cellType == CellTypes.J) {
 			return Letters.JOKER;
 		}
-		if (LETTER_FROM_DECK.equals(letter)) {
+		if (Letters.FROM_DECK.label.equals(letter)) {
 			return letterDeck.draw();
 		}
 		return Letters.valueOf(letter);
