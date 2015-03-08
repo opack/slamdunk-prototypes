@@ -9,6 +9,9 @@ public class ZoneTool extends EditorTool<ArenaZone> {
 	@Override
 	public void apply(ArenaCell cell) {
 		ArenaZone zone = getValue();
+		if (zone == null) {
+			return;
+		}
 		zone.addCell(cell);
 		zone.update();
 	}
