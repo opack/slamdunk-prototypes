@@ -146,7 +146,9 @@ public class ArenaZone extends Group {
 		}
 		
 		// Avertit le game manager pour la mise à jour du score
-		gameManager.zoneChangedOwner(data.owner, newOwner);
+		if (gameManager != null) {
+			gameManager.zoneChangedOwner(data.owner, newOwner);
+		}
 		
 		// Changement de l'owner
 		data.owner = newOwner;

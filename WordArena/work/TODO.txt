@@ -1,7 +1,6 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
 [ ] ADD : Editeur :
-	- Créer les autres outils
 	- Désélectionner l'ancien outil quand on en sélectionne un nouveau
 	- Sauvegarder le résultat dans un fichier
 	- Charger un fichier pour modifications

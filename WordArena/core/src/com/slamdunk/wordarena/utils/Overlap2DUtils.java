@@ -7,15 +7,15 @@ import com.uwsoft.editor.renderer.actor.CompositeItem;
 
 public class Overlap2DUtils {
 
-	public static CompositeItem createSimpleButtonScript(SceneLoader sceneLoader, String buttonId, ClickListener clickListener) {
+	public static SimpleButtonI18NScript createSimpleButtonScript(SceneLoader sceneLoader, String buttonId, ClickListener clickListener) {
 		CompositeItem composite = sceneLoader.sceneActor.getCompositeById(buttonId);
-		
-		if (composite != null) {
-			SimpleButtonI18NScript script = new SimpleButtonI18NScript();
-			script.addListener(clickListener);
-			composite.addScript(script);
+		if (composite == null) {
+			return null;
 		}
 		
-		return composite;
+		SimpleButtonI18NScript script = new SimpleButtonI18NScript();
+		script.addListener(clickListener);
+		composite.addScript(script);
+		return script;
 	}
 }

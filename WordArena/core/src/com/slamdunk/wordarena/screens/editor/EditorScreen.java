@@ -6,9 +6,13 @@ import java.util.Map;
 import com.badlogic.gdx.Input.Keys;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordArenaGame;
+import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.screens.editor.tools.CellTypeTool;
 import com.slamdunk.wordarena.screens.editor.tools.EditorTool;
 import com.slamdunk.wordarena.screens.editor.tools.LetterTool;
+import com.slamdunk.wordarena.screens.editor.tools.OwnerTool;
+import com.slamdunk.wordarena.screens.editor.tools.PowerTool;
+import com.slamdunk.wordarena.screens.editor.tools.ZoneTool;
 import com.slamdunk.wordarena.screens.home.HomeScreen;
 
 public class EditorScreen extends SlamScreen {
@@ -40,6 +44,9 @@ public static final String NAME = "EDITOR";
 		tools = new HashMap<Class<? extends EditorTool>, EditorTool>();
 		tools.put(CellTypeTool.class, new CellTypeTool());
 		tools.put(LetterTool.class, new LetterTool());
+		tools.put(PowerTool.class, new PowerTool());
+		tools.put(OwnerTool.class, new OwnerTool());
+		tools.put(ZoneTool.class, new ZoneTool());
 	}
 
 	@Override
@@ -73,5 +80,14 @@ public static final String NAME = "EDITOR";
 	public void changeArenaSize(int width, int height) {
 		arena.setArenaSize(width, height);
 		arena.resetEditArena();
+	}
+
+	public ArenaZone getOrCreateZone(String id) {
+		for (ArenaZone zone : arena.getData().zones) {
+			if (zone.getData().id.equals(id)) {
+				return zone;
+			}
+		}
+		return arena.createZone(id);
 	}
 }

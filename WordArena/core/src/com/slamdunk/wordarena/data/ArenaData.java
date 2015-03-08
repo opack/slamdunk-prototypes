@@ -1,5 +1,6 @@
 package com.slamdunk.wordarena.data;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.slamdunk.toolkit.lang.Deck;
@@ -33,6 +34,11 @@ public class ArenaData {
 	 * Nom de l'arène
 	 */
 	public String name;
+	
+	public ArenaData() {
+		zones = new ArrayList<ArenaZone>();
+		walls = new DoubleEntryArray<ArenaCell, ArenaCell, Boolean>();
+	}
 	
 	/**
 	 * Indique s'il y a un mur entre les 2 cellules spécifiées
