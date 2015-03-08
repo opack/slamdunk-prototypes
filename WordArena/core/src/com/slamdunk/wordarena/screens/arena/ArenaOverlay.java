@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
@@ -59,9 +60,13 @@ public class ArenaOverlay extends WorldOverlay {
 		}
 		
 		// Ajoute les murs
+		Actor wallActor;
 		for (ArenaCell cell1 : data.walls.getEntries1()) {
-			for (ArenaWall wall : data.walls.getValues(cell1)) {
-				arenaGroup.addActor(wall);
+			for (ArenaCell cell2 : data.walls.getEntries2(cell1)) {
+				wallActor = ArenaWall.buildWall(cell1, cell2);
+				if (wallActor != null) {
+					arenaGroup.addActor(wallActor);
+				}
 			}
 		}
 		
@@ -143,17 +148,5 @@ public class ArenaOverlay extends WorldOverlay {
 				break;
 			}
 		}
-	}
-
-	/**
-	 * Indique s'il y a un mur entre les 2 cellules spécifiées
-	 * @param cell1
-	 * @param cell2
-	 * @return
-	 */
-	public boolean hasWall(ArenaCell cell1, ArenaCell cell2) {
-		ArenaWall wall = data.walls.get(cell1, cell2);
-		return wall != null
-			&& wall.getData().active;
 	}
 }

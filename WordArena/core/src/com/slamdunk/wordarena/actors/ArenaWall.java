@@ -1,34 +1,21 @@
 package com.slamdunk.wordarena.actors;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.slamdunk.toolkit.graphics.SpriteBatchUtils;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.Assets;
-import com.slamdunk.wordarena.data.WallData;
 
 /**
  * Représente un mur de l'arène
  */
-public class ArenaWall extends SpritedActor {
-	private WallData data;
-	
-	public ArenaWall(ArenaCell cell1, ArenaCell cell2) {
-		super(buildSprite(cell1, cell2));
-		data = new WallData(cell1, cell2);
-	}
-	
-	public WallData getData() {
-		return data;
-	}
-
+public class ArenaWall {
 	/**
 	 * Crée le Sprite pour le mur entre ces 2 cellules
 	 * @param cell1
 	 * @param cell2
-	 * @return
+	 * @return null si aucun mur ne doit être dessiné (2 cellules en diagonale)
 	 */
-	private static Sprite buildSprite(ArenaCell cell1, ArenaCell cell2) {
+	public static SpritedActor buildWall(ArenaCell cell1, ArenaCell cell2) {
 		// Récupère la taille de la texture de façon à centrer le mur sur le bord commun entre les 2 cellules
 		final float halfWallThickness = Assets.wall.getHeight() / 2;
 		
@@ -75,11 +62,11 @@ public class ArenaWall extends SpritedActor {
 				throw new IllegalArgumentException("Supplied cells must not be at the same position !");
 			}
 		} else {
-			// Les cellules ne sont pas adjacentes : il ne peut pas y avoir de mur
-			throw new IllegalArgumentException("Supplied cells must be adjacent !");
+			// Les cellules ne sont pas adjacentes : il ne peut pas y avoir de mur dessiné
+			return null;
 		}
 		
 		// Crée le sprite du mur
-		return SpriteBatchUtils.createSpritedLine(Assets.wall, p1, p2);
+		return new SpritedActor(SpriteBatchUtils.createSpritedLine(Assets.wall, p1, p2));
 	}
 }

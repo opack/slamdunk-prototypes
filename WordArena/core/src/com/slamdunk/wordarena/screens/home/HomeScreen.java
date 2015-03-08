@@ -9,6 +9,7 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
+import com.slamdunk.wordarena.screens.editor.EditorScreen;
 
 public class HomeScreen extends SlamScreen {
 	public static final String NAME = "HOME";
@@ -63,5 +64,9 @@ public class HomeScreen extends SlamScreen {
 		ArenaScreen arena = (ArenaScreen)getGame().getScreen(ArenaScreen.NAME);
 		arena.prepareGame("arenas/" + arenaFile + ".properties", players);
 		getGame().setScreen(ArenaScreen.NAME);
+	}
+	
+	public void launchEditor() {
+		getGame().setScreen(EditorScreen.NAME);
 	}
 }

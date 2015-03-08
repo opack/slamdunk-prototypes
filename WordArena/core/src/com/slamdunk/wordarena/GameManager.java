@@ -533,12 +533,13 @@ public class GameManager {
 	}
 
 	/**
-	 * Vérifie s'il y a un mur entre les 2 cellules
+	 * Vérifie s'il y a un mur entre les 2 cellules, ou dans un coin qui empêcherait
+	 * de passer d'une cellule à l'autre
 	 * @param last
 	 * @param cell
 	 * @return
 	 */
 	public boolean hasWall(ArenaCell cell1, ArenaCell cell2) {
-		return arena.hasWall(cell1, cell2);
+		return arena.getData().hasWall(cell1, cell2);
 	}
 }

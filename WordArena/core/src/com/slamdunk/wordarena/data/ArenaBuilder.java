@@ -1,19 +1,21 @@
 package com.slamdunk.wordarena.data;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.lang.KeyListMap;
 import com.slamdunk.toolkit.lang.TypedProperties;
+import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
-import com.slamdunk.wordarena.actors.ArenaWall;
 import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
@@ -40,6 +42,7 @@ public class ArenaBuilder {
 	private ArenaData arena;
 	
 	private KeyListMap<String, ArenaCell> cellsByZone;
+	private Set<Point> cellsWithWalls;
 	
 	public ArenaBuilder(GameManager gameManager) {
 		this(gameManager, Assets.skin);
@@ -123,6 +126,9 @@ public class ArenaBuilder {
 		}
 		setZones(zones);
 		
+		// Charge les murs
+		// TODO
+		
 		return true;
 	}
 
@@ -143,14 +149,92 @@ public class ArenaBuilder {
 	}
 
 	private void buildWalls() {
-		arena.walls = new DoubleEntryArray<ArenaCell, ArenaCell, ArenaWall>();
+		arena.walls = new DoubleEntryArray<ArenaCell, ArenaCell, Boolean>();
+		cellsWithWalls = new HashSet<Point>();
 		
 		// DBG
-		ArenaCell cell1 = arena.cells[0][0];
-		ArenaCell cell2 = arena.cells[0][1];
-		ArenaWall wall = new ArenaWall(cell1, cell2);
-		arena.walls.put(cell1, cell2, wall);
-		arena.walls.put(cell2, cell1, wall);
+		addWall(arena.cells[0][0], arena.cells[0][1], true);
+		addWall(arena.cells[2][0], arena.cells[3][0], true);
+		addWall(arena.cells[2][0], arena.cells[2][1], true);
+		
+		// Recherche et crée les murs en coin
+		createCornerWalls();
+	}
+	
+	/**
+	 * Recherche les murs formant des coins.
+	 */
+	private void createCornerWalls() {
+		Point pos2 = new Point(0, 0);
+		for (Point pos1 : cellsWithWalls) {
+			// Mur avec la cellule du haut ?
+			pos2.setXY(pos1.getX(), pos1.getY() + 1);
+			boolean hasWallUp = hasWall(pos1, pos2);
+			
+			// Mur avec la cellule du bas ?
+			pos2.setXY(pos1.getX(), pos1.getY() - 1);
+			boolean hasWallDown = hasWall(pos1, pos2);
+			
+			// Mur avec la cellule de gauche ?
+			pos2.setXY(pos1.getX() - 1, pos1.getY());
+			boolean hasWallLeft = hasWall(pos1, pos2);
+			
+			// Mur avec la cellule de droite ?
+			pos2.setXY(pos1.getX() + 1, pos1.getY());
+			boolean hasWallRight = hasWall(pos1, pos2);
+			
+			// Cherche si les murs de cette cellule forment un coin
+			boolean createWall = false;
+			if (hasWallUp) {
+				if (hasWallLeft) {
+					pos2.setXY(pos1.getX() - 1, pos1.getY() + 1);
+					createWall = true;
+				} else if (hasWallRight) {
+					pos2.setXY(pos1.getX() + 1, pos1.getY() + 1);
+					createWall = true;
+				}
+			} else if (hasWallDown) {
+				if (hasWallLeft) {
+					pos2.setXY(pos1.getX() - 1, pos1.getY() - 1);
+					createWall = true;
+				} else if (hasWallRight) {
+					pos2.setXY(pos1.getX() + 1, pos1.getY() - 1);
+					createWall = true;
+				}
+			}
+			// Crée le mur virtuel représentant le coin
+			if (createWall) {
+				addWall(pos1, pos2);
+			}
+		}
+	}
+
+	private boolean hasWall(Point pos1, Point pos2) {
+		return isValidPos(pos2)
+			&& arena.hasWall(arena.cells[pos1.getX()][pos1.getY()], arena.cells[pos2.getX()][pos2.getY()]);
+	}
+
+	private boolean isValidPos(Point pos) {
+		return pos.getX() > -1
+			&& pos.getX() < arena.width
+			&& pos.getY() > -1
+			&& pos.getY() < arena.height;
+	}
+	
+	private void addWall(Point pos1, Point pos2) {
+		addWall(arena.cells[pos1.getX()][pos1.getY()], arena.cells[pos2.getX()][pos2.getY()], false);
+	}
+
+	private void addWall(ArenaCell cell1, ArenaCell cell2, boolean trackCellsWithWalls) {
+		// Crée le mur
+		arena.walls.put(cell1, cell2, Boolean.TRUE);
+		arena.walls.put(cell2, cell1, Boolean.TRUE);
+		
+		// Enregistre les cellules comme possédant des murs
+		if (trackCellsWithWalls) {
+			cellsWithWalls.add(cell1.getData().position);
+			cellsWithWalls.add(cell2.getData().position);
+		}
 	}
 
 	private void buildZones() {
