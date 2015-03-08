@@ -86,13 +86,13 @@ public class ArenaUI extends UIOverlay {
 			public void clicked(InputEvent event, float x, float y) {
 				gameManager.validateWord();
 			}
-		});
+		}).getItem();
 		
 		cancelWord = Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnCancelWord", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				gameManager.cancelWord();
 			}
-		});
+		}).getItem();
 		
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnRefreshZone", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {

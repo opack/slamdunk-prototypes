@@ -3,22 +3,20 @@ package com.slamdunk.wordarena.screens.editor.tools;
 import java.util.Collection;
 
 import com.slamdunk.wordarena.actors.ArenaCell;
-import com.slamdunk.wordarena.enums.CellTypes;
-import com.slamdunk.wordarena.enums.Letters;
+import com.slamdunk.wordarena.data.Player;
 
-public class LetterTool extends EditorTool<Letters> {
-	public LetterTool() {
-		setValue(Letters.FROM_DECK);
+public class OwnerTool extends EditorTool<Player> {
+	
+	public OwnerTool() {
+		setValue(Player.NEUTRAL);
 	}
 
 	@Override
 	public void apply(ArenaCell cell) {
-		CellTypes type = cell.getData().type;
-		if (!type.hasLetter()
-		|| type == CellTypes.J) {
+		if (!cell.getData().type.canBeOwned()) {
 			return;
 		}
-		cell.getData().letter = getValue();
+		cell.getData().owner = getValue();
 	}
 
 	@Override

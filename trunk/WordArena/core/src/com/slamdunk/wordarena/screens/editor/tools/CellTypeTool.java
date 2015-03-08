@@ -3,34 +3,33 @@ package com.slamdunk.wordarena.screens.editor.tools;
 import java.util.Collection;
 
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.data.CellData;
+import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
 
-public class CellTypeTool implements EditorTool<CellTypes> {
-	private CellTypes value;
+public class CellTypeTool extends EditorTool<CellTypes> {
 	
 	public CellTypeTool() {
-		value = CellTypes.L;
-	}
-
-	@Override
-	public void setValue(CellTypes value) {
-		this.value = value;
-	}
-	
-	@Override
-	public CellTypes getValue() {
-		return value;
+		setValue(CellTypes.L);
 	}
 
 	@Override
 	public void apply(ArenaCell cell) {
-		cell.getData().type = value;
+		CellData cellData = cell.getData();
+		CellTypes value = getValue();
+		cellData.type = value;
 		if (!value.hasLetter()) {
-			cell.getData().letter = Letters.EMPTY;
+			cellData.letter = Letters.EMPTY;
 		}
 		if (value == CellTypes.J) {
-			cell.getData().letter = Letters.JOKER;
+			cellData.letter = Letters.JOKER;
+		}
+		if (!value.hasPower()) {
+			cellData.power = 0;
+		}
+		if (!value.canBeOwned()) {
+			cellData.owner = Player.NEUTRAL;
 		}
 	}
 

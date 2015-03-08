@@ -1,6 +1,5 @@
 package com.slamdunk.wordarena.data;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -8,7 +7,6 @@ import java.util.Set;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.lang.Deck;
-import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.lang.KeyListMap;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.world.point.Point;
@@ -149,7 +147,7 @@ public class ArenaBuilder {
 	}
 
 	private void buildWalls() {
-		arena.walls = new DoubleEntryArray<ArenaCell, ArenaCell, Boolean>();
+		arena.walls.clear();
 		cellsWithWalls = new HashSet<Point>();
 		
 		// DBG
@@ -238,7 +236,7 @@ public class ArenaBuilder {
 	}
 
 	private void buildZones() {
-		arena.zones = new ArrayList<ArenaZone>();
+		arena.zones.clear();
 		for (Map.Entry<String, List<ArenaCell>> entry : cellsByZone.entrySet()) {
 			ArenaZone zone = new ArenaZone(gameManager, entry.getKey());
 			for (ArenaCell cell : entry.getValue()) {

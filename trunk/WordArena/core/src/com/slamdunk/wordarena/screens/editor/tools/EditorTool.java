@@ -4,27 +4,33 @@ import java.util.Collection;
 
 import com.slamdunk.wordarena.actors.ArenaCell;
 
-public interface EditorTool<Value> {
+public abstract class EditorTool<ValueType> {
+	
+	private ValueType value;
 	
 	/**
 	 * Définit la valeur à appliquer
 	 */
-	void setValue(Value value);
+	public void setValue(ValueType value) {
+		this.value = value;
+	}
 	
 	/**
 	 * Récupère la valeur à appliquer
 	 */
-	Value getValue();
+	public ValueType getValue() {
+		return value;
+	}
 	
 	/**
 	 * Applique l'outil sur la cellule indiquée
 	 * @param cell
 	 */
-	void apply(ArenaCell cell);
+	public abstract void apply(ArenaCell cell);
 	
 	/**
 	 * Applique l'outil sur les cellules indiquées
 	 * @param cell
 	 */
-	void apply(Collection<ArenaCell> cells);
+	public abstract void apply(Collection<ArenaCell> cells);
 }

@@ -3,22 +3,18 @@ package com.slamdunk.wordarena.screens.editor.tools;
 import java.util.Collection;
 
 import com.slamdunk.wordarena.actors.ArenaCell;
-import com.slamdunk.wordarena.enums.CellTypes;
-import com.slamdunk.wordarena.enums.Letters;
 
-public class LetterTool extends EditorTool<Letters> {
-	public LetterTool() {
-		setValue(Letters.FROM_DECK);
+public class PowerTool extends EditorTool<Integer> {
+	public PowerTool() {
+		setValue(0);
 	}
 
 	@Override
 	public void apply(ArenaCell cell) {
-		CellTypes type = cell.getData().type;
-		if (!type.hasLetter()
-		|| type == CellTypes.J) {
+		if (!cell.getData().type.hasPower()) {
 			return;
 		}
-		cell.getData().letter = getValue();
+		cell.getData().power = getValue();
 	}
 
 	@Override

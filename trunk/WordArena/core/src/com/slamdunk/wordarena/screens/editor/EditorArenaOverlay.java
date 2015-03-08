@@ -4,6 +4,7 @@ import com.slamdunk.toolkit.ui.GroupEx;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.actors.ApplyToolListener;
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.data.ArenaData;
 import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.Player;
@@ -30,14 +31,14 @@ public class EditorArenaOverlay extends ArenaOverlay {
 	}
 	
 	public void resetEditArena() {
-		resetCells();
-		centerArena();
-	}
-	
-	private void resetCells() {
 		GroupEx arenaGroup = getArenaGroup();
 		arenaGroup.clear();
-		
+		resetCells(arenaGroup);
+		arena.zones.clear();
+		centerArena();
+	}
+
+	private void resetCells(GroupEx arenaGroup) {
 		arena.cells = new ArenaCell[arena.width][arena.height];
 		
 		ArenaCell cell;
@@ -65,5 +66,12 @@ public class EditorArenaOverlay extends ArenaOverlay {
 				arenaGroup.addActor(cell);
 			}
 		}
+	}
+
+	public ArenaZone createZone(String id) {
+		ArenaZone zone = new ArenaZone(null, id);
+		arena.zones.add(zone);
+		getArenaGroup().addActor(zone);
+		return zone;
 	}
 }

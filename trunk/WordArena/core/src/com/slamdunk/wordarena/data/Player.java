@@ -8,10 +8,7 @@ import com.slamdunk.wordarena.Assets;
 public class Player {
 	public static final Player NEUTRAL;
 	static {
-		NEUTRAL = new Player();
-		NEUTRAL.uid = 0;
-		NEUTRAL.name = "neutral";
-		NEUTRAL.cellPack = Assets.CELL_PACK_NEUTRAL;
+		NEUTRAL = new Player(0, Assets.i18nBundle.get("ui.editor.player.0"), Assets.CELL_PACK_NEUTRAL);
 	}
 	
 	public int uid;
@@ -21,6 +18,15 @@ public class Player {
 	public int nbZonesOwned;
 	public int nbWordsPlayed;
 	public String cellPack;
+	
+	public Player() {
+	}
+	
+	public Player(int uid, String name, String cellPack) {
+		this.uid = uid;
+		this.name = name;
+		this.cellPack = cellPack;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -34,5 +40,10 @@ public class Player {
 			return uid == ((Player)obj).uid;
 		}
 		return false;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
 	}
 }
