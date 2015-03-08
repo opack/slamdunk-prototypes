@@ -56,10 +56,10 @@ public class HomeUI extends UIOverlay {
 		sceneLoader.loadScene("Home");
 		getStage().addActor(sceneLoader.sceneActor);
 		
-		// Bouton Play !
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnPlay", new ClickListener() {
+		// Bouton Editor
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnEditor", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				screen.launchGame("4_battlefield");
+				screen.launchEditor();
 			}
 		});
 		

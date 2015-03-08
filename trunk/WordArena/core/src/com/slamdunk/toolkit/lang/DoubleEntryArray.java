@@ -48,6 +48,18 @@ public class DoubleEntryArray<Entry1Type, Entry2Type, ValueType> {
 		return data.keySet();
 	}
 	
+	/**
+	 * Retourne l'ensemble des clés de type Entry2Type
+	 * @return 
+	 */
+	public Set<Entry2Type> getEntries2(Entry1Type entry1) {
+		Map<Entry2Type, ValueType> values = data.get(entry1);
+        if (values == null) {
+            return null;
+        }
+		return values.keySet();
+	}
+	
 	public Collection<ValueType> getValues(Entry1Type entry1) {
 		Map<Entry2Type, ValueType> values = data.get(entry1);
         if (values == null) {

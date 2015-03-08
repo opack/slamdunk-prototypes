@@ -101,4 +101,9 @@ public class ArenaCell extends GroupEx {
 		data.owner = owner;
 		updateDisplay();		
 	}
+	
+	@Override
+	public String toString() {
+		return data.position.toString();
+	}
 }
