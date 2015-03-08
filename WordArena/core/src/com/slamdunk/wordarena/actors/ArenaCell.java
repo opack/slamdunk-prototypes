@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.slamdunk.toolkit.ui.GroupEx;
 import com.slamdunk.wordarena.Assets;
-import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.Player;
 
@@ -25,7 +24,7 @@ public class ArenaCell extends GroupEx {
 	
 	private Label letter;
 	
-	public ArenaCell(final Skin skin, final WordSelectionHandler wordSelectionHandler) {
+	public ArenaCell(final Skin skin) {
 		// Crée les composants de la cellule
 		data = new CellData();
 		
@@ -37,9 +36,6 @@ public class ArenaCell extends GroupEx {
 		letter.setTouchable(Touchable.disabled);
 		letter.setPosition(background.getWidth() / 2, background.getHeight() / 2, Align.center);
 		addActor(letter);
-		
-		// Ajoute le listener pour sélectionner la lettre
-		addListener(new CellSelectionListener(this, wordSelectionHandler));
 	}
 	
 	public CellData getData() {

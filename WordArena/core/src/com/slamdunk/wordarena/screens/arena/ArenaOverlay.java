@@ -22,36 +22,50 @@ import com.slamdunk.wordarena.enums.CellStates;
 
 public class ArenaOverlay extends WorldOverlay {
 	private ArenaData data;
+	private GroupEx arenaGroup;
 	
 	public ArenaOverlay() {
 		createStage(new FitViewport(WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT));
+		arenaGroup = new GroupEx();
+		getWorld().addActor(arenaGroup);
 	}
 	
 	public ArenaData getData() {
 		return data;
 	}
+	
+	protected void setData(ArenaData data) {
+		this.data = data;
+	}
 
 	/**
 	 * Crée l'arène de jeu, c'est-à-dire le tableau de cellules.
-	 * Cette méthode crée une simple arène rectangulaire, sans
-	 * respecter de plan particulier. 
-	 * @param width Largeur de l'arène, en nombre de cellules
-	 * @param height Hauteur de l'arène, en nombre de cellules
 	 */
 	public void buildArena(String plan, GameManager gameManager) {
-		// Vide l'arène actuelle
-		getWorld().clear();
-		
 		// Charge le plan
 		TypedProperties arenaProperties = new TypedProperties(plan);
 		
-		// Construit l'arène à partir du plan
+		// Charge les données de l'arène à partir du plan
 		ArenaBuilder builder = new ArenaBuilder(gameManager);
 		builder.load(arenaProperties);
-		data = builder.build();		
+		data = builder.build();
+		
+		// Construit l'arène
+		buildArena();
+	}
+	
+	protected GroupEx getArenaGroup() {
+		return arenaGroup;
+	}
+		
+	/**
+	 * Reconstruit l'arène à partir des données de l'ArenaData
+	 */
+	protected void buildArena() {
+		// Vide l'arène
+		arenaGroup.clear();
 		
 		// Ajoute les cellules
-		GroupEx arenaGroup = new GroupEx();
 		for (int y = 0; y < data.height; y++) {
 			for (int x = 0; x < data.width; x++) {
 				// Ajout de la cellule à l'arène
@@ -76,9 +90,12 @@ public class ArenaOverlay extends WorldOverlay {
 		}
 		
 		// Centre l'arène dans la zone d'affichage
+		centerArena();
+	}
+	
+	protected void centerArena() {
 		arenaGroup.setX(Math.max(0, (int)((WordArenaGame.SCREEN_WIDTH - arenaGroup.getWidth()) / 2)));
 		arenaGroup.setY(Math.max(0, (int)((672 - arenaGroup.getHeight()) / 2)));
-		getWorld().addActor(arenaGroup);
 	}
 
 	/**

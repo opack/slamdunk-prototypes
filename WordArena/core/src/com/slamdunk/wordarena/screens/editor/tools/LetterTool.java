@@ -6,32 +6,31 @@ import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
 
-public class CellTypeTool implements EditorTool<CellTypes> {
-	private CellTypes value;
+public class LetterTool implements EditorTool<Letters> {
+	private Letters value;
 	
-	public CellTypeTool() {
-		value = CellTypes.L;
+	public LetterTool() {
+		value = Letters.FROM_DECK;
 	}
 
 	@Override
-	public void setValue(CellTypes value) {
+	public void setValue(Letters value) {
 		this.value = value;
 	}
 	
 	@Override
-	public CellTypes getValue() {
+	public Letters getValue() {
 		return value;
 	}
 
 	@Override
 	public void apply(ArenaCell cell) {
-		cell.getData().type = value;
-		if (!value.hasLetter()) {
-			cell.getData().letter = Letters.EMPTY;
+		CellTypes type = cell.getData().type;
+		if (!type.hasLetter()
+		|| type == CellTypes.J) {
+			return;
 		}
-		if (value == CellTypes.J) {
-			cell.getData().letter = Letters.JOKER;
-		}
+		cell.getData().letter = value;
 	}
 
 	@Override

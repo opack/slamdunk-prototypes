@@ -22,6 +22,7 @@ import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.CellPack;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
+import com.uwsoft.editor.renderer.utils.MySkin;
 
 public class Assets {
 	private static final String CELL_PACK_PREFIX = "cellpack";
@@ -31,6 +32,13 @@ public class Assets {
 	public static I18NBundle i18nBundle;
 	public static ResourceManager overlap2dResourceManager;
 	public static Skin skin;
+	/**
+	 * Overlap2D ne charge pas les skins. On doit donc surcharger la méthode getSkin() du ResourceManager
+	 * pour retourner une skin qu'on aura chargé nous même afin d'avoir la possibilité d'utiliser les
+	 * widgets de l'UI standard de LibGDX.
+	 * On crée donc un MySkin et on y met notre skin.
+	 */
+	private static MySkin specialSkinForOverlap;
 	public static TextureAtlas atlas;
 	public static Map<String, CellPack> cellPacks;
 	public static Texture edge;
@@ -85,7 +93,13 @@ public class Assets {
 	}
 	
 	private static void loadOverlapResources() {
-		overlap2dResourceManager = new ResourceManager();
+		specialSkinForOverlap = new MySkin(Gdx.files.internal("skins/wordarena/uiskin.json"));
+		overlap2dResourceManager = new ResourceManager() {
+			@Override
+			public MySkin getSkin() {
+				return specialSkinForOverlap;
+			}
+		};
 		overlap2dResourceManager.initAllResources();
 	}
 	
@@ -94,7 +108,7 @@ public class Assets {
 	}
 
 	private static void loadSkin() {
-		skin = new Skin(Gdx.files.internal("skins/wordarena/uiskin.json"));
+		skin = specialSkinForOverlap;
 	}
 	
 	private static void disposeSkin() {

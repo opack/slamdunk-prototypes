@@ -1,5 +1,10 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
+[ ] ADD : Editeur :
+	- Créer les autres outils
+	- Désélectionner l'ancien outil quand on en sélectionne un nouveau
+	- Sauvegarder le résultat dans un fichier
+	- Charger un fichier pour modifications
 [ ] MOD : Utiliser de simples images de 48px pour les edge et wall, car au final on utilise 1 image par cellule donc la taille est connue.
 [ ] ADD : Sur l'écran de pause, afficher les stats (score, zones, rounds) dans un tableau
 [ ] ADD : Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
@@ -16,4 +21,4 @@ WordArena
 [ ] ADD : Ajouter le concept de mur sur une carte, qui interdit le passage d'une case à une autre.
 	Ce concept permet de créer des cartes plus riches que celles avec de simples vides.
 	Ainsi, on peut avoir un fond de carte représentant des bâtiments, et les murs interdisent de passer par ailleurs que la porte pour tenter de le conquérir.
-[ ] ADD : Faire un éditeur d'arènes
+
