@@ -34,6 +34,7 @@ public class Assets {
 	public static TextureAtlas atlas;
 	public static Map<String, CellPack> cellPacks;
 	public static Texture edge;
+	public static Texture wall;
 	
 	public static void load () {
 		loadAppProperties();
@@ -59,10 +60,15 @@ public class Assets {
 		edge = new Texture("textures/zone_edge.png");
 		edge.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		edge.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
+		
+		wall = new Texture("textures/wall.png");
+		wall.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		wall.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
 	}
 	
 	public static void disposeTextures() {
 		edge.dispose();
+		wall.dispose();
 	}
 	
 	public static void loadAtlas() {
@@ -135,7 +141,23 @@ public class Assets {
 	private static void putCellPackImage(final CellPack pack, final CellStates state, Boolean selected) {
 		final String regionName = formatCellPackCellRegionName(pack.name, state, selected);
 		final TextureRegion region = atlas.findRegion(regionName);
+		fixBleeding(region);
 		pack.cell.put(state, selected, new TextureRegionDrawable(region));
+	}
+	
+	/**
+	 * Permet de corriger le texture bleeding en décalant les coordonnées de la région d'un demi-pixel.
+	 * Cette méthode vient de http://www.wendytech.de/2012/08/fixing-bleeding-in-libgdxs-textureatlas/.
+	 * @param region
+	 */
+	public static void fixBleeding(TextureRegion region) {
+		float x = region.getRegionX();
+		float y = region.getRegionY();
+		float width = region.getRegionWidth();
+		float height = region.getRegionHeight();
+		float invTexWidth = 1f / region.getTexture().getWidth();
+		float invTexHeight = 1f / region.getTexture().getHeight();
+		region.setRegion((x + .5f) * invTexWidth, (y+.5f) * invTexHeight, (x + width - .5f) * invTexWidth, (y + height - .5f) * invTexHeight);       
 	}
 
 	/**
@@ -164,6 +186,7 @@ public class Assets {
 	 * @return
 	 */
 	public static TextureRegionDrawable getCellImage(CellData data) {
+//	return dbg;	
 		return cellPacks.get(data.owner.cellPack).cell.get(data.state, data.selected);
 	}
 	

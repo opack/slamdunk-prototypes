@@ -11,6 +11,7 @@ import com.slamdunk.toolkit.ui.GroupEx;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.actors.ArenaWall;
 import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.data.ArenaBuilder;
 import com.slamdunk.wordarena.data.ArenaData;
@@ -48,12 +49,19 @@ public class ArenaOverlay extends WorldOverlay {
 		builder.load(arenaProperties);
 		data = builder.build();		
 		
-		// Ajoute les cellules de l'arène
+		// Ajoute les cellules
 		GroupEx arenaGroup = new GroupEx();
 		for (int y = 0; y < data.height; y++) {
 			for (int x = 0; x < data.width; x++) {
 				// Ajout de la cellule à l'arène
 				arenaGroup.addActor(data.cells[x][y]);
+			}
+		}
+		
+		// Ajoute les murs
+		for (ArenaCell cell1 : data.walls.getEntries1()) {
+			for (ArenaWall wall : data.walls.getValues(cell1)) {
+				arenaGroup.addActor(wall);
 			}
 		}
 		
@@ -135,5 +143,17 @@ public class ArenaOverlay extends WorldOverlay {
 				break;
 			}
 		}
+	}
+
+	/**
+	 * Indique s'il y a un mur entre les 2 cellules spécifiées
+	 * @param cell1
+	 * @param cell2
+	 * @return
+	 */
+	public boolean hasWall(ArenaCell cell1, ArenaCell cell2) {
+		ArenaWall wall = data.walls.get(cell1, cell2);
+		return wall != null
+			&& wall.getData().active;
 	}
 }

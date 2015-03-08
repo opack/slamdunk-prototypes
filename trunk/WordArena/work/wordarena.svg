@@ -439,9 +439,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.9899495"
-     inkscape:cx="643.3164"
-     inkscape:cy="765.61123"
+     inkscape:zoom="3.959798"
+     inkscape:cx="702.78135"
+     inkscape:cy="811.58366"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2112,5 +2112,20 @@
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_zone_selected.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
+    <g
+       id="g3097-3"
+       transform="matrix(6.8571429,0,0,1.3333333,330.6393,159.52401)"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\edge_neutral.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.35787138;stroke-opacity:1">
+      <rect
+         y="60.296577"
+         x="55.616844"
+         height="3"
+         width="7"
+         id="rect3077-5"
+         style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.35787138;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
   </g>
 </svg>
