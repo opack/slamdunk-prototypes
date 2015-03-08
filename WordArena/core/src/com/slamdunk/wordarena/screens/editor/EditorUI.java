@@ -129,13 +129,18 @@ public class EditorUI extends UIOverlay {
 		
 		// Bouton Zone
 		final TextBoxItem txtZone = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtZone");
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnToolZone", new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
+		txtZone.addListener(new ChangeListener() {
+			// DBG NE FONCTIONNE PAS !
+			@Override
+			public void changed(ChangeEvent event, Actor actor) {
 				ArenaZone zone = screen.getOrCreateZone(txtZone.getText());
-				
 				ZoneTool tool = screen.getTool(ZoneTool.class);
 				tool.setValue(zone);
-				screen.setCurrentTool(PowerTool.class);
+			}
+		});
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnToolZone", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				screen.setCurrentTool(ZoneTool.class);
 			}
 		});
 		
