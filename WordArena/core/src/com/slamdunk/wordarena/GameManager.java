@@ -531,4 +531,14 @@ public class GameManager {
 			break;
 		}
 	}
+
+	/**
+	 * Vérifie s'il y a un mur entre les 2 cellules
+	 * @param last
+	 * @param cell
+	 * @return
+	 */
+	public boolean hasWall(ArenaCell cell1, ArenaCell cell2) {
+		return arena.hasWall(cell1, cell2);
+	}
 }

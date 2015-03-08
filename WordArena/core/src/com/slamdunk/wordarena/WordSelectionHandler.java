@@ -75,11 +75,17 @@ public class WordSelectionHandler {
 			return false;
 		}
 		
-		// Vérifie que la cellule est bien voisine de la dernière sélectionnée
+		// Vérifie que la cellule peut être sélectionnée après la précédente
 		if (!selectedCells.isEmpty()) {
+			// Vérifie que la cellule est bien voisine de la dernière sélectionnée
 			ArenaCell last = selectedCells.get(selectedCells.size() - 1);
 			double distance = last.getData().position.distance(cell.getData().position);
 			if (distance >= 2) {
+				return false;
+			}
+			
+			// Vérifie qu'il n'y a pas de mur entre les 2
+			if (gameManager.hasWall(last, cell)) {
 				return false;
 			}
 		}

@@ -6,12 +6,14 @@ import java.util.Map;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.slamdunk.toolkit.lang.Deck;
+import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.lang.KeyListMap;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordSelectionHandler;
 import com.slamdunk.wordarena.actors.ArenaCell;
+import com.slamdunk.wordarena.actors.ArenaWall;
 import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
@@ -131,10 +133,24 @@ public class ArenaBuilder {
 		// Construction des cellules
 		buildCells();
 		
+		// Construction des murs
+		buildWalls();
+		
 		// Construction des zones
 		buildZones();
-
+		
 		return arena;
+	}
+
+	private void buildWalls() {
+		arena.walls = new DoubleEntryArray<ArenaCell, ArenaCell, ArenaWall>();
+		
+		// DBG
+		ArenaCell cell1 = arena.cells[0][0];
+		ArenaCell cell2 = arena.cells[0][1];
+		ArenaWall wall = new ArenaWall(cell1, cell2);
+		arena.walls.put(cell1, cell2, wall);
+		arena.walls.put(cell2, cell1, wall);
 	}
 
 	private void buildZones() {
