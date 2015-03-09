@@ -8,16 +8,15 @@ import com.slamdunk.wordarena.actors.ArenaZone;
 public class ZoneTool extends EditorTool<ArenaZone> {
 	@Override
 	public void apply(ArenaCell cell) {
-		ArenaZone zone = getValue();
-		if (zone == null) {
-			ArenaZone oldZone = cell.getData().zone;
-			cell.getData().zone = null;
-			if (oldZone != null) {
-				oldZone.removeCell(cell);
-				oldZone.update();
-			}
-			return;
+		// Retire la cellule de l'ancienne zone
+		ArenaZone oldZone = cell.getData().zone;
+		if (oldZone != null) {
+			oldZone.removeCell(cell);
+			oldZone.update();
 		}
+		
+		// Ajoute la cellule à la nouvelle zone
+		ArenaZone zone = getValue();
 		zone.addCell(cell);
 		zone.update();
 	}

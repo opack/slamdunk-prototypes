@@ -63,6 +63,6 @@ public class CellData {
 		position = new Point(0, 0);
 		owner = Player.NEUTRAL;
 		power = 1;
-		zone = null;
+		zone = ArenaZone.NONE;
 	}
 }

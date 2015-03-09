@@ -24,7 +24,7 @@ import com.slamdunk.wordarena.enums.Letters;
  * Construit une arène à partir d'un plan
  */
 public class ArenaBuilder {
-	public static final String ZONE_NONE = "-";
+	public static final String ZONE_NONE = ArenaZone.NONE.getData().id;
 	private static final String CELL_SEPARATOR = " ";
 	
 	private GameManager gameManager;
