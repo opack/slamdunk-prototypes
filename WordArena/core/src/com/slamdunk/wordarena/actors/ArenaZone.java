@@ -8,6 +8,7 @@ import java.util.Map;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.slamdunk.toolkit.graphics.SpriteBatchUtils;
+import com.slamdunk.toolkit.lang.MaxValueFinder;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
@@ -17,7 +18,6 @@ import com.slamdunk.wordarena.data.ZoneData;
 import com.slamdunk.wordarena.data.ZoneEdge;
 import com.slamdunk.wordarena.enums.Borders;
 import com.slamdunk.wordarena.enums.CellStates;
-import com.slamdunk.wordarena.utils.MaxValueFinder;
 
 /**
  * Représente une zone.

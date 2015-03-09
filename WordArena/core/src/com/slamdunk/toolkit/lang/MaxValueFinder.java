@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.utils;
+package com.slamdunk.toolkit.lang;
 
 import java.util.HashMap;
 import java.util.Map;

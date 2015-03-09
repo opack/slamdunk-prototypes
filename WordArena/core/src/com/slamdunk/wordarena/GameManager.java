@@ -2,6 +2,7 @@ package com.slamdunk.wordarena;
 
 import java.util.List;
 
+import com.slamdunk.toolkit.lang.MaxValueFinder;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.data.ArenaData;
@@ -12,7 +13,6 @@ import com.slamdunk.wordarena.enums.ReturnCodes;
 import com.slamdunk.wordarena.screens.arena.ArenaOverlay;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
 import com.slamdunk.wordarena.screens.arena.ArenaUI;
-import com.slamdunk.wordarena.utils.MaxValueFinder;
 
 /**
  * Gère la partie

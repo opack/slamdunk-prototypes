@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.lang.DoubleEntryArrayList;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
+import com.slamdunk.toolkit.ui.Overlap2DUtils;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.UserManager;
 import com.slamdunk.wordarena.WordArenaGame;
@@ -18,7 +19,6 @@ import com.slamdunk.wordarena.data.GameData;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStatus;
 import com.slamdunk.wordarena.enums.GameTypes;
-import com.slamdunk.wordarena.utils.Overlap2DUtils;
 import com.uwsoft.editor.renderer.SceneLoader;
 
 public class HomeUI extends UIOverlay {

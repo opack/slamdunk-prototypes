@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.utils;
+package com.slamdunk.toolkit.ui;
 
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.slamdunk.wordarena.screens.home.SimpleButtonI18NScript;
