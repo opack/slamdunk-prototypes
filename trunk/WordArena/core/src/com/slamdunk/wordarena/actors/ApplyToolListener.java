@@ -3,6 +3,7 @@ package com.slamdunk.wordarena.actors;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.slamdunk.wordarena.screens.editor.EditorScreen;
+import com.slamdunk.wordarena.screens.editor.tools.EditorTool;
 
 public class ApplyToolListener extends InputListener {
 	private ArenaCell cell;
@@ -20,7 +21,12 @@ public class ApplyToolListener extends InputListener {
 	
 	@Override
 	public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-		screen.getCurrentTool().apply(cell);
+		@SuppressWarnings("rawtypes")
+		EditorTool tool = screen.getCurrentTool();
+		if (tool == null) {
+			return;
+		}
+		tool.apply(cell);
 		cell.updateDisplay();
 	}
 }

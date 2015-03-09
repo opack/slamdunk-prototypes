@@ -10,6 +10,12 @@ public class ZoneTool extends EditorTool<ArenaZone> {
 	public void apply(ArenaCell cell) {
 		ArenaZone zone = getValue();
 		if (zone == null) {
+			ArenaZone oldZone = cell.getData().zone;
+			cell.getData().zone = null;
+			if (oldZone != null) {
+				oldZone.removeCell(cell);
+				oldZone.update();
+			}
 			return;
 		}
 		zone.addCell(cell);

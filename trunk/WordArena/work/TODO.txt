@@ -1,8 +1,6 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
 [ ] ADD : Editeur :
-	- BUG Zone Tool : le change listener n'est pas appelé quand le texte est modifié !!!
-	- Zone Tool : 1 champ de texte pour ajouter une nouvelle zone, puis une liste déroulante pour sélectionner la zone à appliquer
 	- Désélectionner l'ancien outil quand on en sélectionne un nouveau
 	- Sauvegarder le résultat dans un fichier
 	- Charger un fichier pour modifications

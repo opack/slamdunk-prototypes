@@ -10,6 +10,7 @@ import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.actors.ArenaZone;
+import com.slamdunk.wordarena.data.ArenaBuilder;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
@@ -128,16 +129,38 @@ public class EditorUI extends UIOverlay {
 		});
 		
 		// Bouton Zone
+		final Array<String> zones = new Array<String>();
+		zones.add(ArenaBuilder.ZONE_NONE);
+		@SuppressWarnings("unchecked")
+		final SelectBoxItem<String> selZone = (SelectBoxItem<String>)sceneLoader.sceneActor.getItemById("selZone");
+		selZone.setWidth(150);
+		selZone.setItems(zones);
+		
 		final TextBoxItem txtZone = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtZone");
-		txtZone.addListener(new ChangeListener() {
-			// DBG NE FONCTIONNE PAS !
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnCreateZone", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				final String newZone = txtZone.getText();
+				zones.add(newZone);
+				selZone.setSelected(newZone);
+				selZone.setItems(zones);
+				txtZone.setText("");
+			}
+		});
+		
+		selZone.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-				ArenaZone zone = screen.getOrCreateZone(txtZone.getText());
+				ArenaZone zone = null;
+				String selected = selZone.getSelected();
+				if (!ArenaBuilder.ZONE_NONE.equals(selected)) {
+					zone = screen.getOrCreateZone(selected);
+				}
+				
 				ZoneTool tool = screen.getTool(ZoneTool.class);
 				tool.setValue(zone);
 			}
 		});
+		
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnToolZone", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				screen.setCurrentTool(ZoneTool.class);
