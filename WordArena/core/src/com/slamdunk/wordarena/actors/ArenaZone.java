@@ -25,6 +25,8 @@ import com.slamdunk.wordarena.utils.MaxValueFinder;
  * toutes les couleurs.
  */
 public class ArenaZone extends Group {
+	public static final ArenaZone NONE = new ArenaZone(null, "-");
+	
 	private final float borderThickness;
 	
 	private ZoneData data;
@@ -61,6 +63,15 @@ public class ArenaZone extends Group {
 	}
 	
 	public void update() {
+		// Les cellules ajoutées à la zone NONE n'apparaissent pas dans une bordure
+		if (this == NONE) {
+			for (ArenaCell cell : cells.values()) {
+				// Affecte la zone à chaque cellule
+				cell.getData().zone = this;
+			}
+			return;
+		}
+		
 		// Met à jour la liste des côtés
 		final List<ZoneEdge> edges = new ArrayList<ZoneEdge>();
 		for (ArenaCell cell : cells.values()) {
@@ -177,6 +188,11 @@ public class ArenaZone extends Group {
 	 * des cellules
 	 */
 	public void updateOwner() {
+		// Zone none ? Personne ne peut la posséder
+		if (this == NONE) {
+			return;
+		}
+				
 		MaxValueFinder<Player> occupations = new MaxValueFinder<Player>();
 		occupations.setIgnoredValue(Player.NEUTRAL);
 		occupations.setValueIfDraw(Player.NEUTRAL);
@@ -196,5 +212,10 @@ public class ArenaZone extends Group {
 		
 		// Change le propriétaire de la zone
 		setOwner(newOwner);
+	}
+	
+	@Override
+	public String toString() {
+		return data.id;
 	}
 }
