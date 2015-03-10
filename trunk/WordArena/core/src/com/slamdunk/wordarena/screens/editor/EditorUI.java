@@ -2,6 +2,7 @@ package com.slamdunk.wordarena.screens.editor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
@@ -52,7 +53,7 @@ public class EditorUI extends UIOverlay {
 		// Bouton Change Size
 		final TextBoxItem txtWidth = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtWidth");
 		final TextBoxItem txtHeight = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtHeight");
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnChangeSize", new ClickListener() {
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnResize", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				int width = Integer.parseInt(txtWidth.getText());
 				int height = Integer.parseInt(txtHeight.getText());
@@ -101,27 +102,30 @@ public class EditorUI extends UIOverlay {
 		// Bouton Power
 		final TextBoxItem txtPower = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtPower");
 		txtPower.setText(screen.getTool(PowerTool.class).getValue().toString());
-		
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnToolPower", new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				int power = Integer.parseInt(txtPower.getText());
+		txtPower.setTextFieldListener(new TextField.TextFieldListener() {
+			@Override
+			public void keyTyped(TextField textField, char c) {
+				final String text = txtPower.getText();
+				if (text == null
+				|| text.isEmpty()) {
+					return;
+				}
+				int power = Integer.parseInt(text);
 				PowerTool tool = screen.getTool(PowerTool.class);
 				tool.setValue(power);
+			}
+		});
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnToolPower", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
 				screen.setCurrentTool(PowerTool.class);
 			}
 		});
 		
 		// Bouton Owner
-		Array<Player> players = new Array<Player>();
-		players.add(Player.NEUTRAL);
-		players.add(new Player(1, Assets.i18nBundle.get("ui.editor.player.1"), "blue"));
-		players.add(new Player(2, Assets.i18nBundle.get("ui.editor.player.2"), "orange"));
-		players.add(new Player(3, Assets.i18nBundle.get("ui.editor.player.3"), "green"));
-		players.add(new Player(4, Assets.i18nBundle.get("ui.editor.player.4"), "purple"));
 		@SuppressWarnings("unchecked")
 		final SelectBoxItem<Player> selOwner = (SelectBoxItem<Player>)sceneLoader.sceneActor.getItemById("selOwner");
 		selOwner.setWidth(150);
-		selOwner.setItems(players);
+		selOwner.setItems(screen.getPlayers());
 		selOwner.setSelected(screen.getTool(OwnerTool.class).getValue());
 		selOwner.addListener(new ChangeListener() {
 			@Override

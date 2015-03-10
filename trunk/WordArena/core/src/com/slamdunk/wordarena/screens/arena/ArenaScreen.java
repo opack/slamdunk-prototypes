@@ -1,10 +1,9 @@
 package com.slamdunk.wordarena.screens.arena;
 
-import java.util.List;
-
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.utils.Array;
 import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.GameManager;
@@ -55,7 +54,7 @@ public class ArenaScreen extends SlamScreen {
 		return ui;
 	}
 
-	public void prepareGame(String arenaPlanFile, List<Player> players) {
+	public void prepareGame(String arenaPlanFile, Array<Player> players) {
 		gameManager.prepareGame(this, arenaPlanFile, players);
 	}
 	

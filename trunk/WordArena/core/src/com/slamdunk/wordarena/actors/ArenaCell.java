@@ -3,6 +3,7 @@ package com.slamdunk.wordarena.actors;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.Align;
 import com.slamdunk.toolkit.ui.GroupEx;
@@ -32,6 +33,7 @@ public class ArenaCell extends GroupEx {
 		background = new Image(Assets.getCellImage(data));
 		background.setTouchable(Touchable.disabled);
 		addActor(background);
+		
 		letter = new Label("?", skin);
 		letter.setTouchable(Touchable.disabled);
 		letter.setPosition(background.getWidth() / 2, background.getHeight() / 2, Align.center);
@@ -67,8 +69,9 @@ public class ArenaCell extends GroupEx {
 	}
 	
 	public void updateDisplay() {
-		letter.setText(data.letter.label);
 		background.setDrawable(Assets.getCellImage(data));
+		letter.setText(data.letter.label);
+		letter.setStyle(Assets.skin.get("power-" + data.power, LabelStyle.class));
 	}
 
 	/**

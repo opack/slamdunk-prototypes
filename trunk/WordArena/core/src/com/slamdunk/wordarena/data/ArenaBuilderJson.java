@@ -7,9 +7,9 @@ import java.util.Set;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonValue;
 import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.toolkit.lang.KeyListMap;
-import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
@@ -24,7 +24,7 @@ import com.slamdunk.wordarena.enums.Letters;
 /**
  * Construit une arène à partir d'un plan
  */
-public class ArenaBuilder {
+public class ArenaBuilderJson {
 	public static final String ZONE_NONE = ArenaZone.NONE.getData().id;
 	private static final String CELL_SEPARATOR = " ";
 	
@@ -32,45 +32,45 @@ public class ArenaBuilder {
 	private Array<Player> players;
 	private Skin skin;
 	
-	private String[] types;
-	private String[] letters;
-	private int[] powers;
-	private int[] owners;
-	private String[] zones;
+	private String[][] types;
+	private String[][] letters;
+	private int[][] powers;
+	private int[][] owners;
+	private String[][] zones;
 	
 	private ArenaData arena;
 	
 	private KeyListMap<String, ArenaCell> cellsByZone;
 	private Set<Point> cellsWithWalls;
 	
-	public ArenaBuilder(GameManager gameManager) {
+	public ArenaBuilderJson(GameManager gameManager) {
 		this(gameManager, Assets.skin);
 	}
 	
-	public ArenaBuilder(GameManager gameManager, Skin skin) {
+	public ArenaBuilderJson(GameManager gameManager, Skin skin) {
 		this.gameManager = gameManager;
 		this.players = gameManager.getPlayers();
 		this.skin = skin;
 		arena = new ArenaData();
 	}
 	
-	public void setTypes(String[] types) {
+	public void setTypes(String[][] types) {
 		this.types = types;
 	}
 
-	public void setLetters(String[] letters) {
+	public void setLetters(String[][] letters) {
 		this.letters = letters;
 	}
 
-	public void setPowers(int[] powers) {
+	public void setPowers(int[][] powers) {
 		this.powers = powers;
 	}
 
-	public void setOwners(int[] owners) {
+	public void setOwners(int[][] owners) {
 		this.owners = owners;
 	}
 
-	public void setZones(String[] zones) {
+	public void setZones(String[][] zones) {
 		this.zones = zones;
 	}
 
@@ -80,55 +80,71 @@ public class ArenaBuilder {
 	 * @param plan
 	 * @return true si le plan a pu être chargé, false sinon
 	 */
-	public boolean load(TypedProperties plan) {
-		arena.width = plan.getIntegerProperty("size.width", 0);
-		arena.height = plan.getIntegerProperty("size.height", 0);
+	public boolean load(JsonValue plan) {
+		setSize(plan.getInt("width", 1), plan.getInt("height", 1));
 		if (arena.width == 0 || arena.height == 0) {
 			return false;
 		}
 		
 		// Charge le nom de l'arène
-		arena.name = Assets.i18nBundle.get("arena." + plan.getIntegerProperty("index", -1));
+		setName(Assets.i18nBundle.get("arena." + plan.getString("name")));
 		
 		// Charge les types de cellule
-		String[] types = plan.getStringArrayProperty("plan.types", CELL_SEPARATOR);
-		if (types == null) {
-			return false;
-		}
-		setTypes(types);
+		setTypes(extractStringTable(plan.get("plan.types")));
 		
 		// Charge les lettres initiales.
-		String[] letters = plan.getStringArrayProperty("plan.letters", CELL_SEPARATOR);
-		if (letters == null) {
-			return false;
-		}
-		setLetters(letters);
+		setLetters(extractStringTable(plan.get("plan.letters")));
 		
-		// Charge les lettres initiales.
-		int[] powers = plan.getIntegerArrayProperty("plan.powers", CELL_SEPARATOR);
-		if (powers == null) {
-			return false;
-		}
-		setPowers(powers);
+		// Charge les puissances
+		setPowers(extractIntTable(plan.get("plan.powers")));
 		
-		// Charge les lettres initiales.
-		int[] owners = plan.getIntegerArrayProperty("plan.owners", CELL_SEPARATOR);
-		if (owners == null) {
-			return false;
-		}
-		setOwners(owners);
+		// Charge les possesseurs
+		setOwners(extractIntTable(plan.get("plan.owners")));
 		
 		// Charge les zones
-		String[] zones = plan.getStringArrayProperty("plan.zones", CELL_SEPARATOR);
-		if (zones == null) {
-			return false;
-		}
-		setZones(zones);
+		setZones(extractStringTable(plan.get("plan.zones")));
 		
 		// Charge les murs
 		// TODO
 		
 		return true;
+	}
+	
+	public void setSize(int width, int height) {
+		arena.width = width;
+		arena.height = height;
+	}
+
+	public void setName(String name) {
+		arena.name = name;
+	}
+
+	private String[][] extractStringTable(JsonValue jsonValue) {
+		String[] values = jsonValue.asStringArray();
+		String[] cols;
+		String[][] table = new String[arena.width][arena.height];
+		final int maxRow = arena.height - 1;
+		for (int row = 0; row < arena.height; row++) {
+			cols = values[row].split(CELL_SEPARATOR);
+			for (int col = 0; col < arena.width; col++) {
+				table[col][maxRow - row] = cols[col];
+			}
+		}
+		return table;
+	}
+	
+	private int[][] extractIntTable(JsonValue jsonValue) {
+		String[] values = jsonValue.asStringArray();
+		String[] cols;
+		int[][] table = new int[arena.width][arena.height];
+		final int maxRow = arena.height - 1;
+		for (int row = 0; row < arena.height; row++) {
+			cols = values[row].split(CELL_SEPARATOR);
+			for (int col = 0; col < arena.width; col++) {
+				table[col][maxRow - row] = Integer.parseInt(cols[col]);
+			}
+		}
+		return table;
 	}
 
 	public ArenaData build() {
@@ -255,13 +271,8 @@ public class ArenaBuilder {
 		
 		ArenaCell cell;
 		CellData data;
-		int index;
 		for (int y = arena.height - 1; y >= 0; y--) {
 			for (int x = 0; x < arena.width; x++) {
-				// Petite astuce pour calculer l'index car y=0 est en bas,
-				// contrairement au fichier properties
-				index = (arena.height - 1 - y) * arena.width + x;
-				
 				cell = new ArenaCell(skin);
 				cell.addListener(new CellSelectionListener(cell, wordSelectionHandler));
 				arena.cells[x][y] = cell;
@@ -271,19 +282,19 @@ public class ArenaBuilder {
 				data.position.setXY(x, y);
 				data.state = CellStates.OWNED;
 				
-				data.type = CellTypes.valueOf(types[index]);
-				data.planLetter = letters[index];
-				data.letter = chooseLetter(data.type, letters[index], arena.letterDeck);
-				data.power = choosePower(data.type, powers[index]);
-				data.owner = chooseOwner(data.type, owners[index]);
+				data.type = CellTypes.valueOf(types[x][y]);
+				data.planLetter = letters[x][y];
+				data.letter = chooseLetter(data.type, letters[x][y], arena.letterDeck);
+				data.power = choosePower(data.type, powers[x][y]);
+				data.owner = chooseOwner(data.type, owners[x][y]);
 				
 				// Placement de la cellule dans le monde et mise à jour du display
 				cell.setPosition(x * cell.getWidth(), y * cell.getHeight());
 				cell.updateDisplay();
 				
 				// Regroupe les cellules par zone
-				if (!ZONE_NONE.equals(zones[index])) {
-					cellsByZone.putValue(zones[index], cell);
+				if (!ZONE_NONE.equals(zones[x][y])) {
+					cellsByZone.putValue(zones[x][y], cell);
 				}
 			}
 		}

@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.screen.overlays.WorldOverlay;
@@ -16,6 +18,7 @@ import com.slamdunk.wordarena.actors.ArenaWall;
 import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.data.ArenaBuilder;
 import com.slamdunk.wordarena.data.ArenaData;
+import com.slamdunk.wordarena.data.ArenaSerializer;
 import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.CellStates;
@@ -39,7 +42,7 @@ public class ArenaOverlay extends WorldOverlay {
 	}
 
 	/**
-	 * Crée l'arène de jeu, c'est-à-dire le tableau de cellules.
+	 * Crée l'arène de jeu
 	 */
 	public void buildArena(String plan, GameManager gameManager) {
 		// Charge le plan
@@ -50,6 +53,19 @@ public class ArenaOverlay extends WorldOverlay {
 		builder.load(arenaProperties);
 		data = builder.build();
 		
+		// Construit l'arène
+		buildArena();
+	}
+	
+	/**
+	 * Crée l'arène de jeu
+	 */
+	public void buildArenaJson(String plan, GameManager gameManager) {
+		// Charge les données
+		Json json = new Json();
+		json.setSerializer(ArenaData.class, new ArenaSerializer(gameManager));
+		data = json.fromJson(ArenaData.class, Gdx.files.internal(plan));
+			
 		// Construit l'arène
 		buildArena();
 	}

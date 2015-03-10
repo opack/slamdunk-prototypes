@@ -6,7 +6,7 @@ import com.slamdunk.wordarena.actors.ArenaCell;
 
 public class PowerTool extends EditorTool<Integer> {
 	public PowerTool() {
-		setValue(0);
+		setValue(1);
 	}
 
 	@Override
