@@ -41,6 +41,14 @@ public class EditorUI extends UIOverlay {
 		sceneLoader.loadScene("Editor");
 		getStage().addActor(sceneLoader.sceneActor);
 		
+		// Bouton Save
+		final TextBoxItem txtName = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtName");
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnSave", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				screen.save(txtName.getText());
+			}
+		});
+		
 		// Bouton Change Size
 		final TextBoxItem txtWidth = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtWidth");
 		final TextBoxItem txtHeight = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtHeight");

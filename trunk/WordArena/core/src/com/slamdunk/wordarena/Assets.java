@@ -200,7 +200,6 @@ public class Assets {
 	 * @return
 	 */
 	public static TextureRegionDrawable getCellImage(CellData data) {
-//	return dbg;	
 		return cellPacks.get(data.owner.cellPack).cell.get(data.state, data.selected);
 	}
 	

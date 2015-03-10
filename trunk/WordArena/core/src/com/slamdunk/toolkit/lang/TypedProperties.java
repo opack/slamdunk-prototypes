@@ -48,6 +48,12 @@ public class TypedProperties extends Properties {
     	this(Gdx.files.internal(filename));
     }
     
+    /**
+     * Crée un nouvel objet vierge
+     */
+    public TypedProperties() {
+    }
+    
 	public boolean isLoaded() {
 		return loaded;
 	}
@@ -57,24 +63,40 @@ public class TypedProperties extends Properties {
         if (v == null) return fallback;
         return Boolean.parseBoolean(v);
     }
+	
+	public void setBooleanProperty(String name, boolean value) {
+		setProperty(name, String.valueOf(value));
+	}
 
     public float getFloatProperty(String name, float fallback) {
         String v = getProperty(name);
         if (v == null) return fallback;
         return Float.parseFloat(v);
     }
+    
+    public void setFloatProperty(String name, float value) {
+		setProperty(name, String.valueOf(value));
+	}
 
     public int getIntegerProperty(String name, int fallback) {
         String v = getProperty(name);
         if (v == null) return fallback;
         return Integer.parseInt(v);
     }
+    
+    public void setIntegerProperty(String name, int value) {
+		setProperty(name, String.valueOf(value));
+	}
 
     public String getStringProperty(String name, String fallback) {
         String v = getProperty(name);
         if (v == null) return fallback;
         return v;
     }
+    
+    public void setStringProperty(String name, String value) {
+		setProperty(name, value);
+	}
     
     public String[] getStringArrayProperty(String name, String regex) {
         String v = getProperty(name);

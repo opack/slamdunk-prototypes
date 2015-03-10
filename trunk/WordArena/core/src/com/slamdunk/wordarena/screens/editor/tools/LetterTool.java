@@ -19,6 +19,7 @@ public class LetterTool extends EditorTool<Letters> {
 			return;
 		}
 		cell.getData().letter = getValue();
+		cell.getData().planLetter = getValue().label;
 	}
 
 	@Override
