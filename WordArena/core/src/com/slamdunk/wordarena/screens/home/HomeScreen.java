@@ -1,15 +1,13 @@
 package com.slamdunk.wordarena.screens.home;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.utils.Array;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
-import com.slamdunk.wordarena.screens.editor.EditorScreen;
+import com.slamdunk.wordarena.screens.editor.PreEditorScreen;
 
 public class HomeScreen extends SlamScreen {
 	public static final String NAME = "HOME";
@@ -57,7 +55,7 @@ public class HomeScreen extends SlamScreen {
 		p2.score = 0;
 		p2.cellPack = "orange";
 		
-		List<Player> players = new ArrayList<Player>();
+		Array<Player> players = new Array<Player>();
 		players.add(p1);
 		players.add(p2);
 		
@@ -67,6 +65,6 @@ public class HomeScreen extends SlamScreen {
 	}
 	
 	public void launchEditor() {
-		getGame().setScreen(EditorScreen.NAME);
+		getGame().setScreen(PreEditorScreen.NAME);
 	}
 }

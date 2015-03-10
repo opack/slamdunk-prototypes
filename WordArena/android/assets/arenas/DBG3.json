@@ -1,0 +1,40 @@
+{
+name: DBG3
+width: 5
+height: 5
+plan.types: [
+	"V L V L V "
+	"L L L L L "
+	"V L L L V "
+	"L L L L L "
+	"V L V L V "
+]
+plan.letters: [
+	"- - - - - "
+	"- - - - - "
+	"- D - D - "
+	"- - - - - "
+	"- - - - - "
+]
+plan.powers: [
+	"0 2 0 2 0 "
+	"2 1 1 1 2 "
+	"0 1 1 1 0 "
+	"2 1 1 1 2 "
+	"0 2 0 2 0 "
+]
+plan.owners: [
+	"0 1 0 1 0 "
+	"1 1 1 1 1 "
+	"0 0 0 0 0 "
+	"0 2 0 3 0 "
+	"0 0 0 0 0 "
+]
+plan.zones: [
+	"- A - A - "
+	"A A A A A "
+	"- - 2 - - "
+	"2 2 2 2 2 "
+	"- - - - - "
+]
+}

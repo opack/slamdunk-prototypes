@@ -2,6 +2,7 @@ package com.slamdunk.wordarena;
 
 import java.util.List;
 
+import com.badlogic.gdx.utils.Array;
 import com.slamdunk.toolkit.lang.MaxValueFinder;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.actors.ArenaZone;
@@ -44,7 +45,7 @@ public class GameManager {
 	private ArenaUI ui;
 	private String arenaPlanFile;
 	
-	private List<Player> players;
+	private Array<Player> players;
 	
 	private int firstPlayer;
 	private int curPlayer;
@@ -66,8 +67,12 @@ public class GameManager {
 		nbWinningRoundsPerGame = WINNING_ROUNDS_PER_GAME;
 	}
 	
-	public List<Player> getPlayers() {
+	public Array<Player> getPlayers() {
 		return players;
+	}
+	
+	public void setPlayers(Array<Player> players) {
+		this.players = players;
 	}
 
 	public int getNbTurnsPerRound() {
@@ -117,7 +122,7 @@ public class GameManager {
 		return curRound + 1;
 	}
 	
-	public void prepareGame(ArenaScreen screen, String arenaPlanFile, List<Player> playersList) {
+	public void prepareGame(ArenaScreen screen, String arenaPlanFile, Array<Player> playersList) {
 		arena = screen.getArena();
 		ui = screen.getUI();
 		
@@ -313,7 +318,7 @@ public class GameManager {
 	 */
 	private void endStroke() {
 		// Le joueur suivant est celui juste après
-		curPlayer = (curPlayer + 1) % players.size();
+		curPlayer = (curPlayer + 1) % players.size;
 		
 		// Si tout le monde a joué, on a fini un tour
 		if (curPlayer == firstPlayer) {
@@ -425,7 +430,7 @@ public class GameManager {
 		
 		// Le joueur qui débute le nouveau round n'est pas le même que celui
 		// du round précédent.
-		firstPlayer = (firstPlayer + 1) % players.size();
+		firstPlayer = (firstPlayer + 1) % players.size;
 		setCurrentPlayer(firstPlayer);
 		
 		// Réinitialise l'arène

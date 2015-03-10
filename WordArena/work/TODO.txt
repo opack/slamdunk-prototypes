@@ -4,6 +4,7 @@ WordArena
 	- Désélectionner l'ancien outil quand on en sélectionne un nouveau
 	FIX : Vérifier le fonctionnement des différents outils, y compris quand on change la valeur en cours d'utilisation
 	- Charger un fichier pour modifications
+		- Afficher une liste déroulante avec les arènes trouvées pour chargement
 [ ] MOD : Utiliser de simples images de 48px pour les edge et wall, car au final on utilise 1 image par cellule donc la taille est connue.
 [ ] ADD : Sur l'écran de pause, afficher les stats (score, zones, rounds) dans un tableau
 [ ] ADD : Afficher les nouvelles dominations de zone au fur et à mesure de la saisie

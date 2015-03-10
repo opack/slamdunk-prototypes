@@ -2,8 +2,14 @@ package com.slamdunk.wordarena.data;
 
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.slamdunk.wordarena.GameManager;
 
 public class ArenaSerializer implements Json.Serializer<ArenaData>{
+	private GameManager gameManager;
+	
+	public ArenaSerializer(GameManager gameManager) {
+		this.gameManager = gameManager;
+	}
 
 	@Override
 	public void write(Json json, ArenaData arena, Class knownType) {
@@ -13,8 +19,10 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 		json.writeValue("name", arena.name);
 		json.writeValue("width", arena.width);
 		json.writeValue("height", arena.height);
+		
+		// Types de cellules
 		json.writeArrayStart("plan.types");
-		for (int y = 0; y < arena.height; y++) {
+		for (int y = arena.height - 1; y >= 0; y--) {
 			sb.setLength(0);
 			for (int x = 0; x < arena.width; x++) {
 				sb.append(arena.cells[x][y].getData().type).append(" ");
@@ -23,8 +31,9 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 		}
 		json.writeArrayEnd();
 		
+		// Lettres initiales
 		json.writeArrayStart("plan.letters");
-		for (int y = 0; y < arena.height; y++) {
+		for (int y = arena.height - 1; y >= 0; y--) {
 			sb.setLength(0);
 			for (int x = 0; x < arena.width; x++) {
 				sb.append(arena.cells[x][y].getData().planLetter).append(" ");
@@ -33,8 +42,9 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 		}
 		json.writeArrayEnd();
 		
+		// Puissances
 		json.writeArrayStart("plan.powers");
-		for (int y = 0; y < arena.height; y++) {
+		for (int y = arena.height - 1; y >= 0; y--) {
 			sb.setLength(0);
 			for (int x = 0; x < arena.width; x++) {
 				sb.append(arena.cells[x][y].getData().power).append(" ");
@@ -43,8 +53,9 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 		}
 		json.writeArrayEnd();
 		
+		// Possesseurs
 		json.writeArrayStart("plan.owners");
-		for (int y = 0; y < arena.height; y++) {
+		for (int y = arena.height - 1; y >= 0; y--) {
 			sb.setLength(0);
 			for (int x = 0; x < arena.width; x++) {
 				sb.append(arena.cells[x][y].getData().owner.uid).append(" ");
@@ -53,8 +64,9 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 		}
 		json.writeArrayEnd();
 		
-		json.writeArrayStart("plan.zone");
-		for (int y = 0; y < arena.height; y++) {
+		// Zones
+		json.writeArrayStart("plan.zones");
+		for (int y = arena.height - 1; y >= 0; y--) {
 			sb.setLength(0);
 			for (int x = 0; x < arena.width; x++) {
 				sb.append(arena.cells[x][y].getData().zone.getData().id).append(" ");
@@ -68,8 +80,8 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 
 	@Override
 	public ArenaData read(Json json, JsonValue jsonData, Class type) {
-		ArenaData data = new ArenaData();
-		
-		return data;
+		ArenaBuilderJson builder = new ArenaBuilderJson(gameManager);
+		builder.load(jsonData);
+		return builder.build();
 	}
 }

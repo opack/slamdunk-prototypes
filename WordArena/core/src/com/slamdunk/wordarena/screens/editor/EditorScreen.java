@@ -6,24 +6,28 @@ import java.util.Map;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.slamdunk.toolkit.screen.SlamScreen;
+import com.slamdunk.wordarena.Assets;
+import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.data.ArenaData;
 import com.slamdunk.wordarena.data.ArenaSerializer;
+import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.screens.editor.tools.CellTypeTool;
 import com.slamdunk.wordarena.screens.editor.tools.EditorTool;
 import com.slamdunk.wordarena.screens.editor.tools.LetterTool;
 import com.slamdunk.wordarena.screens.editor.tools.OwnerTool;
 import com.slamdunk.wordarena.screens.editor.tools.PowerTool;
 import com.slamdunk.wordarena.screens.editor.tools.ZoneTool;
-import com.slamdunk.wordarena.screens.home.HomeScreen;
 
 public class EditorScreen extends SlamScreen {
 public static final String NAME = "EDITOR";
 	private EditorArenaOverlay arena;
 	private EditorUI ui;
+	private GameManager gameManager;
 	
 	@SuppressWarnings("rawtypes")
 	private Map<Class<? extends EditorTool>, EditorTool> tools;
@@ -33,8 +37,8 @@ public static final String NAME = "EDITOR";
 	
 	public EditorScreen(WordArenaGame game) {
 		super(game);
-		game.setClearColor(0.6f, 0.6f, 0.6f, 1);
 		
+		createGameManager();
 		createTools();
 		
 		arena = new EditorArenaOverlay();
@@ -44,6 +48,17 @@ public static final String NAME = "EDITOR";
 		addOverlay(ui);
 	}
 	
+	private void createGameManager() {
+		gameManager = new GameManager();
+		Array<Player> players = new Array<Player>();
+		players.add(Player.NEUTRAL);
+		players.add(new Player(1, Assets.i18nBundle.get("ui.editor.player.1"), "blue"));
+		players.add(new Player(2, Assets.i18nBundle.get("ui.editor.player.2"), "orange"));
+		players.add(new Player(3, Assets.i18nBundle.get("ui.editor.player.3"), "green"));
+		players.add(new Player(4, Assets.i18nBundle.get("ui.editor.player.4"), "purple"));
+		gameManager.setPlayers(players);
+	}
+
 	@SuppressWarnings("rawtypes")
 	private void createTools() {
 		tools = new HashMap<Class<? extends EditorTool>, EditorTool>();
@@ -62,7 +77,7 @@ public static final String NAME = "EDITOR";
 	@Override
 	public boolean keyDown(int keycode) {
 		if (keycode == Keys.BACK) {
-			getGame().setScreen(HomeScreen.NAME);
+			getGame().setScreen(PreEditorScreen.NAME);
 		}
 	    return false;
 	}
@@ -100,10 +115,24 @@ public static final String NAME = "EDITOR";
 		arena.getData().name = name;
 		
 		Json json = new Json();
-		json.setSerializer(ArenaData.class, new ArenaSerializer());
+		json.setSerializer(ArenaData.class, new ArenaSerializer(gameManager));
 		final String serialized = json.prettyPrint(arena.getData());
 		
 		FileHandle file = Gdx.files.absolute("E:\\Projets\\Programmes\\slamdunk-prototypes\\WordArena\\android\\assets\\arenas\\" + name + ".json");
 		file.writeString(serialized, false, "UTF-8");
+	}
+	
+	public void createNewArena(String name, int width, int height) {
+		arena.getData().name = name;
+		arena.setArenaSize(width, height);
+		arena.resetEditArena();
+	}
+	
+	public void editExistingArena(String name) {
+		arena.buildArenaJson("arenas/" + name + ".json", gameManager);
+	}
+
+	public Array<Player> getPlayers() {
+		return gameManager.getPlayers();
 	}
 }

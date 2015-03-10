@@ -8,6 +8,8 @@ com.badlogic.gdx.graphics.Color: {
 	white: { a: 1, r: 1, g: 1, b: 1 },
 	red: { a: 1, r: 1, g: 0, b: 0 },
 	black: { a: 1, r: 0, g: 0, b: 0 },
+	dark-grey: { a: 1, r: 0.75, g: 0.75, b: 0.75 },
+	gold: { a: 1, r: 1, g: 0.83, b: 0.09 },
 	cellpack_neutral: { a: 1, r: 0.67, g: 0.62, b: 0.58 },
 	cellpack_blue: { a: 1, r: 0.16, g: 0.50, b: 1.00 },
 	cellpack_orange: { a: 1, r: 1.00, g: 0.40, b: 0.00 },
@@ -53,6 +55,9 @@ com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: { font: default-font, fontColor: black },
+	power-0: { font: default-font, fontColor: dark-grey },
+	power-1: { font: default-font, fontColor: black },
+	power-2: { font: default-font, fontColor: gold },
 	cellpack_neutral: { font: default-font, fontColor: cellpack_neutral },
 	cellpack_blue: { font: default-font, fontColor: cellpack_blue },
 	cellpack_orange: { font: default-font, fontColor: cellpack_orange },
