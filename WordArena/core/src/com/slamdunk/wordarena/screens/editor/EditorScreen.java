@@ -3,10 +3,15 @@ package com.slamdunk.wordarena.screens.editor;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Json;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.actors.ArenaZone;
+import com.slamdunk.wordarena.data.ArenaData;
+import com.slamdunk.wordarena.data.ArenaSerializer;
 import com.slamdunk.wordarena.screens.editor.tools.CellTypeTool;
 import com.slamdunk.wordarena.screens.editor.tools.EditorTool;
 import com.slamdunk.wordarena.screens.editor.tools.LetterTool;
@@ -89,5 +94,16 @@ public static final String NAME = "EDITOR";
 			}
 		}
 		return arena.createZone(id);
+	}
+
+	public void save(String name) {
+		arena.getData().name = name;
+		
+		Json json = new Json();
+		json.setSerializer(ArenaData.class, new ArenaSerializer());
+		final String serialized = json.prettyPrint(arena.getData());
+		
+		FileHandle file = Gdx.files.absolute("E:\\Projets\\Programmes\\slamdunk-prototypes\\WordArena\\android\\assets\\arenas\\" + name + ".json");
+		file.writeString(serialized, false, "UTF-8");
 	}
 }
