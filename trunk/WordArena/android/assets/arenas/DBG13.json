@@ -1,0 +1,182 @@
+{
+name: DBG13
+width: 5
+height: 5
+cells: [
+	{
+		type: L
+		letter: D
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+	{
+		type: L
+		letter: -
+		power: 1
+		owner: 0
+		zone: -
+	}
+]
+}

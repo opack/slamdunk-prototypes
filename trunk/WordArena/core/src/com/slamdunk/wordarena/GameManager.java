@@ -514,11 +514,12 @@ public class GameManager {
 	 * Met à jour l'affichage du mot actuellement sélectionné
 	 */
 	public void setCurrentWord(String word) {
-		boolean emptyWord = word.isEmpty();
-		
-		ui.setCurrentWord(word);
-		ui.showWordValidationButtons(!emptyWord);
-		ui.showRefreshStartingZoneButton(getCurrentPlayer().nbWordsPlayed == 0 && emptyWord);
+		if (ui != null) {
+			boolean emptyWord = word.isEmpty();
+			ui.setCurrentWord(word);
+			ui.showWordValidationButtons(!emptyWord);
+			ui.showRefreshStartingZoneButton(getCurrentPlayer().nbWordsPlayed == 0 && emptyWord);
+		}
 	}
 
 	public void requestBack() {
