@@ -2,19 +2,18 @@ package com.slamdunk.wordarena.data;
 
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
-import com.slamdunk.wordarena.GameManager;
+import com.slamdunk.wordarena.screens.editor.EditorScreen;
 
 public class ArenaSerializer implements Json.Serializer<ArenaData>{
-	private GameManager gameManager;
+	private EditorScreen editorScreen;
 	
-	public ArenaSerializer(GameManager gameManager) {
-		this.gameManager = gameManager;
+	public void setEditorScreen(EditorScreen editorScreen) {
+		this.editorScreen = editorScreen;
 	}
 
 	@Override
 	public void write(Json json, ArenaData arena, Class knownType) {
 		StringBuilder sb = new StringBuilder();
-		
 		json.writeObjectStart();
 		json.writeValue("name", arena.name);
 		json.writeValue("width", arena.width);
@@ -79,9 +78,10 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 	}
 
 	@Override
-	public ArenaData read(Json json, JsonValue jsonData, Class type) {
-		ArenaBuilderJson builder = new ArenaBuilderJson(gameManager);
-		builder.load(jsonData);
+	public ArenaData read(Json json, JsonValue plan, Class type) {
+		ArenaBuilderJson builder = new ArenaBuilderJson(null);
+		builder.setEditorScreen(editorScreen);
+		builder.load(plan);
 		return builder.build();
 	}
 }

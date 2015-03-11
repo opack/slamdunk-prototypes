@@ -14,12 +14,14 @@ import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordSelectionHandler;
+import com.slamdunk.wordarena.actors.ApplyToolListener;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.actors.CellSelectionListener;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.enums.CellTypes;
 import com.slamdunk.wordarena.enums.Letters;
+import com.slamdunk.wordarena.screens.editor.EditorScreen;
 
 /**
  * Construit une arène à partir d'un plan
@@ -31,6 +33,11 @@ public class ArenaBuilderJson {
 	private GameManager gameManager;
 	private Array<Player> players;
 	private Skin skin;
+	/**
+	 * Indique si on est en train de construire une arène pour l'éditeur
+	 * ou pour jouer.
+	 */
+	private EditorScreen editorScreen;
 	
 	private String[][] types;
 	private String[][] letters;
@@ -54,6 +61,14 @@ public class ArenaBuilderJson {
 		arena = new ArenaData();
 	}
 	
+	public EditorScreen getEditorScreen() {
+		return editorScreen;
+	}
+
+	public void setEditorScreen(EditorScreen editorScreen) {
+		this.editorScreen = editorScreen;
+	}
+
 	public void setTypes(String[][] types) {
 		this.types = types;
 	}
@@ -274,7 +289,11 @@ public class ArenaBuilderJson {
 		for (int y = arena.height - 1; y >= 0; y--) {
 			for (int x = 0; x < arena.width; x++) {
 				cell = new ArenaCell(skin);
-				cell.addListener(new CellSelectionListener(cell, wordSelectionHandler));
+				if (editorScreen != null) {
+					cell.addListener(new ApplyToolListener(editorScreen, cell));
+				} else {
+					cell.addListener(new CellSelectionListener(cell, wordSelectionHandler));
+				}
 				arena.cells[x][y] = cell;
 				
 				// Définition des données du modèle
@@ -305,11 +324,16 @@ public class ArenaBuilderJson {
 		|| ownerIndex == 0) {
 			return Player.NEUTRAL;
 		}
-		// Dans le plan, l'owner comence à 1
-		return players.get(ownerIndex - 1);
+		// Dans le plan, l'owner comence à 1. C'est bien le premier joueur
+		// en mode jeu, mais pas en mode édition
+		if (editorScreen == null) {
+			return players.get(ownerIndex - 1);
+		} else {
+			return players.get(ownerIndex);
+		}
 	}
 
-	private static int choosePower(CellTypes cellType, int power) {
+	private int choosePower(CellTypes cellType, int power) {
 		if (!cellType.hasPower()) {
 			return 0;
 		}
@@ -319,19 +343,23 @@ public class ArenaBuilderJson {
 	/**
 	 * Retourne la lettre indiquée, ou une lettre tirée dans le tas
 	 * si letter = LETTER_FROM_DECK.
-	 * @param letter
+	 * @param planLetter
 	 * @return
 	 */
-	public static Letters chooseLetter(CellTypes cellType, String letter, Deck<Letters> letterDeck) {
+	private Letters chooseLetter(CellTypes cellType, String planLetter, Deck<Letters> letterDeck) {
 		if (!cellType.hasLetter()) {
 			return Letters.EMPTY;
 		}
 		if (cellType == CellTypes.J) {
 			return Letters.JOKER;
 		}
-		if (Letters.FROM_DECK.label.equals(letter)) {
-			return letterDeck.draw();
+		if (Letters.FROM_DECK.label.equals(planLetter)) {
+			if (editorScreen == null) {
+				return letterDeck.draw();
+			} else {
+				return Letters.FROM_DECK;
+			}
 		}
-		return Letters.valueOf(letter);
+		return Letters.valueOf(planLetter);
 	}
 }

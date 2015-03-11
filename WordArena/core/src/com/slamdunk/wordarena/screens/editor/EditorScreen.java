@@ -115,7 +115,7 @@ public static final String NAME = "EDITOR";
 		arena.getData().name = name;
 		
 		Json json = new Json();
-		json.setSerializer(ArenaData.class, new ArenaSerializer(gameManager));
+		json.setSerializer(ArenaData.class, new ArenaSerializer());
 		final String serialized = json.prettyPrint(arena.getData());
 		
 		FileHandle file = Gdx.files.absolute("E:\\Projets\\Programmes\\slamdunk-prototypes\\WordArena\\android\\assets\\arenas\\" + name + ".json");
