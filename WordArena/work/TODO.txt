@@ -1,6 +1,7 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
 [ ] ADD : Editeur :
+	FIX : En jeu, la sélection est bloquée à certains endroits où il n'y a pas de mur !
 	FIX : Le contrôle d'une zone ne semble mis à jour que lorsqu'on ajouter une zone ayant un owner non neutre. Si on agrandit la zone par la suite, le contrôle n'est pas affiché pour ces nouvelles cellules.
 	- Précharger la liste des zones avec les zones déjà existantes
 	- Mettre un libellé pour les types de cellule

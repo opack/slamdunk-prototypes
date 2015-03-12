@@ -1,5 +1,6 @@
 package com.slamdunk.wordarena.data;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,16 @@ import com.slamdunk.wordarena.screens.editor.EditorScreen;
  */
 public class ArenaBuilder {
 	public static final String ZONE_NONE = ArenaZone.NONE.getData().id;
+	
+	/**
+	 * Caractère qui sépare l'info de 2 cellules dans le Json
+	 */
 	private static final String CELL_SEPARATOR = " ";
+	
+	/**
+	 * Caractère qui sépare l'x et l'y d'un point dans le Json
+	 */
+	private static final String POSITION_SEPARATOR = ";";
 	
 	private GameManager gameManager;
 	private Array<Player> players;
@@ -44,6 +54,7 @@ public class ArenaBuilder {
 	private int[][] powers;
 	private int[][] owners;
 	private String[][] zones;
+	private List<Point> walls;
 	
 	private ArenaData arena;
 	
@@ -88,6 +99,10 @@ public class ArenaBuilder {
 	public void setZones(String[][] zones) {
 		this.zones = zones;
 	}
+	
+	public void setWalls(List<Point> walls) {
+		this.walls = walls;
+	}
 
 	/**
 	 * Crée des cellules pour constituer une arène ayant
@@ -120,10 +135,36 @@ public class ArenaBuilder {
 		setZones(extractStringTable(plan.get("plan.zones")));
 		
 		// TODO Charge les murs
+		setWalls(extractPointList(plan.get("plan.walls")));
 		
 		return true;
 	}
 	
+	private List<Point> extractPointList(JsonValue jsonValue) {
+		List<Point> walls = new ArrayList<Point>();
+		if (jsonValue != null) {
+			String[] cellsPos;
+			String[] cellPos;
+			int x;
+			int y;
+			
+			for (String wallCells : jsonValue.asStringArray()) {
+				cellsPos = wallCells.split(CELL_SEPARATOR);
+				
+				cellPos = cellsPos[0].split(POSITION_SEPARATOR);
+				x = Integer.parseInt(cellPos[0]);
+				y = Integer.parseInt(cellPos[1]);			
+				walls.add(new Point(x, y));
+				
+				cellPos = cellsPos[1].split(POSITION_SEPARATOR);
+				x = Integer.parseInt(cellPos[0]);
+				y = Integer.parseInt(cellPos[1]);			
+				walls.add(new Point(x, y));
+			}
+		}
+		return walls;
+	}
+
 	public void setSize(int width, int height) {
 		arena.width = width;
 		arena.height = height;
@@ -183,11 +224,20 @@ public class ArenaBuilder {
 		arena.walls.clear();
 		cellsWithWalls = new HashSet<Point>();
 		
-		// TODO Crée les murs
-		// DBG
-//		addWall(arena.cells[0][0], arena.cells[0][1], true);
-//		addWall(arena.cells[2][0], arena.cells[3][0], true);
-//		addWall(arena.cells[2][0], arena.cells[2][1], true);
+		// Crée les murs
+		Point pos1;
+		Point pos2;
+		for (int curPos = 0; curPos < walls.size(); curPos += 2) {
+			pos1 = walls.get(curPos);
+			pos2 = walls.get(curPos + 1);
+			
+			// Ajoute le mur
+			addWall(pos1, pos2);
+			
+			// Enregistre les cellules comme possédant des murs
+			cellsWithWalls.add(pos1);
+			cellsWithWalls.add(pos2);
+		}
 		
 		// Recherche et crée les murs en coin
 		createCornerWalls();
@@ -241,6 +291,10 @@ public class ArenaBuilder {
 		}
 	}
 
+	private void addWall(Point pos1, Point pos2) {
+		arena.addWall(arena.cells[pos1.getX()][pos1.getY()], arena.cells[pos2.getX()][pos2.getY()]);
+	}
+
 	private boolean hasWall(Point pos1, Point pos2) {
 		return isValidPos(pos2)
 			&& arena.hasWall(arena.cells[pos1.getX()][pos1.getY()], arena.cells[pos2.getX()][pos2.getY()]);
@@ -251,21 +305,6 @@ public class ArenaBuilder {
 			&& pos.getX() < arena.width
 			&& pos.getY() > -1
 			&& pos.getY() < arena.height;
-	}
-	
-	private void addWall(Point pos1, Point pos2) {
-		addWall(arena.cells[pos1.getX()][pos1.getY()], arena.cells[pos2.getX()][pos2.getY()], false);
-	}
-
-	private void addWall(ArenaCell cell1, ArenaCell cell2, boolean trackCellsWithWalls) {
-		// Crée le mur
-		arena.addWall(cell1, cell2);
-		
-		// Enregistre les cellules comme possédant des murs
-		if (trackCellsWithWalls) {
-			cellsWithWalls.add(cell1.getData().position);
-			cellsWithWalls.add(cell2.getData().position);
-		}
 	}
 
 	private void buildZones() {
