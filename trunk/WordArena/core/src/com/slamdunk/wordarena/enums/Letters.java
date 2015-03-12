@@ -51,4 +51,15 @@ public enum Letters implements Deckable {
 	public int countInOneDeck() {
 		return representation;
 	}
+	
+	public static Letters getFromLabel(String label) {
+		if (label != null) {
+			for (Letters letter : values()) {
+				if (label.equals(letter.label)) {
+					return letter;
+				}
+			}
+		}
+		return null;
+	}
 }

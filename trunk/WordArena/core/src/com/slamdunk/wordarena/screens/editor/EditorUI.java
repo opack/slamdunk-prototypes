@@ -21,11 +21,13 @@ import com.slamdunk.wordarena.screens.editor.tools.OwnerTool;
 import com.slamdunk.wordarena.screens.editor.tools.PowerTool;
 import com.slamdunk.wordarena.screens.editor.tools.ZoneTool;
 import com.uwsoft.editor.renderer.SceneLoader;
+import com.uwsoft.editor.renderer.actor.LabelItem;
 import com.uwsoft.editor.renderer.actor.SelectBoxItem;
 import com.uwsoft.editor.renderer.actor.TextBoxItem;
 
 public class EditorUI extends UIOverlay {
 	private EditorScreen screen;
+	private LabelItem lblName;
 	
 	public EditorUI(EditorScreen screen) {
 		this.screen = screen;
@@ -37,30 +39,24 @@ public class EditorUI extends UIOverlay {
 		loadScene();
 	}
 	
+	public void setArenaName(String name) {
+		lblName.setText(Assets.i18nBundle.get("arena." + name));
+	}
+	
 	private void loadScene() {
 		SceneLoader sceneLoader = new SceneLoader(Assets.overlap2dResourceManager);
 		sceneLoader.loadScene("Editor");
 		getStage().addActor(sceneLoader.sceneActor);
 		
+		lblName = sceneLoader.sceneActor.getLabelById("lblName");
+		
 		// Bouton Save
-		final TextBoxItem txtName = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtName");
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnSave", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-				screen.save(txtName.getText());
+				screen.save();
 			}
 		});
-		
-		// Bouton Change Size
-		final TextBoxItem txtWidth = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtWidth");
-		final TextBoxItem txtHeight = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtHeight");
-		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnResize", new ClickListener() {
-			public void clicked(InputEvent event, float x, float y) {
-				int width = Integer.parseInt(txtWidth.getText());
-				int height = Integer.parseInt(txtHeight.getText());
-				screen.changeArenaSize(width, height);
-			}
-		});
-		
+				
 		// Choix du type de cellule
 		@SuppressWarnings("unchecked")
 		final SelectBoxItem<CellTypes> selType = (SelectBoxItem<CellTypes>) sceneLoader.sceneActor.getItemById("selType");
@@ -152,7 +148,6 @@ public class EditorUI extends UIOverlay {
 		final TextBoxItem txtZone = (TextBoxItem)sceneLoader.sceneActor.getItemById("txtZone");
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnCreateZone", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
-//				final String newZone = txtZone.getText();
 				final ArenaZone newZone = screen.getOrCreateZone(txtZone.getText());
 				zones.add(newZone);
 				selZone.setSelected(newZone);
@@ -164,11 +159,6 @@ public class EditorUI extends UIOverlay {
 		selZone.addListener(new ChangeListener() {
 			@Override
 			public void changed(ChangeEvent event, Actor actor) {
-//				ArenaZone zone = null;
-//				String selected = selZone.getSelected();
-//				if (!ArenaBuilder.ZONE_NONE.equals(selected)) {
-//					zone = screen.getOrCreateZone(selected);
-//				}
 				ZoneTool tool = screen.getTool(ZoneTool.class);
 				tool.setValue(selZone.getSelected());
 			}

@@ -111,14 +111,12 @@ public static final String NAME = "EDITOR";
 		return arena.createZone(id);
 	}
 
-	public void save(String name) {
-		arena.getData().name = name;
-		
+	public void save() {
 		Json json = new Json();
 		json.setSerializer(ArenaData.class, new ArenaSerializer());
 		final String serialized = json.prettyPrint(arena.getData());
 		
-		FileHandle file = Gdx.files.absolute("E:\\Projets\\Programmes\\slamdunk-prototypes\\WordArena\\android\\assets\\arenas\\" + name + ".json");
+		FileHandle file = Gdx.files.absolute("E:\\Projets\\Programmes\\slamdunk-prototypes\\WordArena\\android\\assets\\arenas\\" + arena.getData().name + ".json");
 		file.writeString(serialized, false, "UTF-8");
 	}
 	
@@ -126,10 +124,13 @@ public static final String NAME = "EDITOR";
 		arena.getData().name = name;
 		arena.setArenaSize(width, height);
 		arena.resetEditArena();
+		ui.setArenaName(name);
 	}
 	
 	public void editExistingArena(String name) {
-		arena.buildArenaJson("arenas/" + name + ".json", gameManager);
+		arena.getData().name = name;
+		arena.buildArena("arenas/" + name + ".json", gameManager);
+		ui.setArenaName(name);
 	}
 
 	public Array<Player> getPlayers() {
