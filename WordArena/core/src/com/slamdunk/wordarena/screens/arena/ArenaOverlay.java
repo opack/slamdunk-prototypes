@@ -26,11 +26,24 @@ import com.slamdunk.wordarena.screens.editor.EditorScreen;
 public class ArenaOverlay extends WorldOverlay {
 	private ArenaData data;
 	private GroupEx arenaGroup;
+	private GroupEx cellsGroup;
+	private GroupEx wallsGroup;
+	private GroupEx zonesGroup;
 	
 	public ArenaOverlay() {
 		createStage(new FitViewport(WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT));
+
 		arenaGroup = new GroupEx();
 		getWorld().addActor(arenaGroup);
+		
+		cellsGroup = new GroupEx();
+		arenaGroup.addActor(cellsGroup);
+		
+		wallsGroup = new GroupEx();
+		arenaGroup.addActor(wallsGroup);
+		
+		zonesGroup = new GroupEx();
+		arenaGroup.addActor(zonesGroup);
 	}
 	
 	public ArenaData getData() {
@@ -57,7 +70,7 @@ public class ArenaOverlay extends WorldOverlay {
 		data = builder.build();
 			
 		// Construit l'arène
-		buildArena();
+		resetArena();
 	}
 	
 	protected GroupEx getArenaGroup() {
@@ -67,38 +80,75 @@ public class ArenaOverlay extends WorldOverlay {
 	/**
 	 * Reconstruit l'arène à partir des données de l'ArenaData
 	 */
-	protected void buildArena() {
-		// Vide l'arène
-		arenaGroup.clear();
-		
+	public void resetArena() {
 		// Ajoute les cellules
-		for (int y = 0; y < data.height; y++) {
-			for (int x = 0; x < data.width; x++) {
-				// Ajout de la cellule à l'arène
-				arenaGroup.addActor(data.cells[x][y]);
-			}
-		}
+		resetCells();
 		
 		// Ajoute les murs
-		Actor wallActor;
-		for (ArenaCell cell1 : data.walls.getEntries1()) {
-			for (ArenaCell cell2 : data.walls.getEntries2(cell1)) {
-				wallActor = ArenaWall.buildWall(cell1, cell2);
-				if (wallActor != null) {
-					arenaGroup.addActor(wallActor);
-				}
-			}
-		}
+		resetWalls();
 		
 		// Ajoute les zones
-		for (ArenaZone zone : data.zones) {
-			arenaGroup.addActor(zone);
-		}
+		resetZones();
 		
 		// Centre l'arène dans la zone d'affichage
 		centerArena();
 	}
 	
+	/**
+	 * Reconstruit les cellules à partir des données de l'ArenaData
+	 */
+	public void resetCells() {
+		cellsGroup.clear();
+		for (int y = 0; y < data.height; y++) {
+			for (int x = 0; x < data.width; x++) {
+				// Ajout de la cellule à l'arène
+				cellsGroup.addActor(data.cells[x][y]);
+			}
+		}
+	}
+	
+	/**
+	 * Reconstruit les murs à partir des données de l'ArenaData
+	 */
+	public void resetWalls() {
+		wallsGroup.clear();
+		Actor wallActor;
+		for (ArenaCell cell1 : data.walls.getEntries1()) {
+			for (ArenaCell cell2 : data.walls.getEntries2(cell1)) {
+				wallActor = ArenaWall.buildWall(cell1, cell2);
+				if (wallActor != null) {
+					wallsGroup.addActor(wallActor);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Ajoute dynamiquement un mur à l'arène
+	 * @param cell1
+	 * @param cell2
+	 */
+	public void addWall(ArenaCell cell1, ArenaCell cell2) {
+		// Mise à jour du modèle
+		data.addWall(cell1, cell2);
+		
+		// Mise à jour de la vue
+		Actor wallActor = ArenaWall.buildWall(cell1, cell2);
+		if (wallActor != null) {
+			wallsGroup.addActor(wallActor);
+		}
+	}
+	
+	/**
+	 * Reconstruit les zones à partir des données de l'ArenaData
+	 */
+	public void resetZones() {
+		zonesGroup.clear();
+		for (ArenaZone zone : data.zones) {
+			zonesGroup.addActor(zone);
+		}
+	}
+
 	protected void centerArena() {
 		arenaGroup.setX(Math.max(0, (int)((WordArenaGame.SCREEN_WIDTH - arenaGroup.getWidth()) / 2)));
 		arenaGroup.setY(Math.max(0, (int)((672 - arenaGroup.getHeight()) / 2)));

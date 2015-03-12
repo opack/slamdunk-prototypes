@@ -51,4 +51,17 @@ public class ArenaData {
 		return wall != null
 			&& wall == Boolean.TRUE;
 	}
+
+	/**
+	 * Ajoute un mur entre cell1 et cell2.
+	 * Ce mur est ajouté 2 fois : une fois de cell1 vers cell2, et une fois
+	 * dans l'autre sens. Ainsi la recherche de mur via {@link #hasWall(ArenaCell, ArenaCell)}
+	 * se fait rapidement et sans se préoccuper du sens.
+	 * @param cell1
+	 * @param cell2
+	 */
+	public void addWall(ArenaCell cell1, ArenaCell cell2) {
+		walls.put(cell1, cell2, Boolean.TRUE);
+		walls.put(cell2, cell1, Boolean.TRUE);
+	}
 }

@@ -19,6 +19,7 @@ import com.slamdunk.wordarena.screens.editor.tools.CellTypeTool;
 import com.slamdunk.wordarena.screens.editor.tools.LetterTool;
 import com.slamdunk.wordarena.screens.editor.tools.OwnerTool;
 import com.slamdunk.wordarena.screens.editor.tools.PowerTool;
+import com.slamdunk.wordarena.screens.editor.tools.WallTool;
 import com.slamdunk.wordarena.screens.editor.tools.ZoneTool;
 import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.actor.LabelItem;
@@ -173,6 +174,7 @@ public class EditorUI extends UIOverlay {
 		// Bouton Create wall
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnToolCreateWall", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
+				screen.setCurrentTool(WallTool.class);
 			}
 		});
 	}

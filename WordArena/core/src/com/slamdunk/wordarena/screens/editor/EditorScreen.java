@@ -21,6 +21,7 @@ import com.slamdunk.wordarena.screens.editor.tools.EditorTool;
 import com.slamdunk.wordarena.screens.editor.tools.LetterTool;
 import com.slamdunk.wordarena.screens.editor.tools.OwnerTool;
 import com.slamdunk.wordarena.screens.editor.tools.PowerTool;
+import com.slamdunk.wordarena.screens.editor.tools.WallTool;
 import com.slamdunk.wordarena.screens.editor.tools.ZoneTool;
 
 public class EditorScreen extends SlamScreen {
@@ -40,7 +41,7 @@ public static final String NAME = "EDITOR";
 		
 		createGameManager();
 		createTools();
-		
+	
 		arena = new EditorArenaOverlay();
 		addOverlay(arena);
 		
@@ -67,6 +68,7 @@ public static final String NAME = "EDITOR";
 		tools.put(PowerTool.class, new PowerTool());
 		tools.put(OwnerTool.class, new OwnerTool());
 		tools.put(ZoneTool.class, new ZoneTool());
+		tools.put(WallTool.class, new WallTool());
 	}
 
 	@Override
@@ -99,7 +101,7 @@ public static final String NAME = "EDITOR";
 
 	public void changeArenaSize(int width, int height) {
 		arena.setArenaSize(width, height);
-		arena.resetEditArena();
+		arena.resetArena();
 	}
 
 	public ArenaZone getOrCreateZone(String id) {
@@ -121,16 +123,20 @@ public static final String NAME = "EDITOR";
 	}
 	
 	public void createNewArena(String name, int width, int height) {
-		arena.getData().name = name;
 		arena.setArenaSize(width, height);
-		arena.resetEditArena();
-		ui.setArenaName(name);
+		arena.resetArena();
+		prepareUI(name);
 	}
 	
 	public void editExistingArena(String name) {
-		arena.getData().name = name;
 		arena.buildArena("arenas/" + name + ".json", gameManager);
+		prepareUI(name);
+	}
+	
+	private void prepareUI(String name) {
+		arena.getData().name = name;
 		ui.setArenaName(name);
+		getTool(WallTool.class).setArena(arena);
 	}
 
 	public Array<Player> getPlayers() {

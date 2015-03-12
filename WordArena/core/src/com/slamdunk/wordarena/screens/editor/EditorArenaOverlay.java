@@ -1,6 +1,5 @@
 package com.slamdunk.wordarena.screens.editor;
 
-import com.slamdunk.toolkit.ui.GroupEx;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.actors.ApplyToolListener;
 import com.slamdunk.wordarena.actors.ArenaCell;
@@ -30,15 +29,21 @@ public class EditorArenaOverlay extends ArenaOverlay {
 		arena.height = height;
 	}
 	
-	public void resetEditArena() {
-		GroupEx arenaGroup = getArenaGroup();
-		arenaGroup.clear();
-		resetCells(arenaGroup);
+	@Override
+	public void resetArena() {
+//		GroupEx arenaGroup = getArenaGroup();
+//		arenaGroup.clear();
+		
+		recreateCells();
+		arena.walls.clear();
 		arena.zones.clear();
+		
+		super.resetArena();
+		
 		centerArena();
 	}
 
-	private void resetCells(GroupEx arenaGroup) {
+	public void recreateCells() {
 		arena.cells = new ArenaCell[arena.width][arena.height];
 		
 		ArenaCell cell;
@@ -63,7 +68,7 @@ public class EditorArenaOverlay extends ArenaOverlay {
 				// Placement de la cellule dans le monde et mise à jour du display
 				cell.setPosition(x * cell.getWidth(), y * cell.getHeight());
 				cell.updateDisplay();
-				arenaGroup.addActor(cell);
+//DBG				arenaGroup.addActor(cell);
 			}
 		}
 	}
