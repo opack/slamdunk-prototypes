@@ -2,6 +2,9 @@ package com.slamdunk.wordarena.data;
 
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.slamdunk.toolkit.lang.DoubleEntryArray;
+import com.slamdunk.toolkit.world.point.Point;
+import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.screens.editor.EditorScreen;
 
@@ -12,6 +15,7 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 		this.editorScreen = editorScreen;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public void write(Json json, ArenaData arena, Class knownType) {
 		StringBuilder sb = new StringBuilder();
@@ -80,6 +84,41 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 				sb.append(arena.cells[x][y].getData().zone.getData().id).append(" ");
 			}
 			json.writeValue(sb.toString());
+		}
+		json.writeArrayEnd();
+		
+		// Murs
+		json.writeArrayStart("plan.walls");
+		Point pos1;
+		Point pos2;
+		DoubleEntryArray<ArenaCell, ArenaCell, Boolean> addedWalls = new DoubleEntryArray<ArenaCell, ArenaCell, Boolean>();
+		for (ArenaCell cell1 : arena.walls.getEntries1()) {
+			for (ArenaCell cell2 : arena.walls.getEntries2(cell1)) {
+				// Si le mur a déjà été ajouté au json, on ne le remet pas
+				if (addedWalls.get(cell1, cell2) != null
+				|| addedWalls.get(cell2, cell1) != null) {
+					continue;
+				}
+				
+				pos1 = cell1.getData().position;
+				pos2 = cell2.getData().position;
+				
+				// Si c'est un mur en coin, on ne le sérialise pas
+				if (pos1.getX() != pos2.getX()
+				&& pos1.getY() != pos2.getY()) {
+					continue;
+				}
+				
+				sb.setLength(0);
+				sb.append(pos1.getX()).append(";").append(pos1.getY());
+				sb.append(" ");
+				sb.append(pos2.getX()).append(";").append(pos2.getY());
+				
+				json.writeValue(sb.toString());
+				
+				// On note que le mur a déjà été ajouté pour pas qu'il apparaisse en double dans le json
+				addedWalls.put(cell1, cell2, Boolean.TRUE);
+			}
 		}
 		json.writeArrayEnd();
 		
