@@ -37,11 +37,6 @@ public enum CellTypes {
 	 */
 	J {
 		@Override
-		public boolean hasLetter() {
-			return false;
-		}
-		
-		@Override
 		public boolean hasPower() {
 			return false;
 		}

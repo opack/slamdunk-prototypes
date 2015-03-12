@@ -18,16 +18,22 @@ public class CellTypeTool extends EditorTool<CellTypes> {
 	public void apply(ArenaCell cell) {
 		CellData cellData = cell.getData();
 		CellTypes value = getValue();
-		cellData.type = value;
-		if (!value.hasLetter()) {
-			cellData.letter = Letters.EMPTY;
+		if (cellData.type == value) {
+			return;
 		}
+		// Affecte le type de la cellule
+		cellData.type = value;
+		
+		// Choix de la lettre
 		if (value == CellTypes.J) {
 			cellData.letter = Letters.JOKER;
+		} else {
+			cellData.letter = value.hasLetter() ? Letters.getFromLabel(cellData.planLetter) : Letters.EMPTY;
 		}
-		if (!value.hasPower()) {
-			cellData.power = 0;
-		}
+		
+		// Choix d'une puissance
+		cellData.power = value.hasPower() ? 1 : 0;
+		
 		if (!value.canBeOwned()) {
 			cellData.owner = Player.NEUTRAL;
 		}

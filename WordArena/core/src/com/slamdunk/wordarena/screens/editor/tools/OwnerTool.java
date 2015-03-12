@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.data.Player;
+import com.slamdunk.wordarena.enums.CellStates;
 
 public class OwnerTool extends EditorTool<Player> {
 	
@@ -17,6 +18,7 @@ public class OwnerTool extends EditorTool<Player> {
 			return;
 		}
 		cell.getData().owner = getValue();
+		cell.getData().state = CellStates.OWNED;
 	}
 
 	@Override

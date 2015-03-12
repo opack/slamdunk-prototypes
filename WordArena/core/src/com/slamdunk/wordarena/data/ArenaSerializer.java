@@ -2,6 +2,7 @@ package com.slamdunk.wordarena.data;
 
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.slamdunk.wordarena.enums.CellStates;
 import com.slamdunk.wordarena.screens.editor.EditorScreen;
 
 public class ArenaSerializer implements Json.Serializer<ArenaData>{
@@ -57,7 +58,15 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 		for (int y = arena.height - 1; y >= 0; y--) {
 			sb.setLength(0);
 			for (int x = 0; x < arena.width; x++) {
-				sb.append(arena.cells[x][y].getData().owner.uid).append(" ");
+				// Si la cellule n'est pas possédée (donc si elle est juste contrôlée)
+				// alors on l'attribue au joueur neutre de façon à ce que dans le plan
+				// ce contrôle (qui est déterminé dynamiquement) ne soit pas vu comme
+				// une possession.
+				if (arena.cells[x][y].getData().state == CellStates.OWNED) {
+					sb.append(arena.cells[x][y].getData().owner.uid).append(" ");
+				} else {
+					sb.append(Player.NEUTRAL.uid).append(" ");
+				}
 			}
 			json.writeValue(sb.toString());
 		}
@@ -79,7 +88,7 @@ public class ArenaSerializer implements Json.Serializer<ArenaData>{
 
 	@Override
 	public ArenaData read(Json json, JsonValue plan, Class type) {
-		ArenaBuilderJson builder = new ArenaBuilderJson(null);
+		ArenaBuilder builder = new ArenaBuilder(null);
 		builder.setEditorScreen(editorScreen);
 		builder.load(plan);
 		return builder.build();

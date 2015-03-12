@@ -1,10 +1,13 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
 [ ] ADD : Editeur :
+	FIX : Le contrôle d'une zone ne semble mis à jour que lorsqu'on ajouter une zone ayant un owner non neutre. Si on agrandit la zone par la suite, le contrôle n'est pas affiché pour ces nouvelles cellules.
+	- Précharger la liste des zones avec les zones déjà existantes
+	- Mettre un libellé pour les types de cellule
 	- Désélectionner l'ancien outil quand on en sélectionne un nouveau
 	FIX : Vérifier le fonctionnement des différents outils, y compris quand on change la valeur en cours d'utilisation
-	- Charger un fichier pour modifications
-		[X] Afficher une liste déroulante avec les arènes trouvées pour chargement
+	- Ajouter un bouton back pour revenir à l'écran PreEditor
+	- Quand une zone est choisie, mettre en valeur (bordure de zone différente ?) les cellules qui appartiennent déjà à cette zone
 [ ] MOD : Utiliser de simples images de 48px pour les edge et wall, car au final on utilise 1 image par cellule donc la taille est connue.
 [ ] ADD : Sur l'écran de pause, afficher les stats (score, zones, rounds) dans un tableau
 [ ] ADD : Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
