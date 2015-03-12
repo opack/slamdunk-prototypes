@@ -5,11 +5,11 @@ height: 9
 plan.types: [
 	"L L L L L L L L L "
 	"L L L L L L L L L "
-	"L L V L L L V L L "
 	"L L L L L L L L L "
 	"L L L L L L L L L "
 	"L L L L L L L L L "
-	"L L V L L L V L L "
+	"L L L L L L L L L "
+	"L L L L L L L L L "
 	"L L L L L L L L L "
 	"L L L L L L L L L "
 ]
@@ -27,11 +27,11 @@ plan.letters: [
 plan.powers: [
 	"1 1 1 1 1 1 1 1 1 "
 	"1 1 1 1 1 1 1 1 1 "
-	"1 1 0 1 1 1 0 1 1 "
 	"1 1 1 1 1 1 1 1 1 "
 	"1 1 1 1 1 1 1 1 1 "
 	"1 1 1 1 1 1 1 1 1 "
-	"1 1 0 1 1 1 0 1 1 "
+	"1 1 1 1 1 1 1 1 1 "
+	"1 1 1 1 1 1 1 1 1 "
 	"1 1 1 1 1 1 1 1 1 "
 	"1 1 1 1 1 1 1 1 1 "
 ]

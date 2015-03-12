@@ -119,8 +119,7 @@ public class ArenaBuilder {
 		// Charge les zones
 		setZones(extractStringTable(plan.get("plan.zones")));
 		
-		// Charge les murs
-		// TODO
+		// TODO Charge les murs
 		
 		return true;
 	}
@@ -184,10 +183,11 @@ public class ArenaBuilder {
 		arena.walls.clear();
 		cellsWithWalls = new HashSet<Point>();
 		
+		// TODO Crée les murs
 		// DBG
-		addWall(arena.cells[0][0], arena.cells[0][1], true);
-		addWall(arena.cells[2][0], arena.cells[3][0], true);
-		addWall(arena.cells[2][0], arena.cells[2][1], true);
+//		addWall(arena.cells[0][0], arena.cells[0][1], true);
+//		addWall(arena.cells[2][0], arena.cells[3][0], true);
+//		addWall(arena.cells[2][0], arena.cells[2][1], true);
 		
 		// Recherche et crée les murs en coin
 		createCornerWalls();
@@ -259,8 +259,7 @@ public class ArenaBuilder {
 
 	private void addWall(ArenaCell cell1, ArenaCell cell2, boolean trackCellsWithWalls) {
 		// Crée le mur
-		arena.walls.put(cell1, cell2, Boolean.TRUE);
-		arena.walls.put(cell2, cell1, Boolean.TRUE);
+		arena.addWall(cell1, cell2);
 		
 		// Enregistre les cellules comme possédant des murs
 		if (trackCellsWithWalls) {
