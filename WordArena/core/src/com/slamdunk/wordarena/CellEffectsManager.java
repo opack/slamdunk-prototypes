@@ -19,6 +19,8 @@ public class CellEffectsManager {
 	private KeyListMap<CellTypes, CellEffect> effects;
 	
 	private CellEffectsManager() {
+		effects = new KeyListMap<CellTypes, CellEffect>();
+		
 		// On casse le verre des cellules voisines lorsqu'un cellule Lettre, Bombe ou Joker est validée
 		registerCellEffect(new BreakNeighborGlassEffect(), CellTypes.L, CellTypes.B, CellTypes.J);
 	}

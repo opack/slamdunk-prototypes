@@ -1,5 +1,6 @@
 package com.slamdunk.wordarena.actors.celleffects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.slamdunk.wordarena.actors.ArenaCell;
@@ -17,11 +18,15 @@ public class BreakNeighborGlassEffect implements CellEffect {
 	 */
 	private List<ArenaCell> tmpNeighbors;
 	
+	public BreakNeighborGlassEffect() {
+		tmpNeighbors = new ArrayList<ArenaCell>(8);
+	}
+	
 	@Override
 	public void applyEffect(ArenaCell cell, ArenaData arena) {
 		// Vide la liste des voisins
 		tmpNeighbors.clear();
-		arena.getNeighbors(cell, tmpNeighbors);
+		arena.getNeighbors4(cell, tmpNeighbors);
 		
 		// Parcours chaque voisin pour voir s'il est en verre
 		for (ArenaCell neighbor : tmpNeighbors) {
@@ -31,10 +36,10 @@ public class BreakNeighborGlassEffect implements CellEffect {
 			// TODO Petite explosion de verre
 			
 			// La cellule touchée change de type et devient une cellule normale
-			cell.getData().type = CellTypes.L;
+			neighbor.getData().type = CellTypes.L;
 			
 			// Mise à jour de l'apparence de la cellule
-			cell.updateDisplay();
+			neighbor.updateDisplay();
 		}
 	}
 }
