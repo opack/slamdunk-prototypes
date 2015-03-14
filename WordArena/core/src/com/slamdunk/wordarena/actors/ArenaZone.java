@@ -168,13 +168,9 @@ public class ArenaZone extends Group {
 	}
 
 	private void setOwner(Player newOwner) {
-		// Même owner ? Rien à faire
-		if (data.owner.equals(newOwner)) {
-			return;
-		}
-		
-		// Avertit le game manager pour la mise à jour du score
-		if (gameManager != null) {
+		// Changement d'owner ? Avertit le game manager pour la mise à jour du score
+		if (!data.owner.equals(newOwner)
+		&& gameManager != null) {
 			gameManager.zoneChangedOwner(data.owner, newOwner);
 		}
 		

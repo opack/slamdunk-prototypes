@@ -1,9 +1,7 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
 [ ] MOD : Editeur :
-	[ ] FIX : Zones - Le contrôle d'une zone ne semble mis à jour que lorsqu'on ajouter une zone ayant un owner non neutre. Si on agrandit la zone par la suite, le contrôle n'est pas affiché pour ces nouvelles cellules.
 	[ ] ADD : Types - Mettre un libellé pour les types de cellule
-	[ ] DEV : Vérifier le fonctionnement des différents outils, y compris quand on change la valeur en cours d'utilisation
 	[ ] ADD : Ajouter un bouton back pour revenir à l'écran PreEditor
 [ ] ADD : Sur l'écran de pause, afficher les stats (score, zones, rounds) dans un tableau
 [ ] ADD : Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
