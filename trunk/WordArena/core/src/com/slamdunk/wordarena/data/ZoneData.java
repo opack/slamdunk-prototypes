@@ -16,6 +16,11 @@ public class ZoneData {
 	 */
 	public Player owner;
 	
+	/**
+	 * Indique si la zone est en surbrillance
+	 */
+	public boolean highlighted;
+	
 	public ZoneData(String id) {
 		this.id = id;
 		owner = Player.NEUTRAL;

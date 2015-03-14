@@ -8,8 +8,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.Texture.TextureWrap;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -32,6 +30,7 @@ public class Assets {
 	public static I18NBundle i18nBundle;
 	public static ResourceManager overlap2dResourceManager;
 	public static Skin skin;
+	
 	/**
 	 * Overlap2D ne charge pas les skins. On doit donc surcharger la méthode getSkin() du ResourceManager
 	 * pour retourner une skin qu'on aura chargé nous même afin d'avoir la possibilité d'utiliser les
@@ -41,8 +40,14 @@ public class Assets {
 	private static MySkin specialSkinForOverlap;
 	public static TextureAtlas atlas;
 	public static Map<String, CellPack> cellPacks;
-	public static Texture edge;
-	public static Texture wall;
+
+	public static TextureRegionDrawable edge_h;
+	public static TextureRegionDrawable edge_v;
+	public static TextureRegionDrawable edge_h_highlighted;
+	public static TextureRegionDrawable edge_v_highlighted;
+	
+	public static TextureRegionDrawable wall_h;
+	public static TextureRegionDrawable wall_v;
 	
 	public static void load () {
 		loadAppProperties();
@@ -50,11 +55,9 @@ public class Assets {
 		loadOverlapResources();
 		loadSkin();
 		loadAtlas();
-		loadTextures();
 	}
 	
 	public static void dispose () {
-		disposeTextures();
 		disposeAtlas();
 		disposeSkin();
 		disposeOverlapResources();
@@ -64,26 +67,21 @@ public class Assets {
 		appProperties = new TypedProperties("wordarena.properties");
 	}
 	
-	public static void loadTextures() {
-		edge = new Texture("textures/zone_edge.png");
-		edge.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		edge.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-		
-		wall = new Texture("textures/wall.png");
-		wall.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		wall.setWrap(TextureWrap.Repeat, TextureWrap.Repeat);
-	}
-	
-	public static void disposeTextures() {
-		edge.dispose();
-		wall.dispose();
-	}
-	
 	public static void loadAtlas() {
 		atlas = new TextureAtlas("textures/wordarena.txt");
 		
 		// Charge les cell-packs
 		loadCellPacks();
+		
+		// Charge les images des bords de zone
+		edge_v = new TextureRegionDrawable(atlas.findRegion("zone_edge2_v"));
+		edge_h = new TextureRegionDrawable(atlas.findRegion("zone_edge2_h"));
+		edge_v_highlighted = new TextureRegionDrawable(atlas.findRegion("zone_edge2_v_highlighted"));
+		edge_h_highlighted = new TextureRegionDrawable(atlas.findRegion("zone_edge2_h_highlighted"));
+		
+		// Charge les images des murs
+		wall_v = new TextureRegionDrawable(atlas.findRegion("wall_v"));
+		wall_h = new TextureRegionDrawable(atlas.findRegion("wall_h"));
 	}
 	
 	public static void loadI18N() {

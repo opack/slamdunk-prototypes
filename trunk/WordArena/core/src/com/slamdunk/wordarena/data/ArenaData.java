@@ -64,4 +64,16 @@ public class ArenaData {
 		walls.put(cell1, cell2, Boolean.TRUE);
 		walls.put(cell2, cell1, Boolean.TRUE);
 	}
+	
+	/**
+	 * Supprime un mur entre cell1 et cell2.
+	 * Ce mur est supprimé 2 fois : une fois de cell1 vers cell2, et une fois
+	 * dans l'autre sens.
+	 * @param cell1
+	 * @param cell2
+	 */
+	public void removeWall(ArenaCell cell1, ArenaCell cell2) {
+		walls.remove(cell1, cell2, Boolean.TRUE);
+		walls.remove(cell2, cell1, Boolean.TRUE);
+	}
 }

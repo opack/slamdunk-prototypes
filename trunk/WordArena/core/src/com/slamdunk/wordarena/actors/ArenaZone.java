@@ -7,15 +7,15 @@ import java.util.List;
 import java.util.Map;
 
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.slamdunk.toolkit.graphics.SpriteBatchUtils;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
+import com.badlogic.gdx.utils.Scaling;
 import com.slamdunk.toolkit.lang.MaxValueFinder;
 import com.slamdunk.toolkit.world.point.Point;
-import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.data.CellData;
+import com.slamdunk.wordarena.data.EdgeData;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.data.ZoneData;
-import com.slamdunk.wordarena.data.ZoneEdge;
 import com.slamdunk.wordarena.enums.Borders;
 import com.slamdunk.wordarena.enums.CellStates;
 
@@ -27,8 +27,6 @@ import com.slamdunk.wordarena.enums.CellStates;
 public class ArenaZone extends Group {
 	public static final ArenaZone NONE = new ArenaZone(null, "-");
 	
-	private final float borderThickness;
-	
 	private ZoneData data;
 	
 	private GameManager gameManager;
@@ -38,14 +36,16 @@ public class ArenaZone extends Group {
 	 */
 	private Map<Point, ArenaCell> cells;
 	
+	private List<ZoneEdge> edges;
+	
 	private static Point tmp = new Point(0, 0);
 	
 	public ArenaZone(GameManager gameManager, String id) {
 		this.gameManager = gameManager;
-		borderThickness = Assets.edge.getHeight();
 
 		data = new ZoneData(id);
 		cells = new HashMap<Point, ArenaCell>();
+		edges = new ArrayList<ZoneEdge>();
 		
 		tmp = new Point(0, 0);
 	}
@@ -73,26 +73,43 @@ public class ArenaZone extends Group {
 		}
 		
 		// Met à jour la liste des côtés
-		final List<ZoneEdge> edges = new ArrayList<ZoneEdge>();
+		edges.clear();
 		for (ArenaCell cell : cells.values()) {
 			// Affecte la zone à chaque cellule
 			cell.getData().zone = this;
 		
 			// Ajoute les côtés uniques dans la liste
-			checkEdge(cell, Borders.LEFT, -1, 0, edges);
-			checkEdge(cell, Borders.TOP, 0, +1, edges);
-			checkEdge(cell, Borders.RIGHT, +1, 0, edges);
-			checkEdge(cell, Borders.BOTTOM, 0, -1, edges);
+			checkEdge(cell, Borders.LEFT, -1, 0);
+			checkEdge(cell, Borders.TOP, 0, +1);
+			checkEdge(cell, Borders.RIGHT, +1, 0);
+			checkEdge(cell, Borders.BOTTOM, 0, -1);
 		}
 		
 		// Crée les lignes pour dessiner ces côtés
 		clear();
 		for (ZoneEdge edge : edges) {
-			addActor(new SpritedActor(SpriteBatchUtils.createSpritedLine(Assets.edge, edge.p1, edge.p2)));
+			edge.update(data.highlighted);
+			edge.setScaling(Scaling.stretch);
+			edge.setAlign(Align.center);
+			edge.setSize(edge.getPrefWidth(), edge.getPrefHeight());
+			
+			ActorHelper.alignInsideCell(edge.getData().border, edge.getData().p1, edge);
+			addActor(edge);
 		}
 		
 		// Choisit l'owner de la zone
 		updateOwner();
+	}
+	
+	/**
+	 * Met la zone en surbrillance ou non
+	 * @param highlighted
+	 */
+	public void highlight(boolean highlighted) {
+		data.highlighted = highlighted;
+		for (ZoneEdge edge : edges) {
+			edge.update(highlighted);
+		}
 	}
 	
 	/**
@@ -105,20 +122,20 @@ public class ArenaZone extends Group {
 	 * @param offsetY
 	 * @param edges
 	 */
-	private void checkEdge(ArenaCell cell, Borders border, int offsetX, int offsetY, List<ZoneEdge> edges) {
+	private void checkEdge(ArenaCell cell, Borders border, int offsetX, int offsetY) {
 		tmp.setX(cell.getData().position.getX() + offsetX);
 		tmp.setY(cell.getData().position.getY() + offsetY);
 		// S'il n'y a pas de voisin de ce côté, alors c'est qu'on est à la limite de la zone
 		if (!cells.containsKey(tmp)) {
-			ZoneEdge edge = createEdge(cell, border);
-			edges.add(edge);
+			edges.add(createEdge(cell, border));
 		}
 	}
 
 	private ZoneEdge createEdge(ArenaCell cell, Borders border) {
 		ZoneEdge edge = new ZoneEdge();
-		edge.border = border;
-		edge.cell = cell;
+		EdgeData data = edge.getData();
+		data.border = border;
+		data.cell = cell;
 		
 		final float cellX = cell.getX();
 		final float cellY = cell.getY();
@@ -127,20 +144,20 @@ public class ArenaZone extends Group {
 		
 		switch (border) {
 		case BOTTOM:
-			edge.p1.set(cellX + borderThickness, cellY + borderThickness);
-			edge.p2.set(cellX + cellWidth - borderThickness, cellY + borderThickness);
+			data.p1.set(cellX, cellY);
+			data.p2.set(cellX + cellWidth, cellY);
 			break;
 		case LEFT:
-			edge.p1.set(cellX + borderThickness, cellY + borderThickness);
-			edge.p2.set(cellX + borderThickness, cellY + cellHeight - borderThickness);
+			data.p1.set(cellX, cellY);
+			data.p2.set(cellX, cellY + cellHeight);
 			break;
 		case RIGHT:
-			edge.p1.set(cellX + cellWidth - borderThickness, cellY + borderThickness);
-			edge.p2.set(cellX + cellWidth - borderThickness, cellY + cellHeight - borderThickness);
+			data.p1.set(cellX + cellWidth, cellY);
+			data.p2.set(cellX + cellWidth, cellY + cellHeight);
 			break;
 		case TOP:
-			edge.p1.set(cellX + borderThickness, cellY + cellHeight - borderThickness);
-			edge.p2.set(cellX + cellWidth - borderThickness, cellY + cellHeight - borderThickness);
+			data.p1.set(cellX, cellY + cellHeight);
+			data.p2.set(cellX + cellWidth, cellY + cellHeight);
 			break;
 		}
 		return edge;

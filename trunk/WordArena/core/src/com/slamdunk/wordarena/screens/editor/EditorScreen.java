@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Json;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.Assets;
-import com.slamdunk.wordarena.GameManager;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.data.ArenaData;
@@ -28,7 +27,7 @@ public class EditorScreen extends SlamScreen {
 public static final String NAME = "EDITOR";
 	private EditorArenaOverlay arena;
 	private EditorUI ui;
-	private GameManager gameManager;
+	private EditorGameManager gameManager;
 	
 	@SuppressWarnings("rawtypes")
 	private Map<Class<? extends EditorTool>, EditorTool> tools;
@@ -50,7 +49,7 @@ public static final String NAME = "EDITOR";
 	}
 	
 	private void createGameManager() {
-		gameManager = new GameManager();
+		gameManager = new EditorGameManager();
 		Array<Player> players = new Array<Player>();
 		players.add(Player.NEUTRAL);
 		players.add(new Player(1, Assets.i18nBundle.get("ui.editor.player.1"), "blue"));
@@ -135,7 +134,7 @@ public static final String NAME = "EDITOR";
 	
 	private void prepareUI(String name) {
 		arena.getData().name = name;
-		ui.setArenaName(name);
+		ui.loadData(arena.getData());
 		getTool(WallTool.class).setArena(arena);
 	}
 

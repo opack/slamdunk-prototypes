@@ -31,9 +31,6 @@ public class EditorArenaOverlay extends ArenaOverlay {
 	
 	@Override
 	public void resetArena() {
-//		GroupEx arenaGroup = getArenaGroup();
-//		arenaGroup.clear();
-		
 		recreateCells();
 		arena.walls.clear();
 		arena.zones.clear();
@@ -68,7 +65,6 @@ public class EditorArenaOverlay extends ArenaOverlay {
 				// Placement de la cellule dans le monde et mise à jour du display
 				cell.setPosition(x * cell.getWidth(), y * cell.getHeight());
 				cell.updateDisplay();
-//DBG				arenaGroup.addActor(cell);
 			}
 		}
 	}

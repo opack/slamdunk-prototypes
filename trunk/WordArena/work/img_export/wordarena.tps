@@ -189,6 +189,7 @@
         <key>fileList</key>
         <array>
             <filename>cell_packs</filename>
+            <filename>misc</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
