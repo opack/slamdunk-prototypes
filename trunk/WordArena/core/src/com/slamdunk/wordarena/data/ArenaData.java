@@ -79,12 +79,12 @@ public class ArenaData {
 	}
 	
 	/**
-	 * Retourne une liste des voisins de la cellule indiquée
+	 * Retourne une liste des 8 voisins de la cellule indiquée
 	 * @param cell
 	 * @param listToFill Liste qui contiendra les résultats
 	 * @return
 	 */
-	public void getNeighbors(ArenaCell cell, List<ArenaCell> listToFill) {
+	public void getNeighbors8(ArenaCell cell, List<ArenaCell> listToFill) {
 		final int x = cell.getData().position.getX();
 		final int y = cell.getData().position.getY();
 		
@@ -98,6 +98,25 @@ public class ArenaData {
 		addCellIfValidPos(x - 1, y + 1, listToFill);
 		addCellIfValidPos(x + 0, y + 1, listToFill);
 		addCellIfValidPos(x + 1, y + 1, listToFill);
+	}
+	
+	/**
+	 * Retourne une liste des 4 voisins (haut, bas, gauche, droite) 
+	 * de la cellule indiquée
+	 * @param cell
+	 * @param listToFill Liste qui contiendra les résultats
+	 * @return
+	 */
+	public void getNeighbors4(ArenaCell cell, List<ArenaCell> listToFill) {
+		final int x = cell.getData().position.getX();
+		final int y = cell.getData().position.getY();
+		
+		addCellIfValidPos(x + 0, y - 1, listToFill);
+		
+		addCellIfValidPos(x - 1, y + 0, listToFill);
+		addCellIfValidPos(x + 1, y + 0, listToFill);
+		
+		addCellIfValidPos(x + 0, y + 1, listToFill);
 	}
 	
 	private void addCellIfValidPos(int x, int y, List<ArenaCell> listToFill) {
