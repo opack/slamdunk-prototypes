@@ -116,6 +116,7 @@ public class ArenaOverlay extends WorldOverlay {
 		final float height = cellsGroup.getWidth();
 		wallsGroup.setBounds(0, 0, width, height);
 		zonesGroup.setBounds(0, 0, width, height);
+		arenaGroup.setBounds(0, 0, width, height);
 	}
 	
 	/**

@@ -74,7 +74,7 @@ cellpack_neutral_controled_selected
   index: -1
 cellpack_neutral_owned_normal
   rotate: false
-  xy: 252, 2
+  xy: 302, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
@@ -88,7 +88,7 @@ cellpack_neutral_owned_selected
   index: -1
 cellpack_orange_controled_normal
   rotate: false
-  xy: 302, 2
+  xy: 352, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
@@ -102,7 +102,7 @@ cellpack_orange_controled_selected
   index: -1
 cellpack_orange_owned_normal
   rotate: false
-  xy: 352, 2
+  xy: 402, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
@@ -116,7 +116,7 @@ cellpack_orange_owned_selected
   index: -1
 cellpack_purple_controled_normal
   rotate: false
-  xy: 402, 2
+  xy: 452, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
@@ -130,7 +130,7 @@ cellpack_purple_controled_selected
   index: -1
 cellpack_purple_owned_normal
   rotate: false
-  xy: 452, 2
+  xy: 502, 2
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
@@ -144,70 +144,70 @@ cellpack_purple_owned_selected
   index: -1
 wall_h
   rotate: false
-  xy: 502, 2
+  xy: 552, 2
   size: 48, 4
   orig: 48, 4
   offset: 0, 0
   index: -1
 wall_v
   rotate: false
-  xy: 552, 2
+  xy: 602, 2
   size: 4, 48
   orig: 4, 48
   offset: 0, 0
   index: -1
 zone_edge2_h
   rotate: false
-  xy: 558, 2
+  xy: 608, 2
   size: 48, 2
   orig: 48, 2
   offset: 0, 0
   index: -1
 zone_edge2_h_highlighted
   rotate: false
-  xy: 608, 2
+  xy: 658, 2
   size: 48, 2
   orig: 48, 2
   offset: 0, 0
   index: -1
 zone_edge2_v
   rotate: false
-  xy: 658, 2
+  xy: 708, 2
   size: 2, 48
   orig: 2, 48
   offset: 0, 0
   index: -1
 zone_edge2_v_highlighted
   rotate: false
-  xy: 662, 2
+  xy: 712, 2
   size: 2, 48
   orig: 2, 48
   offset: 0, 0
   index: -1
 zone_edge_h
   rotate: false
-  xy: 666, 2
+  xy: 716, 2
   size: 48, 2
   orig: 48, 2
   offset: 0, 0
   index: -1
 zone_edge_h_highlighted
   rotate: false
-  xy: 716, 2
+  xy: 766, 2
   size: 48, 2
   orig: 48, 2
   offset: 0, 0
   index: -1
 zone_edge_v
   rotate: false
-  xy: 766, 2
+  xy: 816, 2
   size: 2, 48
   orig: 2, 48
   offset: 0, 0
   index: -1
 zone_edge_v_highlighted
   rotate: false
-  xy: 770, 2
+  xy: 820, 2
   size: 2, 48
   orig: 2, 48
   offset: 0, 0

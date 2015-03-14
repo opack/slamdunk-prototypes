@@ -439,9 +439,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.6"
-     inkscape:cx="750.84429"
-     inkscape:cy="787.35141"
+     inkscape:zoom="2.8"
+     inkscape:cx="736.8225"
+     inkscape:cy="906.79963"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -1941,7 +1941,7 @@
        height="48"
        x="711.80249"
        y="139.18434"
-       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_blue_zone_normal.png"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_blue_controled_normal.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
@@ -1978,7 +1978,7 @@
        height="48"
        x="764.80243"
        y="139.18434"
-       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_orange_zone_normal.png"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_orange_controled_normal.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
@@ -2015,7 +2015,7 @@
        height="48"
        x="817.80243"
        y="139.18434"
-       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_green_zone_normal.png"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_green_controled_normal.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
@@ -2052,7 +2052,7 @@
        height="48"
        x="870.80243"
        y="139.18434"
-       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_purple_zone_normal.png"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_purple_controled_normal.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
@@ -2073,33 +2073,13 @@
        x="870.80243"
        y="187.18443" />
     <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3.99999976;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect2985-60-6-2"
-       width="44"
-       height="44"
-       x="660.80249"
-       y="45.184128"
-       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_owned_normal.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
        style="fill:#ffe67d;fill-opacity:1;stroke:none"
        id="rect2985-60-15-6-5-1"
        width="48"
        height="48"
-       x="658.80249"
-       y="91.184242"
+       x="658.80255"
+       y="91.504372"
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_owned_selected.png"
-       inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
-    <rect
-       style="fill:#ffffff;fill-opacity:1;stroke:#ffffff;stroke-width:3.99999976;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
-       id="rect2985-60-6-2-3"
-       width="44"
-       height="44"
-       x="660.80249"
-       y="141.18434"
-       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_zone_normal.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
     <rect
@@ -2107,8 +2087,8 @@
        id="rect2985-60-15-6-5-1-7"
        width="48"
        height="48"
-       x="658.80249"
-       y="187.18445"
+       x="658.80255"
+       y="187.50458"
        inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_zone_selected.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90" />
@@ -3398,5 +3378,25 @@
          id="rect3077-5-8"
          style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.35787138;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       id="rect2985-60-1-6-6-6"
+       width="47.999966"
+       height="48"
+       x="658.80255"
+       y="43.504272"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_owned_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       style="fill:#c8c8c8;fill-opacity:0.32941177;stroke:none"
+       id="rect2985-60-1-6-6-5"
+       width="47.999966"
+       height="48"
+       x="658.80255"
+       y="139.50447"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\cell_packs\cellpack_neutral_controled_normal.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
   </g>
 </svg>
