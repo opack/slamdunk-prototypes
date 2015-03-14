@@ -31,6 +31,7 @@ import com.slamdunk.wordarena.screens.editor.tools.OwnerTool;
 import com.slamdunk.wordarena.screens.editor.tools.PowerTool;
 import com.slamdunk.wordarena.screens.editor.tools.WallTool;
 import com.slamdunk.wordarena.screens.editor.tools.ZoneTool;
+import com.slamdunk.wordarena.screens.home.HomeScreen;
 import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.actor.LabelItem;
 import com.uwsoft.editor.renderer.actor.SelectBoxItem;
@@ -95,6 +96,13 @@ public class EditorUI extends UIOverlay {
 		getStage().addActor(sceneLoader.sceneActor);
 		
 		lblName = sceneLoader.sceneActor.getLabelById("lblName");
+		
+		// Bouton Save
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnHome", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				getScreen().getGame().setScreen(HomeScreen.NAME);
+			}
+		});
 		
 		// Bouton Save
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnSave", new ClickListener() {
@@ -252,7 +260,15 @@ public class EditorUI extends UIOverlay {
 		@SuppressWarnings("unchecked")
 		final SelectBoxItem<Letters> selLetter = (SelectBoxItem<Letters>)sceneLoader.sceneActor.getItemById("selLetter");
 		selLetter.setWidth(150);
-		selLetter.setItems(Letters.values());
+		Array<Letters> letters = new Array<Letters>();
+		for (Letters letter : Letters.values()) {
+			// Seules les lettres avec une représentation de 0 sont affichées.
+			// On n'affiche donc pas les lettres spéciales comme le JOKER, EMPTY ou FROM_TYPE.
+			if (letter.representation > 0) {
+				letters.add(letter);
+			}
+		}
+		selLetter.setItems(letters);
 		selLetter.setSelected(screen.getTool(LetterTool.class).getValue());
 		
 		// Ajoute le listener pour màj la valeur applicable dans l'outil

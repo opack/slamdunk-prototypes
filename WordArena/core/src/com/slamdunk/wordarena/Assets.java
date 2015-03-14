@@ -96,6 +96,9 @@ public class Assets {
 		FileHandle baseFileHandle = Gdx.files.internal("i18n/WordArena");
 		Locale locale = new Locale(SlamSettings.LANGUAGE.get());
 		i18nBundle = I18NBundle.createBundle(baseFileHandle, locale);
+		// On demande à ce qu'une clé manquante ne provoque pas la levée d'une exception.
+		// Le cas échéant, le libellé sera donc la clé avec "???" autour.
+		I18NBundle.setExceptionOnMissingKey(false);
 	}
 	
 	private static void loadOverlapResources() {

@@ -1,9 +1,6 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
-[ ] MOD : Editeur :
-	[ ] ADD : Types - Mettre un libellé pour les types de cellule
-	[ ] ADD : Ajouter un bouton back pour revenir à l'écran PreEditor
-	[ ] MOD : Lettres - Ne pas afficher les lettres spéciales (EMPTY, JOKER et FROM_TYPE)
+[ ] ADD : Editeur / Types - Mettre un libellé pour les types de cellule
 [ ] ADD : Sur l'écran de pause, afficher les stats (score, zones, rounds) dans un tableau
 [ ] ADD : Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
 [ ] ADD : Valider un mot avec un ou plusieurs jokers
