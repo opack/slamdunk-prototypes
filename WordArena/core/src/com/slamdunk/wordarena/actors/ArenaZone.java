@@ -60,6 +60,12 @@ public class ArenaZone extends Group {
 	
 	public void removeCell(ArenaCell cell) {
 		cells.remove(cell.getData().position);
+		// Si la cellule était simplement sous contrôle, elle est désormais neutre
+		CellData data = cell.getData();
+		if (data.state == CellStates.CONTROLED) {
+			data.state = CellStates.OWNED;
+			data.owner = Player.NEUTRAL;
+		}
 	}
 	
 	public void update() {

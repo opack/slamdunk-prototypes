@@ -22,6 +22,7 @@ import com.slamdunk.wordarena.screens.editor.tools.OwnerTool;
 import com.slamdunk.wordarena.screens.editor.tools.PowerTool;
 import com.slamdunk.wordarena.screens.editor.tools.WallTool;
 import com.slamdunk.wordarena.screens.editor.tools.ZoneTool;
+import com.slamdunk.wordarena.screens.preeditor.PreEditorScreen;
 
 public class EditorScreen extends SlamScreen {
 public static final String NAME = "EDITOR";

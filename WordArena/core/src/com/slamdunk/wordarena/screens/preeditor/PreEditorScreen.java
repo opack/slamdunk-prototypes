@@ -1,8 +1,9 @@
-package com.slamdunk.wordarena.screens.editor;
+package com.slamdunk.wordarena.screens.preeditor;
 
 import com.badlogic.gdx.Input.Keys;
 import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordArenaGame;
+import com.slamdunk.wordarena.screens.editor.EditorScreen;
 import com.slamdunk.wordarena.screens.home.HomeScreen;
 
 public class PreEditorScreen extends SlamScreen {
