@@ -7,7 +7,7 @@ import com.slamdunk.toolkit.screen.SlamScreen;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
-import com.slamdunk.wordarena.screens.editor.PreEditorScreen;
+import com.slamdunk.wordarena.screens.preeditor.PreEditorScreen;
 
 public class HomeScreen extends SlamScreen {
 	public static final String NAME = "HOME";

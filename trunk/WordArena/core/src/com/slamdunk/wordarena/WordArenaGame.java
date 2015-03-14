@@ -5,8 +5,8 @@ import com.slamdunk.toolkit.screen.SlamGame;
 import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.wordarena.screens.arena.ArenaScreen;
 import com.slamdunk.wordarena.screens.editor.EditorScreen;
-import com.slamdunk.wordarena.screens.editor.PreEditorScreen;
 import com.slamdunk.wordarena.screens.home.HomeScreen;
+import com.slamdunk.wordarena.screens.preeditor.PreEditorScreen;
 
 public class WordArenaGame extends SlamGame {
 	public static final int SCREEN_WIDTH = 480;

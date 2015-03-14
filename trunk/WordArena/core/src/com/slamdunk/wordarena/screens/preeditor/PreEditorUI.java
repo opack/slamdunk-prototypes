@@ -1,15 +1,12 @@
-package com.slamdunk.wordarena.screens.editor;
+package com.slamdunk.wordarena.screens.preeditor;
 
-import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.toolkit.ui.Overlap2DUtils;
 import com.slamdunk.wordarena.Assets;
+import com.slamdunk.wordarena.Utils;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.uwsoft.editor.renderer.SceneLoader;
 import com.uwsoft.editor.renderer.actor.SelectBoxItem;
@@ -49,33 +46,11 @@ public class PreEditorUI extends UIOverlay {
 		@SuppressWarnings("unchecked")
 		final SelectBoxItem<String> selArena = (SelectBoxItem<String>) sceneLoader.sceneActor.getItemById("selArena");
 		selArena.setWidth(150);
-		selArena.setItems(loadArenaNames());
+		selArena.setItems(Utils.loadArenaNames());
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnModify", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
 				screen.modify(selArena.getSelected());
 			}
 		});
-	}
-
-	/**
-	 * Crée une liste avec le nom de toutes les arènes présentes dans les assets
-	 * @return
-	 */
-	private Array<String> loadArenaNames() {
-		Array<String> names = new Array<String>();
-		
-		FileHandle dirArenas;
-		if (Gdx.app.getType() == ApplicationType.Android) {
-			dirArenas = Gdx.files.internal("arenas");
-		} else {
-			// ApplicationType.Desktop ..
-			dirArenas = Gdx.files.internal("./bin/arenas");
-		}
-		
-		FileHandle[] filesArenas = dirArenas.list(".json");
-		for (FileHandle file : filesArenas) {
-			names.add(file.nameWithoutExtension());
-		}
-		return names;
 	}
 }

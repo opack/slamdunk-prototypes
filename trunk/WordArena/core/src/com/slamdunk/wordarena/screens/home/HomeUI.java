@@ -14,12 +14,14 @@ import com.slamdunk.toolkit.screen.overlays.UIOverlay;
 import com.slamdunk.toolkit.ui.Overlap2DUtils;
 import com.slamdunk.wordarena.Assets;
 import com.slamdunk.wordarena.UserManager;
+import com.slamdunk.wordarena.Utils;
 import com.slamdunk.wordarena.WordArenaGame;
 import com.slamdunk.wordarena.data.GameData;
 import com.slamdunk.wordarena.data.Player;
 import com.slamdunk.wordarena.enums.GameStatus;
 import com.slamdunk.wordarena.enums.GameTypes;
 import com.uwsoft.editor.renderer.SceneLoader;
+import com.uwsoft.editor.renderer.actor.SelectBoxItem;
 
 public class HomeUI extends UIOverlay {
 	private static final String GAME_LABEL_STYLE_STATUS_HEADER = "games-status-header";
@@ -56,6 +58,17 @@ public class HomeUI extends UIOverlay {
 		sceneLoader.loadScene("Home");
 		getStage().addActor(sceneLoader.sceneActor);
 		
+		// Bouton de démarrage de partie
+		@SuppressWarnings("unchecked")
+		final SelectBoxItem<String> selArena = (SelectBoxItem<String>) sceneLoader.sceneActor.getItemById("selArena");
+		selArena.setWidth(150);
+		selArena.setItems(Utils.loadArenaNames());
+		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnPlay", new ClickListener() {
+			public void clicked(InputEvent event, float x, float y) {
+				screen.launchGame(selArena.getSelected());
+			}
+		});
+		
 		// Bouton Editor
 		Overlap2DUtils.createSimpleButtonScript(sceneLoader, "btnEditor", new ClickListener() {
 			public void clicked(InputEvent event, float x, float y) {
@@ -76,13 +89,6 @@ public class HomeUI extends UIOverlay {
 				screen.promptExit();
 			}
 		});
-		
-		// Boutons de lancemant des arènes
-		sceneLoader.sceneActor.getCompositeById("btnArena0").addScript(new GameLaunchScript(screen));
-		sceneLoader.sceneActor.getCompositeById("btnArena1").addScript(new GameLaunchScript(screen));
-		sceneLoader.sceneActor.getCompositeById("btnArena2").addScript(new GameLaunchScript(screen));
-		sceneLoader.sceneActor.getCompositeById("btnArena3").addScript(new GameLaunchScript(screen));
-		sceneLoader.sceneActor.getCompositeById("btnArena4").addScript(new GameLaunchScript(screen));
 		
 		// Boutons d'affichage des parties en cours
 		sceneLoader.sceneActor.getCompositeById("btnGamesCareer").addScript(new ChangeCurrentGamesScript(this));

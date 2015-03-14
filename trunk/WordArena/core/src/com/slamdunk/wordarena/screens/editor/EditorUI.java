@@ -58,7 +58,7 @@ public class EditorUI extends UIOverlay {
 	
 	public void loadData(ArenaData arena) {
 		// Change le nom de l'arène
-		lblName.setText(Assets.i18nBundle.get("arena." + arena.name));
+		lblName.setText(arena.name);
 		
 		// Charge les zones existantes
 		loadZonesFromArena(arena);
