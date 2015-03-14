@@ -296,15 +296,8 @@ public class ArenaBuilder {
 	}
 
 	private boolean hasWall(Point pos1, Point pos2) {
-		return isValidPos(pos2)
+		return arena.isValidPos(pos2)
 			&& arena.hasWall(arena.cells[pos1.getX()][pos1.getY()], arena.cells[pos2.getX()][pos2.getY()]);
-	}
-
-	private boolean isValidPos(Point pos) {
-		return pos.getX() > -1
-			&& pos.getX() < arena.width
-			&& pos.getY() > -1
-			&& pos.getY() < arena.height;
 	}
 
 	private void buildZones() {
@@ -391,16 +384,29 @@ public class ArenaBuilder {
 			return Letters.EMPTY;
 		}
 
-		// Récupère la lettre correspondant au symbole
+		// Récupère la lettre correspondant au symbole du plan
 		Letters letter = Letters.getFromLabel(planLetter);
 		
-		// Si c'est le symbole de pioche, on renvoie une lettre piochée
-		if (Letters.FROM_DECK == letter
-		&& letterDeck != null) {
-			return letterDeck.draw();
+		// Si le symbole indique qu'on doit déduire la lettre du type,
+		// on détermine la lettre en fonction du type
+		if (Letters.FROM_TYPE == letter) {
+			switch (cellType) {
+			case B:
+			case G:
+			case L:
+			case S:
+				if (letterDeck != null) {
+					return letterDeck.draw();
+				}
+				break;
+			case J:
+				return Letters.JOKER;
+			case V:
+				return Letters.EMPTY;
+			}
 		}
 		
-		// Sinon on retourne la lettre
+		// Si le symbole indique une lettre de l'alphabet : on la retourne
 		return letter;
 	}
 }

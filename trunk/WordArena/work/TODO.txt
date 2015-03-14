@@ -5,7 +5,7 @@ WordArena
 	[ ] ADD : Ajouter un bouton back pour revenir à l'écran PreEditor
 [ ] ADD : Sur l'écran de pause, afficher les stats (score, zones, rounds) dans un tableau
 [ ] ADD : Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
-[ ] ADD : Avoir un visuel différent par types de cellule
+[ ] ADD : Valider un mot avec un ou plusieurs jokers
 [ ] ADD : Ajouter un paramétrage pour qu'un joueur choisisse son marqueur de possession.
 	- Dans les options, c'est le choix par défaut. Au démarrage d'une partie, il choisit un marqueur parmi ceux qu'il possède.
 	- Le joueur qui arrive dans une partie doit choisir un marqueur différent de ceux des autres joueurs.

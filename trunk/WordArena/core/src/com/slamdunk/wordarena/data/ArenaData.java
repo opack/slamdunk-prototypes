@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.slamdunk.toolkit.lang.Deck;
 import com.slamdunk.toolkit.lang.DoubleEntryArray;
+import com.slamdunk.toolkit.world.point.Point;
 import com.slamdunk.wordarena.actors.ArenaCell;
 import com.slamdunk.wordarena.actors.ArenaZone;
 import com.slamdunk.wordarena.enums.Letters;
@@ -75,5 +76,57 @@ public class ArenaData {
 	public void removeWall(ArenaCell cell1, ArenaCell cell2) {
 		walls.remove(cell1, cell2, Boolean.TRUE);
 		walls.remove(cell2, cell1, Boolean.TRUE);
+	}
+	
+	/**
+	 * Retourne une liste des voisins de la cellule indiquée
+	 * @param cell
+	 * @param listToFill Liste qui contiendra les résultats
+	 * @return
+	 */
+	public void getNeighbors(ArenaCell cell, List<ArenaCell> listToFill) {
+		final int x = cell.getData().position.getX();
+		final int y = cell.getData().position.getY();
+		
+		addCellIfValidPos(x - 1, y - 1, listToFill);
+		addCellIfValidPos(x + 0, y - 1, listToFill);
+		addCellIfValidPos(x + 1, y - 1, listToFill);
+		
+		addCellIfValidPos(x - 1, y + 0, listToFill);
+		addCellIfValidPos(x + 1, y + 0, listToFill);
+		
+		addCellIfValidPos(x - 1, y + 1, listToFill);
+		addCellIfValidPos(x + 0, y + 1, listToFill);
+		addCellIfValidPos(x + 1, y + 1, listToFill);
+	}
+	
+	private void addCellIfValidPos(int x, int y, List<ArenaCell> listToFill) {
+		if (isValidPos(x, y)) {
+			listToFill.add(cells[x][y]);
+		}
+	}
+
+	/**
+	 * Indique si la position existe dans l'arène
+	 * @param pos
+	 * @return
+	 */
+	public boolean isValidPos(Point pos) {
+		return pos.getX() > -1
+			&& pos.getX() < width
+			&& pos.getY() > -1
+			&& pos.getY() < height;
+	}
+	
+	/**
+	 * Indique si la position existe dans l'arène
+	 * @param pos
+	 * @return
+	 */
+	public boolean isValidPos(int x, int y) {
+		return x > -1
+			&& x < width
+			&& y > -1
+			&& y < height;
 	}
 }

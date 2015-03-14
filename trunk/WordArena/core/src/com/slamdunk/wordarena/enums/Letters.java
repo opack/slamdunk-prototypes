@@ -37,7 +37,7 @@ public enum Letters implements Deckable {
 	/**
 	 * Valeur pour une lettre qui doit être piochée dans le tas de lettres
 	 */
-	FROM_DECK(0, "-");
+	FROM_TYPE(0, "-");
 	
 	public int representation;
 	public String label;

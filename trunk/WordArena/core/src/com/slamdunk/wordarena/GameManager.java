@@ -155,11 +155,15 @@ public class GameManager {
 		switch (result) {
 		case OK:
 			Player player = getCurrentPlayer();
+			List<ArenaCell> selectedCells = wordSelectionHandler.getSelectedCells();
+			// Affiche le mot joué
 			ui.setInfo(Assets.i18nBundle.format("ui.arena.wordPlayed", player.name, word));
+			// Déclenche les effets sur les cellules
+			CellEffectsManager.getInstance().triggerCellEffects(selectedCells, arena.getData());
 			// Toutes les cellules passent sous la domination du joueur
-			arena.setOwner(wordSelectionHandler.getSelectedCells(), player);
+			arena.setOwner(selectedCells, player);
 			// Le score du joueur est modifié
-			player.score += computeScore(wordSelectionHandler.getSelectedCells());
+			player.score += computeScore(selectedCells);
 			// Raz du mot sélectionné
 			cancelWord();
 			// Le joueur a joué un coup. C'est bon à savoir pour les stats

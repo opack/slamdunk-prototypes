@@ -57,8 +57,8 @@ public class EditorArenaOverlay extends ArenaOverlay {
 				data.state = CellStates.OWNED;
 				
 				data.type = CellTypes.L;
-				data.planLetter = Letters.FROM_DECK.label;
-				data.letter = Letters.FROM_DECK;
+				data.planLetter = Letters.FROM_TYPE.label;
+				data.letter = Letters.FROM_TYPE;
 				data.power = 1;
 				data.owner = Player.NEUTRAL;
 				

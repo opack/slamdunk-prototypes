@@ -21,22 +21,31 @@ public class ArenaCell extends GroupEx {
 	 */
 	private final CellData data;
 	
-	private Image background;
+	private Image ownerImage;
 	
 	private Label letter;
+	
+	private Image cellTypeImage;
 	
 	public ArenaCell(final Skin skin) {
 		// Crée les composants de la cellule
 		data = new CellData();
 		
-		// Crée les acteurs
-		background = new Image(Assets.getCellImage(data));
-		background.setTouchable(Touchable.disabled);
-		addActor(background);
+		// Crée les acteurs dans l'ordre de superposition
+		ownerImage = new Image(Assets.getCellOwnerImage(data));
+		ownerImage.setTouchable(Touchable.disabled);
+		addActor(ownerImage);
 		
-		letter = new Label("?", skin);
+		cellTypeImage = new Image(Assets.getCellTypeImage(data));
+		cellTypeImage.setTouchable(Touchable.disabled);
+		cellTypeImage.setBounds(0, 0, ownerImage.getWidth(), ownerImage.getHeight());
+		addActor(cellTypeImage);
+		
+		letter = new Label("", skin);
+		letter.setAlignment(Align.center, Align.center);
 		letter.setTouchable(Touchable.disabled);
-		letter.setPosition(background.getWidth() / 2, background.getHeight() / 2, Align.center);
+		letter.setWidth(ownerImage.getWidth());
+		letter.setPosition(ownerImage.getWidth() / 2, ownerImage.getHeight() / 2, Align.center);
 		addActor(letter);
 	}
 	
@@ -69,9 +78,10 @@ public class ArenaCell extends GroupEx {
 	}
 	
 	public void updateDisplay() {
-		background.setDrawable(Assets.getCellImage(data));
+		ownerImage.setDrawable(Assets.getCellOwnerImage(data));
 		letter.setText(data.letter.label);
 		letter.setStyle(Assets.skin.get("power-" + data.power, LabelStyle.class));
+		cellTypeImage.setDrawable(Assets.getCellTypeImage(data));
 	}
 
 	/**

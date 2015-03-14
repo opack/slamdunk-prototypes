@@ -14,16 +14,20 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.I18NBundle;
+import com.slamdunk.toolkit.lang.DoubleEntryArray;
 import com.slamdunk.toolkit.lang.TypedProperties;
 import com.slamdunk.toolkit.settings.SlamSettings;
 import com.slamdunk.wordarena.data.CellData;
 import com.slamdunk.wordarena.data.CellPack;
 import com.slamdunk.wordarena.enums.CellStates;
+import com.slamdunk.wordarena.enums.CellTypes;
 import com.uwsoft.editor.renderer.resources.ResourceManager;
 import com.uwsoft.editor.renderer.utils.MySkin;
 
 public class Assets {
 	private static final String CELL_PACK_PREFIX = "cellpack";
+	private static final String CELL_TYPE_PREFIX = "type";
+	
 	public static final String CELL_PACK_NEUTRAL = "neutral";
 	
 	public static TypedProperties appProperties;
@@ -40,6 +44,7 @@ public class Assets {
 	private static MySkin specialSkinForOverlap;
 	public static TextureAtlas atlas;
 	public static Map<String, CellPack> cellPacks;
+	public static DoubleEntryArray<CellTypes, Boolean/*selected?*/, TextureRegionDrawable> cellTypes;
 
 	public static TextureRegionDrawable edge_h;
 	public static TextureRegionDrawable edge_v;
@@ -72,6 +77,9 @@ public class Assets {
 		
 		// Charge les cell-packs
 		loadCellPacks();
+		
+		// Charge les images des types
+		loadCellTypes();
 		
 		// Charge les images des bords de zone
 		edge_v = new TextureRegionDrawable(atlas.findRegion("zone_edge2_v"));
@@ -157,6 +165,25 @@ public class Assets {
 		pack.cell.put(state, selected, new TextureRegionDrawable(region));
 	}
 	
+	private static void loadCellTypes() {
+		cellTypes = new DoubleEntryArray<CellTypes, Boolean, TextureRegionDrawable>();
+		
+		for (CellTypes type : CellTypes.values()) {
+			putCellTypeImage(type, Boolean.FALSE);
+			putCellTypeImage(type, Boolean.TRUE);
+		}
+	}
+	
+	private static void putCellTypeImage(final CellTypes type, Boolean selected) {
+		final String regionName = formatCellTypeRegionName(type.name(), selected);
+		final TextureRegion region = atlas.findRegion(regionName);
+		if (region == null) {
+			throw new IllegalStateException("Missing image " + regionName + " in atlas !");
+		}
+		fixBleeding(region);
+		cellTypes.put(type, selected, new TextureRegionDrawable(region));
+	}
+	
 	/**
 	 * Permet de corriger le texture bleeding en décalant les coordonnées de la région d'un demi-pixel.
 	 * Cette méthode vient de http://www.wendytech.de/2012/08/fixing-bleeding-in-libgdxs-textureatlas/.
@@ -187,18 +214,38 @@ public class Assets {
 			+ (selected ? "selected" : "normal");
 	}
 	
+	/**
+	 * Retourne le nom d'une région d'une cellule en fonction du type et de l'état de sélection
+	 * @param type
+	 * @param selected
+	 * @return
+	 */
+	private static String formatCellTypeRegionName(String type, boolean selected) {
+		return CELL_TYPE_PREFIX + "_"
+			+ type + "_"
+			+ (selected ? "selected" : "normal");
+	}
+	
 	private static void disposeAtlas() {
 		atlas.dispose();
 	}
 
 	/**
-	 * Retourne l'image de cellule pour le pack et l'état de la cellule indiqués.
+	 * Retourne l'image de propriétaire pour le pack et l'état de la cellule indiqués.
 	 * @param data
-	 * @param selected
 	 * @return
 	 */
-	public static TextureRegionDrawable getCellImage(CellData data) {
+	public static TextureRegionDrawable getCellOwnerImage(CellData data) {
 		return cellPacks.get(data.owner.cellPack).cell.get(data.state, data.selected);
+	}
+	
+	/**
+	 * Retourne l'image de type de cellule pour l'état de la cellule indiqué.
+	 * @param data
+	 * @return
+	 */
+	public static TextureRegionDrawable getCellTypeImage(CellData data) {
+		return cellTypes.get(data.type, data.selected);
 	}
 	
 	/**

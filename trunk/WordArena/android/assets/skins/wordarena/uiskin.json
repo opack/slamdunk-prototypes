@@ -55,7 +55,7 @@ com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 },
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: { font: default-font, fontColor: black },
-	power-0: { font: default-font, fontColor: dark-grey },
+	power-0: { font: default-font, fontColor: black },
 	power-1: { font: default-font, fontColor: black },
 	power-2: { font: default-font, fontColor: gold },
 	cellpack_neutral: { font: default-font, fontColor: cellpack_neutral },
