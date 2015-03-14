@@ -1,10 +1,13 @@
 WordArena
 ¯¯¯¯¯¯¯¯¯
+[ ] FIX : Partie : Certaines arènes ne sont pas correctement centrées en hauteur
+[ ] ADD : Partie - RUNNING : Ajouter des carrés qui se remplissent pour indiquer le nombre de zones possédées
+[ ] ADD : Partie - RUNNING : Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
+[ ] ADD : Partie - RUNNING : Valider un mot avec un ou plusieurs jokers
+[ ] MOD : Partie - PAUSED : Afficher les stats (score, zones, rounds) dans un tableau
+[ ] MOD : Partie - READY, PAUSED, ROUND_OVER, GAME_OVER : Mettre le texte et les boutons au-dessus de l'arène pour qu'elle reste visible en entier 
 [ ] ADD : Editeur / Types - Mettre un libellé pour les types de cellule
-[ ] ADD : Sur l'écran de pause, afficher les stats (score, zones, rounds) dans un tableau
-[ ] ADD : Afficher les nouvelles dominations de zone au fur et à mesure de la saisie
-[ ] ADD : Valider un mot avec un ou plusieurs jokers
-[ ] ADD : Ajouter un paramétrage pour qu'un joueur choisisse son marqueur de possession.
+[ ] ADD : Options - Ajouter un paramétrage pour qu'un joueur choisisse son marqueur de possession.
 	- Dans les options, c'est le choix par défaut. Au démarrage d'une partie, il choisit un marqueur parmi ceux qu'il possède.
 	- Le joueur qui arrive dans une partie doit choisir un marqueur différent de ceux des autres joueurs.
 [ ] DEV : Tester le passage d'une partie en cours à une autre et vérifier que tous les éléments en cours sont sauvegardés :
@@ -13,7 +16,3 @@ WordArena
 	- Données des joueurs (nombre de coups/rounds, score, nom...)
 	- Mot en cours de sélection
 	- Dernier message d'information
-[ ] ADD : Ajouter le concept de mur sur une carte, qui interdit le passage d'une case à une autre.
-	Ce concept permet de créer des cartes plus riches que celles avec de simples vides.
-	Ainsi, on peut avoir un fond de carte représentant des bâtiments, et les murs interdisent de passer par ailleurs que la porte pour tenter de le conquérir.
-

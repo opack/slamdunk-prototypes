@@ -3,13 +3,13 @@ name: 0_first_assault
 width: 7
 height: 7
 plan.types: [
-	"L L L L G L L "
-	"L L L L G L L "
-	"L L L L G G G "
 	"L L L L L L L "
-	"G G G L L L L "
-	"L L G L L L L "
-	"L L G L L L L "
+	"L L L L L L L "
+	"L L L L L L L "
+	"L L L L L L L "
+	"L L L L L L L "
+	"L L L L L L L "
+	"L L L L L L L "
 ]
 plan.letters: [
 	"- - - - - - - "
