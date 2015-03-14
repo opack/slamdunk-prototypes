@@ -190,6 +190,7 @@
         <array>
             <filename>cell_packs</filename>
             <filename>misc</filename>
+            <filename>cell_types</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

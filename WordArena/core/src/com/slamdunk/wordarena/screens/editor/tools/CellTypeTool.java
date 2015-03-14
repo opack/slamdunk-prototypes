@@ -25,11 +25,9 @@ public class CellTypeTool extends EditorTool<CellTypes> {
 		cellData.type = value;
 		
 		// Choix de la lettre
-		if (value == CellTypes.J) {
-			cellData.letter = Letters.JOKER;
-		} else {
-			cellData.letter = value.hasLetter() ? Letters.getFromLabel(cellData.planLetter) : Letters.EMPTY;
-		}
+		cellData.planLetter = Letters.FROM_TYPE.label;
+		cellData.letter = value.hasLetter() ? Letters.FROM_TYPE : Letters.EMPTY;
+		
 		
 		// Choix d'une puissance
 		cellData.power = value.hasPower() ? 1 : 0;

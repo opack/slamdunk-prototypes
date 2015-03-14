@@ -17,7 +17,7 @@ public class CellPack {
 	/**
 	 * Images des cellules en fonction d'un état de cellule et de sélection
 	 */
-	public DoubleEntryArray<CellStates, Boolean, TextureRegionDrawable> cell;
+	public DoubleEntryArray<CellStates, Boolean/*selected ?*/, TextureRegionDrawable> cell;
 	
 	/**
 	 * Style du libellé à appliquer pour les écritures liées au joueur qui

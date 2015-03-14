@@ -6,7 +6,7 @@ plan.types: [
 	"L L L L L L L "
 	"L L L L L L L "
 	"L L L L L L L "
-	"L L L J L L L "
+	"L L L L L L L "
 	"L L L L L L L "
 	"L L L L L L L "
 	"L L L L L L L "
@@ -24,7 +24,7 @@ plan.powers: [
 	"1 1 1 1 1 1 1 "
 	"1 1 1 1 1 1 1 "
 	"1 1 1 1 1 1 1 "
-	"1 1 1 0 1 1 1 "
+	"1 1 1 1 1 1 1 "
 	"1 1 1 1 1 1 1 "
 	"1 1 1 1 1 1 1 "
 	"1 1 1 1 1 1 1 "
@@ -47,6 +47,5 @@ plan.zones: [
 	"2 2 5 5 5 4 4 "
 	"2 2 - - - 4 4 "
 ]
-plan.walls: [
-]
+plan.walls: []
 }
