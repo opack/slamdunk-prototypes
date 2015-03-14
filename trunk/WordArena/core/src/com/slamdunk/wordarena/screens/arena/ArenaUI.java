@@ -190,8 +190,9 @@ public class ArenaUI extends UIOverlay {
 		info.setText(message);
 	}
 
-	public void setArenaName(String arenaName) {
-		sceneLoader.sceneActor.getLabelById("lblArenaName").setText(arenaName);
+	public void setArenaName(String code) {
+		String name = Assets.i18nBundle.get("arena.title." + code);
+		sceneLoader.sceneActor.getLabelById("lblArenaName").setText(name);
 	}
 	
 	public void setRoundWinner(String winner) {
