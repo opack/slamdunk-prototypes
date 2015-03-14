@@ -439,9 +439,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.4"
-     inkscape:cx="647.02281"
-     inkscape:cy="793.66832"
+     inkscape:zoom="5.6"
+     inkscape:cx="750.84429"
+     inkscape:cy="787.35141"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -2115,7 +2115,7 @@
     <g
        id="g3097-3"
        transform="matrix(6.8571429,0,0,1.3333333,330.6393,159.52401)"
-       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\wall.png"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\wall_h.png"
        inkscape:export-xdpi="90"
        inkscape:export-ydpi="90"
        style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.35787138;stroke-opacity:1">
@@ -2125,6 +2125,1277 @@
          height="3"
          width="7"
          id="rect3077-5"
+         style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.35787138;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       id="g4598"
+       transform="translate(0,0.71428572)"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge_h.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="712.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="720.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="728.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-1"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="736.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-0"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="744.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-3"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="752.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-4"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       transform="translate(-0.01403671,4.7415951)"
+       id="g4598-5"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge_h_highlighted.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="712.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-38"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="720.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-3"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="728.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-1-6"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="736.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-0-4"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="744.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-3-6"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="752.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-4-3"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       id="g5007"
+       transform="translate(0.35714286,0.62500001)"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge2_h.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="711.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="713.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="715.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="717.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="719.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="721.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="723.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="725.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="727.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-2"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="729.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-3"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="731.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-0"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="733.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-4"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="735.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-6"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="737.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-0"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="739.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-5"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="741.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-5"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="743.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-53"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="745.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-5"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="747.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-8"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="749.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-5"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="751.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-4"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="753.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-4"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="755.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-0"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="757.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-1"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       id="g5007-8"
+       transform="translate(0.37495756,4.0427033)"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge2_h_highlighted.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="711.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-50"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="713.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-32"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="715.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-86"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="717.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-55"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="719.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-0"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="721.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-44"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="723.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-2"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="725.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-11"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="727.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-2-2"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="729.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-3-0"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="731.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-0-9"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="733.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-4-8"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="735.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-6-0"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="737.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-0-4"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="739.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-5-2"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="741.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-5-6"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="743.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-53-5"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="745.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-5-3"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="747.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-8-0"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="749.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-5-4"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="751.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-4-8"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="753.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-4-1"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="755.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-0-8"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="757.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-1-8"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       id="g4598-7"
+       transform="matrix(0,-1,1,0,518.46677,1004.3899)"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge_v.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="712.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-10"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="720.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-5"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="728.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-1-2"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="736.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-0-1"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="744.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-3-5"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="752.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-4-37"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       transform="matrix(0,-1,1,0,521.84559,1004.5685)"
+       id="g4598-5-9"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge_v_highlighted.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="712.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-38-5"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="720.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-3-7"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="728.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-1-6-7"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="736.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-0-4-9"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="744.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-3-6-6"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="247.95987"
+         x="752.26404"
+         height="2"
+         width="7.9999995"
+         id="rect3077-50-9-4-3-0"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       id="g5007-4"
+       transform="matrix(0,-1,1,0,516.84318,1004.0009)"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge2_v.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="711.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-4"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="713.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-12"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="715.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-5"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="717.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-6"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="719.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-04"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="721.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-8"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="723.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-1"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="725.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-7"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="727.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-2-7"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="729.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-3-3"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="731.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-0-4"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="733.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-4-1"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="735.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-6-6"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="737.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-0-0"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="739.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-5-26"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="741.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-5-4"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="743.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-53-2"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="745.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-5-8"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="747.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-8-9"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="749.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-5-2"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="751.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-4-2"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="753.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-4-3"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="755.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-0-2"
+         style="fill:#ac9d93;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="757.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-1-4"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       id="g5007-8-1"
+       transform="matrix(0,-1,1,0,520.78956,1004.0009)"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge2_v_highlighted.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90">
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="711.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-50-2"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="713.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-32-4"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="715.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-86-6"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="717.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-55-8"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="719.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-0-0"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="721.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-44-2"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="723.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-2-1"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="725.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-11-1"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="727.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-2-2-3"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="729.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-3-0-2"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="731.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-0-9-9"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="733.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-4-8-5"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="735.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-6-0-7"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="737.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-0-4-7"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="739.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-5-2-6"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="741.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-5-6-5"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="743.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-53-5-2"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="745.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-5-3-6"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="747.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-8-0-8"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="749.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-5-4-2"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="751.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-8-4-8-5"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="753.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-1-4-1-2"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="755.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-6-5-4-0-8-1"
+         style="fill:#ffcc00;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <rect
+         inkscape:export-ydpi="90"
+         inkscape:export-xdpi="90"
+         inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\zone_edge.png"
+         y="256.87305"
+         x="757.69647"
+         height="2"
+         width="2"
+         id="rect3077-50-9-31-8-0-1-8-3"
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:1.73205078;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+    </g>
+    <g
+       id="g3097-3-0"
+       transform="matrix(0,6.8571429,-1.3333333,0,868.82401,-136.40332)"
+       inkscape:export-filename="E:\Projets\Programmes\slamdunk-prototypes\WordArena\work\img_export\misc\wall_v.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90"
+       style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.35787138;stroke-opacity:1">
+      <rect
+         y="60.296577"
+         x="55.616844"
+         height="3"
+         width="7"
+         id="rect3077-5-8"
          style="fill:#aa0000;fill-opacity:1;stroke:none;stroke-width:0.35787138;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
     </g>
   </g>

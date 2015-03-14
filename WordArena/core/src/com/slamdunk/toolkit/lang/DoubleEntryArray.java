@@ -32,6 +32,14 @@ public class DoubleEntryArray<Entry1Type, Entry2Type, ValueType> {
         }
         values.put(entry2, value);
     }
+    
+    public void remove(Entry1Type entry1, Entry2Type entry2, ValueType value) {
+        Map<Entry2Type, ValueType> values = data.get(entry1);
+        if (values == null) {
+            return;
+        }
+        values.remove(entry2);
+    }
 
 	public void clear() {
 		for (Map<Entry2Type, ValueType> map : data.values()) {

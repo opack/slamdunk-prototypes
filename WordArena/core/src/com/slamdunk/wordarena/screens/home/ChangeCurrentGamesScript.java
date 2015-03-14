@@ -3,6 +3,7 @@ package com.slamdunk.wordarena.screens.home;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.slamdunk.wordarena.enums.GameTypes;
+import com.slamdunk.wordarena.screens.SimpleButtonI18NScript;
 import com.uwsoft.editor.renderer.actor.CompositeItem;
 
 public class ChangeCurrentGamesScript extends SimpleButtonI18NScript {

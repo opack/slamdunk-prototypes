@@ -1,4 +1,4 @@
-package com.slamdunk.wordarena.screens.home;
+package com.slamdunk.wordarena.screens;
 
 import com.slamdunk.wordarena.Assets;
 import com.uwsoft.editor.renderer.actor.CompositeItem;

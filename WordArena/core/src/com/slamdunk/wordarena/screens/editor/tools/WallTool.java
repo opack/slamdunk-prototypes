@@ -17,6 +17,13 @@ public class WallTool extends EditorTool<ArenaCell> {
 		// Récupère la cellule déjà sélectionnée
 		ArenaCell firstCell = getValue();
 		
+		// Vérifie si on vient de choisir de nouveau la même
+		// cellule. Dans ce cas, on la désélectionne.
+		if (firstCell == cell) {
+			setValue(null);
+			return;
+		}
+		
 		// Vérifie si on vient de choisir la première cellule
 		if (firstCell == null) {
 			setValue(cell);
@@ -44,8 +51,12 @@ public class WallTool extends EditorTool<ArenaCell> {
 			return;
 		}
 		
-		// Les 2 cellules sont valides, on crée le mur
-		arena.addWall(firstCell, cell);
+		// Les 2 cellules sont valides, on crée ou supprime le mur
+		if (arena.getData().hasWall(firstCell, cell)) {
+			arena.removeWall(firstCell, cell);
+		} else {
+			arena.addWall(firstCell, cell);
+		}
 		setValue(null);
 	}
 

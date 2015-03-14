@@ -6,6 +6,8 @@ import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -27,8 +29,8 @@ public class ArenaOverlay extends WorldOverlay {
 	private ArenaData data;
 	private GroupEx arenaGroup;
 	private GroupEx cellsGroup;
-	private GroupEx wallsGroup;
-	private GroupEx zonesGroup;
+	private Group wallsGroup;
+	private Group zonesGroup;
 	
 	public ArenaOverlay() {
 		createStage(new FitViewport(WordArenaGame.SCREEN_WIDTH, WordArenaGame.SCREEN_HEIGHT));
@@ -37,12 +39,15 @@ public class ArenaOverlay extends WorldOverlay {
 		getWorld().addActor(arenaGroup);
 		
 		cellsGroup = new GroupEx();
+		cellsGroup.setTouchable(Touchable.childrenOnly);
 		arenaGroup.addActor(cellsGroup);
 		
-		wallsGroup = new GroupEx();
+		wallsGroup = new Group();
+		wallsGroup.setTouchable(Touchable.disabled);
 		arenaGroup.addActor(wallsGroup);
 		
-		zonesGroup = new GroupEx();
+		zonesGroup = new Group();
+		zonesGroup.setTouchable(Touchable.disabled);
 		arenaGroup.addActor(zonesGroup);
 	}
 	
@@ -105,6 +110,12 @@ public class ArenaOverlay extends WorldOverlay {
 				cellsGroup.addActor(data.cells[x][y]);
 			}
 		}
+		
+		// Dimensionne les autres couches pour qu'elles soient superposées
+		final float width = cellsGroup.getWidth();
+		final float height = cellsGroup.getWidth();
+		wallsGroup.setBounds(0, 0, width, height);
+		zonesGroup.setBounds(0, 0, width, height);
 	}
 	
 	/**
@@ -137,6 +148,19 @@ public class ArenaOverlay extends WorldOverlay {
 		if (wallActor != null) {
 			wallsGroup.addActor(wallActor);
 		}
+	}
+	
+	/**
+	 * Retire dynamiquement un mur à l'arène
+	 * @param cell1
+	 * @param cell2
+	 */
+	public void removeWall(ArenaCell cell1, ArenaCell cell2) {
+		// Mise à jour du modèle
+		data.removeWall(cell1, cell2);
+		
+		// Mise à jour de la vue
+		resetWalls();
 	}
 	
 	/**

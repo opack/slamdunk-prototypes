@@ -7,7 +7,7 @@ import com.slamdunk.wordarena.enums.Borders;
 /**
  * Représente un côté d'une zone s'étendant entre 2 cellules
  */
-public class ZoneEdge {
+public class EdgeData {
 	public ArenaCell cell;
 	public Borders border;
 	
@@ -31,16 +31,16 @@ public class ZoneEdge {
 	 */
 	public final Vector2 p2;
 	
-	public ZoneEdge() {
+	public EdgeData() {
 		p1 = new Vector2(0, 0);
 		p2 = new Vector2(0, 0);
 	}
 	
 	@Override
 	public boolean equals(Object other) {
-		if (other instanceof ZoneEdge) {
+		if (other instanceof EdgeData) {
 			// Identique si c'est le même côté de la même cellule
-			ZoneEdge edge2 = (ZoneEdge)other;
+			EdgeData edge2 = (EdgeData)other;
 			return edge2.border == border
 				&& edge2.cell.equals(cell);
 		}
