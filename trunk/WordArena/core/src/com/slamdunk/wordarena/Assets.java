@@ -102,6 +102,9 @@ public class Assets {
 	}
 	
 	private static void loadOverlapResources() {
+		// On est obligés de charger une seconde fois la skin car si on utilise ce MySkin pour
+		// l'UI de Scene2D, on subit un texture bleeding sur les lettres. Je ne sais pas pourquoi,
+		// donc on se retrouve à charger 2 fois la même skin :(
 		specialSkinForOverlap = new MySkin(Gdx.files.internal("skins/wordarena/uiskin.json"));
 		overlap2dResourceManager = new ResourceManager() {
 			@Override
@@ -117,7 +120,7 @@ public class Assets {
 	}
 
 	private static void loadSkin() {
-		skin = specialSkinForOverlap;
+		skin = new Skin(Gdx.files.internal("skins/wordarena/uiskin.json"));
 	}
 	
 	private static void disposeSkin() {
