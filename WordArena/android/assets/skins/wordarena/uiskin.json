@@ -9,12 +9,12 @@ com.badlogic.gdx.graphics.Color: {
 	red: { a: 1, r: 1, g: 0, b: 0 },
 	black: { a: 1, r: 0, g: 0, b: 0 },
 	dark-grey: { a: 1, r: 0.75, g: 0.75, b: 0.75 },
-	gold: { a: 1, r: 1, g: 0.83, b: 0.09 },
-	cellpack_neutral: { a: 1, r: 0.67, g: 0.62, b: 0.58 },
-	cellpack_blue: { a: 1, r: 0.16, g: 0.50, b: 1.00 },
-	cellpack_orange: { a: 1, r: 1.00, g: 0.40, b: 0.00 },
-	cellpack_green: { a: 1, r: 0.35, g: 0.63, b: 0.17 },
-	cellpack_purple: { a: 1, r: 0.67, g: 0.22, b: 0.78 }
+	gold: { hex: efbf00ff },
+	cellpack_neutral: { hex: ab9e94ff },
+	cellpack_blue: { hex: 7db1ffff },
+	cellpack_orange: { hex: ffb17dff },
+	cellpack_green: { hex: b6e399ff },
+	cellpack_purple: { hex: d499e3ff }
 },
 com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	dialogDim: { name: white, color: { r: 0, g: 0, b: 0, a: 0.45 } }
